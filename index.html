@@ -22,78 +22,26 @@
       }
     }
     </script>
-    <style>
-        /* 📱 CLEAN EXTRA-PREMIUM STRUCTURAL RESPONSIVENESS OVERRIDES */
-        
-        /* Desktop Mode Grid Systems */
-        .frameworks-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-            width: 100%;
-            margin-bottom: 24px;
-        }
-        /* Forces Module 04 to drop centered underneath the 3-column layout on desktops */
-        .frameworks-grid article:nth-child(4) {
-            grid-column: 2 / 3;
-        }
-        
-        .guarantees-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-            width: 100%;
-        }
-        
-        .mobile-controls { display: none; }
-
-        /* Pure Mobile Touch Adjustments (Enforced ONLY on actual smartphones under 768px width) */
+        <style>
+        /* 📱 MOBILITY LAYER CONTROLLER - PRESERVES PREMIUM DESKTOP GRID STYLES NATIVELY */
         @media (max-width: 768px) {
-            .frameworks-grid, .guarantees-grid {
-                display: flex;
-                transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-                will-change: transform;
-                width: 100%;
-                gap: 0;
-            }
-            .frameworks-grid article, .guarantees-grid .pilot-card {
-                flex: 0 0 100%;
-                width: 100%;
-                max-width: 100%;
-                box-sizing: border-box;
-            }
-            .frameworks-grid article:nth-child(4) {
-                grid-column: auto;
-            }
-            .slider-viewport-container {
-                overflow: hidden;
-                width: 100%;
-                position: relative;
-                border-radius: 12px;
-            }
-            .mobile-controls {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                gap: 20px;
-                margin: 16px 0 32px 0;
-            }
-            .optima-arrow {
-                background: #1e293b;
-                border: 1px solid #334155;
-                color: #38bdf8;
-                font-family: monospace;
-                font-size: 12px;
-                font-weight: bold;
-                padding: 8px 14px;
-                border-radius: 6px;
-                cursor: pointer;
-            }
+            .slider-viewport-container { overflow: hidden; width: 100%; position: relative; border-radius: 12px; }
+            .frameworks-grid, .guarantees-grid { display: flex; transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); will-change: transform; width: 100%; gap: 0; }
+            .frameworks-grid article, .guarantees-grid .pilot-card { flex: 0 0 100%; width: 100%; max-width: 100%; box-sizing: border-box; }
+            .mobile-controls { display: flex; align-items: center; justify-content: center; gap: 20px; margin: 16px 0 32px 0; }
+            .optima-arrow { background: #1e293b; border: 1px solid #334155; color: #38bdf8; font-family: monospace; font-size: 12px; font-weight: bold; padding: 8px 14px; border-radius: 6px; cursor: pointer; }
             .optima-dots { display: flex; gap: 8px; align-items: center; }
             .optima-dot { width: 7px; height: 7px; border-radius: 50%; background: #334155; cursor: pointer; }
             .optima-dot.active { background: #38bdf8; transform: scale(1.2); }
         }
+        @media (min-width: 769px) {
+            .frameworks-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; width: 100%; margin-bottom: 24px; }
+            .frameworks-grid article:nth-child(4) { grid-column: 2 / 3; }
+            .guarantees-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; width: 100%; }
+            .mobile-controls { display: none; }
+        }
     </style>
+>
 </head>
 <body>
 
