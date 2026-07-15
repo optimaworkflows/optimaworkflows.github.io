@@ -24,6 +24,8 @@
     </script>
     <style>
         /* 📱 CLEAN EXTRA-PREMIUM STRUCTURAL RESPONSIVENESS OVERRIDES */
+        
+        /* Desktop Mode Grid Systems */
         .frameworks-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -31,17 +33,21 @@
             width: 100%;
             margin-bottom: 24px;
         }
+        /* Forces Module 04 to drop centered underneath the 3-column layout on desktops */
         .frameworks-grid article:nth-child(4) {
             grid-column: 2 / 3;
         }
+        
         .guarantees-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 24px;
             width: 100%;
         }
+        
         .mobile-controls { display: none; }
 
+        /* Pure Mobile Touch Adjustments (Enforced ONLY on actual smartphones under 768px width) */
         @media (max-width: 768px) {
             .frameworks-grid, .guarantees-grid {
                 display: flex;
@@ -116,6 +122,7 @@
             <p>Targeted systems engineered to isolate back-office vulnerabilities and eliminate payment backlogs.</p>
         </div>
 
+        <!-- 🚀 INFRASTRUCTURE MATRIX MODULES -->
         <div class="slider-viewport-container">
             <div class="frameworks-grid" id="matrixTrack">
                 <!-- Core Module 01 -->
@@ -171,6 +178,7 @@
                     </div>
                     <a href="./freight/run/" target="_blank" class="repo-link">LAUNCH FREIGHT COMPLIANCE TRIAL →</a>
                 </article>
+
                 <!-- Core Module 04 -->
                 <article>
                     <div>
@@ -197,6 +205,7 @@
             <button class="optima-arrow" onclick="shiftMatrix(1)">NEXT →</button>
         </div>
 
+        <!-- 🖥️ PERFECTLY RESTORED ENTERPRISE TERMINAL LOG VISUALIZER COMPONENT -->
         <div class="visualizer" style="margin: 48px auto 60px auto;">
             <div class="vis-header">
                 <span>SYSTEM_LOG // AUDIT_CORE_ENGINE</span>
@@ -212,19 +221,23 @@
         <section class="pilot-section" id="pilot-terms">
             <div class="section-title" style="margin: 40px 0 20px 0;">
                 <h2>The Absolute Performance-First Guarantee</h2>
-                <p>We verify clear financial ROI through zero-upfront diagnostic pilots before any final service agreement is formalized.</p>
+                <p>We verify clear financial ROI through zero-upfront diagnostic pilots before any final service agreement is finalized.</p>
             </div>
 
+            <!-- 🚀 GUARANTEE CARD BLOCKS CONTAINER -->
             <div class="slider-viewport-container">
                 <div class="guarantees-grid" id="guaranteeTrack">
+                    <!-- Pilot 01 -->
                     <div class="pilot-card" style="border-left: 4px solid #34d399;">
                         <h4>01 - SUPPLY CHAIN OVERBILLING AUDIT</h4>
                         <p style="color: #cbd5e1; font-size: 14px; line-height: 1.6;">We execute a 60-day retroactive analysis on historical dataset files. If the core engine isolates no overcharges, your organization owes nothing. If billing discrepancies exist, we claim errors and split the recovered amount at 40%. **Zero Upfront Investment.**</p>
                     </div>
+                    <!-- Pilot 02 -->
                     <div class="pilot-card" style="border-left: 4px solid #34d399;">
                         <h4>02 - INSURANCE SPEED-TO-LEAD TRIAL</h4>
                         <p style="color: #cbd5e1; font-size: 14px; line-height: 1.6;">We process an isolated segment of 200 dead cold database profiles. If our automated conversation matrix schedules zero live appointments in 72 hours, the optimization integration is terminated without financial obligation. **Zero Budget Risk.**</p>
                     </div>
+                    <!-- Pilot 03 -->
                     <div class="pilot-card" style="border-left: 4px solid #34d399;">
                         <h4>03 - FREIGHT AUDIT SAVINGS MATRIX</h4>
                         <p style="color: #cbd5e1; font-size: 14px; line-height: 1.6;">We audit past freight invoice logs against master carrier contract pricing quotes entirely for free. If no accessorial fee overcharging or carrier compliance leakage is captured, you owe nothing. If overcharges exist, we split the audit savings at 40% after you deduct carrier payments. **Zero Upfront Risk.**</p>
@@ -232,6 +245,7 @@
                 </div>
             </div>
 
+            <!-- Mobile Controls for Slider 2 -->
             <div class="mobile-controls">
                 <button class="optima-arrow" onclick="shiftGuarantee(-1)">← PREV</button>
                 <div class="optima-dots" id="guaranteeDots"></div>
@@ -243,7 +257,7 @@
             <h3 style="margin-bottom: 8px; color: white;">Request Risk-Free System Structural Assessment</h3>
             <p style="font-size: 13px; color: #94a3b8; margin-bottom: 32px;">Connect with our operations desk to discuss data mapping or zero-upfront pilot scheduling under our pure contingency framework.</p>
             
-            <form action="https://formspree.io" method="POST">
+            <form action="https://formspree.io/f/mnjkknbg" method="POST">
                 <div class="form-group">
                     <label>Corporate Email Address</label>
                     <input type="email" name="email" required placeholder="name@company.com">
@@ -260,6 +274,7 @@
             </form>
         </section>
         
+        <!-- 🔒 HIGH-CONTRAST ENTERPRISE SECURITY & READABILITY FOOTER OVERHAUL -->
         <section class="pilot-section" style="border-top: 1px solid #334155; margin-top: 60px; padding: 40px 0 20px 0;">
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 32px; text-align: left;">
                 <div>
@@ -283,13 +298,14 @@
             </div>
         </section>
     </main>
-
     <script>
+        // Check viewport status to prevent unnecessary code evaluation on desktops
         const isMobileDevice = () => window.innerWidth <= 768;
 
+        // Slider 1 Engine: Matrix Infrastructure
         const matrixTrack = document.getElementById('matrixTrack');
         const matrixDots = document.getElementById('matrixDots');
-        const totalMatrixItems = 4;
+        const totalMatrixItems = 4; // Absolute active card item limit counts
         let activeMatrixIdx = 0;
 
         function buildMatrixDots() {
@@ -317,6 +333,7 @@
         }
         function jumpMatrix(idx) { activeMatrixIdx = idx; updateMatrixView(); }
 
+        // Slider 2 Engine: Guarantees Layout
         const guaranteeTrack = document.getElementById('guaranteeTrack');
         const guaranteeDots = document.getElementById('guaranteeDots');
         const totalGuaranteeItems = 3;
@@ -347,14 +364,16 @@
         }
         function jumpGuarantee(idx) { activeGuaranteeIdx = idx; updateGuaranteeView(); }
 
-        // 🔄 AUTOMATED MOBILITY SLIDER LOOP (Fires exclusively on mobile viewports)
+        // 🔄 AUTOMATED MOBILITY SLIDER ENGINE (Auto-moves every 4.5 seconds on phone viewports)
         setInterval(() => {
             if (isMobileDevice()) {
                 shiftMatrix(1);
                 shiftGuarantee(1);
             }
         }, 4500);
+		
 
+        // Native Hardware-Accelerated Touch Swipe Gesture Interceptors
         function bindTouchGestures(trackElement, shiftCallback) {
             let startX = 0;
             trackElement.addEventListener('touchstart', e => { startX = e.changedTouches.screenX; }, { passive: true });
@@ -366,11 +385,13 @@
             }, { passive: true });
         }
 
+        // Initialize Slider Interfaces
         buildMatrixDots();
         buildGuaranteeDots();
         bindTouchGestures(matrixTrack, shiftMatrix);
         bindTouchGestures(guaranteeTrack, shiftGuarantee);
 
+        // Reset track positioning cleanly if browser is resized from phone back to desktop width
         window.addEventListener('resize', () => {
             updateMatrixView();
             updateGuaranteeView();
