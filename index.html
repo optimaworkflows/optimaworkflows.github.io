@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Optima Workflows | Performance-Based B2B Supply Chain & Pipeline Automation</title>
-    <link rel="stylesheet" href="style.css">
     
     <script type="application/ld+json">
     {
@@ -22,77 +21,337 @@
       }
     }
     </script>
+    
     <style>
-        /* 📱 CLEAN EXTRA-PREMIUM STRUCTURAL RESPONSIVENESS OVERRIDES */
-        
-        /* Desktop Mode Grid Systems */
-        .frameworks-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-            width: 100%;
-            margin-bottom: 24px;
+        /* ====================================================================
+           🔒 OPTIMA WORKFLOWS MASTER ENTERPRISE DARK-MODE THEME TOKENS
+           ==================================================================== */
+        :root {
+            --bg-dark: #030712;
+            --card-bg-gradient: linear-gradient(145deg, #0b0f19, #060a13);
+            --border-color: #1f2937;
+            --text-main: #ffffff;
+            --text-muted: #94a3b8;
+            --accent-blue: #38bdf8;
+            --accent-blue-hover: #7dd3fc;
+            --accent-green: #34d399;
         }
-        /* Forces Module 04 to drop centered underneath the 3-column layout on desktops */
-        .frameworks-grid article:nth-child(4) {
-            grid-column: 2 / 3;
-        }
-        
-        .guarantees-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-            width: 100%;
-        }
-        
-        .mobile-controls { display: none; }
 
-        /* Pure Mobile Touch Adjustments (Enforced ONLY on actual smartphones under 768px width) */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-dark) !important;
+            color: var(--text-main) !important;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            line-height: 1.5;
+            padding-bottom: 80px;
+        }
+
+        .banner {
+            background: #111827;
+            border-bottom: 1px solid var(--border-color);
+            color: #e0e7ff;
+            font-size: 11px;
+            font-weight: 700;
+            text-align: center;
+            padding: 10px 12px;
+            letter-spacing: 0.05em;
+            font-family: monospace;
+            text-transform: uppercase;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 32px 24px;
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 18px;
+            letter-spacing: -0.025em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-transform: uppercase;
+        }
+
+        .logo-dot {
+            height: 8px;
+            width: 8px;
+            background-color: var(--accent-blue);
+            border-radius: 50%;
+        }
+
+        .nav-btn {
+            background-color: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .nav-btn:hover {
+            border-color: var(--accent-blue);
+            color: var(--accent-blue);
+            background: rgba(56, 189, 248, 0.02);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        header {
+            text-align: center;
+            padding: 60px 24px 80px 24px;
+            max-width: 900px !important;
+            margin: 0 auto;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 9999px;
+            font-size: 14px !important;
+            font-weight: 700 !important;
+            margin-bottom: 32px;
+            letter-spacing: 0.02em;
+            background: rgba(52, 211, 153, 0.12);
+            border: 1px solid rgba(52, 211, 153, 0.3);
+            color: #34d399;
+        }
+
+        h1 {
+            font-size: 46px;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1.15;
+            margin-bottom: 24px;
+            color: #ffffff;
+        }
+
+        .gradient-text {
+            background: linear-gradient(to right, #38bdf8, #3b82f6, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .lead {
+            font-size: 16.5px;
+            color: var(--text-muted);
+            max-width: 740px;
+            margin: 0 auto 40px auto;
+            line-height: 1.6;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            background-color: var(--accent-blue);
+            color: #030712;
+            padding: 14px 28px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 14px;
+            text-decoration: none;
+            box-shadow: 0 4px 14px rgba(56, 189, 248, 0.25);
+            transition: all 0.2s ease;
+            margin-right: 16px;
+        }
+
+        .cta-btn:hover {
+            background-color: var(--accent-blue-hover);
+            transform: translateY(-1px);
+        }
+
+        .sec-btn {
+            display: inline-block;
+            color: var(--text-muted);
+            padding: 14px 24px;
+            font-weight: 700;
+            font-size: 14px;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .sec-btn:hover { color: var(--text-main); }
+
+        .section-title { text-align: center; margin-bottom: 60px; }
+
+        .section-title h2 {
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 12px;
+            color: #ffffff;
+        }
+
+        .section-title p { color: var(--text-muted); font-size: 15px; }
+
+        /* 📱 RESPONSIVE LAYOUT ENGINE FOR ALL DEVICES */
+        .slider-viewport-container { width: 100%; position: relative; margin-bottom: 40px; }
+        
+        /* Desktop View Configuration */
+        @media (min-width: 769px) {
+            .frameworks-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; width: 100%; }
+            .frameworks-grid article:nth-child(4) { grid-column: 2 / 3; }
+            .guarantees-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; width: 100%; }
+            .mobile-controls { display: none; }
+        }
+
+        /* Smartphone View Configuration */
         @media (max-width: 768px) {
-            .frameworks-grid, .guarantees-grid {
-                display: flex;
-                transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-                will-change: transform;
-                width: 100%;
-                gap: 0;
-            }
-            .frameworks-grid article, .guarantees-grid .pilot-card {
-                flex: 0 0 100%;
-                width: 100%;
-                max-width: 100%;
-                box-sizing: border-box;
-            }
-            .frameworks-grid article:nth-child(4) {
-                grid-column: auto;
-            }
-            .slider-viewport-container {
-                overflow: hidden;
-                width: 100%;
-                position: relative;
-                border-radius: 12px;
-            }
-            .mobile-controls {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                gap: 20px;
-                margin: 16px 0 32px 0;
-            }
-            .optima-arrow {
-                background: #1e293b;
-                border: 1px solid #334155;
-                color: #38bdf8;
-                font-family: monospace;
-                font-size: 12px;
-                font-weight: bold;
-                padding: 8px 14px;
-                border-radius: 6px;
-                cursor: pointer;
-            }
+            .slider-viewport-container { overflow: hidden; width: 100%; position: relative; border-radius: 12px; }
+            .frameworks-grid, .guarantees-grid { display: flex; transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); will-change: transform; width: 100%; gap: 0; }
+            .frameworks-grid article, .guarantees-grid .pilot-card { flex: 0 0 100%; width: 100%; max-width: 100%; box-sizing: border-box; }
+            .frameworks-grid article:nth-child(4) { grid-column: auto; }
+            .mobile-controls { display: flex; align-items: center; justify-content: center; gap: 20px; margin: 20px 0 40px 0; }
+            .optima-arrow { background: #1e293b; border: 1px solid #334155; color: #38bdf8; font-family: monospace; font-size: 12px; font-weight: bold; padding: 8px 16px; border-radius: 6px; cursor: pointer; }
             .optima-dots { display: flex; gap: 8px; align-items: center; }
             .optima-dot { width: 7px; height: 7px; border-radius: 50%; background: #334155; cursor: pointer; }
             .optima-dot.active { background: #38bdf8; transform: scale(1.2); }
         }
+
+        article {
+            background: var(--card-bg-gradient) !important;
+            border: 1px solid var(--border-color) !important;
+            border-radius: 12px;
+            padding: 40px 32px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+        }
+
+        article h3 { font-size: 20px; font-weight: 700; margin-bottom: 14px; letter-spacing: -0.01em; color: #ffffff; }
+
+        .card-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+
+        .tag-mod { font-family: monospace; font-size: 11px; color: var(--accent-blue); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+
+        .tag-status {
+            font-size: 11px;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 4px;
+            border: 1px solid rgba(52, 211, 153, 0.2);
+            background: rgba(52, 211, 153, 0.05);
+            color: var(--accent-green);
+        }
+
+        .card-desc { color: var(--text-muted); font-size: 14px; line-height: 1.6; margin-bottom: 28px; }
+
+        .matrix-box { border-top: 1px solid var(--border-color); padding-top: 20px; margin-bottom: 28px; }
+
+        .matrix-row { font-size: 12.5px; color: var(--text-muted); margin-bottom: 10px; }
+
+        .matrix-row span { color: var(--text-main); font-weight: 600; }
+
+        /* 🎯 FIXED HIGH-VISIBILITY CONTRAST CONTROLLERS FOR ALL REPO LINKS */
+        .repo-link {
+            display: block;
+            text-align: center;
+            border: 1px solid #334155 !important;
+            color: #ffffff !important;
+            padding: 14px;
+            border-radius: 6px;
+            font-size: 12.5px;
+            font-weight: 700;
+            text-decoration: none;
+            letter-spacing: 0.05em;
+            background: #0f172a !important; /* solid contrast background to block background bleeding */
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .repo-link:hover { background: #ffffff !important; color: #030712 !important; border-color: #ffffff !important; }
+
+        .visualizer {
+            background-color: #020617;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 24px;
+            font-family: monospace;
+            font-size: 12.5px;
+            line-height: 1.7;
+            box-shadow: inset 0 2px 8px rgba(0,0,0,0.8);
+        }
+
+        .vis-header { display: flex; justify-content: space-between; color: #475569; border-bottom: 1px solid #1e293b; padding-bottom: 12px; margin-bottom: 16px; font-weight: 700; }
+
+        .log-blue { color: #38bdf8; }
+        .log-purple { color: #c084fc; }
+        .log-amber { color: #fbbf24; }
+        .log-green { color: #34d399; }
+
+        .pilot-card { background: var(--card-bg-gradient); border: 1px solid var(--border-color); border-radius: 8px; padding: 32px 28px; }
+
+        .pilot-card h4 { font-size: 13.5px; font-weight: 800; letter-spacing: 0.05em; margin-bottom: 14px; color: var(--text-main); }
+
+        .pilot-card p { color: var(--text-muted); font-size: 13.5px; line-height: 1.6; }
+
+        .contact-section {
+            max-width: 640px;
+            margin: 100px auto 40px auto;
+            background: var(--card-bg-gradient);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 48px;
+            text-align: center;
+        }
+
+        form { text-align: left; margin-top: 32px; }
+
+        .form-group { margin-bottom: 24px; }
+
+        label {
+            display: block;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+
+        input, textarea {
+            width: 100%;
+            background-color: #020617;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 14px;
+            color: var(--text-main);
+            font-family: inherit;
+            font-size: 14.5px;
+        }
+
+        input:focus, textarea:focus { outline: none; border-color: var(--accent-blue); }
+
+        .submit-btn {
+            width: 100%;
+            background-color: var(--text-main);
+            color: var(--bg-dark);
+            border: none;
+            padding: 16px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 14.5px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            letter-spacing: 0.02em;
+        }
+
+        .submit-btn:hover { background-color: #e2e8f0; }
     </style>
 </head>
 <body>
@@ -105,7 +364,7 @@
     </nav>
 
     <header class="container">
-        <div class="badge" style="background: rgba(52, 211, 153, 0.15); border: 1px solid rgba(52, 211, 153, 0.4); color: #34d399; font-size: 14px !important; font-weight: 700 !important; padding: 10px 20px; letter-spacing: 0.02em; display: inline-block; margin-bottom: 16px;">
+        <div class="badge">
             🔒 Verified Contingency-Fee Model • Paid Strictly From Success Results
         </div>
         <h1>Stop Invisible Capital Leakage Across Your <br><span class="gradient-text">Accounts Payable and Supply Chain Ledgers</span></h1>
@@ -122,15 +381,13 @@
             <p>Targeted systems engineered to isolate back-office vulnerabilities and eliminate payment backlogs.</p>
         </div>
 
-        <!-- 🚀 INFRASTRUCTURE MATRIX MODULES -->
         <div class="slider-viewport-container">
             <div class="frameworks-grid" id="matrixTrack">
-                <!-- Core Module 01 -->
                 <article>
                     <div>
                         <div class="card-meta">
                             <span class="tag-mod">Core Module 01</span>
-                            <span class="tag-status" style="background: rgba(52, 211, 153, 0.1); color: #34d399; border-color: rgba(52, 211, 153, 0.3);">● Contingency Audit</span>
+                            <span class="tag-status">● Contingency Audit</span>
                         </div>
                         <h3>Autonomous Supply Chain & Invoice Auditor</h3>
                         <p class="card-desc">Designed for physical product distributors and wholesalers processing high transaction volumes. Identifies revenue losses stemming from automated vendor overbilling, shipment quantity shortfalls, and transit tier billing errors.</p>
@@ -143,12 +400,11 @@
                     <a href="./supply-chain/run/" target="_blank" class="repo-link">LAUNCH INDEPENDENT AUDIT RUN NOW →</a>
                 </article>
 
-                <!-- Core Module 02 -->
                 <article>
                     <div>
                         <div class="card-meta">
                             <span class="tag-mod">Core Module 02</span>
-                            <span class="tag-status" style="background: rgba(52, 211, 153, 0.1); color: #34d399; border-color: rgba(52, 211, 153, 0.3);">● Pure Performance</span>
+                            <span class="tag-status" style="border-color: rgba(56, 189, 248, 0.2); background: rgba(56, 189, 248, 0.05); color: #38bdf8;">● Pure Performance</span>
                         </div>
                         <h3>Insurance Speed-to-Lead Automation Pipeline</h3>
                         <p class="card-desc">Built for independent US Insurance agencies buying web leads. Eradicates lead decay by deploying automated response streams that engage buyers via text within 3 seconds of a form submission to book sales calendar appointments.</p>
@@ -161,12 +417,11 @@
                     <a href="./insurance/run/" target="_blank" class="repo-link">ACTIVATE INTENT TRIAL NOW →</a>
                 </article>
 
-                <!-- Core Module 03 -->
                 <article>
                     <div>
                         <div class="card-meta">
                             <span class="tag-mod">Core Module 03</span>
-                            <span class="tag-status" style="background: rgba(52, 211, 153, 0.1); color: #34d399; border-color: rgba(52, 211, 153, 0.3);">● Contingency Audit</span>
+                            <span class="tag-status">● Contingency Audit</span>
                         </div>
                         <h3>Freight Invoice Auditor & Accessorial Controller</h3>
                         <p class="card-desc">Targets logistics operations heavily impacted by dynamic carrier freight billing. Cross-examines original contract rate sheets against incoming final freight bills to flag hidden accessorial surcharges and wait-time penalties.</p>
@@ -179,12 +434,11 @@
                     <a href="./freight/run/" target="_blank" class="repo-link">LAUNCH FREIGHT COMPLIANCE TRIAL →</a>
                 </article>
 
-                <!-- Core Module 04 -->
                 <article>
                     <div>
                         <div class="card-meta">
                             <span class="tag-mod">Core Module 04</span>
-                            <span class="tag-status" style="background: rgba(52, 211, 153, 0.1); color: #34d399; border-color: rgba(52, 211, 153, 0.3);">● Contingency Audit</span>
+                            <span class="tag-status">● Contingency Audit</span>
                         </div>
                         <h3>Retail Compliance Chargeback Dispute Engine</h3>
                         <p class="card-desc">Designed for suppliers and consumer goods manufacturers selling to major retailers. Automates the collation of shipping manifests and proof of delivery entries to reverse invalid retail shortage penalty deductions.</p>
@@ -205,8 +459,7 @@
             <button class="optima-arrow" onclick="shiftMatrix(1)">NEXT →</button>
         </div>
 
-        <!-- 🖥️ PERFECTLY RESTORED ENTERPRISE TERMINAL LOG VISUALIZER COMPONENT -->
-        <div class="visualizer" style="margin: 48px auto 60px auto;">
+        <div class="visualizer" style="margin: 54px auto 64px auto;">
             <div class="vis-header">
                 <span>SYSTEM_LOG // AUDIT_CORE_ENGINE</span>
                 <span>STATUS: RECONCILED</span>
@@ -221,31 +474,26 @@
         <section class="pilot-section" id="pilot-terms">
             <div class="section-title" style="margin: 40px 0 20px 0;">
                 <h2>The Absolute Performance-First Guarantee</h2>
-                <p>We verify clear financial ROI through zero-upfront diagnostic pilots before any final service agreement is finalized.</p>
+                <p>We verify clear financial ROI through zero-upfront diagnostic pilots before any final service agreement is formalized.</p>
             </div>
 
-            <!-- 🚀 GUARANTEE CARD BLOCKS CONTAINER -->
             <div class="slider-viewport-container">
                 <div class="guarantees-grid" id="guaranteeTrack">
-                    <!-- Pilot 01 -->
                     <div class="pilot-card" style="border-left: 4px solid #34d399;">
                         <h4>01 - SUPPLY CHAIN OVERBILLING AUDIT</h4>
-                        <p style="color: #cbd5e1; font-size: 14px; line-height: 1.6;">We execute a 60-day retroactive analysis on historical dataset files. If the core engine isolates no overcharges, your organization owes nothing. If billing discrepancies exist, we claim errors and split the recovered amount at 40%. **Zero Upfront Investment.**</p>
+                        <p>We execute a 60-day retroactive analysis on historical dataset files. If the core engine isolates no overcharges, your organization owes nothing. If billing discrepancies exist, we claim errors and split the recovered amount at 40%. **Zero Upfront Investment.**</p>
                     </div>
-                    <!-- Pilot 02 -->
                     <div class="pilot-card" style="border-left: 4px solid #34d399;">
                         <h4>02 - INSURANCE SPEED-TO-LEAD TRIAL</h4>
-                        <p style="color: #cbd5e1; font-size: 14px; line-height: 1.6;">We process an isolated segment of 200 dead cold database profiles. If our automated conversation matrix schedules zero live appointments in 72 hours, the optimization integration is terminated without financial obligation. **Zero Budget Risk.**</p>
+                        <p>We process an isolated segment of 200 dead cold database profiles. If our automated conversation matrix schedules zero live appointments in 72 hours, the optimization integration is terminated without financial obligation. **Zero Budget Risk.**</p>
                     </div>
-                    <!-- Pilot 03 -->
                     <div class="pilot-card" style="border-left: 4px solid #34d399;">
                         <h4>03 - FREIGHT AUDIT SAVINGS MATRIX</h4>
-                        <p style="color: #cbd5e1; font-size: 14px; line-height: 1.6;">We audit past freight invoice logs against master carrier contract pricing quotes entirely for free. If no accessorial fee overcharging or carrier compliance leakage is captured, you owe nothing. If overcharges exist, we split the audit savings at 40% after you deduct carrier payments. **Zero Upfront Risk.**</p>
+                        <p>We audit past freight invoice logs against master carrier contract pricing quotes entirely for free. If no accessorial fee overcharging or carrier compliance leakage is captured, you owe nothing. If overcharges exist, we split the audit savings at 40% after you deduct carrier payments. **Zero Upfront Risk.**</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Mobile Controls for Slider 2 -->
             <div class="mobile-controls">
                 <button class="optima-arrow" onclick="shiftGuarantee(-1)">← PREV</button>
                 <div class="optima-dots" id="guaranteeDots"></div>
@@ -254,10 +502,10 @@
         </section>
 
         <section class="contact-section" id="contact">
-            <h3 style="margin-bottom: 8px; color: white;">Request Risk-Free System Structural Assessment</h3>
-            <p style="font-size: 13px; color: #94a3b8; margin-bottom: 32px;">Connect with our operations desk to discuss data mapping or zero-upfront pilot scheduling under our pure contingency framework.</p>
+            <h3 style="margin-bottom: 8px; color: white;">Request Risk-Free System Assessment</h3>
+            <p style="font-size: 13.5px; color: #94a3b8; margin-bottom: 32px;">Connect with our operations desk to discuss data mapping or zero-upfront pilot scheduling under our pure framework.</p>
             
-            <form action="https://formspree.io/f/mnjkknbg" method="POST">
+            <form action="https://formspree.io" method="POST">
                 <div class="form-group">
                     <label>Corporate Email Address</label>
                     <input type="email" name="email" required placeholder="name@company.com">
@@ -274,38 +522,36 @@
             </form>
         </section>
         
-        <!-- 🔒 HIGH-CONTRAST ENTERPRISE SECURITY & READABILITY FOOTER OVERHAUL -->
-        <section class="pilot-section" style="border-top: 1px solid #334155; margin-top: 60px; padding: 40px 0 20px 0;">
+        <section class="pilot-section" style="border-top: 1px solid #273549; margin-top: 80px; padding: 48px 0 24px 0;">
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 32px; text-align: left;">
                 <div>
-                    <h5 style="color: #ffffff !important; margin: 0 0 10px 0; font-size: 13px; font-weight: bold; font-family: monospace; letter-spacing: 0.05em;">🔒 SECURE DATA ISOLATION</h5>
+                    <h5 style="color: #ffffff !important; margin: 0 0 12px 0; font-size: 13.5px; font-weight: bold; font-family: monospace; letter-spacing: 0.05em;">🔒 SECURE DATA ISOLATION</h5>
                     <p style="color: #cbd5e1 !important; font-size: 13.5px; line-height: 1.6; margin: 0; font-family: sans-serif; font-weight: 500;">Data extraction operations process exclusively inside isolated on-premise cloud matrices. We enforce zero data retention parameters on raw client file ingestion paths.</p>
                 </div>
                 <div>
-                    <h5 style="color: #ffffff !important; margin: 0 0 10px 0; font-size: 13px; font-weight: bold; font-family: monospace; letter-spacing: 0.05em;">📊 PURE CONTINGENCY PRICING</h5>
+                    <h5 style="color: #ffffff !important; margin: 0 0 12px 0; font-size: 13.5px; font-weight: bold; font-family: monospace; letter-spacing: 0.05em;">📊 PURE CONTINGENCY PRICING</h5>
                     <p style="color: #cbd5e1 !important; font-size: 13.5px; line-height: 1.6; margin: 0; font-family: sans-serif; font-weight: 500;">No setup fees, no integration budget, no financial retainers. Optima Workflows is compensated strictly as a percentage split derived from audited, verified capital returns.</p>
                 </div>
                 <div>
-                    <h5 style="color: #ffffff !important; margin: 0 0 10px 0; font-size: 13px; font-weight: bold; font-family: monospace; letter-spacing: 0.05em;">⚖️ COMPLIANCE & CONSENT REGULATION</h5>
+                    <h5 style="color: #ffffff !important; margin: 0 0 12px 0; font-size: 13.5px; font-weight: bold; font-family: monospace; letter-spacing: 0.05em;">⚖️ COMPLIANCE & CONSENT REGULATION</h5>
                     <p style="color: #cbd5e1 !important; font-size: 13.5px; line-height: 1.6; margin: 0; font-family: sans-serif; font-weight: 500;">All automated text engagement and database pipeline verification loops are fully TCPA and wireless carrier network registry compliant.</p>
                 </div>
             </div>
             
-            <div style="border-top: 1px solid #1e293b; margin-top: 40px; padding-top: 24px; text-align: center;">
-                <div style="font-weight: bold; font-size: 15px; letter-spacing: 0.05em; color: #ffffff !important; font-family: monospace; margin-bottom: 8px;">OPTIMA WORKFLOWS</div>
+            <div style="border-top: 1px solid #1e293b; margin-top: 48px; padding-top: 28px; text-align: center;">
+                <div style="font-weight: bold; font-size: 16px; letter-spacing: 0.05em; color: #ffffff !important; font-family: monospace; margin-bottom: 10px;">OPTIMA WORKFLOWS</div>
                 <p style="color: #94a3b8 !important; margin-bottom: 6px; font-family: sans-serif; font-size: 12.5px; font-weight: 500;">Systems architectural documentation protected under open-source MIT License.</p>
                 <div class="copy" style="color: #94a3b8 !important; font-weight: bold !important; font-family: sans-serif; font-size: 12.5px;">&copy; 2026 Optima Workflows. All Rights Reserved.</div>
             </div>
         </section>
     </main>
+
     <script>
-        // Check viewport status to prevent unnecessary code evaluation on desktops
         const isMobileDevice = () => window.innerWidth <= 768;
 
-        // Slider 1 Engine: Matrix Infrastructure
         const matrixTrack = document.getElementById('matrixTrack');
         const matrixDots = document.getElementById('matrixDots');
-        const totalMatrixItems = 4; // Absolute active card item limit counts
+        const totalMatrixItems = 4;
         let activeMatrixIdx = 0;
 
         function buildMatrixDots() {
@@ -333,7 +579,6 @@
         }
         function jumpMatrix(idx) { activeMatrixIdx = idx; updateMatrixView(); }
 
-        // Slider 2 Engine: Guarantees Layout
         const guaranteeTrack = document.getElementById('guaranteeTrack');
         const guaranteeDots = document.getElementById('guaranteeDots');
         const totalGuaranteeItems = 3;
@@ -364,16 +609,14 @@
         }
         function jumpGuarantee(idx) { activeGuaranteeIdx = idx; updateGuaranteeView(); }
 
-        // 🔄 AUTOMATED MOBILITY SLIDER ENGINE (Auto-moves every 4.5 seconds on phone viewports)
+        // 🔄 AUTOMATED MOBILITY SLIDER ENGINE (Auto-moves every 4.5 seconds on mobile viewports)
         setInterval(() => {
             if (isMobileDevice()) {
                 shiftMatrix(1);
                 shiftGuarantee(1);
             }
         }, 4500);
-		
 
-        // Native Hardware-Accelerated Touch Swipe Gesture Interceptors
         function bindTouchGestures(trackElement, shiftCallback) {
             let startX = 0;
             trackElement.addEventListener('touchstart', e => { startX = e.changedTouches.screenX; }, { passive: true });
@@ -385,13 +628,11 @@
             }, { passive: true });
         }
 
-        // Initialize Slider Interfaces
         buildMatrixDots();
         buildGuaranteeDots();
         bindTouchGestures(matrixTrack, shiftMatrix);
         bindTouchGestures(guaranteeTrack, shiftGuarantee);
 
-        // Reset track positioning cleanly if browser is resized from phone back to desktop width
         window.addEventListener('resize', () => {
             updateMatrixView();
             updateGuaranteeView();
