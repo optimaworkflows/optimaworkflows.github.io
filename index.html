@@ -66,12 +66,12 @@
             align-items: center;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 32px 24px;
+            padding: 24px;
         }
 
         .logo {
             font-weight: 800;
-            font-size: 18px;
+            font-size: 16px;
             letter-spacing: -0.025em;
             display: flex;
             align-items: center;
@@ -86,26 +86,6 @@
             border-radius: 50%;
         }
 
-        .nav-btn {
-            background-color: transparent;
-            border: 1px solid var(--border-color);
-            color: var(--text-main);
-            padding: 10px 20px;
-            border-radius: 6px;
-            font-size: 13px;
-            font-weight: 700;
-            text-decoration: none;
-            transition: all 0.2s ease;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .nav-btn:hover {
-            border-color: var(--accent-blue);
-            color: var(--accent-blue);
-            background: rgba(56, 189, 248, 0.02);
-        }
-
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -114,7 +94,7 @@
 
         header {
             text-align: center;
-            padding: 60px 24px 80px 24px;
+            padding: 40px 24px 60px 24px;
             max-width: 900px !important;
             margin: 0 auto;
         }
@@ -125,7 +105,7 @@
             border-radius: 9999px;
             font-size: 14px !important;
             font-weight: 700 !important;
-            margin-bottom: 32px;
+            margin-bottom: 24px;
             letter-spacing: 0.02em;
             background: rgba(52, 211, 153, 0.12);
             border: 1px solid rgba(52, 211, 153, 0.3);
@@ -133,7 +113,7 @@
         }
 
         h1 {
-            font-size: 46px;
+            font-size: 44px;
             font-weight: 800;
             letter-spacing: -0.03em;
             line-height: 1.15;
@@ -148,30 +128,37 @@
         }
 
         .lead {
-            font-size: 16.5px;
+            font-size: 16px;
             color: var(--text-muted);
             max-width: 740px;
-            margin: 0 auto 40px auto;
+            margin: 0 auto 28px auto;
             line-height: 1.6;
         }
 
-        .cta-btn {
+        /* 💎 REBUILD: UNIFIED LIGHT BLUE SEMI-TRANSPARENT BACKGROUND CTA CONTAINERS */
+        .repo-link, .nav-btn, .cta-btn {
             display: inline-block;
-            background-color: var(--accent-blue);
-            color: #030712;
-            padding: 14px 28px;
+            text-align: center;
+            border: 1px solid rgba(56, 189, 248, 0.2) !important;
+            color: var(--accent-blue) !important;
             border-radius: 6px;
             font-weight: 700;
-            font-size: 14px;
             text-decoration: none;
-            box-shadow: 0 4px 14px rgba(56, 189, 248, 0.25);
+            letter-spacing: 0.05em;
+            background: rgba(56, 189, 248, 0.05) !important;
             transition: all 0.2s ease;
-            margin-right: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
+        
+        .cta-btn { padding: 14px 28px; font-size: 14px; margin-right: 12px; }
+        .nav-btn { padding: 10px 20px; font-size: 13px; text-transform: uppercase; }
+        .repo-link { display: block; padding: 14px; font-size: 12.5px; width: 100%; }
 
-        .cta-btn:hover {
-            background-color: var(--accent-blue-hover);
-            transform: translateY(-1px);
+        .repo-link:hover, .nav-btn:hover, .cta-btn:hover { 
+            background: #ffffff !important; 
+            color: #030712 !important; 
+            border-color: #ffffff !important; 
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
         }
 
         .sec-btn {
@@ -183,25 +170,15 @@
             text-decoration: none;
             transition: color 0.2s ease;
         }
-
         .sec-btn:hover { color: var(--text-main); }
 
         .section-title { text-align: center; margin-bottom: 60px; }
-
-        .section-title h2 {
-            font-size: 28px;
-            font-weight: 800;
-            letter-spacing: -0.02em;
-            margin-bottom: 12px;
-            color: #ffffff;
-        }
-
+        .section-title h2 { font-size: 28px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 12px; color: #ffffff; }
         .section-title p { color: var(--text-muted); font-size: 15px; }
 
-        /* 📱 RESPONSIVE LAYOUT ENGINE FOR ALL DEVICES */
+        /* 📱 RESPONSIVE VIEWPORT CONTROLLERS */
         .slider-viewport-container { width: 100%; position: relative; margin-bottom: 40px; }
         
-        /* Desktop View Configuration */
         @media (min-width: 769px) {
             .frameworks-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; width: 100%; }
             .frameworks-grid article:nth-child(4) { grid-column: 2 / 3; }
@@ -209,7 +186,6 @@
             .mobile-controls { display: none; }
         }
 
-        /* Smartphone View Configuration */
         @media (max-width: 768px) {
             .slider-viewport-container { overflow: hidden; width: 100%; position: relative; border-radius: 12px; }
             .frameworks-grid, .guarantees-grid { display: flex; transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); will-change: transform; width: 100%; gap: 0; }
@@ -234,11 +210,9 @@
         }
 
         article h3 { font-size: 20px; font-weight: 700; margin-bottom: 14px; letter-spacing: -0.01em; color: #ffffff; }
-
         .card-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-
         .tag-mod { font-family: monospace; font-size: 11px; color: var(--accent-blue); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
-
+        
         .tag-status {
             font-size: 11px;
             font-weight: 700;
@@ -250,31 +224,9 @@
         }
 
         .card-desc { color: var(--text-muted); font-size: 14px; line-height: 1.6; margin-bottom: 28px; }
-
         .matrix-box { border-top: 1px solid var(--border-color); padding-top: 20px; margin-bottom: 28px; }
-
         .matrix-row { font-size: 12.5px; color: var(--text-muted); margin-bottom: 10px; }
-
         .matrix-row span { color: var(--text-main); font-weight: 600; }
-
-        /* 💎 ALL MODULE CTA LINK BUTTONS REALIGNED TO SEMI-TRANSPARENT BLUE */
-        .repo-link {
-            display: block;
-            text-align: center;
-            border: 1px solid rgba(56, 189, 248, 0.2) !important;
-            color: var(--accent-blue) !important;
-            padding: 14px;
-            border-radius: 6px;
-            font-size: 12.5px;
-            font-weight: 700;
-            text-decoration: none;
-            letter-spacing: 0.05em;
-            background: rgba(56, 189, 248, 0.05) !important;
-            transition: all 0.2s ease;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        }
-
-        .repo-link:hover { background: #ffffff !important; color: #030712 !important; border-color: #ffffff !important; }
 
         .visualizer {
             background-color: #020617;
@@ -286,20 +238,16 @@
             line-height: 1.7;
             box-shadow: inset 0 2px 8px rgba(0,0,0,0.8);
             margin: 48px auto 60px auto;
-            max-width: 1200px;
         }
 
         .vis-header { display: flex; justify-content: space-between; color: #475569; border-bottom: 1px solid #1e293b; padding-bottom: 12px; margin-bottom: 16px; font-weight: 700; }
-
         .log-blue { color: #38bdf8; }
         .log-purple { color: #c084fc; }
         .log-amber { color: #fbbf24; }
         .log-green { color: #34d399; }
 
         .pilot-card { background: var(--card-bg-gradient); border: 1px solid var(--border-color); border-radius: 8px; padding: 32px 28px; }
-
         .pilot-card h4 { font-size: 13.5px; font-weight: 800; letter-spacing: 0.05em; margin-bottom: 14px; color: var(--text-main); }
-
         .pilot-card p { color: var(--text-muted); font-size: 13.5px; line-height: 1.6; }
 
         .contact-section {
@@ -313,7 +261,6 @@
         }
 
         form { text-align: left; margin-top: 32px; }
-
         .form-group { margin-bottom: 24px; }
 
         label {
@@ -339,7 +286,6 @@
 
         input:focus, textarea:focus { outline: none; border-color: var(--accent-blue); }
 
-        /* 💎 SUBMIT BUTTON REMAPPED TO MATCH DYNAMIC TRANSPARENT ACCENT SYMMETRY */
         .submit-btn {
             width: 100%;
             border: 1px solid rgba(56, 189, 248, 0.2) !important;
@@ -353,7 +299,6 @@
             background: rgba(56, 189, 248, 0.05) !important;
             transition: all 0.2s ease;
         }
-
         .submit-btn:hover { background-color: #ffffff !important; color: #030712 !important; border-color: #ffffff !important; }
     </style>
 </head>
@@ -372,7 +317,9 @@
         </div>
         <h1>Stop Invisible Capital Leakage Across Your <br><span class="gradient-text">Accounts Payable and Supply Chain Ledgers</span></h1>
         <p class="lead">We deploy automated data-reconciliation scripts to cross-examine high-volume vendor invoices, carrier freight statements, and retail deduction remittance logs. <strong>Our software costs exactly $0.00 upfront. We work strictly on performance, capturing hidden billing errors and splitting verified recoveries 40/60 after your cash is secured.</strong></p>
-        <div>
+        
+        <!-- 🎯 ABOVE THE FOLD CTA CONFIGURATION (PRECISELY FIXED POSITIONING) -->
+        <div style="margin-top: 12px;">
             <a href="#frameworks" class="cta-btn">Explore Core Frameworks ↓</a>
             <a href="#pilot-terms" class="sec-btn">View Risk-Free Guarantee</a>
         </div>
@@ -436,6 +383,7 @@
                     </div>
                     <a href="./freight/run/" target="_blank" class="repo-link">LAUNCH FREIGHT COMPLIANCE TRIAL →</a>
                 </article>
+
                 <article>
                     <div>
                         <div class="card-meta">
@@ -560,14 +508,14 @@
             matrixDots.innerHTML = '';
             for(let i=0; i<totalMatrixItems; i++) {
                 let dot = document.createElement('div');
-                dot.className = `optima-dot \${i === activeMatrixIdx ? 'active' : ''}`;
+                dot.className = `optima-dot ${i === activeMatrixIdx ? 'active' : ''}`;
                 dot.onclick = () => { if(isMobileDevice()) jumpMatrix(i); };
                 matrixDots.appendChild(dot);
             }
         }
         function updateMatrixView() {
             if(!isMobileDevice()) { matrixTrack.style.transform = 'none'; return; }
-            matrixTrack.style.transform = `translateX(-\${activeMatrixIdx * 100}%)`;
+            matrixTrack.style.transform = `translateX(-${activeMatrixIdx * 100}%)`;
             Array.from(matrixDots.children).forEach((d, idx) => {
                 if(idx === activeMatrixIdx) d.classList.add('active'); else d.classList.remove('active');
             });
@@ -611,7 +559,7 @@
         }
         function jumpGuarantee(idx) { activeGuaranteeIdx = idx; updateGuaranteeView(); }
 
-        // 🔄 AUTOMATED MOBILITY SLIDER ENGINE (Auto-moves every 4.5 seconds on mobile viewports)
+        // Automated slider advances (Fires ONLY on mobile viewports)
         setInterval(() => {
             if (isMobileDevice()) {
                 shiftMatrix(1);
