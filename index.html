@@ -3,29 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Optima Workflows | Performance-Based B2B Supply Chain & Pipeline Automation</title>
-    
+    <title>Optima Workflows | Performance-Based Recovery & Appointment Booking</title>
+    <meta name="description" content="We find money you're already owed — vendor overbilling, freight errors, retail chargebacks — and book appointments from your unworked leads. You only pay when we deliver a result.">
+
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
+      "@type": "ProfessionalService",
       "name": "Optima Workflows",
-      "applicationCategory": "BusinessApplication, FinancialApplication",
-      "operatingSystem": "Serverless Infrastructure, Local On-Premise Environment",
-      "description": "Risk-free data reconciliation terminals designed to permanently eliminate mid-market corporate capital leakage and automate inbound pipeline ingestion hooks natively under a strict contingency-fee, zero-upfront financial framework.",
-      "offers": {
-        "@type": "Offer",
-        "price": "0.00",
-        "priceCurrency": "USD",
-        "description": "Strict contingency-fee compensation model. Zero upfront setup fees, zero retainer risk. Compensation is derived strictly as a percentage split of verified capital recovered after financial delivery."
-      }
+      "description": "Performance-based invoice auditing and appointment-booking services for US mid-market businesses. Clients pay only from verified results — recovered funds or booked appointments.",
+      "priceRange": "No upfront fee — compensation is a share of verified recovered funds, or a flat fee per booked appointment"
     }
     </script>
-    
+
     <style>
-        /* ====================================================================
-           🔒 OPTIMA WORKFLOWS MASTER ENTERPRISE DARK-MODE THEME TOKENS
-           ==================================================================== */
         :root {
             --bg-dark: #030712;
             --card-bg-gradient: linear-gradient(145deg, #0b0f19, #060a13);
@@ -45,6 +36,10 @@
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             line-height: 1.5;
             padding-bottom: 80px;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * { animation: none !important; transition: none !important; }
         }
 
         .banner {
@@ -102,7 +97,6 @@
         .gradient-text { background: linear-gradient(to right, #38bdf8, #3b82f6, #ec4899); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .lead { font-size: 16px; color: var(--text-muted); max-width: 740px; margin: 0 auto 28px auto; line-height: 1.6; }
 
-        /* 💎 UNIFIED LIGHT BLUE SEMI-TRANSPARENT BACKGROUND CTA CONTAINERS */
         .repo-link, .nav-btn, .cta-btn {
             display: inline-block;
             text-align: center;
@@ -115,17 +109,17 @@
             background: rgba(56, 189, 248, 0.05) !important;
             transition: all 0.2s ease;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            white-space: nowrap; /* Forces text to sit perfectly on a single line */
+            white-space: nowrap;
         }
-        
+
         .cta-btn { padding: 14px 28px; font-size: 14px; margin-right: 12px; }
         .nav-btn { padding: 10px 20px; font-size: 13px; text-transform: uppercase; }
         .repo-link { display: block; padding: 14px; font-size: 11.5px; width: 100%; }
 
-        .repo-link:hover, .nav-btn:hover, .cta-btn:hover { 
-            background: #ffffff !important; 
-            color: #030712 !important; 
-            border-color: #ffffff !important; 
+        .repo-link:hover, .nav-btn:hover, .cta-btn:hover {
+            background: #ffffff !important;
+            color: #030712 !important;
+            border-color: #ffffff !important;
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
         }
 
@@ -135,26 +129,16 @@
         .section-title h2 { font-size: 28px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 12px; color: #ffffff; }
         .section-title p { color: var(--text-muted); font-size: 15px; }
 
-        /* 📱 RESPONSIVE VIEWPORT CONTROLLERS */
-        .slider-viewport-container { width: 100%; position: relative; margin-bottom: 40px; }
-        
-        @media (min-width: 769px) {
-            .frameworks-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; width: 100%; }
-            .frameworks-grid article:nth-child(4) { grid-column: 2 / 3; }
-            .guarantees-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; width: 100%; }
-            .mobile-controls { display: none; }
+        /* Fixed 4-card grid — no more orphaned 4th card */
+        .frameworks-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            width: 100%;
+            margin-bottom: 40px;
         }
-
         @media (max-width: 768px) {
-            .slider-viewport-container { overflow: hidden; width: 100%; position: relative; border-radius: 12px; }
-            .frameworks-grid, .guarantees-grid { display: flex; transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); will-change: transform; width: 100%; gap: 0; }
-            .frameworks-grid article, .guarantees-grid .pilot-card { flex: 0 0 100%; width: 100%; max-width: 100%; box-sizing: border-box; touch-action: pan-y; }
-            .frameworks-grid article:nth-child(4) { grid-column: auto; }
-            .mobile-controls { display: flex; align-items: center; justify-content: center; gap: 20px; margin: 20px 0 40px 0; }
-            .optima-arrow { background: #1e293b; border: 1px solid #334155; color: #38bdf8; font-family: monospace; font-size: 12px; font-weight: bold; padding: 8px 16px; border-radius: 6px; cursor: pointer; }
-            .optima-dots { display: flex; gap: 8px; align-items: center; }
-            .optima-dot { width: 7px; height: 7px; border-radius: 50%; background: #334155; cursor: pointer; }
-            .optima-dot.active { background: #38bdf8; transform: scale(1.2); }
+            .frameworks-grid { grid-template-columns: 1fr; }
         }
 
         article {
@@ -171,7 +155,7 @@
         article h3 { font-size: 20px; font-weight: 700; margin-bottom: 14px; letter-spacing: -0.01em; color: #ffffff; }
         .card-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
         .tag-mod { font-family: monospace; font-size: 11px; color: var(--accent-blue); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
-        
+
         .tag-status {
             font-size: 11px;
             font-weight: 700;
@@ -183,8 +167,7 @@
         }
 
         .card-desc { color: var(--text-muted); font-size: 14px; line-height: 1.6; margin-bottom: 28px; }
-        
-        /* 💡 FIXED TEXT VISIBILITY: High contrast styling for technical data boxes */
+
         .matrix-box { border-top: 1px solid var(--border-color); padding-top: 20px; margin-bottom: 28px; }
         .matrix-row { font-size: 12.5px; color: #94a3b8 !important; margin-bottom: 10px; font-weight: 600 !important; }
         .matrix-row span { color: #ffffff !important; font-weight: bold !important; }
@@ -198,7 +181,7 @@
             font-size: 12.5px;
             line-height: 1.7;
             box-shadow: inset 0 2px 8px rgba(0,0,0,0.8);
-            margin: 48px auto 60px auto;
+            margin: 48px auto 12px auto;
         }
 
         .vis-header { display: flex; justify-content: space-between; color: #475569; border-bottom: 1px solid #1e293b; padding-bottom: 12px; margin-bottom: 16px; font-weight: 700; }
@@ -206,10 +189,64 @@
         .log-purple { color: #c084fc; }
         .log-amber { color: #fbbf24; }
         .log-green { color: #34d399; }
+        .visualizer-caption {
+            text-align: center;
+            font-size: 12px;
+            color: #64748b;
+            margin-bottom: 60px;
+            font-family: monospace;
+        }
+
+        .guarantees-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            width: 100%;
+        }
+        @media (max-width: 768px) {
+            .guarantees-grid { grid-template-columns: 1fr; }
+        }
 
         .pilot-card { background: var(--card-bg-gradient); border: 1px solid var(--border-color); border-radius: 8px; padding: 32px 28px; }
         .pilot-card h4 { font-size: 13.5px; font-weight: 800; letter-spacing: 0.05em; margin-bottom: 14px; color: var(--text-main); }
         .pilot-card p { color: var(--text-muted); font-size: 13.5px; line-height: 1.6; }
+
+        /* About / trust section */
+        .about-section {
+            max-width: 780px;
+            margin: 90px auto 0 auto;
+            background: var(--card-bg-gradient);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 40px 44px;
+        }
+        .about-section h2 { font-size: 22px; margin-bottom: 16px; color: #fff; }
+        .about-section p { color: var(--text-muted); font-size: 14.5px; line-height: 1.7; margin-bottom: 14px; }
+        .about-section .sig-line {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-top: 22px;
+            padding-top: 22px;
+            border-top: 1px solid var(--border-color);
+        }
+        .sig-avatar {
+            width: 44px; height: 44px; border-radius: 50%;
+            background: linear-gradient(135deg, #38bdf8, #3b82f6);
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 800; color: #020617; font-size: 16px; flex-shrink: 0;
+        }
+        .sig-name { font-weight: 700; color: #fff; font-size: 14px; }
+        .sig-role { color: var(--text-muted); font-size: 12.5px; }
+
+        /* FAQ */
+        .faq-section { max-width: 780px; margin: 80px auto 0 auto; }
+        .faq-item {
+            border-bottom: 1px solid var(--border-color);
+            padding: 22px 4px;
+        }
+        .faq-item h4 { font-size: 15px; color: #fff; margin-bottom: 10px; }
+        .faq-item p { font-size: 13.5px; color: var(--text-muted); line-height: 1.65; }
 
         .contact-section {
             max-width: 640px;
@@ -265,303 +302,215 @@
 </head>
 <body>
 
-    <div class="banner">🛡️ 100% RISK-FREE PERFORMANCE-BASED DEPLOYMENTS • PAID STRICTLY ON MONEY RECOVERED • NO UPFRONT CAPITAL RISK</div>
+    <div class="banner">PERFORMANCE-BASED WORK · PAID ONLY FROM VERIFIED RESULTS · NO UPFRONT FEE</div>
 
     <nav>
         <div class="logo"><span class="logo-dot"></span> OPTIMA WORKFLOWS</div>
-        <a href="#contact" class="nav-btn"> INITIATE ENGAGEMENT</a>
+        <a href="#contact" class="nav-btn">Start a Conversation</a>
     </nav>
 
     <header class="container">
         <div class="badge">
-            🔒 Verified Contingency-Fee Model • Paid Strictly From Success Results
+            No upfront fee — paid only from results
         </div>
-        <h1>Stop Invisible Capital Leakage Across Your <br><span class="gradient-text">Accounts Payable and Supply Chain Ledgers</span></h1>
-        <p class="lead">We deploy automated data-reconciliation scripts to cross-examine high-volume vendor invoices, carrier freight statements, and retail deduction remittance logs. <strong>Our software costs exactly $0.00 upfront. We work strictly on performance, capturing hidden billing errors so you can deduct discrepancies directly from open supplier statements before payments are disbursed.</strong></p>
-        
-        <!-- 🎯 ABOVE THE FOLD CTA CONFIGURATION -->
+        <h1>Find the Money You're Already Owed <br><span class="gradient-text">Before You Pay the Next Invoice</span></h1>
+        <p class="lead">We audit vendor invoices, freight bills, and retail chargebacks for overbilling and errors — and separately, we book appointments from insurance leads you've already paid for but never worked. Every engagement starts as a free trial. If we don't find money or book appointments, you owe nothing.</p>
+
         <div style="margin-top: 12px;">
-            <a href="#frameworks" class="cta-btn">Explore Core Frameworks ↓</a>
-            <a href="#pilot-terms" class="sec-btn">View Risk-Free Guarantee</a>
+            <a href="#frameworks" class="cta-btn">See How It Works ↓</a>
+            <a href="#pilot-terms" class="sec-btn">Read the Trial Terms</a>
         </div>
     </header>
 
     <main class="container" id="frameworks">
         <div class="section-title">
-            <h2>Enterprise Revenue Infrastructure Matrix</h2>
-            <p>Targeted systems engineered to isolate back-office vulnerabilities and eliminate payment backlogs.</p>
+            <h2>Four Ways We Find Money You're Already Owed</h2>
+            <p>Each service starts with a free, no-obligation trial on your own historical data.</p>
         </div>
 
-        <div class="slider-viewport-container">
-            <div class="frameworks-grid" id="matrixTrack">
-                <article>
-                    <div>
-                        <div class="card-meta">
-                            <span class="tag-mod">Core Module 01</span>
-                            <span class="tag-status">● Contingency Audit</span>
-                        </div>
-                        <h3>Autonomous Supply Chain & Invoice Auditor</h3>
-                        <p class="card-desc">Designed for physical product distributors and wholesalers processing high transaction volumes. Identifies revenue losses stemming from automated vendor overbilling, shipment quantity shortfalls, and transit tier billing errors.</p>
-                        <div class="matrix-box">
-                            <div class="matrix-row">Input Sources: <span>ERP Exports, Goods Receipts, Supplier Invoices</span></div>
-                            <div class="matrix-row">Processing: <span>Itemized Line-Item Reconciliation</span></div>
-                            <div class="matrix-row">Financial Risk: <span style="color: #34d399; font-weight: bold;">$0.00 Upfront Investment</span></div>
-                        </div>
+        <div class="frameworks-grid">
+            <article>
+                <div>
+                    <div class="card-meta">
+                        <span class="tag-mod">Module 01</span>
+                        <span class="tag-status">● Contingency Audit</span>
                     </div>
-                    <a href="./supply-chain/run/" target="_blank" class="repo-link">LAUNCH DIAGNOSTIC AUDIT RUN NOW →</a>
-                </article>
+                    <h3>Vendor & Invoice Overbilling Audit</h3>
+                    <p class="card-desc">For distributors and wholesalers processing a high volume of vendor invoices. We cross-check what you were billed against what you actually received to catch overbilling, shipment shortfalls, and pricing errors.</p>
+                    <div class="matrix-box">
+                        <div class="matrix-row">What we need: <span>Invoices, receiving records, ERP exports</span></div>
+                        <div class="matrix-row">How we're paid: <span>40% of what we recover — nothing if we find nothing</span></div>
+                        <div class="matrix-row">Upfront cost: <span style="color: #34d399; font-weight: bold;">$0.00</span></div>
+                    </div>
+                </div>
+                <a href="#contact" class="repo-link">START A FREE AUDIT →</a>
+            </article>
 
-                <article>
-                    <div>
-                        <div class="card-meta">
-                            <span class="tag-mod">Core Module 02</span>
-                            <span class="tag-status">● Pure Performance</span>
-                        </div>
-                        <h3>Insurance Speed-to-Lead Automation Pipeline</h3>
-                        <p class="card-desc">Built for independent US Insurance agencies buying web leads. Eradicates lead decay by deploying automated response streams that engage buyers via text within 3 seconds of a form submission to book sales calendar appointments.</p>
-                        <div class="matrix-box">
-                            <div class="matrix-row">Input Sources: <span>CRM Webhooks, Lead Inbound Streams</span></div>
-                            <div class="matrix-row">Processing: <span>Instant Conversational Filtering</span></div>
-                            <div class="matrix-row">Financial Risk: <span style="color: #34d399; font-weight: bold;">Pay Strictly For Confirmed Bookings</span></div>
-                        </div>
+            <article>
+                <div>
+                    <div class="card-meta">
+                        <span class="tag-mod">Module 02</span>
+                        <span class="tag-status">● Pay Per Appointment</span>
                     </div>
-                    <a href="./insurance/run/" target="_blank" class="repo-link">ACTIVATE INTENT TRIAL NOW →</a>
-                </article>
+                    <h3>Insurance Lead Reactivation & Booking</h3>
+                    <p class="card-desc">For independent agencies sitting on old, never-contacted leads. We text and call from your own number to re-engage them and book appointments directly onto your calendar.</p>
+                    <div class="matrix-box">
+                        <div class="matrix-row">What we need: <span>Your aged lead list, your Twilio number</span></div>
+                        <div class="matrix-row">How we're paid: <span>A flat fee per appointment we actually book</span></div>
+                        <div class="matrix-row">Upfront cost: <span style="color: #34d399; font-weight: bold;">$0.00</span></div>
+                    </div>
+                </div>
+                <a href="onboarding.html" class="repo-link">RUN A 200-LEAD TRIAL →</a>
+            </article>
 
-                <article>
-                    <div>
-                        <div class="card-meta">
-                            <span class="tag-mod">Core Module 03</span>
-                            <span class="tag-status">● Contingency Audit</span>
-                        </div>
-                        <h3>Freight Invoice Auditor & Accessorial Controller</h3>
-                        <p class="card-desc">Targets logistics operations heavily impacted by dynamic carrier freight billing. Cross-examines original contract rate sheets against incoming final freight bills to flag hidden accessorial surcharges and wait-time penalties.</p>
-                        <div class="matrix-box">
-                            <div class="matrix-row">Input Sources: <span>Carrier Bills, Original Quote Logs, PODs</span></div>
-                            <div class="matrix-row">Processing: <span>Contract Surcharge Matching</span></div>
-                            <div class="matrix-row">Financial Risk: <span style="color: #34d399; font-weight: bold;">Split From Verified AP Reductions</span></div>
-                        </div>
+            <article>
+                <div>
+                    <div class="card-meta">
+                        <span class="tag-mod">Module 03</span>
+                        <span class="tag-status">● Contingency Audit</span>
                     </div>
-                    <a href="./freight/run/" target="_blank" class="repo-link">LAUNCH FREIGHT COMPLIANCE TRIAL →</a>
-                </article>
+                    <h3>Freight Invoice & Accessorial Audit</h3>
+                    <p class="card-desc">For shippers and logistics teams dealing with complex carrier billing. We match your final freight bills against your original contract rates to flag hidden accessorial charges and wait-time penalties.</p>
+                    <div class="matrix-box">
+                        <div class="matrix-row">What we need: <span>Carrier bills, contract rate sheets, PODs</span></div>
+                        <div class="matrix-row">How we're paid: <span>40% of verified savings — nothing if we find none</span></div>
+                        <div class="matrix-row">Upfront cost: <span style="color: #34d399; font-weight: bold;">$0.00</span></div>
+                    </div>
+                </div>
+                <a href="#contact" class="repo-link">START A FREE AUDIT →</a>
+            </article>
 
-                <article>
-                    <div>
-                        <div class="card-meta">
-                            <span class="tag-mod">Core Module 04</span>
-                            <span class="tag-status">● Contingency Audit</span>
-                        </div>
-                        <h3>Retail Compliance Chargeback Dispute Engine</h3>
-                        <p class="card-desc">Designed for suppliers and consumer goods manufacturers selling to major retailers. Automates the collation of shipping manifests and proof of delivery entries to reverse invalid retail shortage penalty deductions.</p>
-                        <div class="matrix-box">
-                            <div class="matrix-row">Input Sources: <span>Remittance Slips, Shipping Manifests, POD Logs</span></div>
-                            <div class="matrix-row">Processing: <span>Deduction Code Discrepancy Matching</span></div>
-                            <div class="matrix-row">Financial Risk: <span style="color: #34d399; font-weight: bold;">Split From Settled Reversal Credits</span></div>
-                        </div>
+            <article>
+                <div>
+                    <div class="card-meta">
+                        <span class="tag-mod">Module 04</span>
+                        <span class="tag-status">● Contingency Audit</span>
                     </div>
-                    <a href="./chargeback/run/" target="_blank" class="repo-link">ACTIVATE REVERSAL RUN NOW →</a>
-                </article>
-            </div>
+                    <h3>Retail Chargeback Dispute Recovery</h3>
+                    <p class="card-desc">For suppliers selling into major retailers. We match shipping manifests and proof-of-delivery records against retailer deduction codes to reverse invalid shortage and compliance chargebacks.</p>
+                    <div class="matrix-box">
+                        <div class="matrix-row">What we need: <span>Remittance slips, shipping manifests, PODs</span></div>
+                        <div class="matrix-row">How we're paid: <span>40% of reversed credits — nothing if we recover none</span></div>
+                        <div class="matrix-row">Upfront cost: <span style="color: #34d399; font-weight: bold;">$0.00</span></div>
+                    </div>
+                </div>
+                <a href="#contact" class="repo-link">START A FREE AUDIT →</a>
+            </article>
         </div>
 
-        <div class="mobile-controls">
-            <button class="optima-arrow" onclick="shiftMatrix(-1)">← PREV</button>
-            <div class="optima-dots" id="matrixDots"></div>
-            <button class="optima-arrow" onclick="shiftMatrix(1)">NEXT →</button>
-        </div>
-
-        <div class="visualizer" style="margin: 54px auto 64px auto;">
+        <div class="visualizer">
             <div class="vis-header">
-                <span>SYSTEM_LOG // AUDIT_CORE_ENGINE</span>
-                <span>STATUS: RECONCILED</span>
+                <span>EXAMPLE AUDIT OUTPUT</span>
+                <span>STATUS: SAMPLE</span>
             </div>
-            <div class="log-blue">[SYSTEM] Loading dataset matrices: 'invoices.csv', 'shipping.csv'...</div>
-            <div class="log-purple">[PARSER] Dynamic structural mapper verified. 5 irregular headers resolved mapping safely.</div>
-            <div class="log-amber">[WARNING] Record mismatch found at Product_ID: PROD-104 (Billed: 500, Delivered: 460)</div>
-            <div class="log-amber">[WARNING] Record mismatch found at Product_ID: PROD-441 (Billed: 80, Delivered: 72)</div>
-            <div class="log-green">[METRIC] Execution terminated successfully. Capital Leakage Identified: $1,380.00 USD</div>
+            <div class="log-blue">Loading files: invoices.csv, shipping.csv...</div>
+            <div class="log-purple">Matched line items across both files.</div>
+            <div class="log-amber">Mismatch found — Product PROD-104: billed 500 units, delivered 460.</div>
+            <div class="log-amber">Mismatch found — Product PROD-441: billed 80 units, delivered 72.</div>
+            <div class="log-green">Total discrepancy identified: $1,380.00</div>
         </div>
+        <p class="visualizer-caption">Illustrative example only — not a real client result. Your first audit runs on your own data.</p>
 
         <section class="pilot-section" id="pilot-terms">
             <div class="section-title" style="margin: 40px 0 20px 0;">
-                <h2>The Absolute Performance-First Guarantee</h2>
-                <p>We verify clear financial ROI through zero-upfront diagnostic pilots before any final service agreement is formalized.</p>
+                <h2>How the Free Trial Works</h2>
+                <p>Every engagement starts here, before any contract is discussed.</p>
             </div>
 
-            <div class="slider-viewport-container">
-                <div class="guarantees-grid" id="guaranteeTrack">
-                    <div class="pilot-card" style="border-left: 4px solid #34d399;">
-                        <h4>01 - SUPPLY CHAIN OVERBILLING AUDIT</h4>
-                        <p>We execute a 60-day retroactive analysis on historical dataset files. If the core engine isolates no overcharges, your organization owes nothing. If billing discrepancies exist, we claim errors and split the recovered amount at 40%. **Zero Upfront Investment.**</p>
-                    </div>
-                    <div class="pilot-card" style="border-left: 4px solid #34d399;">
-                        <h4>02 - INSURANCE SPEED-TO-LEAD TRIAL</h4>
-                        <p>We process an isolated segment of 200 dead cold database profiles. If our automated conversation matrix schedules zero live appointments in 72 hours, the optimization integration is terminated without financial obligation. **Zero Budget Risk.**</p>
-                    </div>
-                    <div class="pilot-card" style="border-left: 4px solid #34d399;">
-                        <h4>03 - FREIGHT AUDIT SAVINGS MATRIX</h4>
-                        <p>We audit past freight invoice logs against master carrier contract pricing quotes entirely for free. If no accessorial fee overcharging or carrier compliance leakage is captured, you owe nothing. If overcharges exist, we split the audit savings at 40% after you deduct carrier payments. **Zero Upfront Risk.**</p>
-                    </div>
+            <div class="guarantees-grid">
+                <div class="pilot-card" style="border-left: 4px solid #34d399;">
+                    <h4>01 · VENDOR & INVOICE AUDIT</h4>
+                    <p>We run a 60-day retroactive audit on your historical invoice and receiving data, at no cost. If we find no overbilling, you owe nothing. If we do, we split the recovered amount 40/60 in your favor.</p>
+                </div>
+                <div class="pilot-card" style="border-left: 4px solid #34d399;">
+                    <h4>02 · INSURANCE LEAD REACTIVATION</h4>
+                    <p>We work a sample of 200 of your old, uncontacted leads. You only pay a flat fee for each appointment we actually book — if we book zero, you owe zero.</p>
+                </div>
+                <div class="pilot-card" style="border-left: 4px solid #34d399;">
+                    <h4>03 · FREIGHT AUDIT</h4>
+                    <p>We compare your past freight invoices against your carrier contract rates, at no cost. If we find no overcharges, you owe nothing. If we do, we split the verified savings 40/60 in your favor.</p>
                 </div>
             </div>
+        </section>
 
-            <div class="mobile-controls">
-                <button class="optima-arrow" onclick="shiftGuarantee(-1)">← PREV</button>
-                <div class="optima-dots" id="guaranteeDots"></div>
-                <button class="optima-arrow" onclick="shiftGuarantee(1)">NEXT →</button>
+        <section class="about-section">
+            <h2>Who's behind this</h2>
+            <p>Optima Workflows is an independent, performance-based recovery and lead-reactivation service. We built it around one rule: we only get paid when you do. Every module starts as a free trial run on your own data before any contract is ever discussed.</p>
+            <p>We're early — small enough that you'll deal directly with the person doing the work, not a support queue. That means fast turnaround on your trial, and a direct line if you have questions before, during, or after.</p>
+            <div class="sig-line">
+                <div class="sig-avatar">AG</div>
+                <div>
+                    <div class="sig-name">Amit Gupta</div>
+                    <div class="sig-role">Founder, Optima Workflows</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="faq-section">
+            <div class="section-title" style="margin-bottom: 30px;">
+                <h2 style="font-size: 24px;">Common Questions</h2>
+            </div>
+            <div class="faq-item">
+                <h4>What exactly do you need from us to start a trial?</h4>
+                <p>For the audit modules (01, 03, 04), we need the relevant historical records — invoices, receiving logs, freight bills, or remittance/chargeback data — for the period we're auditing. For Module 02, we need your list of old, uncontacted leads and access to send/receive on your own phone number, granted through a scoped, revocable key — never your account password.</p>
+            </div>
+            <div class="faq-item">
+                <h4>What happens to our data after the trial?</h4>
+                <p>Your files are used only to run the audit or campaign you requested and aren't shared or reused for anything else. We're happy to sign a simple data-handling agreement before you send anything sensitive.</p>
+            </div>
+            <div class="faq-item">
+                <h4>Is there really no cost if you don't find anything?</h4>
+                <p>Correct. The audit modules are paid strictly as a percentage of what we recover — if we find nothing, there's nothing to pay. Module 02 is paid per appointment actually booked — if we book none, you owe nothing.</p>
+            </div>
+            <div class="faq-item">
+                <h4>Is the SMS/calling outreach compliant?</h4>
+                <p>We follow TCPA consent and Do-Not-Call requirements on every campaign, including a DNC scrub before your leads are contacted. If your lead source's original opt-in doesn't cover the outreach channel we'd use, we'll flag that before starting rather than after.</p>
             </div>
         </section>
 
         <section class="contact-section" id="contact">
-            <h3 style="margin-bottom: 8px; color: white;">Request Risk-Free System Assessment</h3>
-            <p style="font-size: 13.5px; color: #94a3b8; margin-bottom: 32px;">Connect with our operations desk to discuss data mapping or zero-upfront pilot scheduling under our pure framework.</p>
-            
+            <h3 style="margin-bottom: 8px; color: white;">Start a Free Trial</h3>
+            <p style="font-size: 13.5px; color: #94a3b8; margin-bottom: 32px;">Tell us a bit about your business and which module fits — we'll follow up to scope a no-cost trial.</p>
+
             <form action="https://formspree.io/f/mnjkknbg" method="POST">
                 <div class="form-group">
-                    <label>Corporate Email Address</label>
+                    <label>Email Address</label>
                     <input type="email" name="email" required placeholder="name@company.com">
                 </div>
                 <div class="form-group">
-                    <label>Operational Infrastructure Type</label>
-                    <input type="text" name="industry" required placeholder="e.g., Supply Chain Distribution / Insurance Agency Group">
+                    <label>Industry / Business Type</label>
+                    <input type="text" name="industry" required placeholder="e.g., Wholesale Distribution / Independent Insurance Agency">
                 </div>
                 <div class="form-group">
-                    <label>Project Scope & Requirements</label>
-                    <textarea name="message" rows="4" required placeholder="Describe your database format or current operational leaks..."></textarea>
+                    <label>What You're Looking to Solve</label>
+                    <textarea name="message" rows="4" required placeholder="Tell us about your invoices, leads, or the problem you're trying to fix..."></textarea>
                 </div>
-                <button type="submit" class="submit-btn">SUBMIT RISK-FREE ASSESSMENT BRIEF</button>
+                <button type="submit" class="submit-btn">SEND — NO COST TO START</button>
             </form>
         </section>
-        
+
         <section class="pilot-section" style="border-top: 1px solid #273549; margin-top: 80px; padding: 48px 0 24px 0;">
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 32px; text-align: left;">
                 <div>
-                    <h5 style="color: #ffffff !important; margin: 0 0 12px 0; font-size: 13.5px; font-weight: bold; font-family: monospace; letter-spacing: 0.05em;">🔒 SECURE DATA ISOLATION</h5>
-                    <p style="color: #cbd5e1 !important; font-size: 13.5px; line-height: 1.6; margin: 0; font-family: sans-serif; font-weight: 500;">Data extraction operations process exclusively inside isolated on-premise cloud matrices. We enforce zero data retention parameters on raw client file ingestion paths.</p>
+                    <h5 style="color: #ffffff !important; margin: 0 0 12px 0; font-size: 13.5px; font-weight: bold; font-family: monospace; letter-spacing: 0.05em;">HOW WE HANDLE YOUR DATA</h5>
+                    <p style="color: #cbd5e1 !important; font-size: 13.5px; line-height: 1.6; margin: 0; font-family: sans-serif; font-weight: 500;">Your files are used only for the audit or campaign you requested. We don't sell, share, or repurpose your data, and we'll sign a data-handling agreement before you send anything sensitive.</p>
                 </div>
                 <div>
-                    <h5 style="color: #ffffff !important; margin: 0 0 12px 0; font-size: 13.5px; font-weight: bold; font-family: monospace; letter-spacing: 0.05em;">📊 PURE CONTINGENCY PRICING</h5>
-                    <p style="color: #cbd5e1 !important; font-size: 13.5px; line-height: 1.6; margin: 0; font-family: sans-serif; font-weight: 500;">No setup fees, no integration budget, no financial retainers. Optima Workflows is compensated strictly as a percentage split derived from audited, verified capital returns.</p>
+                    <h5 style="color: #ffffff !important; margin: 0 0 12px 0; font-size: 13.5px; font-weight: bold; font-family: monospace; letter-spacing: 0.05em;">HOW WE'RE PAID</h5>
+                    <p style="color: #cbd5e1 !important; font-size: 13.5px; line-height: 1.6; margin: 0; font-family: sans-serif; font-weight: 500;">No setup fees, no retainers. We're paid as a share of verified recovered funds, or a flat fee per appointment booked — nothing upfront, ever.</p>
                 </div>
                 <div>
-                    <h5 style="color: #ffffff !important; margin: 0 0 12px 0; font-size: 13.5px; font-weight: bold; font-family: monospace; letter-spacing: 0.05em;">⚖️ COMPLIANCE & CONSENT REGULATION</h5>
-                    <p style="color: #cbd5e1 !important; font-size: 13.5px; line-height: 1.6; margin: 0; font-family: sans-serif; font-weight: 500;">All automated text engagement and database pipeline verification loops are fully TCPA and wireless carrier network registry compliant.</p>
+                    <h5 style="color: #ffffff !important; margin: 0 0 12px 0; font-size: 13.5px; font-weight: bold; font-family: monospace; letter-spacing: 0.05em;">COMPLIANCE</h5>
+                    <p style="color: #cbd5e1 !important; font-size: 13.5px; line-height: 1.6; margin: 0; font-family: sans-serif; font-weight: 500;">We follow TCPA consent and Do-Not-Call requirements on every outreach campaign, including a DNC scrub before any lead is contacted.</p>
                 </div>
             </div>
-            
+
             <div style="border-top: 1px solid #1e293b; margin-top: 48px; padding-top: 28px; text-align: center;">
                 <div style="font-weight: bold; font-size: 16px; letter-spacing: 0.05em; color: #ffffff !important; font-family: monospace; margin-bottom: 10px;">OPTIMA WORKFLOWS</div>
-                <p style="color: #94a3b8 !important; margin-bottom: 6px; font-family: sans-serif; font-size: 12.5px; font-weight: 500;">Systems architectural documentation protected under open-source MIT License.</p>
+                <p style="color: #94a3b8 !important; margin-bottom: 6px; font-family: sans-serif; font-size: 12.5px; font-weight: 500;">Questions before you reach out? Email us anytime.</p>
                 <div class="copy" style="color: #94a3b8 !important; font-weight: bold !important; font-family: sans-serif; font-size: 12.5px;">&copy; 2026 Optima Workflows. All Rights Reserved.</div>
             </div>
         </section>
     </main>
-    <script>
-        const isMobileDevice = () => window.innerWidth <= 768;
-
-        const matrixTrack = document.getElementById('matrixTrack');
-        const matrixDots = document.getElementById('matrixDots');
-        const totalMatrixItems = 4;
-        let activeMatrixIdx = 0;
-
-        function buildMatrixDots() {
-            matrixDots.innerHTML = '';
-            for(let i=0; i<totalMatrixItems; i++) {
-                let dot = document.createElement('div');
-                dot.className = `optima-dot ${i === activeMatrixIdx ? 'active' : ''}`;
-                dot.onclick = () => { if(isMobileDevice()) jumpMatrix(i); };
-                matrixDots.appendChild(dot);
-            }
-        }
-        function updateMatrixView() {
-            if(!isMobileDevice()) { matrixTrack.style.transform = 'none'; return; }
-            matrixTrack.style.transform = `translateX(-${activeMatrixIdx * 100}%)`;
-            Array.from(matrixDots.children).forEach((d, idx) => {
-                if(idx === activeMatrixIdx) d.classList.add('active'); else d.classList.remove('active');
-            });
-        }
-        function shiftMatrix(dir) {
-            if(!isMobileDevice()) return;
-            activeMatrixIdx += dir;
-            if(activeMatrixIdx >= totalMatrixItems) activeMatrixIdx = 0;
-            if(activeMatrixIdx < 0) activeMatrixIdx = totalMatrixItems - 1;
-            updateMatrixView();
-        }
-        function jumpMatrix(idx) { activeMatrixIdx = idx; updateMatrixView(); }
-
-        const guaranteeTrack = document.getElementById('guaranteeTrack');
-        const guaranteeDots = document.getElementById('guaranteeDots');
-        const totalGuaranteeItems = 3;
-        let activeGuaranteeIdx = 0;
-
-        function buildGuaranteeDots() {
-            guaranteeDots.innerHTML = '';
-            for(let i=0; i<totalGuaranteeItems; i++) {
-                let dot = document.createElement('div');
-                dot.className = `optima-dot ${i === activeGuaranteeIdx ? 'active' : ''}`;
-                dot.onclick = () => { if(isMobileDevice()) jumpGuarantee(i); };
-                guaranteeDots.appendChild(dot);
-            }
-        }
-        function updateGuaranteeView() {
-            if(!isMobileDevice()) { guaranteeTrack.style.transform = 'none'; return; }
-            guaranteeTrack.style.transform = `translateX(-${activeGuaranteeIdx * 100}%)`;
-            Array.from(guaranteeDots.children).forEach((d, idx) => {
-                if(idx === activeGuaranteeIdx) d.classList.add('active'); else d.classList.remove('active');
-            });
-        }
-        function shiftGuarantee(dir) {
-            if(!isMobileDevice()) return;
-            activeGuaranteeIdx += dir;
-            if(activeGuaranteeIdx >= totalGuaranteeItems) activeGuaranteeIdx = 0;
-            if(activeGuaranteeIdx < 0) activeGuaranteeIdx = totalGuaranteeItems - 1;
-            updateGuaranteeView();
-        }
-        function jumpGuarantee(idx) { activeGuaranteeIdx = idx; updateGuaranteeView(); }
-
-        setInterval(() => {
-            if (isMobileDevice()) {
-                shiftMatrix(1);
-                shiftGuarantee(1);
-            }
-        }, 4500);
-
-        function bindTouchGestures(trackElement, shiftCallback) {
-            let startX = 0;
-            let currentX = 0;
-            
-            trackElement.addEventListener('touchstart', e => { 
-                startX = e.touches[0].clientX; 
-                currentX = startX;
-            }, { passive: true });
-            
-            trackElement.addEventListener('touchmove', e => {
-                currentX = e.touches[0].clientX;
-                let diffX = startX - currentX;
-                if(isMobileDevice() && Math.abs(diffX) > 10) {
-                    if(e.cancelable) e.preventDefault();
-                }
-            }, { passive: false });
-            
-            trackElement.addEventListener('touchend', e => {
-                if(!isMobileDevice()) return;
-                let diff = startX - currentX;
-                if (Math.abs(diff) > 40) { 
-                    if (diff > 0) shiftCallback(1); else shiftCallback(-1); 
-                }
-                startX = 0; currentX = 0;
-            }, { passive: true });
-        }
-
-        buildMatrixDots();
-        buildGuaranteeDots();
-        bindTouchGestures(matrixTrack, shiftMatrix);
-        bindTouchGestures(guaranteeTrack, shiftGuarantee);
-
-        window.addEventListener('resize', () => {
-            updateMatrixView();
-            updateGuaranteeView();
-        });
-    </script>
 </body>
 </html>
