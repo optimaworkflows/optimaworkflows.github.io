@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Freight Invoice Audit — Recover Carrier Overcharges | Optima Workflows</title>
+<meta name="description" content="Free audit of your freight invoices against carrier contract rates. We find accessorial overcharges and billing errors. You pay nothing unless we recover savings.">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "Freight Invoice and Accessorial Audit",
+  "provider": { "@type": "Organization", "name": "Optima Workflows" },
+  "areaServed": "US",
+  "description": "Contingency-fee audit matching freight invoices against carrier contract rates to identify accessorial overcharges, wait-time penalties, and billing errors for shippers and logistics operations.",
+  "offers": {
+    "@type": "Offer",
+    "price": "0.00",
+    "priceCurrency": "USD",
+    "description": "No upfront fee. Compensation is 40% of verified savings — nothing is owed if no overcharges are found."
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What does a freight audit check for?",
+      "acceptedAnswer": { "@type": "Answer", "text": "We match final freight bills against your original carrier contract rates to flag accessorial surcharges, wait-time penalties, fuel surcharge errors, and other billing discrepancies." }
+    },
+    {
+      "@type": "Question",
+      "name": "What records are needed?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Carrier freight bills, your original contract rate sheets, and proof-of-delivery records for the period being audited." }
+    },
+    {
+      "@type": "Question",
+      "name": "How is this different from working with an existing freight audit vendor?",
+      "acceptedAnswer": { "@type": "Answer", "text": "The audit is run at no upfront cost as a trial before any switch or new contract is discussed, so a shipper can see actual findings before committing to anything." }
+    },
+    {
+      "@type": "Question",
+      "name": "How are you paid?",
+      "acceptedAnswer": { "@type": "Answer", "text": "40% of the verified savings identified. If no overcharges are found, there is no fee." }
+    }
+  ]
+}
+</script>
+
+<style>
+:root{
+  --bg-dark:#030712; --card-bg-gradient:linear-gradient(145deg,#0b0f19,#060a13);
+  --border-color:#1f2937; --text-main:#ffffff; --text-muted:#94a3b8;
+  --accent-blue:#38bdf8; --accent-green:#34d399; --accent-amber:#fbbf24;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg-dark)!important;color:var(--text-main)!important;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;line-height:1.55;padding-bottom:60px;}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important;}}
+.container{max-width:920px;margin:0 auto;padding:0 24px;}
+.banner{background:#111827;border-bottom:1px solid var(--border-color);color:#e0e7ff;font-size:11px;font-weight:700;text-align:center;padding:10px 12px;letter-spacing:.05em;font-family:monospace;text-transform:uppercase;}
+nav{display:flex;justify-content:space-between;align-items:center;max-width:920px;margin:0 auto;padding:22px 24px;}
+.logo{font-weight:800;font-size:15px;letter-spacing:-.02em;display:flex;align-items:center;gap:8px;text-transform:uppercase;}
+.logo-dot{height:8px;width:8px;background:var(--accent-blue);border-radius:50%;}
+.back-link{color:var(--text-muted);font-size:12.5px;text-decoration:none;}
+.back-link:hover{color:var(--text-main);}
+
+header{text-align:center;padding:44px 24px 20px;max-width:820px;margin:0 auto;}
+.badge{display:inline-block;padding:9px 18px;border-radius:9999px;font-size:13px;font-weight:700;margin-bottom:22px;letter-spacing:.02em;background:rgba(52,211,153,.12);border:1px solid rgba(52,211,153,.3);color:var(--accent-green);}
+h1{font-size:38px;font-weight:800;letter-spacing:-.02em;line-height:1.18;margin-bottom:20px;}
+.gradient-text{background:linear-gradient(to right,#38bdf8,#3b82f6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.lead{font-size:16px;color:var(--text-muted);max-width:640px;margin:0 auto 30px;}
+.cta-primary{display:inline-block;background:var(--accent-blue);color:#020617;padding:16px 32px;border-radius:6px;font-weight:800;font-size:15px;text-decoration:none;letter-spacing:.01em;margin-bottom:10px;}
+.cta-primary:hover{background:#7dd3fc;}
+.cta-sub{display:block;font-size:12px;color:var(--text-muted);margin-top:10px;}
+
+section{padding:50px 0;border-top:1px solid var(--border-color);}
+section:first-of-type{border-top:none;}
+.section-title{text-align:center;margin-bottom:36px;}
+.section-title h2{font-size:26px;font-weight:800;letter-spacing:-.01em;margin-bottom:10px;}
+.section-title p{color:var(--text-muted);font-size:14.5px;max-width:560px;margin:0 auto;}
+
+.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.stat-card{background:var(--card-bg-gradient);border:1px solid var(--border-color);border-radius:10px;padding:26px 20px;text-align:center;}
+.stat-num{font-size:30px;font-weight:800;color:var(--accent-blue);margin-bottom:8px;}
+.stat-label{font-size:13px;color:var(--text-muted);line-height:1.5;}
+@media(max-width:700px){.stat-grid{grid-template-columns:1fr;}}
+
+.steps{counter-reset:step;}
+.step{display:grid;grid-template-columns:46px 1fr;gap:18px;padding:22px 0;border-top:1px solid var(--border-color);}
+.step:last-child{border-bottom:1px solid var(--border-color);}
+.step-num{counter-increment:step;font-size:22px;font-weight:800;color:var(--accent-blue);font-family:monospace;}
+.step-num::before{content:counter(step,decimal-leading-zero);}
+.step h3{font-size:16px;margin-bottom:6px;}
+.step p{font-size:14px;color:var(--text-muted);}
+
+.trust-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;}
+.trust-card{background:var(--card-bg-gradient);border:1px solid var(--border-color);border-radius:10px;padding:24px;}
+.trust-card h4{font-size:14px;margin-bottom:8px;color:#fff;}
+.trust-card p{font-size:13.5px;color:var(--text-muted);}
+@media(max-width:700px){.trust-grid{grid-template-columns:1fr;}}
+
+.callout{background:rgba(56,189,248,.06);border:1px solid rgba(56,189,248,.25);border-radius:10px;padding:22px 26px;font-size:14.5px;color:#dbeafe;}
+.callout strong{color:#fff;}
+
+.guarantee-box{background:var(--card-bg-gradient);border:1px solid rgba(52,211,153,.3);border-radius:12px;padding:34px;}
+.guarantee-box h3{font-size:18px;margin-bottom:14px;color:#fff;}
+.guarantee-row{display:flex;gap:10px;align-items:flex-start;font-size:14px;margin-bottom:10px;}
+.check{color:var(--accent-green);font-weight:800;flex:0 0 18px;}
+
+.visualizer{background:#020617;border:1px solid var(--border-color);border-radius:8px;padding:22px;font-family:monospace;font-size:12.5px;line-height:1.7;margin-bottom:8px;}
+.vis-header{display:flex;justify-content:space-between;color:#475569;border-bottom:1px solid #1e293b;padding-bottom:10px;margin-bottom:14px;font-weight:700;}
+.log-blue{color:#38bdf8;} .log-amber{color:#fbbf24;} .log-green{color:#34d399;} .log-purple{color:#c084fc;}
+.viz-caption{text-align:center;font-size:11.5px;color:#64748b;font-family:monospace;}
+
+.faq-item{border-bottom:1px solid var(--border-color);padding:20px 2px;}
+.faq-item h4{font-size:15px;margin-bottom:8px;}
+.faq-item p{font-size:13.5px;color:var(--text-muted);}
+
+.form-card{background:var(--card-bg-gradient);border:1px solid var(--border-color);border-radius:12px;padding:40px;}
+.form-group{margin-bottom:20px;}
+label{display:block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--text-muted);margin-bottom:8px;}
+input,textarea{width:100%;background:#020617;border:1px solid var(--border-color);border-radius:6px;padding:13px;color:#fff;font-family:inherit;font-size:14px;}
+input:focus,textarea:focus{outline:none;border-color:var(--accent-blue);}
+.submit-btn{width:100%;background:var(--accent-blue);color:#020617;padding:15px;border:none;border-radius:6px;font-weight:800;font-size:14.5px;cursor:pointer;}
+.submit-btn:hover{background:#7dd3fc;}
+
+.cta-final{text-align:center;background:var(--card-bg-gradient);border:1px solid var(--border-color);border-radius:12px;padding:44px 30px;}
+.cta-final h3{font-size:22px;margin-bottom:12px;}
+.cta-final p{color:var(--text-muted);font-size:14.5px;margin-bottom:24px;max-width:520px;margin-left:auto;margin-right:auto;}
+
+footer{text-align:center;padding:40px 0 0;color:var(--text-muted);font-size:12px;}
+</style>
+</head>
+<body>
+
+<div class="banner">FREE AUDIT · PAID ONLY FROM VERIFIED SAVINGS · NO SWITCHING REQUIRED TO SEE RESULTS</div>
+<nav>
+  <div class="logo"><span class="logo-dot"></span> OPTIMA WORKFLOWS</div>
+  <a href="index.html" class="back-link">← All Services</a>
+</nav>
+
+<header>
+  <div class="badge">Module 03 · Contingency Audit</div>
+  <h1>Carrier Bills Are Full of <span class="gradient-text">Accessorial Charges You Never Agreed To</span></h1>
+  <p class="lede lead">Send us your recent freight bills and contract rate sheets. We'll check every accessorial charge, surcharge, and line item against what you actually agreed to pay. Find out for free before you switch anything.</p>
+  <a href="#trial-form" class="cta-primary">Start My Free Freight Audit</a>
+  <span class="cta-sub">No cost to run · No need to leave your current provider to find out</span>
+</header>
+
+<section>
+  <div class="container">
+    <div class="section-title">
+      <h2>Freight Billing Is Complicated on Purpose</h2>
+      <p>Accessorial charges, fuel surcharges, and detention fees are where most billing errors hide.</p>
+    </div>
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-num">$1.89B</div>
+        <div class="stat-label">projected size of the North American freight audit and payment market by 2030 — this is an established, proven category</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">60 Days</div>
+        <div class="stat-label">of historical freight bills is typically enough to run a full diagnostic against your contract rates</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">$0</div>
+        <div class="stat-label">upfront cost. We only get paid from savings we actually verify and help you recover</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="callout">
+      <strong>You don't need to switch carriers or providers to run this audit.</strong> This is a free, standalone check against your existing bills and contracts — you keep every finding whether or not you choose to pursue recovery through us.
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-title">
+      <h2>What We Actually Check</h2>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num"></div>
+        <div><h3>Accessorial charge matching</h3><p>Every accessorial line item — detention, liftgate, residential delivery, redelivery — checked against your contract's actual agreed terms.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-num"></div>
+        <div><h3>Fuel surcharge verification</h3><p>Fuel surcharges recalculated against the index your contract specifies, catching stale or incorrect rate application.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-num"></div>
+        <div><h3>Wait-time and detention penalty review</h3><p>Charges cross-checked against proof-of-delivery timestamps to catch penalties billed for delays that weren't your fault.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-num"></div>
+        <div><h3>A documented findings report</h3><p>Every discrepancy backed by the source invoice, contract clause, and delivery record — ready to dispute directly with the carrier.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-title" style="margin-bottom:24px;"><h2>Sample Findings</h2></div>
+    <div class="visualizer">
+      <div class="vis-header"><span>EXAMPLE AUDIT OUTPUT</span><span>STATUS: SAMPLE</span></div>
+      <div class="log-blue">Loading files: freight_bills.csv, contract_rates.csv...</div>
+      <div class="log-purple">Matched 340 shipments against contracted accessorial rates.</div>
+      <div class="log-amber">Overcharge — Shipment #88213: detention fee billed $275, contract cap $150.</div>
+      <div class="log-amber">Overcharge — Shipment #88240: fuel surcharge applied at outdated index rate.</div>
+      <div class="log-green">Total discrepancy identified: $2,140.00</div>
+    </div>
+    <p class="viz-caption">Illustrative example only — not a real client result. Your audit runs on your own data.</p>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-title"><h2>Why Run This With Us</h2></div>
+    <div class="trust-grid">
+      <div class="trust-card">
+        <h4>No switching required</h4>
+        <p>This audit runs independently of your current carrier or freight-audit provider — you can run it even if you're already under contract elsewhere.</p>
+      </div>
+      <div class="trust-card">
+        <h4>Findings are yours either way</h4>
+        <p>Whether or not you pursue recovery through us, the documented findings report is yours to use in any carrier dispute.</p>
+      </div>
+      <div class="trust-card">
+        <h4>Built for mid-market shippers</h4>
+        <p>We focus on shippers and 3PLs that established freight-audit firms often deprioritize in favor of the largest accounts.</p>
+      </div>
+      <div class="trust-card">
+        <h4>Your data stays yours</h4>
+        <p>Files are used only for the audit requested, never sold or reused, with a data-handling agreement available before anything sensitive is sent.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="guarantee">
+  <div class="container">
+    <div class="guarantee-box">
+      <h3>The Guarantee, Plainly</h3>
+      <div class="guarantee-row"><span class="check">✓</span> We audit your recent freight bills against your contract rates at no cost.</div>
+      <div class="guarantee-row"><span class="check">✓</span> If we find no recoverable overcharges, you pay nothing.</div>
+      <div class="guarantee-row"><span class="check">✓</span> If we do, we take 40% of verified savings — you keep 60%, only once it's recovered.</div>
+      <div class="guarantee-row"><span class="check">✓</span> No retainer, no setup fee, no requirement to switch carriers or providers.</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-title"><h2>Questions Before You Send Anything</h2></div>
+    <div class="faq-item"><h4>What does the audit check for?</h4><p>We match final freight bills against your original carrier contract rates to flag accessorial surcharges, wait-time penalties, fuel surcharge errors, and other billing discrepancies.</p></div>
+    <div class="faq-item"><h4>What records are needed?</h4><p>Carrier freight bills, your original contract rate sheets, and proof-of-delivery records for the audited period.</p></div>
+    <div class="faq-item"><h4>Do I need to leave my current freight audit provider?</h4><p>No. This runs as a standalone check, and you can compare the findings against what you're currently getting before deciding anything.</p></div>
+    <div class="faq-item"><h4>How are you paid?</h4><p>40% of verified savings identified. If no overcharges are found, there's no fee.</p></div>
+  </div>
+</section>
+
+<section id="trial-form">
+  <div class="container">
+    <div class="cta-final">
+      <h3>Ready to Send Your Data?</h3>
+      <p>The intake page walks you through exactly what to export and where to share it — your submission is logged and queued for audit the moment you hit submit.</p>
+      <a href="freight-audit-intake.html" class="cta-primary">Go to Data Intake →</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p>Optima Workflows · Performance-based recovery services · No upfront fees</p>
+  </div>
+</footer>
+
+</body>
+</html>
