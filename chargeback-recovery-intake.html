@@ -58,6 +58,14 @@ input:focus,textarea:focus{outline:none;border-color:var(--accent-blue);}
 .data-note{background:rgba(52,211,153,.06);border:1px solid rgba(52,211,153,.25);border-radius:10px;padding:18px 22px;font-size:13.5px;color:#d1fae5;margin-top:8px;}
 .data-note strong{color:#fff;}
 
+.thank-you-card{background:var(--card-bg-gradient);border:1px solid rgba(52,211,153,.35);border-radius:12px;padding:48px 36px;text-align:center;}
+.thank-you-icon{width:52px;height:52px;border-radius:50%;background:rgba(52,211,153,.15);border:1px solid rgba(52,211,153,.4);color:var(--accent-green);font-size:26px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;}
+.thank-you-card h3{font-size:20px;margin-bottom:12px;color:#fff;}
+.thank-you-card p{font-size:14px;color:var(--text-muted);max-width:440px;margin:0 auto;}
+
+select{width:100%;background:#020617;border:1px solid var(--border-color);border-radius:6px;padding:13px;color:#fff;font-family:inherit;font-size:14px;}
+select:focus{outline:none;border-color:var(--accent-blue);}
+
 footer{text-align:center;padding:36px 0 0;}
 footer p{font-size:13px;color:var(--text-muted);max-width:560px;margin:0 auto;}
 footer .sig{font-family:monospace;font-size:12px;color:var(--text-muted);margin-top:18px;padding-top:18px;border-top:1px solid var(--border-color);}
@@ -69,11 +77,11 @@ footer .sig{font-family:monospace;font-size:12px;color:var(--text-muted);margin-
 
 <nav>
   <div class="logo"><span class="logo-dot"></span> OPTIMA WORKFLOWS</div>
-  <a href="chargeback-recovery.html" class="back-link">← Back to Module 04</a>
+  <a href="chargeback-recovery.html" class="back-link">← Back to Chargeback Recovery</a>
 </nav>
 
 <header>
-  <div class="badge">Data Intake · Module 04</div>
+  <div class="badge">Data Intake · Chargeback Recovery</div>
   <h1>Send Us Your Deduction Statements, <span class="gradient-text">We Start Disputing Immediately</span></h1>
   <p class="lead">Fill in the details below and share your retailer remittance statements, shipping manifests, and delivery records. The moment your data lands, it's queued for review against the retailer's own rules.</p>
 </header>
@@ -108,37 +116,59 @@ footer .sig{font-family:monospace;font-size:12px;color:var(--text-muted);margin-
     <div class="section-title">
       <h2>Submit Your Data</h2>
     </div>
-    <div class="form-card">
-      <!-- Replace ACTION_URL with your Google Apps Script Web App URL that writes rows to your Sheet -->
-      <form id="intakeForm" action="ACTION_URL" method="POST">
+    <div id="formWrap" class="form-card">
+      <!-- TODO: replace each entry.XXXXXXX below with the real entry ID from your Google Form
+           (View Page Source on the live form → Ctrl+F "entry.") -->
+      <form id="intakeForm" action="https://docs.google.com/forms/d/e/1FAIpQLSc32dAM-z4_1iDf3UF-kf7JqjQoiYya_rLZRKyogv93aO31rA/formResponse"
+            method="POST" target="hidden_iframe_chargeback" onsubmit="chargebackSubmitted=true;">
         <div class="form-group">
           <label for="company">Company Name</label>
-          <input type="text" id="company" name="company" required>
+          <input type="text" id="company" name="entry.COMPANY_ID" required>
         </div>
         <div class="form-group">
           <label for="contact">Your Name</label>
-          <input type="text" id="contact" name="contact" required>
+          <input type="text" id="contact" name="entry.CONTACT_ID" required>
         </div>
         <div class="form-group">
           <label for="email">Email</label>
-          <input type="email" id="email" name="email" required>
+          <input type="email" id="email" name="entry.EMAIL_ID" required>
         </div>
         <div class="form-group">
           <label for="retailers">Which Retailer(s)</label>
-          <input type="text" id="retailers" name="retailers" placeholder="e.g., Walmart, Target, Amazon Vendor Central" required>
+          <input type="text" id="retailers" name="entry.RETAILERS_ID" placeholder="e.g., Walmart, Target, Amazon Vendor Central" required>
         </div>
         <div class="form-group">
           <label for="period">Dispute Period</label>
-          <input type="text" id="period" name="period" placeholder="e.g., May 1 – June 30, 2026" required>
+          <input type="text" id="period" name="entry.PERIOD_ID" placeholder="e.g., May 1 – June 30, 2026" required>
         </div>
         <div class="form-group">
           <label for="filelink">Link to Your Files (Drive / Dropbox / OneDrive)</label>
-          <input type="text" id="filelink" name="filelink" placeholder="https://forms.gle/BcKzbp2J7zs4sWZN7" required>
+          <input type="text" id="filelink" name="entry.FILELINK_ID" placeholder="https://drive.google.com/..." required>
           <div class="form-hint">Set sharing to "anyone with the link can view" before pasting it here.</div>
         </div>
         <div class="form-group">
+          <label for="portalaccess">Do You Have Active Login Access to the Retailer's Dispute Portal?</label>
+          <select id="portalaccess" name="entry.PORTALACCESS_ID" required>
+            <option value="">Select one</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+            <option value="Not sure">Not sure</option>
+          </select>
+          <div class="form-hint">e.g., Vendor Central, Retail Link / APDP, Partners Online — we'll use this to confirm dispute approvals.</div>
+        </div>
+        <div class="form-group">
+          <label for="remittance">How Do You Receive Remittance / Payment Statements from This Retailer?</label>
+          <select id="remittance" name="entry.REMITTANCE_ID" required>
+            <option value="">Select one</option>
+            <option value="Email">Email</option>
+            <option value="Portal download">Portal download</option>
+            <option value="EDI">EDI</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="form-group">
           <label for="notes">Anything We Should Know</label>
-          <textarea id="notes" name="notes" rows="3" placeholder="Known disputed deduction codes, prior dispute history, anything else useful..."></textarea>
+          <textarea id="notes" name="entry.NOTES_ID" rows="3" placeholder="Known disputed deduction codes, prior dispute history, anything else useful..."></textarea>
         </div>
 
         <label class="consent">
@@ -149,14 +179,26 @@ footer .sig{font-family:monospace;font-size:12px;color:var(--text-muted);margin-
         <button type="submit" class="submit-btn">Submit My Data</button>
       </form>
     </div>
-    <div class="data-note"><strong>What happens next:</strong> your submission is logged the moment you hit submit, and matching against retailer deduction codes begins from there. You'll hear from us with findings — or confirmation that no invalid deductions were found — within a few business days.</div>
+
+    <div id="thankYou" class="thank-you-card" style="display:none;">
+      <div class="thank-you-icon">✓</div>
+      <h3>Got it — your data is in the queue.</h3>
+      <p>Matching against retailer deduction codes begins from here. Retailer dispute resolution typically takes 30–45 days after submission depending on the retailer — we'll keep you updated on status throughout.</p>
+    </div>
+
+    <iframe name="hidden_iframe_chargeback" id="hidden_iframe_chargeback" style="display:none;"
+            onload="if(chargebackSubmitted){document.getElementById('formWrap').style.display='none';document.getElementById('thankYou').style.display='block';window.scrollTo({top:document.getElementById('thankYou').offsetTop-100,behavior:'smooth'});}"></iframe>
+
+    <div class="data-note"><strong>What happens next:</strong> your submission is logged the moment you hit submit, and matching against retailer deduction codes begins from there. Retailer dispute resolution typically takes 30–45 days after submission depending on the retailer.</div>
   </div>
 </section>
+
+<script>var chargebackSubmitted = false;</script>
 
 <footer>
   <div class="container">
     <p>Questions before you submit? Reply to the audit-intake email we sent you, or reach out directly — happy to walk through file formatting first if that's easier.</p>
-    <div class="sig">Optima Workflows · Module 04 Data Intake · Used only for the audit requested.</div>
+    <div class="sig">Optima Workflows · Chargeback Recovery Data Intake · Used only for the audit requested.</div>
   </div>
 </footer>
 
