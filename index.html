@@ -129,6 +129,22 @@
         .section-title h2 { font-size: 28px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 12px; color: #ffffff; }
         .section-title p { color: var(--text-muted); font-size: 15px; }
 
+        .fit-section { max-width: 880px; margin: 90px auto 0 auto; }
+        .fit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 30px; }
+        .fit-card { border-radius: 12px; padding: 30px 28px; border: 1px solid var(--border-color); }
+        .fit-card.good { background: rgba(52,211,153,0.05); border-color: rgba(52,211,153,0.25); }
+        .fit-card.bad { background: rgba(148,163,184,0.04); border-color: var(--border-color); }
+        .fit-card h4 { font-size: 13px; font-family: monospace; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 16px; }
+        .fit-card.good h4 { color: #34d399; }
+        .fit-card.bad h4 { color: #94a3b8; }
+        .fit-card ul { list-style: none; padding: 0; }
+        .fit-card li { font-size: 14px; color: #cbd5e1; padding: 8px 0; display: flex; gap: 10px; align-items: flex-start; }
+        .fit-card .mk { flex: 0 0 16px; font-weight: 800; }
+        .fit-card.good .mk { color: #34d399; }
+        .fit-card.bad .mk { color: #64748b; }
+        .mirror-line { text-align: center; margin-top: 34px; font-size: 15px; color: #e2e8f0; max-width: 600px; margin-left: auto; margin-right: auto; }
+        .freedom-line { text-align: center; font-size: 12.5px; color: #64748b; margin-top: 10px; }
+
         /* Fixed 4-card grid — no more orphaned 4th card */
         .frameworks-grid {
             display: grid;
@@ -324,6 +340,7 @@
             <a href="#frameworks" class="cta-btn">See How It Works ↓</a>
             <a href="#pilot-terms" class="sec-btn">Read the Trial Terms</a>
         </div>
+        <p style="margin-top:22px; font-size:12.5px; color:#64748b; max-width:520px; margin-left:auto; margin-right:auto;">Before you dig in — this works best for a specific kind of business, not every business. Worth two minutes to check you're a fit before you send anything.</p>
     </header>
 
     <main class="container" id="frameworks">
@@ -347,7 +364,7 @@
                         <div class="matrix-row">Upfront cost: <span style="color: #34d399; font-weight: bold;">$0.00</span></div>
                     </div>
                 </div>
-                <a href="vendor-audit.html" class="repo-link">START A FREE AUDIT →</a>
+                <a href="vendor-audit/" class="repo-link">START A FREE AUDIT →</a>
             </article>
 
             <article>
@@ -364,7 +381,7 @@
                         <div class="matrix-row">Upfront cost: <span style="color: #34d399; font-weight: bold;">$0.00</span></div>
                     </div>
                 </div>
-                <a href="appointment-booking.html" class="repo-link">RUN A 200-LEAD TRIAL →</a>
+                <a href="appointment-booking/" class="repo-link">RUN A 200-LEAD TRIAL →</a>
             </article>
 
             <article>
@@ -381,7 +398,7 @@
                         <div class="matrix-row">Upfront cost: <span style="color: #34d399; font-weight: bold;">$0.00</span></div>
                     </div>
                 </div>
-                <a href="freight-audit.html" class="repo-link">START A FREE AUDIT →</a>
+                <a href="freight-audit/" class="repo-link">START A FREE AUDIT →</a>
             </article>
 
             <article>
@@ -398,7 +415,7 @@
                         <div class="matrix-row">Upfront cost: <span style="color: #34d399; font-weight: bold;">$0.00</span></div>
                     </div>
                 </div>
-                <a href="chargeback-recovery.html" class="repo-link">START A FREE AUDIT →</a>
+                <a href="chargeback-recovery/" class="repo-link">START A FREE AUDIT →</a>
             </article>
         </div>
 
@@ -524,9 +541,38 @@
             </div>
         </section>
 
+        <section class="fit-section">
+            <div class="section-title" style="margin-bottom:0;">
+                <h2>Is This Actually a Fit for You?</h2>
+                <p>This isn't for everyone, and it shouldn't be. Read both sides honestly before you reach out.</p>
+            </div>
+            <div class="fit-grid">
+                <div class="fit-card good">
+                    <h4>This is a fit if</h4>
+                    <ul>
+                        <li><span class="mk">✓</span> You have real invoice/lead volume already flowing — this finds money and appointments inside data you already have, it doesn't create new business from nothing</li>
+                        <li><span class="mk">✓</span> You can export files or grant access within a few days, not a few months</li>
+                        <li><span class="mk">✓</span> You'll actually act on findings — deduct confirmed overbilling, dispute confirmed deductions, call confirmed appointments</li>
+                        <li><span class="mk">✓</span> You're fine working entirely by email and written follow-up, no calls required on either side</li>
+                    </ul>
+                </div>
+                <div class="fit-card bad">
+                    <h4>This isn't a fit if</h4>
+                    <ul>
+                        <li><span class="mk">–</span> You're still deciding whether to fix this problem at all — come back when you are</li>
+                        <li><span class="mk">–</span> You need weeks of internal sign-off before sharing a data export</li>
+                        <li><span class="mk">–</span> You want guaranteed dollar figures before any audit runs — we don't promise outcomes we haven't verified</li>
+                        <li><span class="mk">–</span> You need this handled over the phone — everything here runs by email and form, by design</li>
+                    </ul>
+                </div>
+            </div>
+            <p class="mirror-line">If the left column sounds like you, the next move is yours — send your data and we'll tell you honestly what we find, including "nothing."</p>
+            <p class="freedom-line">You're free to decide. No follow-up chasing if you're not ready yet.</p>
+        </section>
+
         <section class="contact-section" id="contact">
-            <h3 style="margin-bottom: 8px; color: white;">Start a Free Trial</h3>
-            <p style="font-size: 13.5px; color: #94a3b8; margin-bottom: 32px;">Tell us a bit about your business and which module fits — we'll follow up to scope a no-cost trial.</p>
+            <h3 style="margin-bottom: 8px; color: white;">Ready? Send Us What You've Got</h3>
+            <p style="font-size: 13.5px; color: #94a3b8; margin-bottom: 32px;">Tell us a bit about your business. We'll reply by email — never a call — to scope a no-cost trial or tell you honestly if it's not a fit yet.</p>
 
             <form action="https://formspree.io/f/mnjkknbg" method="POST">
                 <div class="form-group">
@@ -543,6 +589,7 @@
                 </div>
                 <button type="submit" class="submit-btn">SEND — NO COST TO START</button>
             </form>
+            <p style="font-size:12px;color:#64748b;margin-top:16px;">We reply by email only. Not ready? You're free to sit on this — the offer doesn't expire.</p>
         </section>
 
         <section class="pilot-section" style="border-top: 1px solid #273549; margin-top: 80px; padding: 48px 0 24px 0;">
