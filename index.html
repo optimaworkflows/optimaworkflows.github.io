@@ -261,12 +261,6 @@
 
         /* FAQ */
         .faq-section { max-width: 780px; margin: 80px auto 0 auto; }
-        .faq-item {
-            border-bottom: 1px solid var(--border-color);
-            padding: 22px 4px;
-        }
-        .faq-item h4 { font-size: 15px; color: #fff; margin-bottom: 10px; }
-        .faq-item p { font-size: 13.5px; color: var(--text-muted); line-height: 1.65; }
 
         .contact-section {
             max-width: 640px;
@@ -318,7 +312,15 @@
             transition: all 0.2s ease;
         }
         .submit-btn:hover { background-color: #ffffff !important; color: #030712 !important; border-color: #ffffff !important; }
-    </style>
+    
+.faq-section{margin:0;}
+.faq-item{border-bottom:1px solid var(--border-color);}
+.faq-item summary{list-style:none;display:flex;justify-content:space-between;align-items:center;padding:18px 4px;cursor:pointer;font-size:15px;font-weight:600;color:#f1f5f9;user-select:none;}
+.faq-item summary::-webkit-details-marker{display:none;}
+.faq-item summary::after{content:"+";font-size:20px;font-weight:300;color:var(--accent-blue);flex-shrink:0;transition:transform .25s;}
+.faq-item[open] summary::after{transform:rotate(45deg);}
+.faq-item p{font-size:13.5px;color:var(--text-muted);padding:0 4px 18px;margin:0;}
+</style>
 </head>
 <body>
 
@@ -523,22 +525,22 @@
             <div class="section-title" style="margin-bottom: 30px;">
                 <h2 style="font-size: 24px;">Common Questions</h2>
             </div>
-            <div class="faq-item">
-                <h4>What exactly do you need from us to start a trial?</h4>
+            <details class="faq-item">
+                <summary>What exactly do you need from us to start a trial?</summary>
                 <p>For the audit services (vendor invoices, freight, chargebacks), we need the relevant historical records — invoices, receiving logs, freight bills, or remittance/chargeback data — for the period we're auditing. For appointment booking, we need your list of old, uncontacted leads and access to send/receive on your own phone number, granted through a scoped, revocable key — never your account password.</p>
-            </div>
-            <div class="faq-item">
-                <h4>What happens to our data after the trial?</h4>
+            </details>
+            <details class="faq-item">
+                <summary>What happens to our data after the trial?</summary>
                 <p>Your files are used only to run the audit or campaign you requested and aren't shared or reused for anything else. We're happy to sign a simple data-handling agreement before you send anything sensitive.</p>
-            </div>
-            <div class="faq-item">
-                <h4>Is there really no cost if you don't find anything?</h4>
+            </details>
+            <details class="faq-item">
+                <summary>Is there really no cost if you don't find anything?</summary>
                 <p>Correct. Invoice and freight audits are paid as a share of what you deduct before payment — if we find nothing, there's nothing to pay. Chargeback recovery and appointment booking are paid on results actually delivered — if we book or recover nothing, you owe nothing.</p>
-            </div>
-            <div class="faq-item">
-                <h4>Is the SMS/calling outreach compliant?</h4>
+            </details>
+            <details class="faq-item">
+                <summary>Is the SMS/calling outreach compliant?</summary>
                 <p>We follow TCPA consent and Do-Not-Call requirements on every campaign, including a DNC scrub before your leads are contacted. If your lead source's original opt-in doesn't cover the outreach channel we'd use, we'll flag that before starting rather than after.</p>
-            </div>
+            </details>
         </section>
 
         <section class="fit-section">
@@ -572,7 +574,7 @@
 
         <section class="contact-section" id="contact">
             <h3 style="margin-bottom: 8px; color: white;">Ready? Send Us What You've Got</h3>
-            <p style="font-size: 13.5px; color: #94a3b8; margin-bottom: 32px;">Tell us a bit about your business. We'll reply by email — never a call — to scope a no-cost trial or tell you honestly if it's not a fit yet.</p>
+            <p style="font-size: 13.5px; color: #94a3b8; margin-bottom: 32px;">Tell us a bit about your business and which service fits. We'll scope a no-cost trial and tell you honestly if it isn't right for you.</p>
 
             <form action="https://formspree.io/f/mnjkknbg" method="POST">
                 <div class="form-group">
@@ -589,7 +591,7 @@
                 </div>
                 <button type="submit" class="submit-btn">SEND — NO COST TO START</button>
             </form>
-            <p style="font-size:12px;color:#64748b;margin-top:16px;">We reply by email only. Not ready? You're free to sit on this — the offer doesn't expire.</p>
+            <p style="font-size:12px;color:#64748b;margin-top:16px;">Not ready yet? The offer doesn't expire — but every week without this running is a week of recoverable money you're absorbing and won't get back.</p>
         </section>
 
         <section class="pilot-section" style="border-top: 1px solid #273549; margin-top: 80px; padding: 48px 0 24px 0;">
