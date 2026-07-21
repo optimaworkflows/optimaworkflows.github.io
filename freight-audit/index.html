@@ -3,22 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Retail Chargeback Dispute Recovery | Optima Workflows</title>
-<meta name="description" content="Free audit of your retailer deductions and chargebacks. We match shipping and delivery records to reverse invalid charges. You pay nothing unless we recover credits.">
+<title>Freight Invoice Audit — Recover Carrier Overcharges | Optima Workflows</title>
+<meta name="description" content="Free audit of your freight invoices against carrier contract rates. We find accessorial overcharges and billing errors. You pay nothing unless we recover savings.">
 
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "Service",
-  "serviceType": "Retail Chargeback Dispute Recovery",
+  "serviceType": "Freight Invoice and Accessorial Audit",
   "provider": { "@type": "Organization", "name": "Optima Workflows" },
   "areaServed": "US",
-  "description": "Contingency-fee service matching shipping manifests and proof-of-delivery records against retailer deduction codes to reverse invalid chargebacks for suppliers selling into major retailers.",
+  "description": "Contingency-fee audit matching freight invoices against carrier contract rates to identify accessorial overcharges, wait-time penalties, and billing errors for shippers and logistics operations.",
   "offers": {
     "@type": "Offer",
     "price": "0.00",
     "priceCurrency": "USD",
-    "description": "No upfront fee. Compensation is 40% of reversed credits — nothing is owed if no invalid deductions are found."
+    "description": "No upfront fee. Compensation is 40% of the overcharge amount deducted from the carrier bill before payment — nothing is owed if no overcharges are found."
   }
 }
 </script>
@@ -29,23 +29,23 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "What kinds of chargebacks can be disputed?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Shortage claims, OTIF (on-time-in-full) penalties, compliance deductions, and other retailer-specific charges that can be contradicted by shipping manifests or proof-of-delivery records." }
-    },
-    {
-      "@type": "Question",
-      "name": "Which retailers does this cover?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Major retailers with vendor deduction programs, including Walmart, Target, and Amazon Vendor Central, each of which uses different deduction codes and dispute processes." }
+      "name": "What does a freight audit check for?",
+      "acceptedAnswer": { "@type": "Answer", "text": "We match final freight bills against your original carrier contract rates to flag accessorial surcharges, wait-time penalties, fuel surcharge errors, and other billing discrepancies." }
     },
     {
       "@type": "Question",
       "name": "What records are needed?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Retailer remittance and deduction statements, shipping manifests, and proof-of-delivery records for the disputed period." }
+      "acceptedAnswer": { "@type": "Answer", "text": "Carrier freight bills, your original contract rate sheets, and proof-of-delivery records for the period being audited." }
+    },
+    {
+      "@type": "Question",
+      "name": "How is this different from working with an existing freight audit vendor?",
+      "acceptedAnswer": { "@type": "Answer", "text": "The audit is run at no upfront cost as a trial before any switch or new contract is discussed, so a shipper can see actual findings before committing to anything." }
     },
     {
       "@type": "Question",
       "name": "How are you paid?",
-      "acceptedAnswer": { "@type": "Answer", "text": "40% of the credits successfully reversed. If no invalid deductions are found, there is no fee." }
+      "acceptedAnswer": { "@type": "Answer", "text": "40% of the verified savings identified. If no overcharges are found, there is no fee." }
     }
   ]
 }
@@ -113,14 +113,14 @@ section:first-of-type{border-top:none;}
 .step h3{font-size:16px;margin-bottom:6px;}
 .step p{font-size:14px;color:var(--text-muted);}
 
-.retailer-row{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:8px;}
-.retailer-chip{background:var(--card-bg-gradient);border:1px solid var(--border-color);border-radius:8px;padding:12px 22px;font-size:14px;font-weight:700;color:#fff;}
-
 .trust-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;}
 .trust-card{background:var(--card-bg-gradient);border:1px solid var(--border-color);border-radius:10px;padding:24px;}
 .trust-card h4{font-size:14px;margin-bottom:8px;color:#fff;}
 .trust-card p{font-size:13.5px;color:var(--text-muted);}
 @media(max-width:700px){.trust-grid{grid-template-columns:1fr;}}
+
+.callout{background:rgba(56,189,248,.06);border:1px solid rgba(56,189,248,.25);border-radius:10px;padding:22px 26px;font-size:14.5px;color:#dbeafe;}
+.callout strong{color:#fff;}
 
 .guarantee-box{background:var(--card-bg-gradient);border:1px solid rgba(52,211,153,.3);border-radius:12px;padding:34px;}
 .guarantee-box h3{font-size:18px;margin-bottom:14px;color:#fff;}
@@ -161,7 +161,7 @@ footer{text-align:center;padding:40px 0 0;color:var(--text-muted);font-size:12px
 </head>
 <body>
 
-<div class="banner">FREE AUDIT · PAID ONLY FROM REVERSED CREDITS · WALMART · TARGET · AMAZON VENDOR CENTRAL</div>
+<div class="banner">FREE AUDIT · PAID ONLY FROM VERIFIED SAVINGS · NO SWITCHING REQUIRED TO SEE RESULTS</div>
 <nav>
   <div class="logo"><span class="logo-dot"></span> OPTIMA WORKFLOWS</div>
   <a href="../" class="back-link">← All Services</a>
@@ -169,37 +169,40 @@ footer{text-align:center;padding:40px 0 0;color:var(--text-muted);font-size:12px
 
 <header>
   <div class="badge">Contingency Audit · No Upfront Cost</div>
-  <h1>Retail Deductions Are Quietly Eating <span class="gradient-text"><span style="white-space:nowrap;">2–10%</span> of Your Revenue</span></h1>
-  <p class="lead">Send us your retailer remittance statements, shipping manifests, and proof-of-delivery records. We'll find the invalid shortage claims and compliance deductions you can actually dispute — for free.</p>
-  <a href="#trial-form" class="cta-primary">Start My Free Chargeback Audit</a>
-  <span class="cta-sub">No cost to run · Pay only if we reverse credits back to you</span>
-  <p style="margin-top:16px;font-size:12px;color:#64748b;max-width:440px;margin-left:auto;margin-right:auto;">Quick note before you send anything — this works best for a specific kind of supplier. Two minutes to check below.</p>
+  <h1>Carrier Bills Are Full of <span class="gradient-text">Accessorial Charges You Never Agreed To</span></h1>
+  <p class="lede lead">Send us your recent freight bills and contract rate sheets. We'll check every accessorial charge, surcharge, and line item against what you actually agreed to pay. Find out for free before you switch anything.</p>
+  <a href="#trial-form" class="cta-primary">Start My Free Freight Audit</a>
+  <span class="cta-sub">No cost to run · No need to leave your current provider to find out</span>
+  <p style="margin-top:16px;font-size:12px;color:#64748b;max-width:440px;margin-left:auto;margin-right:auto;">Quick note before you send anything — this works best for a specific kind of shipper. Two minutes to check below.</p>
 </header>
 
 <section>
   <div class="container">
     <div class="section-title">
-      <h2>Every Supplier Selling to Major Retailers Feels This</h2>
-      <p>Deduction codes vary by retailer, and that complexity is exactly what lets invalid charges slip through.</p>
+      <h2>Freight Billing Is Complicated on Purpose</h2>
+      <p>Accessorial charges, fuel surcharges, and detention fees are where most billing errors hide.</p>
     </div>
     <div class="stat-grid">
       <div class="stat-card">
-        <div class="stat-num">2–10%</div>
-        <div class="stat-label">of overall revenue typically lost to chargebacks and deductions across consumer goods suppliers</div>
+        <div class="stat-num">$1.89B</div>
+        <div class="stat-label">projected size of the North American freight audit and payment market by 2030 — this is an established, proven category</div>
       </div>
       <div class="stat-card">
-        <div class="stat-num">3 Rulebooks</div>
-        <div class="stat-label">Walmart OTIF, Amazon Vendor Central, and Target each use distinct deduction codes and dispute processes</div>
+        <div class="stat-num">60 Days</div>
+        <div class="stat-label">of historical freight bills is typically enough to run a full diagnostic against your contract rates</div>
       </div>
       <div class="stat-card">
         <div class="stat-num">$0</div>
-        <div class="stat-label">upfront cost. We only get paid from credits we actually help you recover</div>
+        <div class="stat-label">upfront cost. We only get paid from savings we actually verify and help you recover</div>
       </div>
     </div>
-    <div class="retailer-row">
-      <div class="retailer-chip">Walmart OTIF</div>
-      <div class="retailer-chip">Amazon Vendor Central</div>
-      <div class="retailer-chip">Target</div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="callout">
+      <strong>You don't need to switch carriers or providers to run this audit.</strong> This is a free, standalone check against your existing bills and contracts — you keep every finding whether or not you choose to pursue recovery through us.
     </div>
   </div>
 </section>
@@ -212,19 +215,19 @@ footer{text-align:center;padding:40px 0 0;color:var(--text-muted);font-size:12px
     <div class="steps">
       <div class="step">
         <div class="step-num"></div>
-        <div><h3>Shortage claim verification</h3><p>Retailer-claimed shortages checked against your shipping manifests and proof-of-delivery records — many "shortages" were fully delivered.</p></div>
+        <div><h3>Accessorial charge matching</h3><p>Every accessorial line item — detention, liftgate, residential delivery, redelivery — checked against your contract's actual agreed terms.</p></div>
       </div>
       <div class="step">
         <div class="step-num"></div>
-        <div><h3>Compliance deduction review</h3><p>OTIF and compliance-code deductions checked against the retailer's own published rulebook for that code, not assumed valid by default.</p></div>
+        <div><h3>Fuel surcharge verification</h3><p>Fuel surcharges recalculated against the index your contract specifies, catching stale or incorrect rate application.</p></div>
       </div>
       <div class="step">
         <div class="step-num"></div>
-        <div><h3>Duplicate deduction check</h3><p>Cross-statement scan for the same shipment deducted more than once — a common error across high-volume retailer accounts.</p></div>
+        <div><h3>Wait-time and detention penalty review</h3><p>Charges cross-checked against proof-of-delivery timestamps to catch penalties billed for delays that weren't your fault.</p></div>
       </div>
       <div class="step">
         <div class="step-num"></div>
-        <div><h3>A dispute-ready findings package</h3><p>Every contestable deduction documented with the source statement, manifest, and delivery proof — formatted for direct submission to the retailer's dispute portal.</p></div>
+        <div><h3>A documented findings report</h3><p>Every discrepancy backed by the source invoice, contract clause, and delivery record — ready to dispute directly with the carrier.</p></div>
       </div>
     </div>
   </div>
@@ -235,11 +238,11 @@ footer{text-align:center;padding:40px 0 0;color:var(--text-muted);font-size:12px
     <div class="section-title" style="margin-bottom:24px;"><h2>Sample Findings</h2></div>
     <div class="visualizer">
       <div class="vis-header"><span>EXAMPLE AUDIT OUTPUT</span><span>STATUS: SAMPLE</span></div>
-      <div class="log-blue">Loading files: remittance_statement.csv, shipping_manifest.csv...</div>
-      <div class="log-purple">Matched 212 deduction line items against delivery records.</div>
-      <div class="log-amber">Invalid — Deduction #DC-3391: shortage claim of 40 units, POD confirms full delivery.</div>
-      <div class="log-amber">Invalid — Deduction #DC-3407: OTIF penalty applied outside contracted delivery window.</div>
-      <div class="log-green">Total disputable credits identified: $3,260.00</div>
+      <div class="log-blue">Loading files: freight_bills.csv, contract_rates.csv...</div>
+      <div class="log-purple">Matched 340 shipments against contracted accessorial rates.</div>
+      <div class="log-amber">Overcharge — Shipment #88213: detention fee billed $275, contract cap $150.</div>
+      <div class="log-amber">Overcharge — Shipment #88240: fuel surcharge applied at outdated index rate.</div>
+      <div class="log-green">Total discrepancy identified: $2,140.00</div>
     </div>
     <p class="viz-caption">Illustrative example only — not a real client result. Your audit runs on your own data.</p>
   </div>
@@ -250,16 +253,16 @@ footer{text-align:center;padding:40px 0 0;color:var(--text-muted);font-size:12px
     <div class="section-title"><h2>Why Run This With Us</h2></div>
     <div class="trust-grid">
       <div class="trust-card">
-        <h4>Retailer-specific rulebooks</h4>
-        <p>Walmart, Target, and Amazon each use different deduction codes — findings are matched against the specific retailer's actual rules, not a generic template.</p>
+        <h4>No switching required</h4>
+        <p>This audit runs independently of your current carrier or freight-audit provider — you can run it even if you're already under contract elsewhere.</p>
       </div>
       <div class="trust-card">
-        <h4>Dispute-ready, not just a report</h4>
-        <p>Findings come formatted for direct submission to the retailer's own dispute process, not just a summary you have to reformat yourself.</p>
+        <h4>Findings are yours either way</h4>
+        <p>Whether or not you pursue recovery through us, the documented findings report is yours to use in any carrier dispute.</p>
       </div>
       <div class="trust-card">
-        <h4>No cost to find out</h4>
-        <p>The audit runs at no charge — you see exactly what's disputable before anything is owed.</p>
+        <h4>Built for mid-market shippers</h4>
+        <p>We focus on shippers and 3PLs that established freight-audit firms often deprioritize in favor of the largest accounts.</p>
       </div>
       <div class="trust-card">
         <h4>Your data stays yours</h4>
@@ -273,11 +276,10 @@ footer{text-align:center;padding:40px 0 0;color:var(--text-muted);font-size:12px
   <div class="container">
     <div class="guarantee-box">
       <h3>The Guarantee, Plainly</h3>
-      <div class="guarantee-row"><span class="check">✓</span> We audit your recent retailer statements and delivery records at no cost.</div>
-      <div class="guarantee-row"><span class="check">✓</span> If we find no invalid deductions, you pay nothing.</div>
-      <div class="guarantee-row"><span class="check">✓</span> If we do, we take 40% of credits the retailer approves — you keep 60%. Retailer resolution typically takes 30–45 days after we submit the dispute, depending on the retailer.</div>
-      <div class="guarantee-row"><span class="check">✓</span> If an approved credit doesn't appear on your next remittance within 60 days, we refund our fee on that item — no questions asked.</div>
-      <div class="guarantee-row"><span class="check">✓</span> The trial delivers a findings snapshot at no cost. Clients who sign an ongoing engagement get the full dispute package and weekly monitoring every Friday.</div>
+      <div class="guarantee-row"><span class="check">✓</span> We audit your recent freight bills against your contract rates at no cost.</div>
+      <div class="guarantee-row"><span class="check">✓</span> If we find no recoverable overcharges, you pay nothing.</div>
+      <div class="guarantee-row"><span class="check">✓</span> If we find overcharges, we share a snapshot at no cost. Clients on an ongoing engagement get the full itemised report and dispute support — we take 40% of verified deductions, you keep 60%.</div>
+      <div class="guarantee-row"><span class="check">✓</span> The trial delivers a findings snapshot at no cost. Clients who continue get the full recovery report and weekly audits running every Friday — keeping overcharges from building up undetected.</div>
     </div>
   </div>
 </section>
@@ -286,47 +288,47 @@ footer{text-align:center;padding:40px 0 0;color:var(--text-muted);font-size:12px
   <div class="container">
     <div class="section-title"><h2>What You Need to Know Before You Proceed</h2></div>
     <details class="faq-item">
-  <summary>What kinds of chargebacks can be disputed?</summary>
-  <p>Shortage claims, OTIF penalties, compliance deductions, and other retailer-specific charges that shipping manifests or proof-of-delivery records can contradict.</p>
-</details>
-    <details class="faq-item">
-  <summary>Which retailers does this cover?</summary>
-  <p>Major retailers with vendor deduction programs, including Walmart, Target, and Amazon Vendor Central — each handled against that retailer's own deduction codes.</p>
+  <summary>What does the audit check for?</summary>
+  <p>We match final freight bills against your original carrier contract rates to flag accessorial surcharges, wait-time penalties, fuel surcharge errors, and other billing discrepancies.</p>
 </details>
     <details class="faq-item">
   <summary>What records are needed?</summary>
-  <p>Retailer remittance/deduction statements, shipping manifests, and proof-of-delivery records for the disputed period.</p>
+  <p>Carrier freight bills, your original contract rate sheets, and proof-of-delivery records for the audited period.</p>
+</details>
+    <details class="faq-item">
+  <summary>Do I need to leave my current freight audit provider?</summary>
+  <p>No. This runs as a standalone check, and you can compare the findings against what you're currently getting before deciding anything.</p>
 </details>
     <details class="faq-item">
   <summary>How are you paid?</summary>
-  <p>40% of credits successfully reversed. If no invalid deductions are found, there's no fee.</p>
+  <p>40% of verified savings identified. If no overcharges are found, there's no fee.</p>
 </details>
   </div>
 </section>
 
 <section>
   <div class="container">
-    <div class="section-title"><h2>Is This a Fit?</h2><p>Honestly — it isn't for every supplier. Check both sides before you send anything.</p></div>
+    <div class="section-title"><h2>Is This a Fit?</h2><p>Honestly — it isn't for every shipper. Check both sides before you send anything.</p></div>
     <div class="fit-grid">
       <div class="fit-card good">
         <h4>Good fit if</h4>
         <ul>
-          <li><span class="mk">✓</span> You sell into Walmart, Target, or Amazon Vendor Central in real volume, not occasionally</li>
-          <li><span class="mk">✓</span> You can pull remittance statements and shipping manifests within a few days</li>
-          <li><span class="mk">✓</span> You're prepared to wait 30–45 days for retailer resolution once a dispute is filed</li>
+          <li><span class="mk">✓</span> You ship enough volume that accessorial charges are a real line item, not noise</li>
+          <li><span class="mk">✓</span> You can pull recent freight bills and your contract rate sheet within a few days</li>
+          <li><span class="mk">✓</span> You'll actually dispute confirmed overcharges once we find them</li>
           <li><span class="mk">✓</span> You're fine handling this entirely by email — no calls needed</li>
         </ul>
       </div>
       <div class="fit-card bad">
         <h4>Not yet if</h4>
         <ul>
-          <li><span class="mk">–</span> You need cash back same-week — retailer dispute timelines don't move that fast</li>
-          <li><span class="mk">–</span> Getting your statements out needs weeks of internal approval</li>
-          <li><span class="mk">–</span> You want a guaranteed credit amount before we've looked at anything</li>
+          <li><span class="mk">–</span> You're locked into a contract that already covers this and can't act on findings</li>
+          <li><span class="mk">–</span> Getting your rate sheet out needs weeks of internal approval</li>
+          <li><span class="mk">–</span> You want a guaranteed savings number before we've looked at anything</li>
         </ul>
       </div>
     </div>
-    <p class="mirror-line">If the left side sounds like you, sending your statements is the obvious next step — we'll tell you honestly what we find, including nothing.</p>
+    <p class="mirror-line">If the left side sounds like you, sending your bills is the obvious next step — we'll tell you honestly what we find, including nothing.</p>
     <p class="freedom-line">The offer doesn't expire — but every week without this running is a week of overbilling you're absorbing and won't get back.</p>
   </div>
 </section>
@@ -335,8 +337,8 @@ footer{text-align:center;padding:40px 0 0;color:var(--text-muted);font-size:12px
   <div class="container">
     <div class="cta-final">
       <h3>Ready to Proceed?</h3>
-      <p>The intake page walks you through exactly what to export and where to share it — your submission is logged and queued for review the moment you hit submit.</p>
-      <a href="../chargeback-recovery-intake/" class="cta-primary">Go to Intake →</a>
+      <p>The intake page walks you through exactly what to export and where to share it — your submission is logged and queued for audit the moment you hit submit.</p>
+      <a href="../freight-audit-intake/" class="cta-primary">Go to Intake →</a>
     </div>
   </div>
 </section>
