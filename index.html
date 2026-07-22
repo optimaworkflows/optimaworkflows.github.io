@@ -143,7 +143,7 @@
         .fit-card.good .mk { color: #34d399; }
         .fit-card.bad .mk { color: #64748b; }
         .mirror-line { text-align: center; margin-top: 34px; font-size: 15px; color: #e2e8f0; max-width: 600px; margin-left: auto; margin-right: auto; }
-        .freedom-line { text-align: center; font-size: 12.5px; color: #64748b; margin-top: 10px; }
+        .freedom-line { text-align: center; font-size: 14.5px; font-weight: 600; color: #e2e8f0; margin-top: 14px; max-width: 620px; margin-left: auto; margin-right: auto; }
 
         /* Fixed 4-card grid — no more orphaned 4th card */
         .frameworks-grid {
@@ -319,7 +319,11 @@
 .faq-item summary::-webkit-details-marker{display:none;}
 .faq-item summary::after{content:"+";font-size:20px;font-weight:300;color:var(--accent-blue);flex-shrink:0;transition:transform .25s;}
 .faq-item[open] summary::after{transform:rotate(45deg);}
-.faq-item p{font-size:13.5px;color:var(--text-muted);padding:0 4px 18px;margin:0;}
+.faq-item p{font-size:15px;color:#e2e8f0;padding:0 4px 18px;margin:0;line-height:1.65;}
+
+.fit-anchor-cta{display:inline-block;margin-top:20px;padding:11px 24px;border:1px solid rgba(56,189,248,.4);border-radius:6px;color:var(--accent-blue);font-size:13.5px;font-weight:700;text-decoration:none;letter-spacing:.03em;transition:all .2s;}
+.fit-anchor-cta:hover{background:rgba(56,189,248,.12);border-color:var(--accent-blue);}
+.fit-anchor-cta::after{content:" ↓";font-size:14px;}
 </style>
 </head>
 <body>
@@ -342,7 +346,7 @@
             <a href="#frameworks" class="cta-btn">See How It Works ↓</a>
             <a href="#pilot-terms" class="sec-btn">Read the Trial Terms</a>
         </div>
-        <p style="margin-top:22px; font-size:12.5px; color:#64748b; max-width:520px; margin-left:auto; margin-right:auto;">Before you dig in — this works best for a specific kind of business, not every business. Worth two minutes to check you're a fit before you send anything.</p>
+        <a href="#fit-check" class="fit-anchor-cta">Check if this is a fit for your business</a>
     </header>
 
     <main class="container" id="frameworks">
@@ -503,7 +507,7 @@
                 </div>
                 <div class="pilot-card" style="border-left: 4px solid #34d399;">
                     <h4>04 · CHARGEBACK DISPUTE RECOVERY</h4>
-                    <p>We audit your retailer statements and delivery records at no cost. If we find no invalid deductions, you owe nothing. If we do, we take 40% of credits the retailer approves — you keep 60%. Resolution typically takes 30–45 days depending on the retailer, and if an approved credit doesn't land on your next remittance within 60 days, we refund our fee on that item.</p>
+                    <p>We audit your most recent 30 days of retailer deductions — the window that matters. Amazon allows 30 days to dispute, Walmart 15–30 days from posting, Target just 14 days for compliance chargebacks. Anything outside these windows is locked permanently. We share a snapshot of disputable credits at no cost. Clients who continue get the full dispute package and ongoing weekly monitoring.</p>
                 </div>
             </div>
         </section>
@@ -545,7 +549,7 @@
 
         <section class="fit-section">
             <div class="section-title" style="margin-bottom:0;">
-                <h2>Is This Actually a Fit for You?</h2>
+                <h2 id="fit-check">Is This Actually a Fit for You?</h2>
                 <p>This isn't for everyone, and it shouldn't be. Read both sides honestly before you reach out.</p>
             </div>
             <div class="fit-grid">
@@ -553,7 +557,7 @@
                     <h4>This is a fit if</h4>
                     <ul>
                         <li><span class="mk">✓</span> You have real invoice/lead volume already flowing — this finds money and appointments inside data you already have, it doesn't create new business from nothing</li>
-                        <li><span class="mk">✓</span> You can export files or grant access within a few days, not a few months</li>
+                        <li><span class="mk">✓</span> You can export files or grant access within hours, not days or months</li>
                         <li><span class="mk">✓</span> You'll actually act on findings — deduct confirmed overbilling, dispute confirmed deductions, follow up on confirmed appointments</li>
                         <li><span class="mk">✓</span> You're fine working entirely by email and written follow-up, no calls required on either side</li>
                     </ul>
