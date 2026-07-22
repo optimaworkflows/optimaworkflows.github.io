@@ -77,7 +77,11 @@ footer .sig{font-family:monospace;font-size:12px;color:var(--text-muted);margin-
 .faq-item summary::-webkit-details-marker{display:none;}
 .faq-item summary::after{content:"+";font-size:20px;font-weight:300;color:var(--accent-blue);flex-shrink:0;transition:transform .25s;}
 .faq-item[open] summary::after{transform:rotate(45deg);}
-.faq-item p{font-size:13.5px;color:var(--text-muted);padding:0 4px 18px;margin:0;}
+.faq-item p{font-size:15px;color:#e2e8f0;padding:0 4px 18px;margin:0;line-height:1.65;}
+
+.fit-anchor-cta{display:inline-block;margin-top:20px;padding:11px 24px;border:1px solid rgba(56,189,248,.4);border-radius:6px;color:var(--accent-blue);font-size:13.5px;font-weight:700;text-decoration:none;letter-spacing:.03em;transition:all .2s;}
+.fit-anchor-cta:hover{background:rgba(56,189,248,.12);border-color:var(--accent-blue);}
+.fit-anchor-cta::after{content:" ↓";font-size:14px;}
 </style>
 </head>
 <body>
@@ -191,7 +195,7 @@ footer .sig{font-family:monospace;font-size:12px;color:var(--text-muted);margin-
     <div id="thankYou" class="thank-you-card" style="display:none;">
       <div class="thank-you-icon">✓</div>
       <h3>Got it — your data is in the queue.</h3>
-      <p>Matching against retailer deduction codes begins from here. Retailer dispute resolution typically takes 30–45 days after submission depending on the retailer — we'll keep you updated on status throughout.</p>
+      <p>Matching against retailer deduction codes begins from here. Dispute windows are strict and short — Amazon allows 30 days, Walmart 15–30 days from the posting date, and Target just 14 days for compliance chargebacks. We audit your most recent 30 days of deductions first to catch anything still inside the dispute window before it locks permanently.</p>
     </div>
 
     <iframe name="hidden_iframe_chargeback" id="hidden_iframe_chargeback" style="display:none;"
