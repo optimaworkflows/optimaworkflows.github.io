@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Vendor Overbilling Audit — Find Money You're Already Owed | Optima Workflows</title>
-<meta name="description" content="Free audit of your vendor invoices and receiving records. We find overbilling, shipment shortfalls, and pricing errors. You pay nothing unless we recover money.">
+<meta name="description" content="Free audit of your vendor invoices and receiving records. We find overbilling, shipment shortfalls, and pricing errors. You pay nothing unless we find overbilling.">
 <script type="application/ld+json">
 {
 "@context": "https://schema.org",
@@ -39,12 +39,17 @@
 {
 "@type": "Question",
 "name": "How do you get paid?",
-"acceptedAnswer": { "@type": "Answer", "text": "We are paid 40% of the amount we help you recover from vendors. If no recoverable discrepancies are found, there is no fee." }
+"acceptedAnswer": { "@type": "Answer", "text": "We are paid 40% of the overbilling we identify and document. If no discrepancies are found, there is no fee." }
 },
 {
 "@type": "Question",
 "name": "Is my financial data safe?",
 "acceptedAnswer": { "@type": "Answer", "text": "Your files are used only to run the audit you requested and are not shared, sold, or reused. We provide a data-handling agreement before any sensitive files are sent." }
+},
+{
+"@type": "Question",
+"name": "Can we get on a call to discuss this first?",
+"acceptedAnswer": { "@type": "Answer", "text": "Everything here runs by email and written form by design — it keeps every commitment documented and gets your audit started faster than scheduling a call would. Reply to any email and you'll get a same-business-day written answer." }
 }
 ]
 }
@@ -151,10 +156,14 @@ footer{text-align:center;padding:40px 0 0;color:var(--text-muted);font-size:12px
 .fit-anchor-cta{display:inline-block;margin-top:20px;padding:11px 24px;border:1px solid rgba(56,189,248,.4);border-radius:6px;color:var(--accent-blue);font-size:13.5px;font-weight:700;text-decoration:none;letter-spacing:.03em;transition:all .2s;}
 .fit-anchor-cta:hover{background:rgba(56,189,248,.12);border-color:var(--accent-blue);}
 .fit-anchor-cta::after{content:" ↓";font-size:14px;}
+.hero-stat{display:inline-flex;align-items:center;gap:10px;background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.3);border-radius:9999px;padding:10px 20px;font-size:13.5px;color:#fde68a;margin:0 auto 26px;max-width:640px;text-align:left;}
+.hero-stat strong{color:#fff;font-weight:800;}
+.hero-stat .bolt{flex-shrink:0;font-size:15px;}
+@media(max-width:700px){.hero-stat{display:flex;text-align:left;}}
 </style>
 </head>
 <body>
-<div class="banner">FREE AUDIT · PAID ONLY IF WE RECOVER MONEY · NO CONTRACT TO START</div>
+<div class="banner">FREE AUDIT · PAID ONLY FOR VERIFIED OVERBILLING FOUND · NO CONTRACT TO START · NO SALES CALLS</div>
 <nav>
 <div class="logo"><span class="logo-dot"></span> OPTIMA WORKFLOWS</div>
 <a href="../" class="back-link">← All Services</a>
@@ -162,9 +171,10 @@ footer{text-align:center;padding:40px 0 0;color:var(--text-muted);font-size:12px
 <header>
 <div class="badge">Contingency Audit · No Upfront Cost</div>
 <h1>That Vendor Invoice You Just Paid? <span class="gradient-text">It Was Probably Wrong</span></h1>
-<p class="lead">Send us 60 days of vendor invoices and receiving records. We'll check every line item against what you actually received. If we don't find recoverable overbilling, you pay nothing — ever.</p>
+<div class="hero-stat"><span class="bolt">⚡</span><span>Billing schemes are the <strong>most common form of asset-misappropriation fraud</strong> — and carry the highest median loss of any sub-scheme in that category: $100,000 per case. <em>Source: ACFE, Occupational Fraud 2022: A Report to the Nations.</em></span></div>
+<p class="lead">Send us 60 days of vendor invoices and receiving records. We'll check every line item against what you actually received. If we don't find overbilling, you pay nothing — ever.</p>
 <a href="#trial-form" class="cta-primary">Start My Free Audit</a>
-<span class="cta-sub">No cost to run · No contract required to see results</span>
+<span class="cta-sub">No cost to run · No contract required to see results · Everything handled by email — zero sales calls</span>
 <a href="#fit-check" class="fit-anchor-cta">Check if this is a fit for your business</a>
 </header>
 <section>
@@ -184,7 +194,7 @@ footer{text-align:center;padding:40px 0 0;color:var(--text-muted);font-size:12px
 </div>
 <div class="stat-card">
 <div class="stat-num">$0</div>
-<div class="stat-label">upfront cost. We only get paid from money we actually recover for you</div>
+<div class="stat-label">upfront cost. We only get paid for the overbilling we actually find and document for you</div>
 </div>
 </div>
 </div>
@@ -253,6 +263,10 @@ footer{text-align:center;padding:40px 0 0;color:var(--text-muted);font-size:12px
 <h4>Built around a recurring engagement</h4>
 <p>The trial gives you a one-time findings snapshot. Clients who continue get weekly audits — every Friday — so new overbilling gets caught before it builds up, not months after the fact.</p>
 </div>
+<div class="trust-card">
+<h4>Nothing here requires a phone call</h4>
+<p>Onboarding, findings, and follow-up all happen by email and written form. That's not a limitation — it keeps every finding documented and gets your audit started faster than waiting on a calendar invite ever would.</p>
+</div>
 </div>
 </div>
 </section>
@@ -261,7 +275,7 @@ footer{text-align:center;padding:40px 0 0;color:var(--text-muted);font-size:12px
 <div class="guarantee-box">
 <h3>The Guarantee, Plainly</h3>
 <div class="guarantee-row"><span class="check">✓</span> We audit 60 days of your invoice and receiving data at no cost.</div>
-<div class="guarantee-row"><span class="check">✓</span> If we find no recoverable discrepancies, you pay nothing. Full stop.</div>
+<div class="guarantee-row"><span class="check">✓</span> If we find no discrepancies, you pay nothing. Full stop.</div>
 <div class="guarantee-row"><span class="check">✓</span> If we find overbilling, we share a findings snapshot at no cost. Clients who sign an ongoing engagement get the full, line-by-line recovery report — every discrepancy documented with the source invoice and receiving record so your finance team can deduct it directly from the next payment. We take 40% of the amount deducted, you keep 60%.</div>
 <div class="guarantee-row"><span class="check">✓</span> Once you're a client, audits run weekly, every Friday — this isn't a one-time snapshot service, it's built to keep catching overbilling as it happens.</div>
 </div>
@@ -280,11 +294,15 @@ footer{text-align:center;padding:40px 0 0;color:var(--text-muted);font-size:12px
 </details>
 <details class="faq-item">
 <summary>How do you get paid?</summary>
-<p>40% of what we help you recover. If nothing recoverable is found, there's no fee at all.</p>
+<p>40% of what we identify and document. If nothing is found, there's no fee at all.</p>
 </details>
 <details class="faq-item">
 <summary>Is my financial data safe?</summary>
 <p>Yes — your files are used only for the audit you requested and are never sold, shared, or reused. We provide a data-handling agreement before anything sensitive is sent.</p>
+</details>
+<details class="faq-item">
+<summary>Can we get on a call to discuss this first?</summary>
+<p>Everything here runs by email and written form by design — it keeps every finding documented and gets your audit started faster than scheduling a call would. Reply to any email and you'll get a same-business-day written answer.</p>
 </details>
 </div>
 </section>
@@ -318,14 +336,14 @@ footer{text-align:center;padding:40px 0 0;color:var(--text-muted);font-size:12px
 <div class="container">
 <div class="cta-final">
 <h3>Ready to Proceed?</h3>
-<p>The intake page walks you through exactly what to export and where to share it — your submission is logged and queued for audit the moment you hit submit.</p>
+<p>The intake page walks you through exactly what to export and where to share it — your submission is logged and queued for audit the moment you hit submit. No sales call. No pitch. Just findings.</p>
 <a href="../vendor-audit-intake/" class="cta-primary">Go to Intake →</a>
 </div>
 </div>
 </section>
 <footer>
 <div class="container">
-<p>Optima Workflows · You only pay from overcharges we find — weekly audits for ongoing clients</p>
+<p>Optima Workflows · You only pay for overcharges we find — weekly audits for ongoing clients, everything handled by email</p>
 </div>
 </footer>
 </body>
