@@ -9,15 +9,14 @@
 {
 "@context": "https://schema.org",
 "@type": "Service",
-"serviceType": "Vendor Invoice Overbilling Audit",
+"serviceType": "Vendor and Invoice Overbilling Audit",
 "provider": { "@type": "Organization", "name": "Optima Workflows" },
 "areaServed": "US",
-"description": "Contingency-fee audit of vendor invoices, purchase orders, and receiving records to identify overbilling, shipment shortfalls, and pricing discrepancies for distributors and wholesalers.",
+"description": "Contingency-based audit of vendor invoices against purchase orders and receiving records for US mid-market companies, identifying price discrepancies, quantity shortfalls, and duplicate billing.",
 "offers": {
 "@type": "Offer",
-"price": "0.00",
 "priceCurrency": "USD",
-"description": "No upfront fee. Compensation is 40% of the overbilling amount deducted from the vendor invoice before payment — nothing is owed if no discrepancies are found."
+"description": "No upfront fee. Client pays 40% of identified and documented overbilling only; if nothing is found, there is no fee at all."
 }
 }
 </script>
@@ -28,28 +27,28 @@
 "mainEntity": [
 {
 "@type": "Question",
-"name": "What does a vendor overbilling audit actually check for?",
-"acceptedAnswer": { "@type": "Answer", "text": "We compare what you were invoiced against what you actually ordered and received — checking unit prices against contracted rates, quantities billed against quantities delivered, and duplicate or double-billed line items." }
+"name": "What does the audit actually check for?",
+"acceptedAnswer": { "@type": "Answer", "text": "We compare what you were invoiced against what you ordered and received — unit prices against contracted rates, billed quantities against delivered quantities, and duplicate or double-billed line items." }
 },
 {
 "@type": "Question",
-"name": "What records do you need to run the audit?",
-"acceptedAnswer": { "@type": "Answer", "text": "Vendor invoices, purchase orders, and receiving or goods-received records for the period being audited, typically the last 60 days, usually exported from your ERP or accounting system as CSV or Excel files." }
+"name": "What records do you need?",
+"acceptedAnswer": { "@type": "Answer", "text": "Vendor invoices, purchase orders, and receiving or goods-received records for the period audited — typically the last 60 days, exported as CSV or Excel from your ERP or accounting system." }
 },
 {
 "@type": "Question",
 "name": "How do you get paid?",
-"acceptedAnswer": { "@type": "Answer", "text": "We are paid 40% of the overbilling we identify and document. If no discrepancies are found, there is no fee." }
+"acceptedAnswer": { "@type": "Answer", "text": "40% of the overbilling we identify and document. If nothing is found, there is no fee at all." }
 },
 {
 "@type": "Question",
 "name": "Is my financial data safe?",
-"acceptedAnswer": { "@type": "Answer", "text": "Your files are used only to run the audit you requested and are not shared, sold, or reused. We provide a data-handling agreement before any sensitive files are sent." }
+"acceptedAnswer": { "@type": "Answer", "text": "Yes. Files are used only for the audit requested and are never sold, shared, or reused. A data-handling agreement is provided before anything sensitive is sent." }
 },
 {
 "@type": "Question",
 "name": "Can we get on a call to discuss this first?",
-"acceptedAnswer": { "@type": "Answer", "text": "Everything here runs by email and written form by design — it keeps every commitment documented and gets your audit started faster than scheduling a call would. Reply to any email and you'll get a same-business-day written answer." }
+"acceptedAnswer": { "@type": "Answer", "text": "Everything here runs by email and written form by design — it keeps every finding documented and gets your audit started faster than scheduling a call would. Reply to any email and you'll get a same-business-day written answer." }
 }
 ]
 }
@@ -98,13 +97,12 @@ section:first-of-type{border-top:none;}
 .mirror-line{text-align:center;margin-top:28px;font-size:14px;color:#e2e8f0;max-width:560px;margin-left:auto;margin-right:auto;}
 .freedom-line{text-align:center;font-size:14.5px;font-weight:600;color:#e2e8f0;margin-top:14px;max-width:620px;margin-left:auto;margin-right:auto;}
 @media(max-width:700px){.fit-grid{grid-template-columns:1fr;}}
-/* pain stats */
 .stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
 .stat-card{background:var(--card-bg-gradient);border:1px solid var(--border-color);border-radius:10px;padding:26px 20px;text-align:center;}
 .stat-num{font-size:30px;font-weight:800;color:var(--accent-blue);margin-bottom:8px;}
 .stat-label{font-size:13.5px;color:#c5d0dd;line-height:1.5;}
+.stat-source{font-size:11px;color:#64748b;margin-top:12px;line-height:1.45;}
 @media(max-width:700px){.stat-grid{grid-template-columns:1fr;}}
-/* how it works */
 .steps{counter-reset:step;}
 .step{display:grid;grid-template-columns:46px 1fr;gap:18px;padding:22px 0;border-top:1px solid var(--border-color);}
 .step:last-child{border-bottom:1px solid var(--border-color);}
@@ -112,54 +110,45 @@ section:first-of-type{border-top:none;}
 .step-num::before{content:counter(step,decimal-leading-zero);}
 .step h3{font-size:16px;margin-bottom:6px;}
 .step p{font-size:14.5px;color:#cbd5e1;}
-/* trust grid */
 .trust-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;}
 .trust-card{background:var(--card-bg-gradient);border:1px solid var(--border-color);border-radius:10px;padding:24px;}
 .trust-card h4{font-size:14px;margin-bottom:8px;color:#fff;}
 .trust-card p{font-size:14px;color:#c8d3de;}
 @media(max-width:700px){.trust-grid{grid-template-columns:1fr;}}
-/* guarantee box */
+.callout{background:rgba(56,189,248,.06);border:1px solid rgba(56,189,248,.25);border-radius:10px;padding:22px 26px;font-size:14.5px;color:#dbeafe;}
+.callout strong{color:#fff;}
 .guarantee-box{background:var(--card-bg-gradient);border:1px solid rgba(52,211,153,.3);border-radius:12px;padding:34px;}
 .guarantee-box h3{font-size:18px;margin-bottom:14px;color:#fff;}
-.guarantee-box p{font-size:14.5px;color:var(--text-muted);margin-bottom:10px;}
 .guarantee-row{display:flex;gap:10px;align-items:flex-start;font-size:15px;color:#e2e8f0;margin-bottom:12px;}
 .check{color:var(--accent-green);font-weight:800;flex:0 0 18px;}
-/* sample output */
-.visualizer{background:#020617;border:1px solid var(--border-color);border-radius:8px;padding:22px;font-family:monospace;font-size:12.5px;line-height:1.7;margin-bottom:8px;}
-.vis-header{display:flex;justify-content:space-between;align-items:center;color:#475569;border-bottom:1px solid #1e293b;padding-bottom:10px;margin-bottom:14px;font-weight:700;}
-.log-blue{color:#38bdf8;} .log-amber{color:#fbbf24;} .log-green{color:#34d399;} .log-purple{color:#c084fc;}
-.viz-caption{text-align:center;font-size:11.5px;color:#64748b;font-family:monospace;}
-.sample-badge{display:inline-block;padding:3px 12px;border-radius:9999px;font-size:10.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:rgba(56,189,248,.1);border:1px solid rgba(56,189,248,.45);color:var(--accent-blue);}
-/* FAQ */
-.faq-item{border-bottom:1px solid var(--border-color);padding:20px 2px;}
-.faq-item h4{font-size:15px;margin-bottom:8px;}
-.faq-item p{font-size:13.5px;color:var(--text-muted);}
-/* form */
-.form-card{background:var(--card-bg-gradient);border:1px solid var(--border-color);border-radius:12px;padding:40px;}
-.form-group{margin-bottom:20px;}
-label{display:block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--text-muted);margin-bottom:8px;}
-input,textarea{width:100%;background:#020617;border:1px solid var(--border-color);border-radius:6px;padding:13px;color:#fff;font-family:inherit;font-size:14px;}
-input:focus,textarea:focus{outline:none;border-color:var(--accent-blue);}
-.submit-btn{width:100%;background:var(--accent-blue);color:#020617;padding:15px;border:none;border-radius:6px;font-weight:800;font-size:14.5px;cursor:pointer;}
-.submit-btn:hover{background:#7dd3fc;}
-.cta-final{text-align:center;background:var(--card-bg-gradient);border:1px solid var(--border-color);border-radius:12px;padding:44px 30px;}
-.cta-final h3{font-size:22px;margin-bottom:12px;}
-.cta-final p{color:var(--text-muted);font-size:14.5px;margin-bottom:24px;max-width:520px;margin-left:auto;margin-right:auto;}
-footer{text-align:center;padding:40px 0 0;color:var(--text-muted);font-size:12px;}
-.faq-section{margin:0;}
 .faq-item{border-bottom:1px solid var(--border-color);}
 .faq-item summary{list-style:none;display:flex;justify-content:space-between;align-items:center;padding:18px 4px;cursor:pointer;font-size:15px;font-weight:600;color:#f1f5f9;user-select:none;}
 .faq-item summary::-webkit-details-marker{display:none;}
 .faq-item summary::after{content:"+";font-size:20px;font-weight:300;color:var(--accent-blue);flex-shrink:0;transition:transform .25s;}
 .faq-item[open] summary::after{transform:rotate(45deg);}
 .faq-item p{font-size:15px;color:#e2e8f0;padding:0 4px 18px;margin:0;line-height:1.65;}
+.cta-final{text-align:center;background:var(--card-bg-gradient);border:1px solid var(--border-color);border-radius:12px;padding:44px 30px;}
+.cta-final h3{font-size:22px;margin-bottom:12px;}
+.cta-final p{color:var(--text-muted);font-size:14.5px;margin-bottom:24px;max-width:520px;margin-left:auto;margin-right:auto;}
+footer{text-align:center;padding:40px 0 0;color:var(--text-muted);font-size:12px;}
 .fit-anchor-cta{display:inline-block;margin-top:20px;padding:11px 24px;border:1px solid rgba(56,189,248,.4);border-radius:6px;color:var(--accent-blue);font-size:13.5px;font-weight:700;text-decoration:none;letter-spacing:.03em;transition:all .2s;}
 .fit-anchor-cta:hover{background:rgba(56,189,248,.12);border-color:var(--accent-blue);}
 .fit-anchor-cta::after{content:" ↓";font-size:14px;}
-.hero-stat{display:inline-flex;align-items:center;gap:10px;background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.3);border-radius:9999px;padding:10px 20px;font-size:13.5px;color:#fde68a;margin:0 auto 26px;max-width:640px;text-align:left;}
+.hero-stat{background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.3);border-radius:16px;padding:16px 20px;max-width:640px;margin:0 auto 26px;text-align:left;}
+.hero-stat .stat-line{display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:#fde68a;}
 .hero-stat strong{color:#fff;font-weight:800;}
-.hero-stat .bolt{flex-shrink:0;font-size:15px;}
-@media(max-width:700px){.hero-stat{display:flex;text-align:left;}}
+.hero-stat .bolt{flex-shrink:0;font-size:15px;line-height:1.4;}
+.hero-stat .stat-source{font-size:11.5px;color:#cbd5e1;font-style:italic;line-height:1.5;margin-top:8px;text-align:right;}
+@media(max-width:700px){.hero-stat{text-align:left;}}
+.sample-box{background:#05070d;border:1px solid var(--border-color);border-radius:10px;overflow:hidden;}
+.sample-header{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:1px solid var(--border-color);background:#0b0f19;}
+.sample-header .tag{font-size:11px;font-family:monospace;letter-spacing:.05em;text-transform:uppercase;color:#64748b;}
+.badge-sample{font-size:11px;font-weight:700;padding:4px 10px;border-radius:9999px;background:rgba(251,191,36,.12);border:1px solid rgba(251,191,36,.3);color:var(--accent-amber);}
+.sample-body{padding:22px;font-family:"SF Mono",Consolas,monospace;font-size:13px;line-height:1.95;color:#94a3b8;}
+.sample-body .ok{color:#34d399;}
+.sample-body .warn{color:#fbbf24;}
+.sample-body .total{display:block;color:#fff;font-weight:700;font-size:14.5px;margin-top:10px;}
+.sample-footer{padding:12px 20px;font-size:11.5px;color:#64748b;border-top:1px solid var(--border-color);font-style:italic;}
 </style>
 </head>
 <body>
@@ -171,12 +160,16 @@ footer{text-align:center;padding:40px 0 0;color:var(--text-muted);font-size:12px
 <header>
 <div class="badge">Contingency Audit · No Upfront Cost</div>
 <h1>That Vendor Invoice You Just Paid? <span class="gradient-text">It Was Probably Wrong</span></h1>
-<div class="hero-stat"><span class="bolt">⚡</span><span>Billing schemes are the <strong>most common form of asset-misappropriation fraud</strong> — and carry the highest median loss of any sub-scheme in that category: $100,000 per case. <em>Source: ACFE, Occupational Fraud 2022: A Report to the Nations.</em></span></div>
-<p class="lead">Send us 60 days of vendor invoices and receiving records. We'll check every line item against what you actually received. If we don't find overbilling, you pay nothing — ever.</p>
+<div class="hero-stat">
+<div class="stat-line"><span class="bolt">⚡</span><span>Companies lose <strong>0.5–1.5% of total AP spend</strong> to overpayments and invoice errors every year. For a business processing $50M in payables, that's <strong>$250,000–$750,000</strong> leaking annually.</span></div>
+<div class="stat-source">Source: Industry AP research (Peakflo; Xelix analysis of hundreds of millions of invoices).</div>
+</div>
+<p class="lead">Send us 60 days of vendor invoices and receiving records. We check every line item against what you actually received. If we don't find overbilling, you pay nothing — ever.</p>
 <a href="#trial-form" class="cta-primary">Start My Free Audit</a>
 <span class="cta-sub">No cost to run · No contract required to see results · Everything handled by email — zero sales calls</span>
 <a href="#fit-check" class="fit-anchor-cta">Check if this is a fit for your business</a>
 </header>
+
 <section>
 <div class="container">
 <div class="section-title">
@@ -185,67 +178,112 @@ footer{text-align:center;padding:40px 0 0;color:var(--text-muted);font-size:12px
 </div>
 <div class="stat-grid">
 <div class="stat-card">
-<div class="stat-num">2–5%</div>
-<div class="stat-label">of AP spend is typically lost to preventable billing errors in mid-market distribution businesses</div>
+<div class="stat-num">5–15%</div>
+<div class="stat-label">of invoices contain at least one pricing or quantity discrepancy</div>
+<div class="stat-source">Source: multiple AP audit benchmarks (CloudSquid, Phacet, industry recovery firms).</div>
+</div>
+<div class="stat-card">
+<div class="stat-num">0.1–0.5%</div>
+<div class="stat-label">of total disbursements lost to duplicate payments alone — the single most avoidable error</div>
+<div class="stat-source">Source: Xelix research (481 million invoices analyzed) and Transparent Global benchmarks.</div>
 </div>
 <div class="stat-card">
 <div class="stat-num">60 Days</div>
-<div class="stat-label">is all the historical data we need to run a full diagnostic — no ongoing commitment required</div>
-</div>
-<div class="stat-card">
-<div class="stat-num">$0</div>
-<div class="stat-label">upfront cost. We only get paid for the overbilling we actually find and document for you</div>
+<div class="stat-label">of historical invoice and receiving data is all we need to run a full diagnostic — no ongoing commitment required</div>
 </div>
 </div>
 </div>
 </section>
+
+<section>
+<div class="container">
+<div class="callout">
+<strong>This isn't a guess or an estimate.</strong> We check every line item you send against your own purchase orders and receiving records — the same data your AP team already has, just cross-referenced properly. Nothing here relies on industry averages once we're looking at your numbers.
+</div>
+</div>
+</section>
+
+<section>
+<div class="container">
+<div class="section-title">
+<h2>How It Works: See the Findings Before You Owe Anything</h2>
+<p>No sales calls at any point in the process.</p>
+</div>
+<div class="steps">
+<div class="step">
+<div class="step-num"></div>
+<div><h3>You send us 60 days of invoices and receiving records</h3><p>CSV or Excel export from any ERP or accounting system — no special formatting or integration needed to start.</p></div>
+</div>
+<div class="step">
+<div class="step-num"></div>
+<div><h3>We cross-check every line item three ways</h3><p>Unit price against contracted rate, billed quantity against what your receiving team logged, and duplicate or double-billed line items across invoices.</p></div>
+</div>
+<div class="step">
+<div class="step-num"></div>
+<div><h3>You get a findings snapshot at no cost</h3><p>See exactly what we caught — including a total dollar figure — before you owe anything at all.</p></div>
+</div>
+<div class="step">
+<div class="step-num"></div>
+<div><h3>Sign for the full recovery report</h3><p>Every discrepancy documented with the source invoice, PO, and receiving record attached — ready to send straight to the vendor for recovery.</p></div>
+</div>
+<div class="step">
+<div class="step-num"></div>
+<div><h3>Ongoing clients get audited every Friday</h3><p>New overbilling gets caught before it builds up, not months after the fact. You pay 40% only on what's identified and documented that week.</p></div>
+</div>
+</div>
+</div>
+</section>
+
 <section>
 <div class="container">
 <div class="section-title">
 <h2>What We Actually Check</h2>
 <p>Every line item, cross-referenced three ways.</p>
 </div>
-<div class="steps">
-<div class="step">
-<div class="step-num"></div>
-<div><h3>Price verification</h3><p>Every unit price on every invoice checked against your contracted or last-agreed rate — flagging silent price creep vendors rarely announce.</p></div>
+<div class="trust-grid">
+<div class="trust-card">
+<h4>Price verification</h4>
+<p>Every unit price on every invoice checked against your contracted or last-agreed rate — flagging silent price creep vendors rarely announce.</p>
 </div>
-<div class="step">
-<div class="step-num"></div>
-<div><h3>Quantity reconciliation</h3><p>Billed quantities matched against what your receiving team actually logged — catching shipment shortfalls you were still charged in full for.</p></div>
+<div class="trust-card">
+<h4>Quantity reconciliation</h4>
+<p>Billed quantities matched against what your receiving team actually logged — catching shipment shortfalls you were still charged in full for.</p>
 </div>
-<div class="step">
-<div class="step-num"></div>
-<div><h3>Duplicate & double-billing checks</h3><p>Cross-invoice scan for the same PO or line item billed more than once — a common error in high-volume vendor relationships.</p></div>
+<div class="trust-card">
+<h4>Duplicate &amp; double-billing checks</h4>
+<p>Cross-invoice scan for the same PO or line item billed more than once — a common error in high-volume vendor relationships.</p>
 </div>
-<div class="step">
-<div class="step-num"></div>
-<div><h3>A findings report you can act on</h3><p>Every discrepancy documented with the source invoice, PO, and receiving record attached — ready to send straight to the vendor for recovery.</p></div>
+<div class="trust-card">
+<h4>A findings report you can act on</h4>
+<p>Every discrepancy documented with the source invoice, PO, and receiving record attached — ready to send straight to the vendor for recovery.</p>
 </div>
+</div>
+</div>
+</section>
+
+<section>
+<div class="container">
+<div class="section-title"><h2>Sample Findings</h2></div>
+<div class="sample-box">
+<div class="sample-header">
+<span class="tag">Example Audit Output</span>
+<span class="badge-sample">Representative Sample</span>
+</div>
+<div class="sample-body">
+Loading files: invoices.csv, receiving_log.csv...<br>
+<span class="ok">Matched 1,204 line items across both files.</span><br>
+<span class="warn">Mismatch — PROD-104: billed 500 units, received 460. Overbilled: $1,200.</span><br>
+<span class="warn">Mismatch — PROD-441: unit price billed $14.20, contracted rate $12.75.</span><br>
+<span class="total">Total discrepancy identified: $1,380.00</span>
+</div>
+<div class="sample-footer">Representative output — your run works on your actual data.</div>
 </div>
 </div>
 </section>
+
 <section>
 <div class="container">
-<div class="section-title" style="margin-bottom:24px;">
-<h2>Sample Findings</h2>
-</div>
-<div class="visualizer">
-<div class="vis-header"><span>EXAMPLE AUDIT OUTPUT</span><span class="sample-badge">Representative Sample</span></div>
-<div class="log-blue">Loading files: invoices.csv, receiving_log.csv...</div>
-<div class="log-purple">Matched 1,204 line items across both files.</div>
-<div class="log-amber">Mismatch — PROD-104: billed 500 units, received 460. Overbilled: $1,200.</div>
-<div class="log-amber">Mismatch — PROD-441: unit price billed $14.20, contracted rate $12.75.</div>
-<div class="log-green">Total discrepancy identified: $1,380.00</div>
-</div>
-<p class="viz-caption">Representative output — your run works on your actual data.</p>
-</div>
-</section>
-<section>
-<div class="container">
-<div class="section-title">
-<h2>Why Send Us Your Invoices?</h2>
-</div>
+<div class="section-title"><h2>Why Send Us Your Invoices?</h2></div>
 <div class="trust-grid">
 <div class="trust-card">
 <h4>Your data stays yours</h4>
@@ -263,24 +301,22 @@ footer{text-align:center;padding:40px 0 0;color:var(--text-muted);font-size:12px
 <h4>Built around a recurring engagement</h4>
 <p>The trial gives you a one-time findings snapshot. Clients who continue get weekly audits — every Friday — so new overbilling gets caught before it builds up, not months after the fact.</p>
 </div>
-<div class="trust-card">
-<h4>Nothing here requires a phone call</h4>
-<p>Onboarding, findings, and follow-up all happen by email and written form. That's not a limitation — it keeps every finding documented and gets your audit started faster than waiting on a calendar invite ever would.</p>
-</div>
 </div>
 </div>
 </section>
+
 <section id="guarantee">
 <div class="container">
 <div class="guarantee-box">
-<h3>The Guarantee, Plainly</h3>
+<h3>The Guarantee — Plain English</h3>
 <div class="guarantee-row"><span class="check">✓</span> We audit 60 days of your invoice and receiving data at no cost.</div>
 <div class="guarantee-row"><span class="check">✓</span> If we find no discrepancies, you pay nothing. Full stop.</div>
-<div class="guarantee-row"><span class="check">✓</span> If we find overbilling, we share a findings snapshot at no cost. Clients who sign an ongoing engagement get the full, line-by-line recovery report — every discrepancy documented with the source invoice and receiving record so your finance team can deduct it directly from the next payment. We take 40% of the amount deducted, you keep 60%.</div>
+<div class="guarantee-row"><span class="check">✓</span> If we find overbilling, we share a findings snapshot at no cost. Clients who sign an ongoing engagement get the full, line-by-line recovery report — every discrepancy documented with the source invoice and receiving record so your finance team can deduct it directly from the next payment. We take 40% of the amount identified and documented, you keep 60%.</div>
 <div class="guarantee-row"><span class="check">✓</span> Once you're a client, audits run weekly, every Friday — this isn't a one-time snapshot service, it's built to keep catching overbilling as it happens.</div>
 </div>
 </div>
 </section>
+
 <section>
 <div class="container">
 <div class="section-title"><h2>What You Need to Know Before You Proceed</h2></div>
@@ -306,9 +342,13 @@ footer{text-align:center;padding:40px 0 0;color:var(--text-muted);font-size:12px
 </details>
 </div>
 </section>
+
 <section>
 <div class="container">
-<div class="section-title"><h2 id="fit-check">Is This a Fit?</h2><p>Honestly — it isn't for every distributor. Check both sides before you send data.</p></div>
+<div class="section-title">
+<h2 id="fit-check">Is This a Fit?</h2>
+<p>Honestly — it isn't for every distributor. Check both sides before you send data. Everything is handled by email. No sales calls required.</p>
+</div>
 <div class="fit-grid">
 <div class="fit-card good">
 <h4>Good fit if</h4>
@@ -328,22 +368,24 @@ footer{text-align:center;padding:40px 0 0;color:var(--text-muted);font-size:12px
 </ul>
 </div>
 </div>
-<p class="mirror-line">If the left side sounds like you, sending your data is the obvious next step — we'll tell you honestly what we find, including nothing.</p>
-<p class="freedom-line">The offer doesn't expire — but every week without this running is a week of overbilling you're absorbing and won't get back.</p>
+<p class="mirror-line">If the left column describes you, sending your data is the obvious next step — we'll tell you honestly what we find, including nothing.</p>
+<p class="freedom-line">The offer doesn't expire. But every week without this running is a week of overbilling you're absorbing — and won't get back.</p>
 </div>
 </section>
+
 <section id="trial-form">
 <div class="container">
 <div class="cta-final">
-<h3>Ready to Proceed?</h3>
+<h3>Ready to Find Out What You're Overpaying?</h3>
 <p>The intake page walks you through exactly what to export and where to share it — your submission is logged and queued for audit the moment you hit submit. No sales call. No pitch. Just findings.</p>
 <a href="../vendor-audit-intake/" class="cta-primary">Go to Intake →</a>
 </div>
 </div>
 </section>
+
 <footer>
 <div class="container">
-<p>Optima Workflows · You only pay for overcharges we find — weekly audits for ongoing clients, everything handled by email</p>
+<p>Optima Workflows · You only pay for overcharges we find — weekly audits for ongoing clients, everything handled by email.</p>
 </div>
 </footer>
 </body>
