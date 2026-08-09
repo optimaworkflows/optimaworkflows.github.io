@@ -145,6 +145,26 @@ footer{text-align:center;padding:40px 0 0;color:var(--text-muted);font-size:13px
 .fit-anchor-cta{display:inline-block;margin-top:20px;padding:11px 24px;border:1px solid rgba(56,189,248,.4);border-radius:6px;color:var(--accent-blue);font-size:14.5px;font-weight:700;text-decoration:none;letter-spacing:.03em;transition:all .2s;}
 .fit-anchor-cta:hover{background:rgba(56,189,248,.12);border-color:var(--accent-blue);}
 .fit-anchor-cta::after{content:" ↓";font-size:14px;}
+.calculator-section{padding:52px 0;border-top:1px solid var(--border-color);}
+.calc-card{background:var(--card-bg-gradient);border:1px solid var(--border-color);border-radius:12px;padding:36px 30px;max-width:680px;margin:0 auto;}
+.calc-form{display:flex;flex-direction:column;gap:20px;}
+.calc-row{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+.calc-field{display:flex;flex-direction:column;gap:8px;}
+.calc-field.full-width{grid-column:1 / -1;}
+.calc-field label{font-size:13px;font-weight:700;color:#cbd5e1;text-transform:uppercase;letter-spacing:.04em;font-family:monospace;}
+.calc-field select{background:#0b0f19;border:1px solid var(--border-color);border-radius:6px;padding:14px 16px;color:#fff;font-size:15px;font-family:inherit;cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2338bdf8' d='M6 8L1 3h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center;}
+.calc-field select:focus{outline:none;border-color:var(--accent-blue);box-shadow:0 0 0 3px rgba(56,189,248,.12);}
+.calc-submit{background:var(--accent-blue);color:#000814;padding:16px 32px;border:none;border-radius:6px;font-weight:800;font-size:15px;cursor:pointer;letter-spacing:.01em;transition:background .2s,transform .2s;margin-top:8px;}
+.calc-submit:hover{background:#7dd3fc;transform:scale(1.02);}
+.calc-result{margin-top:30px;}
+.result-card-inner{background:rgba(52,211,153,.06);border:1px solid rgba(52,211,153,.25);border-radius:10px;padding:30px;text-align:center;}
+.result-amount{font-size:42px;font-weight:800;color:var(--accent-green);margin-bottom:10px;}
+.result-detail{font-size:14px;color:#a9b8cc;margin-bottom:24px;}
+.result-cta-box{background:rgba(56,189,248,.06);border:1px solid rgba(56,189,248,.2);border-radius:8px;padding:20px;}
+.result-cta-heading{font-size:15px;font-weight:700;color:#fff;margin-bottom:6px;}
+.result-cta-sub{font-size:14px;color:#cbd5e1;margin-bottom:16px;}
+.result-cta-btn{display:inline-block;}
+@media(max-width:600px){.calc-row{grid-template-columns:1fr;}.calc-card{padding:24px 18px;}.result-amount{font-size:32px;}}
 </style>
 </head>
 <body>
@@ -162,7 +182,72 @@ footer{text-align:center;padding:40px 0 0;color:var(--text-muted);font-size:13px
 <a href="#trial-form" class="cta-primary">Start My Free Chargeback Audit</a>
 <span class="cta-sub">No cost to run · Pay only for the disputable value we identify and document · Everything handled by email — zero sales calls</span>
 <a href="#fit-check" class="fit-anchor-cta">Check if this is a fit for your business</a>
+<a href="#calculator" class="fit-anchor-cta">See Your Recovery Potential</a>
 </header>
+
+<section class="calculator-section" id="calculator">
+<div class="container">
+<div class="section-title">
+<h2>How Much Are Retailer Deductions Actually Costing You?</h2>
+<p>Most suppliers recover less than 30% of valid deductions. See what you're leaving on the table.</p>
+</div>
+
+<div class="calc-card">
+<form id="chargeback-calc" class="calc-form">
+<div class="calc-row">
+<div class="calc-field">
+<label>Annual Revenue Through Retailers</label>
+<select id="retail-revenue" required>
+<option value="">Select range...</option>
+<option value="2000000">$2M – $10M</option>
+<option value="10000000">$10M – $50M</option>
+<option value="50000000">$50M – $150M</option>
+<option value="150000000">$150M+</option>
+</select>
+</div>
+
+<div class="calc-field">
+<label>Primary Retailers</label>
+<select id="retailer-mix" required>
+<option value="">Select...</option>
+<option value="walmart">Walmart-heavy</option>
+<option value="amazon">Amazon Vendor Central-heavy</option>
+<option value="target">Target-heavy</option>
+<option value="mixed">Mix of major retailers</option>
+</select>
+</div>
+</div>
+
+<div class="calc-row">
+<div class="calc-field full-width">
+<label>How Do You Handle Deductions Today?</label>
+<select id="deduction-process" required>
+<option value="">Select your current approach...</option>
+<option value="writeoff">We write off most deductions — too time-consuming</option>
+<option value="large">We dispute only large deductions (&gt;$500)</option>
+<option value="review">We review but lack systematic process</option>
+<option value="managed">We have a team but they're overwhelmed</option>
+</select>
+</div>
+</div>
+
+<button type="submit" class="calc-submit">Calculate My Recovery Potential →</button>
+</form>
+
+<div id="chargeback-result" class="calc-result" style="display:none;">
+<div class="result-card-inner">
+<div class="result-amount" id="chargeback-amount"></div>
+<p class="result-detail" id="chargeback-detail"></p>
+<div class="result-cta-box">
+<p class="result-cta-heading">Dispute windows are tight — every day matters.</p>
+<p class="result-cta-sub">Get a free audit of your last 60 days of retailer deductions. No recovery, no fee.</p>
+<a href="../chargeback-recovery-intake/" class="cta-primary result-cta-btn">Start My Free Deduction Audit →</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
 
 <section>
 <div class="container">
@@ -349,5 +434,59 @@ footer{text-align:center;padding:40px 0 0;color:var(--text-muted);font-size:13px
 <p>Optima Workflows · You only pay for the disputable value we find and document · Everything runs by email by design</p>
 </div>
 </footer>
+
+<script>
+document.getElementById('chargeback-calc').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const revenue = parseInt(document.getElementById('retail-revenue').value);
+    const retailer = document.getElementById('retailer-mix').value;
+    const process = document.getElementById('deduction-process').value;
+
+    // Deduction rates by retailer type — total deductions as % of revenue.
+    const retailerRates = {
+        'walmart': 0.06,
+        'amazon': 0.04,
+        'target': 0.045,
+        'mixed': 0.05
+    };
+
+    // Recovery potential by current process — % of total deductions that's
+    // recoverable given how much low-hanging fruit is currently being missed.
+    const processRates = {
+        'writeoff': 0.55,
+        'large': 0.40,
+        'review': 0.25,
+        'managed': 0.15
+    };
+
+    const totalDeductions = revenue * retailerRates[retailer];
+    const recoverableAmount = totalDeductions * processRates[process];
+
+    const formatter = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
+    });
+
+    document.getElementById('chargeback-amount').textContent = formatter.format(recoverableAmount) + '/year recoverable';
+    document.getElementById('chargeback-detail').textContent =
+        'Estimated ' + formatter.format(totalDeductions) + ' in total deductions — ' + Math.round(processRates[process] * 100) + '% potentially recoverable';
+    document.getElementById('chargeback-result').style.display = 'block';
+    document.getElementById('chargeback-result').scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+    if (typeof plausible === 'function') {
+        plausible('Calculator', {
+            props: {
+                vertical: 'chargeback-recovery',
+                recoverableAmount: recoverableAmount,
+                retailer: retailer,
+                process: process
+            }
+        });
+    }
+});
+</script>
 </body>
 </html>
