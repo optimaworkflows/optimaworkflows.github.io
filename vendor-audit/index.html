@@ -168,6 +168,7 @@ footer{text-align:center;padding:40px 0 0;color:var(--text-muted);font-size:12px
 .result-cta-heading{font-size:15px;font-weight:700;color:#fff;margin-bottom:6px;}
 .result-cta-sub{font-size:14px;color:#cbd5e1;margin-bottom:16px;}
 .result-cta-btn{display:inline-block;}
+.result-guarantee{font-size:13.5px;font-weight:700;color:var(--accent-green);margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid rgba(52,211,153,.2);}
 @media(max-width:600px){.calc-row{grid-template-columns:1fr;}.calc-card{padding:24px 18px;}.result-amount{font-size:32px;}}
 </style>
 </head>
@@ -246,6 +247,7 @@ footer{text-align:center;padding:40px 0 0;color:var(--text-muted);font-size:12px
 <p class="result-detail" id="vendor-detail"></p>
 <div class="result-cta-box">
 <p class="result-cta-heading">This is a conservative estimate based on industry benchmarks.</p>
+<p class="result-guarantee">Pay nothing upfront. Audits run weekly. You pay 40% of documented findings — only on what we find.</p>
 <p class="result-cta-sub">Get your exact recovery amount — audit your last 60 days of AP data free.</p>
 <a href="../vendor-audit-intake/" class="cta-primary result-cta-btn">Start My Free 60-Day Audit →</a>
 </div>
@@ -486,15 +488,24 @@ document.getElementById('vendor-calc').addEventListener('submit', function(e) {
     const invoiceCount = parseInt(document.getElementById('invoice-count').value);
     const process = document.getElementById('audit-process').value;
 
-    // Recovery rates based on industry data
+    // Industry recovery rates
     const rates = {
-        'none': 0.008,
-        'manual': 0.005,
-        'partial': 0.0025,
-        'full': 0.001
+        'none': 0.012,
+        'manual': 0.008,
+        'partial': 0.005,
+        'full': 0.002
     };
 
-    const estimatedRecovery = apVolume * rates[process];
+    // High end of each range
+    const apVolumeHigh = {
+        5000000: 25000000,
+        25000000: 100000000,
+        100000000: 500000000,
+        500000000: 750000000
+    };
+
+    const highEnd = apVolumeHigh[apVolume];
+    const estimatedRecovery = highEnd * rates[process];
 
     const formatter = new Intl.NumberFormat('en-US', {
         style: 'currency',
@@ -503,24 +514,18 @@ document.getElementById('vendor-calc').addEventListener('submit', function(e) {
         maximumFractionDigits: 0
     });
 
-    document.getElementById('vendor-amount').textContent = formatter.format(estimatedRecovery) + '/year';
+    document.getElementById('vendor-amount').textContent = 'Up to ' + formatter.format(estimatedRecovery) + '/year';
 
-    // Invoice count is context, not a driver of the estimate — the recovery
-    // number is calculated from AP volume x process maturity only. This copy
-    // reinforces that framing instead of implying invoice count changes the number.
     const invoiceContext = invoiceCount >= 5000
-        ? 'At ' + invoiceCount.toLocaleString() + '+ monthly invoices, even a 0.5% error rate compounds fast'
+        ? 'At ' + invoiceCount.toLocaleString() + '+ monthly invoices, systematic errors compound fast across your AP'
         : invoiceCount >= 2000
-            ? 'With ' + invoiceCount.toLocaleString() + '+ monthly invoices, systematic errors add up quickly'
-            : 'Based on your AP volume and current audit process';
+            ? 'With ' + invoiceCount.toLocaleString() + '+ monthly invoices, even small per-invoice errors add up quickly'
+            : 'Based on your AP volume and current audit maturity';
+
     document.getElementById('vendor-detail').textContent = invoiceContext;
-
     document.getElementById('vendor-result').style.display = 'block';
-
-    // Scroll to result
     document.getElementById('vendor-result').scrollIntoView({ behavior: 'smooth', block: 'center' });
 
-    // Track in analytics (if Plausible is set up)
     if (typeof plausible === 'function') {
         plausible('Calculator', {
             props: {
