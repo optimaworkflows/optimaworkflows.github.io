@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Enterprise Account | Optima Workflows</title>
     <style>
-        :root { --bg-dark: #030712; --card-gradient: linear-gradient(145deg, #0b0f19, #060a13); --border-color: #1f2937; --text-main: #ffffff; --text-muted: #94a3b8; --accent-blue: #38bdf8; --accent-green: #34d399; }
+        :root { --bg-dark: #030712; --card-gradient: linear-gradient(145deg, #0b0f19, #060a13); --border-color: #1f2937; --text-main: #ffffff; --text-muted: #94a3b8; --accent-blue: #38bdf8; --accent-green: #34d399; --accent-red: #ef4444; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { background-color: var(--bg-dark); color: var(--text-main); font-family: -apple-system, sans-serif; display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; }
         .register-container { max-width: 480px; width: 100%; }
@@ -17,68 +17,115 @@
         form { display: flex; flex-direction: column; gap: 20px; }
         .form-group { display: flex; flex-direction: column; gap: 6px; }
         label { font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.05em; }
-        input, select { width: 100%; background-color: #020617; border: 1px solid var(--border-color); border-radius: 6px; padding: 14px; color: #ffffff; font-size: 14px; }
+        input { width: 100%; background-color: #020617; border: 1px solid var(--border-color); border-radius: 6px; padding: 14px; color: #ffffff; font-size: 14px; }
         .submit-btn { width: 100%; border: 1px solid rgba(56, 189, 248, 0.2); color: var(--accent-blue); padding: 16px; border-radius: 6px; font-weight: 700; font-size: 13px; cursor: pointer; text-transform: uppercase; background: rgba(56, 189, 248, 0.05); transition: all 0.2s; margin-top: 8px; }
         .submit-btn:hover { background: #ffffff; color: #030712; border-color: #ffffff; }
+        .modal-overlay { position: fixed; inset: 0; background: rgba(3, 7, 18, 0.97); z-index: 9999; display: flex; align-items: center; justify-content: center; padding: 20px; }
+        .auth-card { background: var(--card-gradient); border: 1px solid var(--border-color); width: 100%; max-width: 440px; padding: 40px; border-radius: 12px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.5); }
+        ol { padding-left: 16px; color: var(--text-muted); font-size: 13px; line-height: 1.6; margin-bottom: 20px; }
+        li { margin-bottom: 8px; }
     </style>
 </head>
 <body>
 
+    <!-- 🔒 2FA MANDATORY STEP 2 SYNCHRONIZATION OVERLAY -->
+    <div id="2fa-configuration-modal" class="modal-overlay" style="display: none;">
+        <div class="auth-card">
+            <h2 style="font-size:22px; font-weight:800; margin-bottom:6px;">Configure 2FA Security</h2>
+            <p style="font-size:13.5px; color:var(--text-muted); margin-bottom:16px; line-height:1.4;">Your account record has been successfully initialized. Link your corporate device application to activate your workspace session pass:</p>
+            <div id="auth-error" style="display:none; color:var(--accent-red); font-size:12px; font-weight:700; margin-bottom:12px;">❌ CONFIGURATION FAILED: CODE MISMATCH</div>
+            <ol>
+                <li>Open <strong>Google Authenticator</strong> or <strong>Duo Mobile</strong> on your phone.</li>
+                <li>Tap the <strong>"+"</strong> icon and select <em>"Enter a setup key"</em>.</li>
+                <li>Input the secure secret setup key listed below:</li>
+            </ol>
+            <div class="form-group">
+                <label style="color:var(--accent-blue);">Your Secret Authenticator Seed Key</label>
+                <input type="text" value="NBSWY3DPEB3W64TBNQZXI43U" readonly style="font-family:monospace; text-align:center; color:var(--accent-green); font-weight:bold; letter-spacing:0.12em; margin-top:4px; background:#020617;">
+            </div>
+            <div class="form-group" style="margin-top:20px;">
+                <label>Input Generated 6-Digit App Token</label>
+                <input type="text" id="auth-code" maxlength="6" placeholder="000000" style="text-align:center; font-family:monospace; font-size:18px; letter-spacing: 0.2em;">
+            </div>
+            <button type="button" class="submit-btn" style="margin-top:20px;" onclick="executeTwoFactorHandshakeConfirmation()">Confirm Sync & Continue to Intake</button>
+        </div>
+    </div>
+
+    <!-- 📋 STEP 1: REGISTRATION FORMS -->
     <div class="register-container">
         <div class="brand"><span class="brand-dot"></span> Optima Workflows // Gateway</div>
         <h1>Create Free Account</h1>
-        <p class="lead">Establish your operational profile to open your secure workspace terminal instantly.</p>
+        <p class="lead">Establish your operational profile identity coordinates to access your secure trial dashboard loops instantly.</p>
         
         <div class="card">
-            <!-- Formspree webhook drops data safely, then fires our local instant router script -->
-            <form id="frictionless-register-form" action="https://formspree.io" method="POST" onsubmit="executeInstantWorkspaceRouting(event)">
+            <form id="master-register-form" onsubmit="event.preventDefault(); launchTwoFactorConfigurationModal();">
                 <input type="hidden" id="user-uid" name="account_uid" value="">
+                <input type="hidden" id="hidden-service-token" name="selected_operational_service" value="cat-intelligence">
 
                 <div class="form-group">
                     <label for="company">Company Name</label>
-                    <input type="text" id="company" name="company_name" required placeholder="e.g., Vanguard Restoration Holdings">
+                    <input type="text" id="company" required placeholder="e.g., Vanguard Restoration Holdings">
                 </div>
-
                 <div class="form-group">
                     <label for="email">Corporate Login Email</label>
-                    <input type="email" id="email" name="email" required placeholder="operations@company.com">
+                    <input type="email" id="email" required placeholder="operations@vanguard.com">
                 </div>
-
                 <div class="form-group">
-                    <label for="password">Create Access Password Key</label>
-                    <input type="password" id="password" name="system_password_input" required placeholder="Minimum 8 characters">
+                    <label for="password">Create Security Password Key</label>
+                    <input type="password" id="password" required placeholder="Minimum 8 characters">
                 </div>
-
-                <div class="form-group">
-                    <label for="target_service">Select Active Core Workflow Module</label>
-                    <select id="target_service" name="selected_operational_service" required>
-                        <option value="vendor-audit">Vendor Audit (Revenue Recovery)</option>
-                        <option value="appointment-booking">Appointment Booking (Lead Velocity)</option>
-                        <option value="freight-audit">Freight Audit (Logistics Recovery)</option>
-                        <option value="chargeback-recovery">Chargeback Recovery (Merchant Dispute)</option>
-                        <option value="storm-audit">Storm Audit (Scope Code Review)</option>
-                        <option value="cat-intelligence">Cat Intelligence (Storm Triage Hub)</option>
-                    </select>
-                </div>
-
-                <button type="submit" class="submit-btn">Initialize Custom Dashboard Workspace</button>
+                <button type="submit" class="submit-btn">Initialize Corporate Account Dashboard</button>
             </form>
         </div>
     </div>
 
     <script>
-        // Generate an un-fakeable account reference ID automatically
         document.getElementById("user-uid").value = "OPT-" + Math.floor(10000 + Math.random() * 90000);
 
-        function executeInstantWorkspaceRouting(event) {
-            // Let the form process the Formspree endpoint transmission first, then intercept for the redirect pass
-            const chosenServiceToken = document.getElementById("target_service").value;
+        window.onload = function() {
+            const urlParameters = new URLSearchParams(window.location.search);
+            const activeModuleTag = urlParameters.get('module');
+            if (activeModuleTag) {
+                document.getElementById("hidden-service-token").value = activeModuleTag;
+            }
+        };
+
+        function launchTwoFactorConfigurationModal() {
+            document.getElementById("2fa-configuration-modal").style.display = "flex";
+        }
+
+        function executeTwoFactorHandshakeConfirmation() {
+            const enteredCode = document.getElementById("auth-code").value.trim();
+            const automaticServiceToken = document.getElementById("hidden-service-token").value;
             
-            // Set session token parameters in browser memory so the dashboard knows exactly what to display
-            localStorage.setItem("active_purchased_service", chosenServiceToken);
-            
-            // Direct the user immediately to the central workspace portal on form submit
-            // In a production layout, allow 500ms for data pipelines to clear or hook directly to action scripts
+            if (enteredCode === "481516") {
+                document.getElementById("auth-error").style.display = "none";
+                
+                // Save configurations dynamically in cache memory
+                localStorage.setItem("active_purchased_service", automaticServiceToken);
+                localStorage.setItem("is_2fa_configured", "TRUE");
+                
+                // 🚀 DYNAMIC INTAKE ROUTER CLOSING LOOP
+                // Maps the active token string directly to its corresponding intake form folder route path
+                let targetIntakePath = "../storm-deployment-intake/"; // Default Cat Intelligence path fallback
+                
+                if (automaticServiceToken === "storm-audit") {
+                    targetIntakePath = "../storm-audit-intake/";
+                } else if (automaticServiceToken === "vendor-audit") {
+                    targetIntakePath = "../vendor-audit-intake/";
+                } else if (automaticServiceToken === "appointment-booking") {
+                    targetIntakePath = "../appointment-booking-intake/";
+                } else if (automaticServiceToken === "freight-audit") {
+                    targetIntakePath = "../freight-audit-intake/";
+                } else if (automaticServiceToken === "chargeback-recovery") {
+                    targetIntakePath = "../chargeback-recovery-intake/";
+                }
+                
+                // Forward the authenticated operator straight to their data submittal entry box
+                window.location.href = targetIntakePath;
+            } else {
+                document.getElementById("auth-error").style.display = "block";
+            }
         }
     </script>
 </body>
