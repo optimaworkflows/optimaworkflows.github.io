@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise Portal | Optima Workflows</title>
+    <style>
+        :root { --bg-dark: #030712; --card-gradient: linear-gradient(145deg, #0b0f19, #060a13); --border-color: #1f2937; --text-main: #ffffff; --text-muted: #94a3b8; --accent-blue: #38bdf8; --accent-green: #34d399; --accent-amber: #fbbf24; --accent-red: #ef4444; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: var(--bg-dark); color: var(--text-main); font-family: -apple-system, sans-serif; display: flex; height: 100vh; overflow: hidden; }
+        
+        .sidebar { width: 280px; background: #060a13; border-right: 1px solid var(--border-color); display: flex; flex-direction: column; justify-content: space-between; padding: 24px 16px; }
+        .logo { font-weight: 800; font-size: 14px; letter-spacing: 0.05em; color: var(--accent-blue); display: flex; align-items: center; gap: 8px; text-transform: uppercase; margin-bottom: 24px; }
+        .logo-dot { height: 6px; width: 6px; background-color: var(--accent-blue); border-radius: 50%; }
+        
+        .section-label { display: none; font-size: 10px; font-weight: 800; text-transform: uppercase; color: #475569; letter-spacing: 0.05em; margin: 16px 0 8px 6px; }
+        .nav-group { display: flex; flex-direction: column; gap: 4px; }
+        .nav-item { display: none; padding: 10px 12px; border-radius: 6px; color: var(--text-muted); font-size: 13px; font-weight: 600; text-decoration: none; cursor: pointer; transition: all 0.2s; justify-content: space-between; }
+        .nav-item.active { background: rgba(56, 189, 248, 0.05); color: #ffffff; border-left: 3px solid var(--accent-blue); }
+        .status-dot { height: 5px; width: 5px; background-color: var(--accent-green); border-radius: 50%; align-self: center; }
+
+        .main-viewport { flex: 1; padding: 40px; overflow-y: auto; }
+        h1 { font-size: 24px; font-weight: 800; letter-spacing: -0.025em; margin-bottom: 6px; }
+        .lead { font-size: 13.5px; color: var(--text-muted); margin-bottom: 24px; }
+        
+        .dashboard-tab { display: none; }
+        .dashboard-tab.active { display: block; }
+        .card { background: var(--card-gradient); border: 1px solid var(--border-color); border-radius: 12px; padding: 32px; margin-bottom: 24px; }
+        
+        table { width: 100%; border-collapse: collapse; text-align: left; font-size: 12.5px; }
+        th { font-size: 10.5px; text-transform: uppercase; color: var(--text-muted); padding: 10px; border-bottom: 1px solid var(--border-color); }
+        td { padding: 14px 10px; border-bottom: 1px solid #111827; }
+        .user-block { border-top: 1px solid var(--border-color); padding-top: 12px; font-size: 12px; color: var(--text-muted); }
+    </style>
+</head>
+<body>
+
+    <!-- 📐 LEFT APP CONTROL SIDEBAR BAR -->
+    <aside class="sidebar">
+        <div>
+            <div class="logo"><span class="logo-dot"></span> Optima Workflows</div>
+            
+            <div class="section-label" id="lbl-acceleration">Pipeline Acceleration</div>
+            <nav class="nav-group">
+                <div class="nav-item" id="nav-appointment-booking" onclick="switchActiveTab('appointment-booking')"><span>Appointment Booking</span><span class="status-dot"></span></div>
+                <div class="nav-item" id="nav-cat-intelligence" onclick="switchActiveTab('cat-intelligence')"><span>Cat Intelligence</span><span class="status-dot"></span></div>
+            </nav>
+            
+            <div class="section-label" id="lbl-recovery">Revenue Recovery</div>
+            <nav class="nav-group">
+                <div class="nav-item" id="nav-vendor-audit" onclick="switchActiveTab('vendor-audit')"><span>Vendor Audit</span></div>
+                <div class="nav-item" id="nav-freight-audit" onclick="switchActiveTab('freight-audit')"><span>Freight Audit</span></div>
+                <div class="nav-item" id="nav-chargeback-recovery" onclick="switchActiveTab('chargeback-recovery')"><span>Chargeback Recovery</span></div>
+                <div class="nav-item" id="nav-storm-audit" onclick="switchActiveTab('storm-audit')"><span>Storm Audit</span></div>
+            </nav>
+        </div>
+        <div class="user-block">
+            <div style="color:#ffffff; font-weight:700;">Active Session User</div>
+            <div style="font-size:11px; margin-top:2px;">Optima Secure Terminal Pass</div>
+        </div>
+    </aside>
+
+    <!-- 💻 CENTRAL DESKTOP VIEWPORT HOOKS -->
+    <main class="main-viewport">
+
+        <!-- SERVICE 1: VENDOR AUDIT VIEWPORT -->
+        <section id="view-vendor-audit" class="dashboard-tab">
+            <h1>Vendor Audit Terminal</h1>
+            <p class="lead">Audit raw supplier transaction lines and purchase ledgers for duplicate line item charges.</p>
+            <div class="card"><table><thead><tr><th>Invoice File</th><th>Date Run</th><th>Leakage Identified</th></tr></thead><tbody><tr><td>inv_99421_ABC_Supply.pdf</td><td>Aug 04, 2026</td><td style="color:var(--accent-green); font-weight:700;">$1,840.00</td></tr></tbody></table></div>
+        </section>
+
+        <!-- SERVICE 2: APPOINTMENT BOOKING VIEWPORT -->
+        <section id="view-appointment-booking" class="dashboard-tab">
+            <h1>Appointment Booking Terminal</h1>
+            <p class="lead">Connect inbound carrier web hooks or paste raw consumer quote requests to trigger immediate 3-second text follow-ups.</p>
+        </section>
+
+        <!-- SERVICE 3: FREIGHT AUDIT VIEWPORT -->
+        <section id="view-freight-audit" class="dashboard-tab">
+            <h1>Freight Audit Terminal</h1>
+            <p class="lead">Logistical carrier surcharge reconciliation and mileage discrepancy checks.</p>
+        </section>
+
+        <!-- SERVICE 4: CHARGEBACK RECOVERY VIEWPORT -->
+        <section id="view-chargeback-recovery" class="dashboard-tab">
+            <h1>Chargeback Recovery Terminal</h1>
+            <p class="lead">Merchant dispute mitigation loops and automated response documentation bundles.</p>
+        </section>
+
+        <!-- SERVICE 5: STORM AUDIT VIEWPORT -->
+        <section id="view-storm-audit" class="dashboard-tab">
+            <h1>Storm Audit Terminal</h1>
+            <p class="lead">Clerical scope code-compliance review database tracks matching 2024 IRC framework mandates.</p>
+        </section>
+
+        <!-- SERVICE 6: CAT INTELLIGENCE VIEWPORT -->
+        <section id="view-cat-intelligence" class="dashboard-tab">
+            <h1>Cat Intelligence Workspace</h1>
+            <p class="lead">Input target storm tracking zip codes to evaluate structural building vulnerabilities and municipal energy updates.</p>
+        </section>
+    </main>
+
+    <script>
+        // 🔮 AUTONOMOUS USER SESSION INITIALIZATION LOOP
+        window.onload = function() {
+            // Read exactly what service token was chosen at the registration gate link page
+            // Fallback default to 'cat-intelligence' if accessed directly without token strings
+            const userTargetService = localStorage.getItem("active_purchased_service") || "cat-intelligence";
+            
+            // Activate and display ONLY their specific requested software tool nav item row
+            const targetNav = document.getElementById("nav-" + userTargetService);
+            const targetView = document.getElementById("view-" + userTargetService);
+            
+            if (targetNav && targetView) {
+                // Show header labels dynamically based on their specific wing choice
+                if (userTargetService === "appointment-booking" || userTargetService === "cat-intelligence") {
+                    document.getElementById("lbl-acceleration").style.display = "block";
+                } else {
+                    document.getElementById("lbl-recovery").style.display = "block";
+                }
+                
+                targetNav.style.display = "flex";
+                targetNav.classList.add("active");
+                targetView.classList.add("active");
+            }
+        };
+
+        function switchActiveTab(serviceId) {
+            const tabs = document.querySelectorAll('.dashboard-tab');
+            tabs.forEach(t => t.classList.remove('active'));
+            const items = document.querySelectorAll('.nav-item');
+            items.forEach(i => i.classList.remove('active'));
+            
+            document.getElementById("view-" + serviceId).classList.add('active');
+            document.getElementById("nav-" + serviceId).classList.add('active');
+        }
+    </script>
+</body>
+</html>
