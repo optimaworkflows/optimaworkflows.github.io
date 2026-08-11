@@ -13,10 +13,10 @@
         .logo { font-weight: 800; font-size: 14px; letter-spacing: 0.05em; color: var(--accent-blue); display: flex; align-items: center; gap: 8px; text-transform: uppercase; margin-bottom: 24px; }
         .logo-dot { height: 6px; width: 6px; background-color: var(--accent-blue); border-radius: 50%; }
         
-        .section-label { display: none; font-size: 10px; font-weight: 800; text-transform: uppercase; color: #475569; letter-spacing: 0.05em; margin: 16px 0 8px 6px; }
+        .section-label { font-size: 10px; font-weight: 800; text-transform: uppercase; color: #475569; letter-spacing: 0.05em; margin: 16px 0 8px 6px; }
         .nav-group { display: flex; flex-direction: column; gap: 4px; }
-        .nav-item { display: none; padding: 10px 12px; border-radius: 6px; color: var(--text-muted); font-size: 13px; font-weight: 600; text-decoration: none; cursor: pointer; transition: all 0.2s; justify-content: space-between; }
-        .nav-item.active { background: rgba(56, 189, 248, 0.05); color: #ffffff; border-left: 3px solid var(--accent-blue); }
+        .nav-item { padding: 10px 12px; border-radius: 6px; color: var(--text-muted); font-size: 13px; font-weight: 600; text-decoration: none; cursor: pointer; transition: all 0.2s; display: flex; justify-content: space-between; }
+        .nav-item:hover, .nav-item.active { background: rgba(56, 189, 248, 0.05); color: #ffffff; border-left: 3px solid var(--accent-blue); }
         .status-dot { height: 5px; width: 5px; background-color: var(--accent-green); border-radius: 50%; align-self: center; }
 
         .main-viewport { flex: 1; padding: 40px; overflow-y: auto; }
@@ -25,8 +25,18 @@
         
         .dashboard-tab { display: none; }
         .dashboard-tab.active { display: block; }
-        .card { background: var(--card-gradient); border: 1px solid var(--border-color); border-radius: 12px; padding: 32px; margin-bottom: 24px; }
+        .card { background: var(--card-gradient); border: 1px solid var(--border-color); border-radius: 12px; padding: 32px; margin-bottom: 24px; position: relative; }
         
+        /* 🔔 AUTOMATED LIVE NOTIFICATION ALERT BANNER DESIGN */
+        .notification-banner { background: rgba(251, 191, 36, 0.08); border: 1px solid var(--accent-amber); color: var(--accent-amber); padding: 16px; border-radius: 8px; font-size: 13.5px; font-weight: 600; display: flex; align-items: center; gap: 12px; margin-bottom: 24px; line-height: 1.4; }
+        .notification-pulse { height: 8px; width: 8px; background-color: var(--accent-amber); border-radius: 50%; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% { transform: scale(0.9); opacity: 0.6; } 50% { transform: scale(1.2); opacity: 1; } 100% { transform: scale(0.9); opacity: 0.6; } }
+
+        /* Premium feature locking overlay visuals */
+        .premium-lockbox { border-left: 3px solid var(--accent-red); background: rgba(239, 68, 68, 0.02); }
+        .lock-badge { background: rgba(239, 68, 68, 0.1); color: var(--accent-red); padding: 2px 6px; border-radius: 4px; font-size: 10px; font-weight: 800; text-transform: uppercase; float: right; letter-spacing: 0.05em; }
+
+        input, select { width: 100%; background-color: #020617; border: 1px solid var(--border-color); border-radius: 6px; padding: 12px; color: #ffffff; font-size: 13px; }
         table { width: 100%; border-collapse: collapse; text-align: left; font-size: 12.5px; }
         th { font-size: 10.5px; text-transform: uppercase; color: var(--text-muted); padding: 10px; border-bottom: 1px solid var(--border-color); }
         td { padding: 14px 10px; border-bottom: 1px solid #111827; }
@@ -40,65 +50,110 @@
         <div>
             <div class="logo"><span class="logo-dot"></span> Optima Workflows</div>
             
-            <div class="section-label" id="lbl-acceleration">Pipeline Acceleration</div>
+            <div class="section-label">Pipeline Acceleration</div>
             <nav class="nav-group">
-                <div class="nav-item" id="nav-appointment-booking" onclick="switchActiveTab('appointment-booking')"><span>Appointment Booking</span><span class="status-dot"></span></div>
-                <div class="nav-item" id="nav-cat-intelligence" onclick="switchActiveTab('cat-intelligence')"><span>Cat Intelligence</span><span class="status-dot"></span></div>
+                <div class="nav-item active" onclick="switchActiveTab('appointment-booking')"><span>Appointment Booking</span><span class="status-dot"></span></div>
+                <div class="nav-item" onclick="switchActiveTab('cat-intelligence')"><span>Cat Intelligence</span><span class="status-dot"></span></div>
             </nav>
             
-            <div class="section-label" id="lbl-recovery">Revenue Recovery</div>
+            <div class="section-label">Revenue Recovery</div>
             <nav class="nav-group">
-                <div class="nav-item" id="nav-vendor-audit" onclick="switchActiveTab('vendor-audit')"><span>Vendor Audit</span></div>
-                <div class="nav-item" id="nav-freight-audit" onclick="switchActiveTab('freight-audit')"><span>Freight Audit</span></div>
-                <div class="nav-item" id="nav-chargeback-recovery" onclick="switchActiveTab('chargeback-recovery')"><span>Chargeback Recovery</span></div>
-                <div class="nav-item" id="nav-storm-audit" onclick="switchActiveTab('storm-audit')"><span>Storm Audit</span></div>
+                <div class="nav-item" onclick="switchActiveTab('vendor-audit')"><span>Vendor Audit</span></div>
+                <div class="nav-item" onclick="switchActiveTab('freight-audit')"><span>Freight Audit</span></div>
+                <div class="nav-item" onclick="switchActiveTab('chargeback-recovery')"><span>Chargeback Recovery</span></div>
+                <div class="nav-item" onclick="switchActiveTab('storm-audit')"><span>Storm Audit</span></div>
             </nav>
         </div>
         <div class="user-block">
-            <div style="color:#ffffff; font-weight:700;">Active Session User</div>
-            <div style="font-size:11px; margin-top:2px;">Optima Secure Terminal Pass</div>
+            <div style="color:#ffffff; font-weight:700;">Vanguard Restoration Corp</div>
+            <div id="user-tier-label" style="font-size:11px; margin-top:2px; color: var(--accent-amber);">Account State: Per-Storm Tier (On-Demand)</div>
         </div>
     </aside>
 
     <!-- 💻 CENTRAL DESKTOP VIEWPORT HOOKS -->
     <main class="main-viewport">
 
-        <!-- SERVICE 1: VENDOR AUDIT VIEWPORT -->
-        <section id="view-vendor-audit" class="dashboard-tab">
-            <h1>Vendor Audit Terminal</h1>
-            <p class="lead">Audit raw supplier transaction lines and purchase ledgers for duplicate line item charges.</p>
-            <div class="card"><table><thead><tr><th>Invoice File</th><th>Date Run</th><th>Leakage Identified</th></tr></thead><tbody><tr><td>inv_99421_ABC_Supply.pdf</td><td>Aug 04, 2026</td><td style="color:var(--accent-green); font-weight:700;">$1,840.00</td></tr></tbody></table></div>
+        <!-- 🔔 GLOBAL PIPELINE NOTIFICATION BANNER LINK -->
+        <div id="global-alert-banner" class="notification-banner">
+            <span class="notification-pulse"></span>
+            <span><strong>SYSTEM ALERT INBOUND:</strong> A new code-compliance analysis report is ready for download in your reports vault. Remit settlement to unlock the unmasked Xactimate document packages instantly.</span>
+        </div>
+
+        <!-- SERVICE: CAT INTELLIGENCE CORE TAB -->
+        <section id="view-cat-intelligence" class="dashboard-tab">
+            <h1>Cat Intelligence Terminal</h1>
+            <p class="lead">Input target storm tracking zip codes to evaluate regional property density grids, building envelope age matrices, and municipal code structures.</p>
+            
+            <div class="card">
+                <form>
+                    <div style="display: flex; gap: 16px;">
+                        <input type="text" placeholder="Enter Target Zip (e.g., 75062)" style="flex:1;">
+                        <button type="button" style="width:200px; background:rgba(56, 189, 248, 0.05); border:1px solid rgba(56, 189, 248, 0.2); color:var(--accent-blue); font-weight:bold; border-radius:6px; font-size:12px; text-transform:uppercase;">Run 9-Factor Matrix</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- PREMIUM FEATURES LAYOUT TRACK: GREYED OUT FOR TRIAL/ON-DEMAND ACCOUNTS -->
+            <div class="card premium-lockbox" id="premium-layer-card">
+                <span class="lock-badge">Retainer Feature Locked</span>
+                <h3 style="font-size: 14px; font-weight: 800; color: var(--accent-red); margin-bottom: 6px;">Live Multi-Variant Exit Blueprints & Litigation Tracking</h3>
+                <p style="font-size: 13px; color: var(--text-muted); max-width:600px; line-height: 1.5;">Continuous Asynchronous Google Drive 06:00 AM Sync Pipes, real-time market-saturation indexes, carrier denial litigation risk maps, and automated post-engagement cash flow prompts are highly restricted. Upgrade your operational profile to a Premium Monthly Retainer Core to release these features.</p>
+            </div>
         </section>
 
-        <!-- SERVICE 2: APPOINTMENT BOOKING VIEWPORT -->
+        <!-- SERVICE: COMPARED REPORT REGISTRY AND DATA CORES -->
+        <section id="view-storm-audit" class="dashboard-tab">
+            <h1>Storm Audit Registry Vault</h1>
+            <p class="lead">Review processed code alignment reports and download verified local municipal ordinance documentation packs.</p>
+            <div class="card" style="padding: 16px 24px;">
+                <table>
+                    <thead><tr><th>Property Target ID</th><th>Timestamp Analyzed</th><th>Omissions Found</th><th>Calculated Delta</th><th>Data Pipeline Status</th></tr></thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>ZIP_75062_Irving_TX</strong></td>
+                            <td>Today, 03:52 AM</td>
+                            <td>3 Code Violations</td>
+                            <td style="color:var(--accent-green); font-weight:bold;">$45,000.00 Verified</td>
+                            <td><span style="background:rgba(251, 191, 36, 0.1); color:var(--accent-amber); padding:4px 8px; border-radius:4px; font-size:11px; font-weight:bold; font-family:monospace;">MASKED_PREVIEW_READY</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- SERVICE: THE STATIC PERMANENT BANK CLEARING TERMINAL -->
+        <section id="view-vendor-audit" class="dashboard-tab">
+            <h1>Corporate Financial Clearing & Invoices</h1>
+            <p class="lead">Remit pending report package distributions and monthly access fees using our permanent, static banking credentials below.</p>
+            
+            <div class="card" style="border-left: 3px solid var(--accent-green); max-width:600px; margin-bottom:32px;">
+                <h3 style="font-size: 14px; font-weight: 800; color: var(--accent-green); text-transform: uppercase; margin-bottom: 12px;">Optima Workflows Corporate Settlement Destination</h3>
+                                <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 16px;">To unlock any masked report data bundle, run a corporate bank transfer or wire directly to our operating parameters below, referencing your unique **Account Key (OPT-77421)** inside the transaction description memo block row.</p>
+                <div style="background:#020617; border:1px solid var(--border-color); padding:16px; border-radius:6px; font-family:monospace; font-size:13px; line-height:1.6; color:#ffffff;">
+                    <div>🏦 BENEFICIARY BANK: <strong>State Bank of India</strong></div>
+                    <div>🏢 BRANCH NAME:     <strong>Karnal Corporate Hub (Haryana, IN)</strong></div>
+                    <div>📜 ACCOUNT NAME:    <strong>Optima Workflows Private Operations</strong></div>
+                    <div>🔑 ACCOUNT NUMBER:  <strong>XXXXXXXXXXXXX</strong></div>
+                    <div>🌐 IFSC ROUTING KEY: <strong>SBIN00XXXXX</strong></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- DEFENSIVE ACCELERATION ROUTE SKELETON PLACEHOLDERS -->
         <section id="view-appointment-booking" class="dashboard-tab">
             <h1>Appointment Booking Terminal</h1>
             <p class="lead">Connect inbound carrier web hooks or paste raw consumer quote requests to trigger immediate 3-second text follow-ups.</p>
+            <div class="card">
+                <form action="https://formspree.io" method="POST">
+                    <div class="form-group"><label>Inbound Lead Name</label><input type="text" name="lead_name" required placeholder="John Doe"></div>
+                    <div class="form-group"><label>Inbound Contact Phone Number</label><input type="tel" name="lead_phone" required placeholder="(555) 000-0000"></div>
+                    <button type="submit" class="submit-btn">Inject Active Lead Stream Row</button>
+                </form>
+            </div>
         </section>
-
-        <!-- SERVICE 3: FREIGHT AUDIT VIEWPORT -->
-        <section id="view-freight-audit" class="dashboard-tab">
-            <h1>Freight Audit Terminal</h1>
-            <p class="lead">Logistical carrier surcharge reconciliation and mileage discrepancy checks.</p>
-        </section>
-
-        <!-- SERVICE 4: CHARGEBACK RECOVERY VIEWPORT -->
-        <section id="view-chargeback-recovery" class="dashboard-tab">
-            <h1>Chargeback Recovery Terminal</h1>
-            <p class="lead">Merchant dispute mitigation loops and automated response documentation bundles.</p>
-        </section>
-
-        <!-- SERVICE 5: STORM AUDIT VIEWPORT -->
-        <section id="view-storm-audit" class="dashboard-tab">
-            <h1>Storm Audit Terminal</h1>
-            <p class="lead">Clerical scope code-compliance review database tracks matching 2024 IRC framework mandates.</p>
-        </section>
-
-        <!-- SERVICE 6: CAT INTELLIGENCE VIEWPORT -->
-        <section id="view-cat-intelligence" class="dashboard-tab">
-            <h1>Cat Intelligence Workspace</h1>
-            <p class="lead">Input target storm tracking zip codes to evaluate structural building vulnerabilities and municipal energy updates.</p>
-        </section>
+        
+        <section id="view-freight-audit" class="dashboard-tab"><h1>Freight Audit Core</h1><p class="lead">Asynchronous logistical carrier audit logs and mileage verification metrics.</p></section>
+        <section id="view-chargeback-recovery" class="dashboard-tab"><h1>Chargeback Recovery Terminal</h1><p class="lead">Retail merchant chargeback dispute tracking rows and automated response documentation bundles.</p></section>
     </main>
 
     <script>
@@ -133,8 +188,25 @@
             items.forEach(i => i.classList.remove('active'));
             
             document.getElementById("view-" + serviceId).classList.add('active');
-            document.getElementById("nav-" + serviceId).classList.add('active');
+            if (document.getElementById("nav-" + serviceId)) {
+                document.getElementById("nav-" + serviceId).classList.add('active');
+            }
+        }
+
+        // 🔮 DEV NODE: SIMULATED ACCOUNT CONFIGURATION TEST SWITCH
+        // Toggle this state to true to watch your interface instantly unlock premium parameters and label variables natively!
+        let isPremiumRetainerActive = false; 
+
+        if(isPremiumRetainerActive) {
+            document.getElementById("user-tier-label").innerHTML = "Account State: Premium Retainer Core Tier";
+            document.getElementById("user-tier-label").style.color = "var(--accent-green)";
+            document.getElementById("premium-layer-card").style.borderLeftColor = "var(--accent-green)";
+            document.getElementById("premium-layer-card").querySelector(".lock-badge").innerHTML = "Retainer Access Verified";
+            document.getElementById("premium-layer-card").querySelector(".lock-badge").style.backgroundColor = "rgba(52, 211, 153, 0.1)";
+            document.getElementById("premium-layer-card").querySelector(".lock-badge").style.color = "var(--accent-green)";
+            document.getElementById("premium-layer-card").querySelector("h3").style.color = "var(--accent-green)";
         }
     </script>
 </body>
 </html>
+
