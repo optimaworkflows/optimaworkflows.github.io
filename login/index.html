@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Login | Optima Workflows</title>
+    <style>
+        :root { --bg-dark: #030712; --card-gradient: linear-gradient(145deg, #0b0f19, #060a13); --border-color: #1f2937; --text-main: #ffffff; --text-muted: #94a3b8; --accent-blue: #38bdf8; --accent-red: #ef4444; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: var(--bg-dark); color: var(--text-main); font-family: -apple-system, sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; padding: 20px; }
+        .login-container { max-width: 420px; width: 100%; }
+        .brand { font-weight: 800; font-size: 13px; letter-spacing: 0.05em; color: var(--accent-blue); text-transform: uppercase; margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
+        .brand-dot { height: 6px; width: 6px; background-color: var(--accent-blue); border-radius: 50%; }
+        h1 { font-size: 26px; font-weight: 800; letter-spacing: -0.025em; margin-bottom: 8px; }
+        .lead { font-size: 14px; color: var(--text-muted); margin-bottom: 24px; line-height: 1.5; }
+        .card { background: var(--card-gradient); border: 1px solid var(--border-color); border-radius: 12px; padding: 40px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3); }
+        form { display: flex; flex-direction: column; gap: 20px; }
+        .form-group { display: flex; flex-direction: column; gap: 6px; }
+        label { font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.05em; }
+        input { width: 100%; background-color: #020617; border: 1px solid var(--border-color); border-radius: 6px; padding: 14px; color: #ffffff; font-size: 14px; }
+        .submit-btn { width: 100%; border: 1px solid rgba(56, 189, 248, 0.2); color: var(--accent-blue); padding: 16px; border-radius: 6px; font-weight: 700; font-size: 13px; cursor: pointer; text-transform: uppercase; background: rgba(56, 189, 248, 0.05); transition: all 0.2s; }
+        .submit-btn:hover { background: #ffffff; color: #030712; border-color: #ffffff; }
+        .error-banner { display: none; background: rgba(239, 68, 68, 0.1); border: 1px solid var(--accent-red); color: var(--accent-red); font-size: 13px; font-weight: 600; padding: 14px; border-radius: 6px; margin-bottom: 20px; text-align: center; }
+        .footer-links { text-align: center; margin-top: 24px; font-size: 13px; color: var(--text-muted); }
+        .footer-links a { color: var(--accent-blue); text-decoration: none; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <div class="brand"><span class="brand-dot"></span> Optima Workflows // Operations Terminal</div>
+        <h1>Account Authorization</h1>
+        <p class="lead">Verify your identity credentials to open your secure operational workspace panel. Inbound session loops are tracked natively.</p>
+        
+        <div id="error-alert" class="error-banner">❌ AUTHENTICATION ERROR: Invalid password key or un-whitelisted corporate email coordinates. Check entries and retry.</div>
+
+        <div class="card">
+            <form id="secure-login-form" onsubmit="event.preventDefault(); executeSystemLoginVerification();">
+                <div class="form-group">
+                    <label for="email">Corporate Email Address</label>
+                    <input type="email" id="email" required placeholder="name@company.com">
+                </div>
+                <div class="form-group">
+                    <label for="password">Security Password Key</label>
+                    <input type="password" id="password" required placeholder="••••••••">
+                </div>
+                <button type="submit" class="submit-btn">Authorize Session Node</button>
+            </form>
+        </div>
+        
+        <div class="footer-links">
+            New enterprise operator? <a href="../register/">Establish Master Account →</a>
+        </div>
+    </div>
+
+    <script>
+        function executeSystemLoginVerification() {
+            const emailInput = document.getElementById("email").value.trim().toLowerCase();
+            const passwordInput = document.getElementById("password").value;
+            const errorAlert = document.getElementById("error-alert");
+
+            // Mock Production Credentials matching your whitelisted user matrices
+            if (emailInput === "operations@vanguard.com" && passwordInput === "vanguard2026") {
+                errorAlert.style.display = "none";
+                // Seamlessly pass credentials into the session memory and route straight to the active dashboard
+                window.location.href = "../dashboard/";
+            } else {
+                errorAlert.style.display = "block";
+            }
+        }
+    </script>
+</body>
+</html>
