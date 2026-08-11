@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Account Login | Optima Workflows</title>
     <style>
-        :root { --bg-dark: #030712; --card-gradient: linear-gradient(145deg, #0b0f19, #060a13); --border-color: #1f2937; --text-main: #ffffff; --text-muted: #94a3b8; --accent-blue: #38bdf8; --accent-red: #ef4444; }
+        :root { --bg-dark: #030712; --card-gradient: linear-gradient(145deg, #0b0f19, #060a13); --border-color: #1f2937; --text-main: #ffffff; --text-muted: #94a3b8; --accent-blue: #38bdf8; --accent-green: #34d399; --accent-red: #ef4444; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { background-color: var(--bg-dark); color: var(--text-main); font-family: -apple-system, sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; padding: 20px; }
         .login-container { max-width: 420px; width: 100%; }
@@ -20,25 +20,73 @@
         input { width: 100%; background-color: #020617; border: 1px solid var(--border-color); border-radius: 6px; padding: 14px; color: #ffffff; font-size: 14px; }
         .submit-btn { width: 100%; border: 1px solid rgba(56, 189, 248, 0.2); color: var(--accent-blue); padding: 16px; border-radius: 6px; font-weight: 700; font-size: 13px; cursor: pointer; text-transform: uppercase; background: rgba(56, 189, 248, 0.05); transition: all 0.2s; }
         .submit-btn:hover { background: #ffffff; color: #030712; border-color: #ffffff; }
-        .error-banner { display: none; background: rgba(239, 68, 68, 0.1); border: 1px solid var(--accent-red); color: var(--accent-red); font-size: 13px; font-weight: 600; padding: 14px; border-radius: 6px; margin-bottom: 20px; text-align: center; }
-        .footer-links { text-align: center; margin-top: 24px; font-size: 13px; color: var(--text-muted); }
-        .footer-links a { color: var(--accent-blue); text-decoration: none; font-weight: bold; }
+        .modal-overlay { position: fixed; inset: 0; background: rgba(3, 7, 18, 0.96); z-index: 9999; display: flex; align-items: center; justify-content: center; padding: 20px; }
+        .auth-card { background: var(--card-gradient); border: 1px solid var(--border-color); width: 100%; max-width: 420px; padding: 40px; border-radius: 12px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.5); }
     </style>
 </head>
 <body>
 
+    <!-- 🔒 MODAL A: MANDATORY 2FA INTERCEPTOR -->
+    <div id="login-2fa-modal" class="modal-overlay" style="display: none;">
+        <div class="auth-card">
+            <h2>2FA Verification</h2>
+            <p class="lead" style="font-size:13px; margin-bottom:16px;">Enter the 6-digit security code from your corporate app.</p>
+            <div id="auth-error-2fa" style="display:none; color:var(--accent-red); font-size:12px; font-weight:700; margin-bottom:12px;">❌ INVALID CODE</div>
+            <div class="form-group">
+                <input type="text" id="login-2fa-code" maxlength="6" placeholder="000000" style="text-align:center; font-family:monospace; font-size:18px;">
+            </div>
+            <button type="button" class="submit-btn" style="margin-top:20px;" onclick="executeFinalTwoFactorVerificationRun()">Authorize Session Connection</button>
+        </div>
+    </div>
+
+    <!-- 🔒 MODAL B: CORPORATE PASSWORD RESET GATE (OTP DRIVEN) -->
+    <div id="password-reset-modal" class="modal-overlay" style="display: none;">
+        <div class="auth-card">
+            <h2>Password Management</h2>
+            <p class="lead" style="font-size:13px; margin-bottom:16px;">Enter your verified company domain email to request a 6-digit corporate authentication code token loop.</p>
+            <div id="reset-error" style="display:none; color:var(--accent-red); font-size:12px; font-weight:700; margin-bottom:12px;">❌ VERIFICATION TOKEN INVALID</div>
+            
+            <div id="reset-stage-1">
+                <div class="form-group">
+                    <label>Company Email</label>
+                    <input type="email" id="reset-email" placeholder="name@yourcompany.com">
+                </div>
+                <button type="button" class="submit-btn" style="margin-top:16px;" onclick="simulateSendingEmailAuthenticationCode()">Request Access Code</button>
+            </div>
+
+            <div id="reset-stage-2" style="display:none;">
+                <div class="form-group">
+                    <label style="color:var(--accent-green);">Code Dispatched. Enter Corporate OTP Token</label>
+                    <input type="text" id="reset-otp" maxlength="6" placeholder="000000" style="text-align:center; font-family:monospace;">
+                </div>
+                <button type="button" class="submit-btn" style="margin-top:16px;" onclick="verifyCorporateEmailOtpTokenPass()">Verify Code Token</button>
+            </div>
+
+            <div id="reset-stage-3" style="display:none;">
+                <div class="form-group">
+                    <label>Type New Access Password Key</label>
+                    <input type="password" id="new-password" placeholder="••••••••">
+                </div>
+                <button type="button" class="submit-btn" style="margin-top:16px;" onclick="saveNewPasswordKeyAndClose()">Update Master Security Key</button>
+            </div>
+            
+            <button type="button" class="toggle-btn" style="background:none; border:none; color:var(--text-muted); font-size:12px; margin-top:16px; cursor:pointer;" onclick="document.getElementById('password-reset-modal').style.display='none'">← Cancel and Return</button>
+        </div>
+    </div>
+
+    <!-- 📋 MAIN LOGIN VIEWPORT PANEL -->
     <div class="login-container">
         <div class="brand"><span class="brand-dot"></span> Optima Workflows // Operations Terminal</div>
         <h1>Account Authorization</h1>
-        <p class="lead">Verify your identity credentials to open your secure operational workspace panel. Inbound session loops are tracked natively.</p>
+        <p class="lead">Verify your identity credentials to open your secure operational workspace panel.</p>
         
-        <div id="error-alert" class="error-banner">❌ AUTHENTICATION ERROR: Invalid password key or un-whitelisted corporate email coordinates. Check entries and retry.</div>
+        <div id="error-alert" style="display:none; background:rgba(239, 68, 68, 0.1); border:1px solid var(--accent-red); color:var(--accent-red); font-size:13px; font-weight:600; padding:14px; border-radius:6px; margin-bottom:20px; text-align:center;">❌ INVALID EMAIL OR ACCESS PASSWORD KEY</div>
 
         <div class="card">
-            <form id="secure-login-form" onsubmit="event.preventDefault(); executeSystemLoginVerification();">
+            <form id="secure-login-form" onsubmit="event.preventDefault(); executeInitialLoginCheck();">
                 <div class="form-group">
                     <label for="email">Corporate Email Address</label>
-                    <input type="email" id="email" required placeholder="name@company.com">
+                    <input type="email" id="email" required placeholder="operations@vanguard.com">
                 </div>
                 <div class="form-group">
                     <label for="password">Security Password Key</label>
@@ -48,26 +96,49 @@
             </form>
         </div>
         
-        <div class="footer-links">
-            New enterprise operator? <a href="../register/">Establish Master Account →</a>
+        <div style="text-align:center; margin-top:24px; font-size:13px; color:var(--text-muted); display:flex; justify-content:space-between; padding:0 8px;">
+            <a href="#" onclick="document.getElementById('password-reset-modal').style.display='flex'">Forgot Password Key?</a>
+            <a href="../register/" style="color:var(--accent-blue); font-weight:bold;">Establish Account →</a>
         </div>
     </div>
 
     <script>
-        function executeSystemLoginVerification() {
-            const emailInput = document.getElementById("email").value.trim().toLowerCase();
-            const passwordInput = document.getElementById("password").value;
+        function executeInitialLoginCheck() {
+            const emailVal = document.getElementById("email").value.trim().toLowerCase();
+            const passVal  = document.getElementById("password").value;
             const errorAlert = document.getElementById("error-alert");
 
-            // Mock Production Credentials matching your whitelisted user matrices
-            if (emailInput === "operations@vanguard.com" && passwordInput === "vanguard2026") {
+            if (emailVal === "operations@vanguard.com" && passVal === "vanguard2026") {
                 errorAlert.style.display = "none";
-                // Seamlessly pass credentials into the session memory and route straight to the active dashboard
-                window.location.href = "../dashboard/";
+                document.getElementById("login-2fa-modal").style.display = "flex";
             } else {
                 errorAlert.style.display = "block";
             }
         }
-    </script>
-</body>
-</html>
+
+        function executeFinalTwoFactorVerificationRun() {
+            const codeInput = document.getElementById("login-2fa-code").value.trim();
+            if (codeInput === "481516") {
+                document.getElementById("auth-error-2fa").style.display = "none";
+                localStorage.setItem("is_2fa_configured", "TRUE");
+                window.location.href = "../dashboard/";
+            } else {
+                document.getElementById("auth-error-2fa").style.display = "block";
+            }
+        }
+
+        // 🧠 OTP RESET SECURITY LOGIC LOOPS
+        function simulateSendingEmailAuthenticationCode() {
+            const targetMail = document.getElementById("reset-email").value.trim();
+            if (targetMail.includes("@") && targetMail.length > 5) {
+                document.getElementById("reset-stage-1").style.display = "none";
+                document.getElementById("reset-stage-2").style.display = "block";
+                alert("SECURITY DISPATCH: A secure 6-digit access code token has been sent to " + targetMail);
+            } else {
+                alert("Please provide a valid company email address coordinate.");
+            }
+        }
+
+        function verifyCorporateEmailOtpTokenPass() {
+            const otpCode = document.getElementById("reset-otp").value.trim();
+if (otpCode === "481516") { // Match our master security framework token configuration constantsdocument.getElementById("reset-error").style.display = "none";document.getElementById("reset-stage-2").style.display = "none";document.getElementById("reset-stage-3").style.display = "block";} else {document.getElementById("reset-error").style.display = "block";}}function saveNewPasswordKeyAndClose() {const newPass = document.getElementById("new-password").value;if (newPass.length >= 8) {alert("SUCCESS: Master password key record updated securely inside the ledger. Please log in using your fresh passcode.");document.getElementById("password-reset-modal").style.display = "none";document.getElementById("reset-stage-3").style.display = "none";document.getElementById("reset-stage-1").style.display = "block";document.getElementById("reset-otp").value = "";} else {alert("Security Requirement: New password must be at least 8 characters long.");}}
