@@ -190,66 +190,150 @@ footer{text-align:center;padding:40px 0 0;color:var(--text-muted);font-size:13px
 <div class="container">
 <div class="section-title">
 <h2>How Much Are Retailer Deductions Actually Costing You?</h2>
-<p>Most suppliers recover less than 30% of valid deductions. See what you're leaving on the table.</p>
+<p>Most suppliers recover less than 10% of what is disputable. See what you are leaving on the table.</p>
 </div>
 
 <div class="calc-card">
 <form id="chargeback-calc" class="calc-form">
 <div class="calc-row">
 <div class="calc-field">
-<label>Annual Revenue Through Retailers</label>
-<select id="retail-revenue" required>
+<label>Annual Revenue into Major Retailers</label>
+<select id="annual-revenue" required>
 <option value="">Select range...</option>
-<option value="2000000">$2M – $10M</option>
-<option value="10000000">$10M – $50M</option>
-<option value="50000000">$50M – $150M</option>
-<option value="150000000">$150M+</option>
+<option value="5000000">$3M – $8M</option>
+<option value="15000000">$8M – $25M</option>
+<option value="40000000">$25M – $60M</option>
+<option value="100000000">$60M+</option>
 </select>
 </div>
-
 <div class="calc-field">
-<label>Primary Retailers</label>
-<select id="retailer-mix" required>
-<option value="">Select...</option>
-<option value="walmart">Walmart-heavy</option>
-<option value="amazon">Amazon Vendor Central-heavy</option>
-<option value="target">Target-heavy</option>
-<option value="mixed">Mix of major retailers</option>
+<label>Approx. % of Revenue Hit by Deductions</label>
+<select id="deduction-rate" required>
+<option value="">Select range...</option>
+<option value="0.05">3 – 5%</option>
+<option value="0.07">5 – 7%</option>
+<option value="0.09" selected>7 – 10%</option>
+<option value="0.12">10%+</option>
 </select>
 </div>
 </div>
-
 <div class="calc-row">
 <div class="calc-field full-width">
-<label>How Do You Handle Deductions Today?</label>
-<select id="deduction-process" required>
-<option value="">Select your current approach...</option>
-<option value="writeoff">We write off most deductions — too time-consuming</option>
-<option value="large">We dispute only large deductions (&gt;$500)</option>
-<option value="review">We review but lack systematic process</option>
-<option value="managed">We have a team but they're overwhelmed</option>
+<label>How systematically do you currently dispute deductions?</label>
+<select id="dispute-habit" required>
+<option value="">Select...</option>
+<option value="0.08">Almost never — we usually accept them</option>
+<option value="0.20">Sometimes — when the amount is large</option>
+<option value="0.35">Regularly — but only the obvious ones</option>
 </select>
 </div>
 </div>
-
 <button type="submit" class="calc-submit">Calculate My Recovery Potential →</button>
 </form>
 
 <div id="chargeback-result" class="calc-result" style="display:none;">
 <div class="result-card-inner">
-<div class="result-amount" id="chargeback-amount"></div>
-<p class="result-detail" id="chargeback-detail"></p>
+<div class="result-amount" id="cb-main-amount"></div>
+<p class="result-detail" id="cb-detail"></p>
+
+<div style="display:grid;gap:12px;margin:20px 0 24px;text-align:left;max-width:460px;margin-left:auto;margin-right:auto;">
+<div style="display:flex;justify-content:space-between;gap:12px;">
+<span style="color:#a9b8cc;font-size:14px;">Estimated annual deductions</span>
+<strong id="cb-annual-deductions" style="color:#fbbf24;"></strong>
+</div>
+<div style="display:flex;justify-content:space-between;gap:12px;">
+<span style="color:#a9b8cc;font-size:14px;">Potentially invalid / disputable</span>
+<strong id="cb-disputable" style="color:#fbbf24;"></strong>
+</div>
+<div style="display:flex;justify-content:space-between;gap:12px;">
+<span style="color:#a9b8cc;font-size:14px;">What you are likely recovering today</span>
+<strong id="cb-current-recovery" style="color:#f87171;"></strong>
+</div>
+<div style="display:flex;justify-content:space-between;gap:12px;border-top:1px solid rgba(52,211,153,.25);padding-top:12px;">
+<span style="color:#a9b8cc;font-size:14px;">12-month value left on the table</span>
+<strong id="cb-yearly-left" style="color:#34d399;"></strong>
+</div>
+<div style="display:flex;justify-content:space-between;gap:12px;">
+<span style="color:#a9b8cc;font-size:14px;">Multi-year cost of continuing as-is</span>
+<strong id="cb-multi-year" style="color:#34d399;"></strong>
+</div>
+</div>
+
 <div class="result-cta-box">
-<p class="result-cta-heading">Dispute windows are tight — every day matters.</p>
-<p class="result-guarantee">Pay nothing upfront. Monitoring runs weekly. You pay 40% of documented disputable value — only on what we find.</p>
-<p class="result-cta-sub">Get a free audit of your last 60 days of retailer deductions. No recovery, no fee.</p>
-<a href="../chargeback-recovery-intake/" class="cta-primary result-cta-btn">Start My Free Deduction Audit →</a>
+<p class="result-guarantee">Free audit first. You only pay 40% of the disputable value we identify and document — never based on what the retailer ultimately approves.</p>
+<p class="result-cta-heading">You keep 60%. We take 40% of what we document.</p>
+<p class="result-cta-sub">No upfront fee. No charge if we find nothing. Everything by email.</p>
+<a href="../chargeback-recovery-intake/" class="cta-primary result-cta-btn">Start My Free Chargeback Audit →</a>
 </div>
 </div>
 </div>
+</div>
+
+<!-- Pricing + Guarantee Block — single source of truth, consolidated from the page's separate guarantee section -->
+<div class="guarantee-box" style="margin-top:40px;">
+<h3>How Pricing Works</h3>
+<div class="guarantee-row"><span class="check">✓</span> <span>We audit your recent retailer statements and delivery records at <strong>no cost</strong>.</span></div>
+<div class="guarantee-row"><span class="check">✓</span> <span>If we find no invalid deductions, you pay nothing.</span></div>
+<div class="guarantee-row"><span class="check">✓</span> <span>If we do, we take <strong>40% of the disputable value we identify and document</strong> — you keep the remaining 60%.</span></div>
+<div class="guarantee-row"><span class="check">✓</span> <span>Payment is never based on what the retailer ultimately approves or credits back.</span></div>
+<div class="guarantee-row"><span class="check">✓</span> <span>Our job is finding and documenting the dispute — not guaranteeing the retailer's final decision. Findings come formatted for the retailer's dispute portal; done-for-you filing is available separately as a monthly add-on.</span></div>
+<div class="guarantee-row"><span class="check">✓</span> <span>Ongoing clients get weekly monitoring so new deductions are caught while still inside the window.</span></div>
+<div class="guarantee-row"><span class="check">✓</span> <span>Everything handled by email. No sales calls.</span></div>
 </div>
 </div>
 </section>
+
+<script>
+document.getElementById('chargeback-calc').addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  const revenue = parseFloat(document.getElementById('annual-revenue').value);
+  const deductionRate = parseFloat(document.getElementById('deduction-rate').value);
+  const currentRecoveryRate = parseFloat(document.getElementById('dispute-habit').value);
+
+  // 78% sits inside the page's own stated 65-80% invalid-shortage-claim range (stat card below).
+  const invalidRate = 0.78;
+  // 50% is the midpoint of the page's own stated 40-60% documented-success-rate range (trust-grid section).
+  const documentedSuccess = 0.50;
+
+  const annualDeductions = revenue * deductionRate;
+  const disputable = annualDeductions * invalidRate;
+  const currentlyRecovered = disputable * currentRecoveryRate;
+  const leftOnTable = disputable - currentlyRecovered;
+  // 3-year multiplier — kept strictly larger than the 12-month figure it builds on.
+  const multiYear = leftOnTable * 3.2;
+
+  const fmt = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0
+  });
+
+  document.getElementById('cb-main-amount').textContent = fmt.format(leftOnTable) + ' / year left on the table';
+  document.getElementById('cb-detail').textContent =
+    'Based on ' + fmt.format(revenue) + ' retailer revenue and current dispute habits.';
+
+  document.getElementById('cb-annual-deductions').textContent = fmt.format(annualDeductions);
+  document.getElementById('cb-disputable').textContent = fmt.format(disputable);
+  document.getElementById('cb-current-recovery').textContent = fmt.format(currentlyRecovered);
+  document.getElementById('cb-yearly-left').textContent = fmt.format(leftOnTable);
+  document.getElementById('cb-multi-year').textContent = fmt.format(multiYear) + '+';
+
+  document.getElementById('chargeback-result').style.display = 'block';
+  document.getElementById('chargeback-result').scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+  if (typeof plausible === 'function') {
+    plausible('Calculator', {
+      props: {
+        vertical: 'chargeback-recovery',
+        leftOnTable: leftOnTable,
+        deductionRate: deductionRate
+      }
+    });
+  }
+});
+</script>
 
 <section>
 <div class="container">
@@ -348,18 +432,6 @@ footer{text-align:center;padding:40px 0 0;color:var(--text-muted);font-size:13px
 </div>
 </section>
 
-<section id="guarantee">
-<div class="container">
-<div class="guarantee-box">
-<h3>The Guarantee — Plain English</h3>
-<div class="guarantee-row"><span class="check">✓</span> We audit your recent retailer statements and delivery records at no cost.</div>
-<div class="guarantee-row"><span class="check">✓</span> If we find no invalid deductions, you pay nothing.</div>
-<div class="guarantee-row"><span class="check">✓</span> If we do, we take 40% of the disputable value we identify and document — you keep the remaining 60%. Payment is never based on what the retailer ultimately approves or credits back.</div>
-<div class="guarantee-row"><span class="check">✓</span> Our job is finding and documenting the dispute — not guaranteeing the retailer's final decision, and not filing it for you by default. Done-for-you filing is available separately as a monthly retainer add-on.</div>
-<div class="guarantee-row"><span class="check">✓</span> Once you're a client, we monitor weekly so new deductions are caught while still inside the window.</div>
-</div>
-</div>
-</section>
 
 <section>
 <div class="container">
@@ -437,58 +509,5 @@ footer{text-align:center;padding:40px 0 0;color:var(--text-muted);font-size:13px
 </div>
 </footer>
 
-<script>
-document.getElementById('chargeback-calc').addEventListener('submit', function(e) {
-    e.preventDefault();
-
-    const revenue = parseInt(document.getElementById('retail-revenue').value);
-    const retailer = document.getElementById('retailer-mix').value;
-    const process = document.getElementById('deduction-process').value;
-
-    // Deduction rates by retailer type — total deductions as % of revenue.
-    const retailerRates = {
-        'walmart': 0.06,
-        'amazon': 0.04,
-        'target': 0.045,
-        'mixed': 0.05
-    };
-
-    // Recovery potential by current process — % of total deductions that's
-    // recoverable given how much low-hanging fruit is currently being missed.
-    const processRates = {
-        'writeoff': 0.55,
-        'large': 0.40,
-        'review': 0.25,
-        'managed': 0.15
-    };
-
-    const totalDeductions = revenue * retailerRates[retailer];
-    const recoverableAmount = totalDeductions * processRates[process];
-
-    const formatter = new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'USD',
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 0
-    });
-
-    document.getElementById('chargeback-amount').textContent = formatter.format(recoverableAmount) + '/year recoverable';
-    document.getElementById('chargeback-detail').textContent =
-        'Estimated ' + formatter.format(totalDeductions) + ' in total deductions — ' + Math.round(processRates[process] * 100) + '% potentially recoverable';
-    document.getElementById('chargeback-result').style.display = 'block';
-    document.getElementById('chargeback-result').scrollIntoView({ behavior: 'smooth', block: 'center' });
-
-    if (typeof plausible === 'function') {
-        plausible('Calculator', {
-            props: {
-                vertical: 'chargeback-recovery',
-                recoverableAmount: recoverableAmount,
-                retailer: retailer,
-                process: process
-            }
-        });
-    }
-});
-</script>
 </body>
 </html>
