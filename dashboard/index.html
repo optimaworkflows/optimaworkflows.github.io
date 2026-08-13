@@ -3,210 +3,386 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enterprise Portal | Optima Workflows</title>
+    <title>Enterprise Terminal | Optima Workflows</title>
     <style>
-        :root { --bg-dark: #030712; --card-gradient: linear-gradient(145deg, #0b0f19, #060a13); --border-color: #1f2937; --text-main: #ffffff; --text-muted: #94a3b8; --accent-blue: #38bdf8; --accent-green: #34d399; --accent-amber: #fbbf24; --accent-red: #ef4444; }
+        :root {
+            --bg-dark: #030712;
+            --card-gradient: linear-gradient(145deg, #0b0f19, #060a13);
+            --border-color: #1f2937;
+            --text-main: #ffffff;
+            --text-muted: #94a3b8;
+            --accent-blue: #38bdf8;
+            --accent-green: #34d399;
+            --accent-amber: #fbbf24;
+            --accent-red: #ef4444;
+        }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background-color: var(--bg-dark); color: var(--text-main); font-family: -apple-system, sans-serif; display: flex; height: 100vh; overflow: hidden; }
+        body { background-color: var(--bg-dark); color: var(--text-main); font-family: -apple-system, sans-serif; height: 100vh; display: flex; overflow: hidden; }
         
+        /* 🔒 SYSTEM AUTHORIZATION WALL SCREEN PLACEMENT */
+        #auth-portal-screen { position: fixed; inset: 0; background: var(--bg-dark); z-index: 99999; display: flex; align-items: center; justify-content: center; padding: 20px; }
+        .auth-card { background: var(--card-gradient); border: 1px solid var(--border-color); width: 100%; max-width: 420px; padding: 40px; border-radius: 12px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); }
+        .auth-card h2 { font-size: 24px; font-weight: 800; letter-spacing: -0.025em; margin-bottom: 6px; }
+        .auth-lead { font-size: 13.5px; color: var(--text-muted); margin-bottom: 24px; line-height: 1.5; }
+        .error-alert { display: none; background: rgba(239, 68, 68, 0.1); border: 1px solid var(--accent-red); color: var(--accent-red); font-size: 13px; font-weight: 600; padding: 12px; border-radius: 6px; margin-bottom: 20px; text-align: center; }
+
+        /* 🌌 MAIN DASHBOARD MASTER LAYOUT DESIGN */
+        #dashboard-app-wrapper { display: none; width: 100%; height: 100vh; }
         .sidebar { width: 280px; background: #060a13; border-right: 1px solid var(--border-color); display: flex; flex-direction: column; justify-content: space-between; padding: 24px 16px; }
         .logo { font-weight: 800; font-size: 14px; letter-spacing: 0.05em; color: var(--accent-blue); display: flex; align-items: center; gap: 8px; text-transform: uppercase; margin-bottom: 24px; }
         .logo-dot { height: 6px; width: 6px; background-color: var(--accent-blue); border-radius: 50%; }
         
-        .section-label { font-size: 10px; font-weight: 800; text-transform: uppercase; color: #475569; letter-spacing: 0.05em; margin: 16px 0 8px 6px; }
+        .section-label { font-size: 10px; font-weight: 800; text-transform: uppercase; color: #475569; letter-spacing: 0.05em; margin: 18px 0 8px 6px; }
         .nav-group { display: flex; flex-direction: column; gap: 4px; }
-        .nav-item { padding: 10px 12px; border-radius: 6px; color: var(--text-muted); font-size: 13px; font-weight: 600; text-decoration: none; cursor: pointer; transition: all 0.2s; display: flex; justify-content: space-between; }
+        .nav-item { padding: 12px; border-radius: 6px; color: var(--text-muted); font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 10px; }
         .nav-item:hover, .nav-item.active { background: rgba(56, 189, 248, 0.05); color: #ffffff; border-left: 3px solid var(--accent-blue); }
-        .status-dot { height: 5px; width: 5px; background-color: var(--accent-green); border-radius: 50%; align-self: center; }
 
         .main-viewport { flex: 1; padding: 40px; overflow-y: auto; }
-        h1 { font-size: 24px; font-weight: 800; letter-spacing: -0.025em; margin-bottom: 6px; }
-        .lead { font-size: 13.5px; color: var(--text-muted); margin-bottom: 24px; }
+        h1 { font-size: 26px; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 6px; }
+        .lead { font-size: 14px; color: var(--text-muted); margin-bottom: 32px; }
         
         .dashboard-tab { display: none; }
         .dashboard-tab.active { display: block; }
-        .card { background: var(--card-gradient); border: 1px solid var(--border-color); border-radius: 12px; padding: 32px; margin-bottom: 24px; position: relative; }
+        .card { background: var(--card-gradient); border: 1px solid var(--border-color); border-radius: 12px; padding: 32px; margin-bottom: 24px; }
         
-        /* 🔔 AUTOMATED LIVE NOTIFICATION ALERT BANNER DESIGN */
-        .notification-banner { background: rgba(251, 191, 36, 0.08); border: 1px solid var(--accent-amber); color: var(--accent-amber); padding: 16px; border-radius: 8px; font-size: 13.5px; font-weight: 600; display: flex; align-items: center; gap: 12px; margin-bottom: 24px; line-height: 1.4; }
-        .notification-pulse { height: 8px; width: 8px; background-color: var(--accent-amber); border-radius: 50%; animation: pulse 1.5s infinite; }
-        @keyframes pulse { 0% { transform: scale(0.9); opacity: 0.6; } 50% { transform: scale(1.2); opacity: 1; } 100% { transform: scale(0.9); opacity: 0.6; } }
-
-        /* Premium feature locking overlay visuals */
-        .premium-lockbox { border-left: 3px solid var(--accent-red); background: rgba(239, 68, 68, 0.02); }
-        .lock-badge { background: rgba(239, 68, 68, 0.1); color: var(--accent-red); padding: 2px 6px; border-radius: 4px; font-size: 10px; font-weight: 800; text-transform: uppercase; float: right; letter-spacing: 0.05em; }
-
-        input, select { width: 100%; background-color: #020617; border: 1px solid var(--border-color); border-radius: 6px; padding: 12px; color: #ffffff; font-size: 13px; }
-        table { width: 100%; border-collapse: collapse; text-align: left; font-size: 12.5px; }
-        th { font-size: 10.5px; text-transform: uppercase; color: var(--text-muted); padding: 10px; border-bottom: 1px solid var(--border-color); }
-        td { padding: 14px 10px; border-bottom: 1px solid #111827; }
-        .user-block { border-top: 1px solid var(--border-color); padding-top: 12px; font-size: 12px; color: var(--text-muted); }
+        form { display: flex; flex-direction: column; gap: 18px; max-width: 480px; }
+        .form-group { display: flex; flex-direction: column; gap: 6px; }
+        label { font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.05em; }
+        input, select { width: 100%; background-color: #020617; border: 1px solid var(--border-color); border-radius: 6px; padding: 14px; color: #ffffff; font-size: 13.5px; }
+        
+        .submit-btn { width: 100%; border: 1px solid rgba(56, 189, 248, 0.2); color: var(--accent-blue); padding: 14px; border-radius: 6px; font-weight: 700; cursor: pointer; text-transform: uppercase; background: rgba(56, 189, 248, 0.05); font-size: 12px; }
+        .submit-btn:hover { background: #ffffff; color: #030712; border-color: #ffffff; }
+        
+        table { width: 100%; border-collapse: collapse; text-align: left; font-size: 13px; }
+        th { font-size: 11px; text-transform: uppercase; color: var(--text-muted); padding: 12px; border-bottom: 1px solid var(--border-color); letter-spacing: 0.05em; }
+        td { padding: 16px 12px; border-bottom: 1px solid #111827; line-height: 1.5; }
+        
+        .badge { padding: 4px 8px; border-radius: 4px; font-size: 11px; font-weight: bold; font-family: monospace; }
+        .bg-amber { background: rgba(251, 191, 36, 0.1); color: var(--accent-amber); }
+        .bg-green { background: rgba(52, 211, 153, 0.1); color: var(--accent-green); }
+        .user-block { border-top: 1px solid var(--border-color); padding-top: 14px; font-size: 12px; color: var(--text-muted); }
     </style>
 </head>
 <body>
 
-    <!-- 📐 LEFT APP CONTROL SIDEBAR BAR -->
-    <aside class="sidebar">
-        <div>
-            <div class="logo"><span class="logo-dot"></span> Optima Workflows</div>
-            
-            <div class="section-label">Pipeline Acceleration</div>
-            <nav class="nav-group">
-                <div class="nav-item active" onclick="switchActiveTab('appointment-booking')"><span>Appointment Booking</span><span class="status-dot"></span></div>
-                <div class="nav-item" onclick="switchActiveTab('cat-intelligence')"><span>Cat Intelligence</span><span class="status-dot"></span></div>
-            </nav>
-            
-            <div class="section-label">Revenue Recovery</div>
-            <nav class="nav-group">
-                <div class="nav-item" onclick="switchActiveTab('vendor-audit')"><span>Vendor Audit</span></div>
-                <div class="nav-item" onclick="switchActiveTab('freight-audit')"><span>Freight Audit</span></div>
-                <div class="nav-item" onclick="switchActiveTab('chargeback-recovery')"><span>Chargeback Recovery</span></div>
-                <div class="nav-item" onclick="switchActiveTab('storm-audit')"><span>Storm Audit</span></div>
-            </nav>
-        </div>
-        <div class="user-block">
-            <div style="color:#ffffff; font-weight:700;">Vanguard Restoration Corp</div>
-            <div id="user-tier-label" style="font-size:11px; margin-top:2px; color: var(--accent-amber);">Account State: Per-Storm Tier (On-Demand)</div>
-        </div>
-    </aside>
-
-    <!-- 💻 CENTRAL DESKTOP VIEWPORT HOOKS -->
-    <main class="main-viewport">
-
-        <!-- 🔔 GLOBAL PIPELINE NOTIFICATION BANNER LINK -->
-        <div id="global-alert-banner" class="notification-banner">
-            <span class="notification-pulse"></span>
-            <span><strong>SYSTEM ALERT INBOUND:</strong> A new code-compliance analysis report is ready for download in your reports vault. Remit settlement to unlock the unmasked Xactimate document packages instantly.</span>
-        </div>
-
-        <!-- SERVICE: CAT INTELLIGENCE CORE TAB -->
-        <section id="view-cat-intelligence" class="dashboard-tab">
-            <h1>Cat Intelligence Terminal</h1>
-            <p class="lead">Input target storm tracking zip codes to evaluate regional property density grids, building envelope age matrices, and municipal code structures.</p>
-            
-            <div class="card">
-                <form>
-                    <div style="display: flex; gap: 16px;">
-                        <input type="text" placeholder="Enter Target Zip (e.g., 75062)" style="flex:1;">
-                        <button type="button" style="width:200px; background:rgba(56, 189, 248, 0.05); border:1px solid rgba(56, 189, 248, 0.2); color:var(--accent-blue); font-weight:bold; border-radius:6px; font-size:12px; text-transform:uppercase;">Run 9-Factor Matrix</button>
-                    </div>
-                </form>
-            </div>
-
-            <!-- PREMIUM FEATURES LAYOUT TRACK: GREYED OUT FOR TRIAL/ON-DEMAND ACCOUNTS -->
-            <div class="card premium-lockbox" id="premium-layer-card">
-                <span class="lock-badge">Retainer Feature Locked</span>
-                <h3 style="font-size: 14px; font-weight: 800; color: var(--accent-red); margin-bottom: 6px;">Live Multi-Variant Exit Blueprints & Litigation Tracking</h3>
-                <p style="font-size: 13px; color: var(--text-muted); max-width:600px; line-height: 1.5;">Continuous Asynchronous Google Drive 06:00 AM Sync Pipes, real-time market-saturation indexes, carrier denial litigation risk maps, and automated post-engagement cash flow prompts are highly restricted. Upgrade your operational profile to a Premium Monthly Retainer Core to release these features.</p>
-            </div>
-        </section>
-
-        <!-- SERVICE: COMPARED REPORT REGISTRY AND DATA CORES -->
-        <section id="view-storm-audit" class="dashboard-tab">
-            <h1>Storm Audit Registry Vault</h1>
-            <p class="lead">Review processed code alignment reports and download verified local municipal ordinance documentation packs.</p>
-            <div class="card" style="padding: 16px 24px;">
-                <table>
-                    <thead><tr><th>Property Target ID</th><th>Timestamp Analyzed</th><th>Omissions Found</th><th>Calculated Delta</th><th>Data Pipeline Status</th></tr></thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>ZIP_75062_Irving_TX</strong></td>
-                            <td>Today, 03:52 AM</td>
-                            <td>3 Code Violations</td>
-                            <td style="color:var(--accent-green); font-weight:bold;">$45,000.00 Verified</td>
-                            <td><span style="background:rgba(251, 191, 36, 0.1); color:var(--accent-amber); padding:4px 8px; border-radius:4px; font-size:11px; font-weight:bold; font-family:monospace;">MASKED_PREVIEW_READY</span></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-
-        <!-- SERVICE: THE STATIC PERMANENT BANK CLEARING TERMINAL -->
-        <section id="view-vendor-audit" class="dashboard-tab">
-            <h1>Corporate Financial Clearing & Invoices</h1>
-            <p class="lead">Remit pending report package distributions and monthly access fees using our permanent, static banking credentials below.</p>
-            
-            <div class="card" style="border-left: 3px solid var(--accent-green); max-width:600px; margin-bottom:32px;">
-                <h3 style="font-size: 14px; font-weight: 800; color: var(--accent-green); text-transform: uppercase; margin-bottom: 12px;">Optima Workflows Corporate Settlement Destination</h3>
-                                <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 16px;">To unlock any masked report data bundle, run a corporate bank transfer or wire directly to our operating parameters below, referencing your unique **Account Key (OPT-77421)** inside the transaction description memo block row.</p>
-                <div style="background:#020617; border:1px solid var(--border-color); padding:16px; border-radius:6px; font-family:monospace; font-size:13px; line-height:1.6; color:#ffffff;">
-                    <div>🏦 BENEFICIARY BANK: <strong>State Bank of India</strong></div>
-                    <div>🏢 BRANCH NAME:     <strong>Karnal Corporate Hub (Haryana, IN)</strong></div>
-                    <div>📜 ACCOUNT NAME:    <strong>Optima Workflows Private Operations</strong></div>
-                    <div>🔑 ACCOUNT NUMBER:  <strong>XXXXXXXXXXXXX</strong></div>
-                    <div>🌐 IFSC ROUTING KEY: <strong>SBIN00XXXXX</strong></div>
-                </div>
-            </div>
-        </section>
-
-        <!-- DEFENSIVE ACCELERATION ROUTE SKELETON PLACEHOLDERS -->
-        <section id="view-appointment-booking" class="dashboard-tab">
-            <h1>Appointment Booking Terminal</h1>
-            <p class="lead">Connect inbound carrier web hooks or paste raw consumer quote requests to trigger immediate 3-second text follow-ups.</p>
-            <div class="card">
-                <form action="https://formspree.io" method="POST">
-                    <div class="form-group"><label>Inbound Lead Name</label><input type="text" name="lead_name" required placeholder="John Doe"></div>
-                    <div class="form-group"><label>Inbound Contact Phone Number</label><input type="tel" name="lead_phone" required placeholder="(555) 000-0000"></div>
-                    <button type="submit" class="submit-btn">Inject Active Lead Stream Row</button>
-                </form>
-            </div>
-        </section>
+    <!-- ====================================================================
+         🔒 SECURITY GATEWAY SCREEN (LOGIN & MANDATORY 2FA MODALS UNIFIED)
+         ==================================================================== -->
+    <div id="auth-portal-screen">
         
-        <section id="view-freight-audit" class="dashboard-tab"><h1>Freight Audit Core</h1><p class="lead">Asynchronous logistical carrier audit logs and mileage verification metrics.</p></section>
-        <section id="view-chargeback-recovery" class="dashboard-tab"><h1>Chargeback Recovery Terminal</h1><p class="lead">Retail merchant chargeback dispute tracking rows and automated response documentation bundles.</p></section>
-    </main>
+        <!-- BLOCK 1: PRIMARY CREDENTIALS CHECK -->
+        <div class="auth-card" id="gate-password-box">
+            <h2>Account Authorization</h2>
+            <p class="auth-lead">Verify your identity credentials to open your secure operational workspace panel terminal loop.</p>
+            <div id="err-pass" class="error-alert">❌ INVALID EMAIL CO-ORDINATES OR PASSWORD KEY</div>
+            <div class="form-group">
+                <label>Corporate Email Address</label>
+                <input type="email" id="login-email" value="operations@vanguard.com" placeholder="name@company.com">
+            </div>
+            <div class="form-group" style="margin-top: 14px;">
+                <label>Security Password Key</label>
+                <input type="password" id="login-password" value="vanguard2026" placeholder="••••••••" onkeydown="if(event.key==='Enter') verifyPrimaryPassKeyGate()">
+            </div>
+            <button type="button" class="submit-btn" style="margin-top: 20px;" onclick="verifyPrimaryPassKeyGate()">Verify Master Key</button>
+        </div>
 
-    <script>
-        // 🔮 AUTONOMOUS USER SESSION INITIALIZATION LOOP
-        window.onload = function() {
-            // Read exactly what service token was chosen at the registration gate link page
-            // Fallback default to 'cat-intelligence' if accessed directly without token strings
-            const userTargetService = localStorage.getItem("active_purchased_service") || "cat-intelligence";
-            
-            // Activate and display ONLY their specific requested software tool nav item row
-            const targetNav = document.getElementById("nav-" + userTargetService);
-            const targetView = document.getElementById("view-" + userTargetService);
-            
-            if (targetNav && targetView) {
-                // Show header labels dynamically based on their specific wing choice
-                if (userTargetService === "appointment-booking" || userTargetService === "cat-intelligence") {
-                    document.getElementById("lbl-acceleration").style.display = "block";
-                } else {
-                    document.getElementById("lbl-recovery").style.display = "block";
-                }
+        <!-- BLOCK 2: LIFECYCLE MANDATORY 2FA VERIFICATION CODE -->
+        <div class="auth-card" id="gate-twofactor-box" style="display: none;">
+            <h2>2FA Token Verification</h2>
+            <p class="auth-lead">Cryptographic lookup pass required. Enter the active 6-digit rolling code token from your device.</p>
+            <div id="err-2fa" class="error-alert">❌ SECURE AUTHORIZATION KEY CODE INVALID</div>
+            <div class="form-group">
+                <label>6-Digit Authenticator Token</label>
+                <input type="text" id="login-2fa" placeholder="481516" maxlength="6" style="text-align: center; font-family: monospace; font-size: 18px; letter-spacing: 0.15em;" onkeydown="if(event.key==='Enter') verifyTwoFactorHandshakePass()">
+            </div>
+            <button type="button" class="submit-btn" style="margin-top: 20px;" onclick="verifyTwoFactorHandshakePass()">Confirm Sync & Enter Portal</button>
+        </div>
+    </div>
+
+    <!-- ====================================================================
+         🌌 CENTRAL MULTI-TENANT SECURE WORKSPACE TERMINAL (THE APP)
+         ==================================================================== -->
+    <div id="dashboard-app-wrapper">
+        
+        <!-- 📐 LEFT RECOVERY NAV SIDEBAR LINK PANEL -->
+        <aside class="sidebar">
+            <div>
+                <div class="logo"><span class="logo-dot"></span> Optima Workflows</div>
                 
-                targetNav.style.display = "flex";
-                targetNav.classList.add("active");
-                targetView.classList.add("active");
-            }
-        };
+                <div class="section-label">Operational Workspace</div>
+                <nav class="nav-group">
+                    <div class="nav-item active" id="btn-workspace" onclick="toggleDashboardPanelTabs('pane-workspace')">⚡ Production Core</div>
+                    <div class="nav-item" id="btn-vault" onclick="toggleDashboardPanelTabs('pane-vault')">📄 Compiled Reports</div>
+                </nav>
+                
+                <div class="section-label">Account Accounting</div>
+                <nav class="nav-group">
+                    <div class="nav-item" id="btn-billing" onclick="toggleDashboardPanelTabs('pane-billing')">💳 Settlements & Bank</div>
+                    <div class="nav-item" id="btn-security" onclick="toggleDashboardPanelTabs('pane-security')">🔒 Security & 2FA</div>
+                </nav>
+            </div>
+            <div class="user-block">
+                <div style="color:#ffffff; font-weight:700; margin-bottom: 2px;">Vanguard Restoration Corp</div>
+                <div style="font-size:11px; color: var(--accent-amber);">Account ID Match: OPT-77421</div>
+            </div>
+        </aside>
 
-        function switchActiveTab(serviceId) {
-            const tabs = document.querySelectorAll('.dashboard-tab');
-            tabs.forEach(t => t.classList.remove('active'));
-            const items = document.querySelectorAll('.nav-item');
-            items.forEach(i => i.classList.remove('active'));
-            
-            document.getElementById("view-" + serviceId).classList.add('active');
-            if (document.getElementById("nav-" + serviceId)) {
-                document.getElementById("nav-" + serviceId).classList.add('active');
+        <!-- 🖥️ MAIN CONTENT PORTAL VIEWPORTS DESK -->
+        <main class="main-viewport">
+
+            <!-- PANEL 1: PRODUCTION SPECIFIC ACTIVE WORKSPACE -->
+            <section id="pane-workspace" class="dashboard-tab active">
+                <h1>Cat Intelligence Triage Terminal</h1>
+                <p class="lead">Input active storm tracking vectors to verify localized building envelope vulnerabilities and municipal ordinance requirements instantly.</p>
+                <div class="card">
+                    <form onsubmit="event.preventDefault(); alert('SUCCESS: 12-Factor processing packet transmitted to Webapp.gs webhook gateway routing rows!');">
+                        <div class="form-group">
+                            <label>Target Storm ZIP Code Focus</label>
+                            <input type="text" value="75062" placeholder="e.g., 75062">
+                        </div>
+                        <div class="form-group">
+                            <label>Primary Strategic Deployment Intent</label>
+                            <select>
+                                <option value="MAX_ROI">Maximum Net ROI % (Target Brittle Shingle Clusters Only)</option>
+                                <option value="MAX_CASH">Maximum Gross Cash Volume (High-Density Crew Scale)</option>
+                                <option value="TALENT_RETENTION">Sales Talent Retention (Break-Even Roster Maintenance)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Current Field Technology Stack Profile</label>
+                            <select>
+                                <option value="PRO_TECH">Tier 1: 3D Drone Scans & Automated Xactimate Code Scripting</option>
+                                <option value="LEGACY_LOW_TECH">Tier 2: Manual Tape Measurements & Standard Carrier Scopes</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Post-Impact Rain Saturation (Inches)</label>
+                            <input type="number" step="0.1" value="1.8" placeholder="e.g., 1.8">
+                        </div>
+                        <div class="form-group">
+                            <label>Assignment of Benefits (AOB) Legal Environment</label>
+                            <select>
+                                <option value="ATTORNEY_MANDATORY">Attorney Representation Mandatory (High Legal Friction)</option>
+                                <option value="DIRECT_AOB_ALLOWED">Direct Carrier Billing Allowed (Low Legal Friction)</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="submit-btn">Execute 12-Factor Triage Sweep</button>
+                    </form>
+                </div>
+                
+                <!-- PREMIUM FEATURE RETENTION INTEL CARD: CONDITIONALLY LOCKED FOR ALA CARTE TRACKS -->
+                <div class="card premium-lockbox" id="premium-layer-card" style="margin-top:24px;">
+                    <span class="lock-badge" id="premium-lock-badge">Retainer Feature Locked</span>
+                    <h3 id="premium-lock-title" style="font-size: 14px; font-weight: 800; color: var(--accent-red); margin-bottom: 6px;">Live Multi-Variant Exit Blueprints & Litigation Tracking</h3>
+                    <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5;">Continuous Asynchronous Google Drive 06:00 AM Sync Pipes, real-time market-saturation indexes, carrier denial litigation risk maps, and automated post-engagement cash flow prompts are highly restricted. Upgrade your operational profile to a Premium Monthly Retainer Core to release these features.</p>
+                </div>
+            </section>
+
+            <!-- ====================================================================
+                 📄 VIEWPORT 2: THE COMPILED REPORTS VAULT (DATA ESCROW LEDGER)
+                 ==================================================================== -->
+            <section id="view-compiled-reports" class="dashboard-tab">
+                <h1>Compiled Reports Vault</h1>
+                <p class="lead">Review historic code compliance report packages, structural variance evaluations, and tracking state indicators.</p>
+                <div class="card" style="padding: 16px 24px;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Property / File ID</th>
+                                <th>Timestamp Processed</th>
+                                <th>Omissions Isolated</th>
+                                <th>Recovered Capital Delta</th>
+                                <th>Data Pipeline Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>ZIP_75062_Irving_TX</strong></td>
+                                <td>May 28, 2026</td>
+                                <td>3 Code Violations</td>
+                                <td style="color: var(--accent-green); font-weight: bold;">$45,000.00</td>
+                                <td><span class="badge-status bg-amber">MASKED_PREVIEW_READY</span></td>
+                            </tr>
+                            <tr>
+                                <td>scope_claim_88301.pdf</td>
+                                <td>August 10, 2026</td>
+                                <td>2 Code Violations</td>
+                                <td style="color: var(--accent-green); font-weight: bold;">$2,450.00</td>
+                                <td><span class="badge-status bg-green" style="background:rgba(56,189,248,0.1); color:var(--accent-blue);">UNMASKED_DISPATCHED</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- ====================================================================
+                 💳 VIEWPORT 3: CORPORATE SETTLEMENT & INVOICES (THE PAYMENTS DESK)
+                 ==================================================================== -->
+            <section id="view-corporate-settlement" class="dashboard-tab">
+                <h1>Corporate Settlements & Clearing</h1>
+                <p class="lead">Remit pending report package surcharge distributions and monthly access fees using our permanent, static banking credentials below.</p>
+                
+                <div class="card" style="border-left: 3px solid var(--accent-green); max-width:620px; margin-bottom:32px;">
+                    <h3 style="font-size: 14px; font-weight: 800; color: var(--accent-green); text-transform: uppercase; margin-bottom: 12px;">Optima Workflows Corporate Settlement Destination</h3>
+                    <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 16px;">To unlock any masked report data bundle, run a corporate bank transfer or wire directly to our operating parameters below, referencing your unique **Account Key (OPT-77421)** inside the transaction description memo block row.</p>
+                    <div style="background:#020617; border:1px solid var(--border-color); padding:16px; border-radius:6px; font-family:monospace; font-size:13px; line-height:1.6; color:#ffffff;">
+                        <div>Beneficiary Bank: <strong>State Bank of India</strong></div>
+                        <div>Branch Name:     <strong>Karnal Corporate Hub (Haryana, IN)</strong></div>
+                        <div>Account Name:    <strong>Optima Workflows Private Operations</strong></div>
+                        <div>Account Number:  <strong>XXXXXXXXXXXXX</strong></div>
+                        <div>IFSC Routing Key: <strong>SBIN00XXXXX</strong></div>
+                    </div>
+                </div>
+
+                <div class="card" style="padding: 16px 24px;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Invoice Reference ID</th>
+                                <th>Billing Category</th>
+                                <th>Amount Due / Settled</th>
+                                <th>Payment Ledger State</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>INV-88421</td>
+                                <td>Per-Storm Surcharge (Commercial Core File Pass)</td>
+                                <td>$7,000.00</td>
+                                <td style="color: var(--accent-amber); font-weight: 700;">⚠️ PENDING BANK TRANSFER VERIFICATION</td>
+                            </tr>
+                            <tr>
+                                <td>INV-87301</td>
+                                <td>Per-Storm Surcharge (Mixed Core File Pass)</td>
+                                <td>$5,000.00</td>
+                                <td style="color: var(--accent-green); font-weight: 700;">● COMPLIANT / PAID</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- ====================================================================
+                 🔒 VIEWPORT 4: SECURITY PROFILE & ON-DEMAND 2FA CONFIGURATIONS
+                 ==================================================================== -->
+            <section id="view-security-profile" class="dashboard-tab" style="max-width:550px;">
+                <h1>Security Profile & Cryptographic Setup</h1>
+                <p class="lead">Manage your master system password keys and on-demand account-level multi-factor authentication policies.</p>
+                <div class="card" style="display:flex; flex-direction:column; gap:16px;">
+                    <div style="font-size:13px; line-height:1.5;"><span style="font-weight:700; color:var(--text-muted);">Master Account Key:</span> OPT-77421</div>
+                    <div style="font-size:13px; line-height:1.5;"><span style="font-weight:700; color:var(--text-muted);">Whitelisted Corporate Email:</span> operations@vanguard.com</div>
+                    <div style="font-size:13px; line-height:1.5;"><span style="font-weight:700; color:var(--text-muted);">Verified Industry Category:</span> Commercial Roofing Contractor</div>
+                    
+                    <div style="border-top:1px solid var(--border-color); padding-top:16px; margin-top:8px;">
+                        <label style="color:var(--accent-blue); display:block; margin-bottom:8px;">Two-Factor Authentication (2FA) Status</label>
+● ENFORCED_SECUREDDeactivate 2FA Security Protection
+                                                <div style="display:flex; align-items:center; gap:12px; margin-top:8px;">
+                            <span id="status-badge-2fa" class="badge-status bg-green">● ENFORCED_SECURED</span>
+                            <button type="button" id="toggle-2fa-policy-btn" class="toggle-btn" style="margin-top:0; border-color:var(--accent-red); color:var(--accent-red);" onclick="toggleAccountLevelTwoFactorPolicy()">Deactivate 2FA Security Protection</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- ====================================================================
+         ⚙️ CORE CORE DASHBOARD VIEWPORT LOGIC ENGINE
+         ==================================================================== -->
+    <script>
+        // 🔮 MASTER PRODUCTION CREDENTIAL HOOKS
+        const whitelistedMockEmail = "operations@vanguard.com";
+        const whitelistedMockPassword = "vanguard2026";
+        const whitelistedMock2FA = "481516";
+        
+        let activeSessionPurchasedService = "cat-intelligence"; 
+        let isTwoFactorPolicyEnforced = true;
+
+        function executeDashboardLoginPass() {
+            const emailInput = document.getElementById("auth-email").value.trim().toLowerCase();
+            const passInput  = document.getElementById("auth-password").value;
+            const errBox     = document.getElementById("auth-error-pass");
+
+            if (emailInput === whitelistedMockEmail && passInput === whitelistedMockPassword) {
+                errBox.style.display = "none";
+                // Advance cleanly to the mandatory lifecycle-triggered 2FA checkpoint popup
+                document.getElementById("step-password-box").style.display = "none";
+                document.getElementById("step-twofactor-box").style.display = "block";
+            } else {
+                errBox.style.display = "block";
             }
         }
 
-        // 🔮 DEV NODE: SIMULATED ACCOUNT CONFIGURATION TEST SWITCH
-        // Toggle this state to true to watch your interface instantly unlock premium parameters and label variables natively!
-        let isPremiumRetainerActive = false; 
+        function executeTwoFactorTokenValidationPass() {
+            const tokenInput = document.getElementById("auth-2fa-token").value.trim();
+            const errBox     = document.getElementById("auth-error-2fa");
 
-        if(isPremiumRetainerActive) {
-            document.getElementById("user-tier-label").innerHTML = "Account State: Premium Retainer Core Tier";
-            document.getElementById("user-tier-label").style.color = "var(--accent-green)";
-            document.getElementById("premium-layer-card").style.borderLeftColor = "var(--accent-green)";
-            document.getElementById("premium-layer-card").querySelector(".lock-badge").innerHTML = "Retainer Access Verified";
-            document.getElementById("premium-layer-card").querySelector(".lock-badge").style.backgroundColor = "rgba(52, 211, 153, 0.1)";
-            document.getElementById("premium-layer-card").querySelector(".lock-badge").style.color = "var(--accent-green)";
-            document.getElementById("premium-layer-card").querySelector("h3").style.color = "var(--accent-green)";
+            if (tokenInput === whitelistedMock2FA || !isTwoFactorPolicyEnforced) {
+                errBox.style.display = "none";
+                // Dismiss the overlay wall and load the workspace instantly
+                document.getElementById("auth-overlay").style.display = "none";
+                document.getElementById("dashboard-wrapper").style.display = "flex";
+                initializeConditionalDashboardLayers();
+            } else {
+                errBox.style.display = "block";
+            }
+        }
+
+        function initializeConditionalDashboardLayers() {
+            // Check if local storage holds an active routing override from registration gates
+            const cachedTrackToken = localStorage.getItem("active_purchased_service");
+            if (cachedTrackToken) {
+                activeSessionPurchasedService = cachedTrackToken;
+            }
+            
+            // Unhide the single specific nav menu entry item row on the left sidebar panel
+            const targetNav = document.getElementById("nav-" + activeSessionPurchasedService);
+            if (targetNav) {
+                targetNav.style.display = "flex";
+                targetNav.classList.add("active");
+                
+                // Open their specific module viewport panel canvas as home screen
+                document.getElementById("view-active-module").style.display = "block";
+            }
+        }
+
+        function switchActiveTab(targetTabId) {
+            // Clear current active visibility states across view panels
+            document.getElementById("view-active-module").style.display = "none";
+            document.getElementById("view-compiled-reports").style.display = "none";
+            document.getElementById("view-corporate-settlement").style.display = "none";
+            document.getElementById("view-security-profile").style.display = "none";
+            
+            const sidebarLinks = document.querySelectorAll('.nav-item');
+            sidebarLinks.forEach(item => item.classList.remove('active'));
+            
+            // Paint target display canvas frame area instantly on user tap pass
+            document.getElementById("view-" + targetTabId).style.display = "block";
+            event.currentTarget.classList.add('active');
+        }
+
+        function toggleAccountLevelTwoFactorPolicy() {
+            const badge = document.getElementById("status-badge-2fa");
+            const btn   = document.getElementById("toggle-2fa-policy-btn");
+            
+            if (isTwoFactorPolicyEnforced) {
+                isTwoFactorPolicyEnforced = false;
+                badge.innerHTML = "○ DEACTIVATED_UNSECURE";
+                badge.className = "badge-status bg-amber";
+                btn.innerHTML = "🔒 Activate 2FA Security Protection";
+                btn.style.borderColor = "var(--accent-green)";
+                btn.style.color = "var(--accent-green)";
+                alert("SECURITY NOTICE: Two-Factor Identification policy deactivated. Inbound login checks will bypass token triggers.");
+            } else {
+                isTwoFactorPolicyEnforced = true;
+                badge.innerHTML = "● ENFORCED_SECURED";
+                badge.className = "badge-status bg-green";
+                btn.innerHTML = "Deactivate 2FA Security Protection";
+                btn.style.borderColor = "var(--accent-red)";
+                btn.style.color = "var(--accent-red)";
+                alert("SECURITY NOTICE: Two-Factor Authentication policy active and enforced across login session gateways.");
+            }
         }
     </script>
 </body>
 </html>
-
