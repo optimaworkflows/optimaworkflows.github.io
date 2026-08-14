@@ -189,132 +189,164 @@
     </div>
 
     <script>
-        // ============================================================
-        // AUTH
-        // ============================================================
-        function executeDashboardLoginPass() {
-            if (document.getElementById("auth-email").value === "operations@vanguard.com" && document.getElementById("auth-password").value === "vanguard2026") {
-                document.getElementById("step-password-box").style.display = "none";
-                document.getElementById("step-twofactor-box").style.display = "block";
+    // ============================================================
+    // AUTH
+    // ============================================================
+    function executeDashboardLoginPass() {
+        if (document.getElementById("auth-email").value === "operations@vanguard.com" && document.getElementById("auth-password").value === "vanguard2026") {
+            document.getElementById("step-password-box").style.display = "none";
+            document.getElementById("step-twofactor-box").style.display = "block";
+        }
+    }
+    function executeTwoFactorTokenValidationPass() {
+        if (document.getElementById("auth-2fa-token").value === "481516") {
+            document.getElementById("auth-overlay").style.display = "none";
+            document.getElementById("dashboard-wrapper").style.display = "flex";
+        }
+    }
+
+    // ============================================================
+    // NAVIGATION
+    // ============================================================
+    function switchTab(tabId, navElement) {
+        document.querySelectorAll(".dashboard-tab").forEach(tab => tab.classList.remove("active"));
+        document.querySelectorAll(".nav-item").forEach(nav => nav.classList.remove("active"));
+        document.getElementById(tabId).classList.add("active");
+        if (navElement) navElement.classList.add("active");
+    }
+
+    // ============================================================
+    // CAT INTELLIGENCE: DIRECT SCRIPT TAG INJECTION (JSONP)
+    // ============================================================
+    function executeLiveTwelveFactorTriageAPI(event) {
+        event.preventDefault();
+        
+        const submitBtn = document.getElementById("btn-triage-submit");
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = "Querying Live 12-Factor Engine...";
+
+        const zip = document.getElementById("frm-zip").value.trim();
+        const intent = document.getElementById("frm-intent").value;
+        const tech = document.getElementById("frm-tech").value;
+        const rain = document.getElementById("frm-rain").value;
+        const legal = document.getElementById("frm-legal").value;
+
+        // 🚨 YOUR GOOGLE APPS SCRIPT URL
+        const webappBaseUrl = "https://script.google.com/macros/s/AKfycbxU6mE1Lcuy43GlG5kzAW9bssqFNJnngNQQ0x9cNtq1GLwrR6Hy78dqHAW0_a9bDf0LIQ/exec";
+        
+        const fullUrl = webappBaseUrl + "?target_zip=" + encodeURIComponent(zip) + 
+                        "&intent=" + encodeURIComponent(intent) + 
+                        "&tech_profile=" + encodeURIComponent(tech) + 
+                        "&rain_inches=" + encodeURIComponent(rain) + 
+                        "&legal_friction=" + encodeURIComponent(legal) + 
+                        "&callback=renderLiveForensicTriageBriefingBox";
+
+        // Remove any existing script tag
+        const existingScript = document.getElementById("jsonp-script-node");
+        if (existingScript) existingScript.remove();
+
+        // Create and inject new script tag
+        const scriptNode = document.createElement("script");
+        scriptNode.src = fullUrl;
+        scriptNode.id = "jsonp-script-node";
+        
+        // If script fails to load in 10 seconds, use fallback
+        const timeoutId = setTimeout(function() {
+            const scoreElement = document.getElementById("out-score");
+            if (scoreElement.innerHTML === "—") {
+                console.log("Script tag timeout. Using local fallback.");
+                renderLocalFallback(rain, tech, legal);
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = "⚡ Execute Sweep";
+                const failedScript = document.getElementById("jsonp-script-node");
+                if (failedScript) failedScript.remove();
             }
+        }, 10000);
+
+        // Store timeout ID on the script node for cleanup
+        scriptNode.dataset.timeoutId = timeoutId;
+
+        // Handle script load error
+        scriptNode.onerror = function() {
+            clearTimeout(timeoutId);
+            console.log("Script tag failed to load. Using local fallback.");
+            renderLocalFallback(rain, tech, legal);
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = "⚡ Execute Sweep";
+            this.remove();
+        };
+
+        // Inject the script
+        document.body.appendChild(scriptNode);
+    }
+
+    // ============================================================
+    // CALLBACK FROM APPS SCRIPT
+    // ============================================================
+    function renderLiveForensicTriageBriefingBox(data) {
+        console.log("✅ Live data received from Apps Script:", data);
+        
+        // Clear any pending timeout
+        const scriptNode = document.getElementById("jsonp-script-node");
+        if (scriptNode && scriptNode.dataset.timeoutId) {
+            clearTimeout(parseInt(scriptNode.dataset.timeoutId));
         }
-        function executeTwoFactorTokenValidationPass() {
-            if (document.getElementById("auth-2fa-token").value === "481516") {
-                document.getElementById("auth-overlay").style.display = "none";
-                document.getElementById("dashboard-wrapper").style.display = "flex";
-            }
+        
+        // Render all data
+        document.getElementById("out-verdict").innerHTML = data.scorecard;
+        document.getElementById("out-verdict").className = "badge-status " + data.badge_class;
+        document.getElementById("out-score").innerHTML = data.score_value;
+        document.getElementById("out-matrix-rows").innerHTML = data.matrix_data;
+        document.getElementById("out-intel-brief").innerHTML = data.intel_brief;
+        document.getElementById("out-historical-anchor").innerHTML = data.historical_anchor || "—";
+        document.getElementById("out-exit-protocol").innerHTML = data.exit_contingency;
+        document.getElementById("out-gross-vol").innerHTML = data.gross;
+        document.getElementById("out-mob-burn").innerHTML = data.burn;
+        document.getElementById("out-carrying-cost").innerHTML = data.carrying;
+        document.getElementById("out-net-yield").innerHTML = data.net;
+
+        document.getElementById("live-api-results-card").style.display = "block";
+        document.getElementById("btn-triage-submit").disabled = false;
+        document.getElementById("btn-triage-submit").innerHTML = "⚡ Execute Sweep";
+        document.getElementById("live-api-results-card").scrollIntoView({ behavior: 'smooth' });
+        
+        // Clean up script tag
+        if (scriptNode) scriptNode.remove();
+    }
+
+    // ============================================================
+    // LOCAL FALLBACK (Only if Apps Script completely fails)
+    // ============================================================
+    function renderLocalFallback(rain, tech, legal) {
+        console.log("Rendering local fallback.");
+        const rainVal = parseFloat(rain);
+        const techScore = (tech === "PRO_TECH") ? 95 : 40;
+        const legalScore = (legal === "DIRECT_AOB_ALLOWED") ? 90 : 10;
+        const rainScore = (rainVal >= 1.5) ? 95 : (rainVal >= 0.5) ? 50 : 20;
+        const finalScore = Math.round(rainScore * 0.15 + legalScore * 0.15 + techScore * 0.10 + 48.5);
+        
+        let verdict, badgeClass, net;
+        if (finalScore >= 65 && rainVal >= 1.0) {
+            verdict = "GREEN_LIGHT_LAUNCH_STRIKE_CREW"; badgeClass = "bg-green"; net = "$145,000";
+        } else if (finalScore < 40 || rainVal < 0.5) {
+            verdict = "RED_LIGHT_HARD_ABORT"; badgeClass = "bg-red"; net = "$0";
+        } else {
+            verdict = "YELLOW_LIGHT_LEAN_RECON_ONLY"; badgeClass = "bg-amber"; net = "$0";
         }
-
-        // ============================================================
-        // NAVIGATION
-        // ============================================================
-        function switchTab(tabId, navElement) {
-            document.querySelectorAll(".dashboard-tab").forEach(tab => tab.classList.remove("active"));
-            document.querySelectorAll(".nav-item").forEach(nav => nav.classList.remove("active"));
-            document.getElementById(tabId).classList.add("active");
-            if (navElement) navElement.classList.add("active");
-        }
-
-        // ============================================================
-        // CAT INTELLIGENCE: IFRAME-BASED SUBMISSION
-        // ============================================================
-        function executeLiveTwelveFactorTriageAPI(event) {
-            event.preventDefault();
-            
-            const submitBtn = document.getElementById("btn-triage-submit");
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = "Querying Live 12-Factor Engine...";
-
-            const zip = document.getElementById("frm-zip").value.trim();
-            const intent = document.getElementById("frm-intent").value;
-            const tech = document.getElementById("frm-tech").value;
-            const rain = document.getElementById("frm-rain").value;
-            const legal = document.getElementById("frm-legal").value;
-
-            // 🚨 YOUR GOOGLE APPS SCRIPT URL
-            const webappBaseUrl = "https://script.google.com/macros/s/AKfycbxU6mE1Lcuy43GlG5kzAW9bssqFNJnngNQQ0x9cNtq1GLwrR6Hy78dqHAW0_a9bDf0LIQ/exec";
-            
-            const fullUrl = webappBaseUrl + "?target_zip=" + encodeURIComponent(zip) + 
-                            "&intent=" + encodeURIComponent(intent) + 
-                            "&tech_profile=" + encodeURIComponent(tech) + 
-                            "&rain_inches=" + encodeURIComponent(rain) + 
-                            "&legal_friction=" + encodeURIComponent(legal) + 
-                            "&callback=renderLiveForensicTriageBriefingBox";
-
-            // Use hidden iframe to load Apps Script response
-            const iframe = document.getElementById("hidden-iframe");
-            iframe.src = fullUrl;
-            
-            // Set a timeout to check if data arrived, otherwise fallback
-            setTimeout(function() {
-                const scoreElement = document.getElementById("out-score");
-                if (scoreElement && scoreElement.innerHTML === "—") {
-                    // No data received, use local fallback
-                    console.log("Apps Script timeout. Using local fallback.");
-                    renderLocalFallback(rain, tech, legal);
-                    submitBtn.disabled = false;
-                    submitBtn.innerHTML = "⚡ Execute Sweep";
-                }
-            }, 10000);
-        }
-
-        // ============================================================
-        // CALLBACK FROM APPS SCRIPT (Called via iframe)
-        // ============================================================
-        function renderLiveForensicTriageBriefingBox(data) {
-            console.log("Live data received from Apps Script:", data);
-            
-            document.getElementById("out-verdict").innerHTML = data.scorecard;
-            document.getElementById("out-verdict").className = "badge-status " + data.badge_class;
-            document.getElementById("out-score").innerHTML = data.score_value;
-            document.getElementById("out-matrix-rows").innerHTML = data.matrix_data;
-            document.getElementById("out-intel-brief").innerHTML = data.intel_brief;
-            document.getElementById("out-historical-anchor").innerHTML = data.historical_anchor || "—";
-            document.getElementById("out-exit-protocol").innerHTML = data.exit_contingency;
-            document.getElementById("out-gross-vol").innerHTML = data.gross;
-            document.getElementById("out-mob-burn").innerHTML = data.burn;
-            document.getElementById("out-carrying-cost").innerHTML = data.carrying;
-            document.getElementById("out-net-yield").innerHTML = data.net;
-
-            document.getElementById("live-api-results-card").style.display = "block";
-            document.getElementById("btn-triage-submit").disabled = false;
-            document.getElementById("btn-triage-submit").innerHTML = "⚡ Execute Sweep";
-            document.getElementById("live-api-results-card").scrollIntoView({ behavior: 'smooth' });
-        }
-
-        // ============================================================
-        // LOCAL FALLBACK (Only if Apps Script fails)
-        // ============================================================
-        function renderLocalFallback(rain, tech, legal) {
-            console.log("Rendering local fallback data.");
-            // Simple local calculation so the demo always works
-            const rainVal = parseFloat(rain);
-            const techScore = (tech === "PRO_TECH") ? 95 : 40;
-            const legalScore = (legal === "DIRECT_AOB_ALLOWED") ? 90 : 10;
-            const rainScore = (rainVal >= 1.5) ? 95 : (rainVal >= 0.5) ? 50 : 20;
-            
-            const finalScore = Math.round(rainScore * 0.15 + legalScore * 0.15 + techScore * 0.10 + 48.5);
-            
-            let verdict, badgeClass, net;
-            if (finalScore >= 65 && rainVal >= 1.0) {
-                verdict = "GREEN_LIGHT_LAUNCH_STRIKE_CREW"; badgeClass = "bg-green"; net = "$145,000";
-            } else if (finalScore < 40 || rainVal < 0.5) {
-                verdict = "RED_LIGHT_HARD_ABORT"; badgeClass = "bg-red"; net = "$0";
-            } else {
-                verdict = "YELLOW_LIGHT_LEAN_RECON_ONLY"; badgeClass = "bg-amber"; net = "$0";
-            }
-            
-            document.getElementById("out-verdict").innerHTML = verdict;
-            document.getElementById("out-verdict").className = "badge-status " + badgeClass;
-            document.getElementById("out-score").innerHTML = finalScore + "/100";
-            document.getElementById("out-gross-vol").innerHTML = "$580,000";
-            document.getElementById("out-mob-burn").innerHTML = "-$85,000";
-            document.getElementById("out-carrying-cost").innerHTML = "-$50,000";
-            document.getElementById("out-net-yield").innerHTML = net;
-            document.getElementById("out-exit-protocol").innerHTML = "Day 7 Kill Switch: If competitor canopy > 45 trucks, pivot to REIT flat roofs.";
-            document.getElementById("out-historical-anchor").innerHTML = "Local fallback mode. Live API not connected.";
-            document.getElementById("live-api-results-card").style.display = "block";
-        }
-    </script>
+        
+        document.getElementById("out-verdict").innerHTML = verdict;
+        document.getElementById("out-verdict").className = "badge-status " + badgeClass;
+        document.getElementById("out-score").innerHTML = finalScore + "/100";
+        document.getElementById("out-matrix-rows").innerHTML = "<tr><td>Local Fallback</td><td>No live connection</td><td>—</td><td>—</td><td>—</td></tr>";
+        document.getElementById("out-intel-brief").innerHTML = "<li>Local fallback mode. Live API not connected.</li>";
+        document.getElementById("out-historical-anchor").innerHTML = "Local fallback mode. Live API not connected.";
+        document.getElementById("out-exit-protocol").innerHTML = "Day 7 Kill Switch: If competitor canopy > 45 trucks, pivot to REIT flat roofs.";
+        document.getElementById("out-gross-vol").innerHTML = "$580,000";
+        document.getElementById("out-mob-burn").innerHTML = "-$85,000";
+        document.getElementById("out-carrying-cost").innerHTML = "-$50,000";
+        document.getElementById("out-net-yield").innerHTML = net;
+        document.getElementById("live-api-results-card").style.display = "block";
+    }
+</script>
 </body>
 </html>
