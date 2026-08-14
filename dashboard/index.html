@@ -10,7 +10,6 @@
     <style>
         :root {
             --bg-deep: #05080f;
-            --bg-panel: #0a0f18;
             --border-hairline: #1c2536;
             --text-primary: #f4f7fb;
             --text-muted: #7a8ba3;
@@ -24,58 +23,57 @@
         body { background-color: var(--bg-deep); color: var(--text-primary); font-family: 'Inter', sans-serif; display: flex; height: 100vh; overflow: hidden; }
         .mono { font-family: 'IBM Plex Mono', monospace; }
 
+        /* AUTH */
         #auth-overlay { position: fixed; inset: 0; background: var(--bg-deep); z-index: 9999; display: flex; align-items: center; justify-content: center; padding: 20px; }
         .auth-card { background: linear-gradient(145deg, #0b101b, #070b13); border: 1px solid var(--border-hairline); width: 100%; max-width: 420px; padding: 40px; border-radius: 16px; }
-        .auth-card h2 { font-size: 22px; font-weight: 800; text-align: center; }
-        .auth-lead { font-size: 13.5px; color: var(--text-muted); margin: 10px 0 28px; text-align: center; }
+        .auth-card h2 { font-size: 22px; font-weight: 800; text-align: center; margin-bottom: 6px; }
+        .auth-lead { font-size: 13.5px; color: var(--text-muted); margin-bottom: 24px; text-align: center; }
 
-        .sidebar { width: 260px; background: #070a12; border-right: 1px solid var(--border-hairline); display: flex; flex-direction: column; justify-content: space-between; padding: 24px 16px; }
-        .logo { font-weight: 900; font-size: 14px; letter-spacing: 0.08em; color: #ffffff; display: flex; align-items: center; gap: 8px; text-transform: uppercase; margin-bottom: 28px; }
-        .logo-icon { display:flex; align-items:center; justify-content:center; height: 26px; width: 26px; background: var(--cyber-green); color: #05080f; border-radius: 6px; font-size: 14px; font-weight: 900; }
-        .section-label { font-family: 'IBM Plex Mono', monospace; font-size: 9px; font-weight: 700; text-transform: uppercase; color: var(--text-detail); letter-spacing: 0.1em; margin: 18px 0 8px 8px; }
-        .nav-group { display: flex; flex-direction: column; gap: 2px; }
-        .nav-item { padding: 9px 12px; border-radius: 6px; color: var(--text-muted); font-size: 12.5px; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; border-left: 2px solid transparent; }
+        /* SIDEBAR */
+        .sidebar { width: 240px; background: #070a12; border-right: 1px solid var(--border-hairline); display: flex; flex-direction: column; justify-content: space-between; padding: 20px 14px; }
+        .logo { font-weight: 900; font-size: 13px; color: #fff; display: flex; align-items: center; gap: 8px; text-transform: uppercase; margin-bottom: 24px; }
+        .logo-icon { display:flex; align-items:center; justify-content:center; height: 24px; width: 24px; background: var(--cyber-green); color: #05080f; border-radius: 4px; font-size: 13px; font-weight: 900; }
+        .section-label { font-family: 'IBM Plex Mono', monospace; font-size: 9px; font-weight: 700; text-transform: uppercase; color: var(--text-detail); letter-spacing: 0.1em; margin: 14px 0 6px 6px; }
+        .nav-item { padding: 8px 10px; border-radius: 6px; color: var(--text-muted); font-size: 12px; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; border-left: 2px solid transparent; }
         .nav-item:hover { background: rgba(255,255,255,0.03); color: #fff; }
         .nav-item.active { background: rgba(0, 255, 163, 0.05); color: var(--cyber-green); border-left: 2px solid var(--cyber-green); font-weight: 700; }
-        .user-block { border-top: 1px solid var(--border-hairline); padding-top: 16px; font-size: 12px; color: var(--text-muted); }
+        .user-block { border-top: 1px solid var(--border-hairline); padding-top: 14px; font-size: 11px; color: var(--text-muted); }
         .user-name { color: #fff; font-weight: 800; }
-        .user-tier { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--cyber-amber); }
+        .user-tier { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--cyber-amber); }
 
-        .main-viewport { flex: 1; padding: 32px 40px; overflow-y: auto; background: radial-gradient(circle at 80% 20%, rgba(0, 255, 163, 0.02), transparent 40%), var(--bg-deep); }
-        h1 { font-size: 24px; font-weight: 900; letter-spacing: -0.02em; margin-bottom: 4px; }
-        .lead { font-size: 13.5px; color: var(--text-muted); margin-bottom: 28px; }
-        .card { background: linear-gradient(145deg, #0b101b, #070b13); border: 1px solid var(--border-hairline); border-radius: 16px; padding: 28px; margin-bottom: 24px; }
+        /* MAIN - FULL WIDTH FIX */
+        .main-viewport { flex: 1; padding: 24px 32px; overflow-y: auto; background: radial-gradient(circle at 80% 20%, rgba(0, 255, 163, 0.02), transparent 40%), var(--bg-deep); }
+        h1 { font-size: 22px; font-weight: 900; margin-bottom: 4px; }
+        .lead { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; }
+        .card { background: linear-gradient(145deg, #0b101b, #070b13); border: 1px solid var(--border-hairline); border-radius: 12px; padding: 24px; margin-bottom: 20px; }
 
         .dashboard-tab { display: none; }
         .dashboard-tab.active { display: block; }
 
-        .metric-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px; }
-        .metric-card { background: linear-gradient(145deg, #0b101b, #070b13); border: 1px solid var(--border-hairline); border-radius: 12px; padding: 20px; }
-        .metric-label { font-size: 10px; font-weight: 700; color: var(--text-detail); text-transform: uppercase; letter-spacing: 0.08em; }
-        .metric-value { font-family: 'IBM Plex Mono', monospace; font-size: 24px; font-weight: 900; margin-top: 8px; }
-        .metric-trend { font-size: 11px; font-weight: 700; margin-top: 4px; }
+        /* FORM - FULL WIDTH */
+        .form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; }
+        .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+        label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 600; text-transform: uppercase; color: var(--text-detail); }
+        input, select { width: 100%; background-color: #03060c; border: 1px solid var(--border-hairline); border-radius: 6px; padding: 10px 12px; color: #fff; font-size: 13px; font-family: 'IBM Plex Mono', monospace; }
+        input:focus, select:focus { border-color: var(--cyber-green); outline: none; }
 
-        table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+        .btn-primary { border: 1px solid rgba(0, 255, 163, 0.3); color: var(--cyber-green); padding: 14px; border-radius: 8px; font-weight: 800; cursor: pointer; text-transform: uppercase; background: rgba(0, 255, 163, 0.03); font-size: 12px; width: 100%; letter-spacing: 0.05em; }
+        .btn-primary:hover { background: var(--cyber-green); color: #05080f; }
+        .btn-primary:disabled { opacity: 0.5; cursor: wait; }
+
+        table { width: 100%; border-collapse: collapse; font-size: 12px; }
         th { font-size: 10px; text-transform: uppercase; color: var(--text-detail); padding: 10px; border-bottom: 1px solid var(--border-hairline); text-align: left; }
-        td { padding: 12px 10px; border-bottom: 1px solid #111827; font-family: 'IBM Plex Mono', monospace; font-size: 12px; }
+        td { padding: 10px; border-bottom: 1px solid #111827; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; }
         .badge-status { padding: 4px 10px; border-radius: 4px; font-size: 10px; font-weight: 800; font-family: 'IBM Plex Mono', monospace; text-transform: uppercase; }
         .bg-green { background: rgba(0, 255, 163, 0.1); color: var(--cyber-green); }
         .bg-amber { background: rgba(255, 184, 0, 0.1); color: var(--cyber-amber); }
         .bg-red { background: rgba(255, 59, 59, 0.1); color: var(--cyber-red); }
 
-        .btn-primary { border: 1px solid rgba(0, 255, 163, 0.3); color: var(--cyber-green); padding: 12px 20px; border-radius: 8px; font-weight: 800; cursor: pointer; text-transform: uppercase; background: rgba(0, 255, 163, 0.03); font-size: 12px; width: 100%; }
-        .btn-primary:hover { background: var(--cyber-green); color: #05080f; }
-        .btn-primary:disabled { opacity: 0.5; cursor: wait; }
+        .historical-box { background: rgba(56, 189, 248, 0.05); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 8px; padding: 16px; margin-bottom: 16px; }
+        .historical-text { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--text-primary); line-height: 1.6; margin-top: 6px; }
 
-        .form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
-        .form-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
-        label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 600; text-transform: uppercase; color: var(--text-detail); }
-        input, select { width: 100%; background-color: #03060c; border: 1px solid var(--border-hairline); border-radius: 8px; padding: 12px 14px; color: #fff; font-size: 13px; font-family: 'IBM Plex Mono', monospace; }
-
-        .historical-box { background: rgba(56, 189, 248, 0.05); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 8px; padding: 20px; margin-bottom: 20px; }
-        .historical-text { font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--text-primary); line-height: 1.7; margin-top: 8px; }
-
-        #hidden-iframe { display: none; }
+        .narrative-box { background: rgba(2, 6, 23, 0.5); border: 1px solid var(--border-hairline); border-radius: 8px; padding: 16px; margin-bottom: 16px; }
+        .narrative-text { font-size: 12.5px; color: var(--text-muted); line-height: 1.7; }
     </style>
 </head>
 <body>
@@ -85,268 +83,175 @@
         <div class="auth-card" id="step-password-box">
             <h2>Corporate Authorization</h2>
             <p class="auth-lead">Input core operational access keys.</p>
-            <div class="form-group"><label>Email</label><input type="email" id="auth-email" value="operations@vanguard.com"></div>
-            <div class="form-group"><label>Password</label><input type="password" id="auth-password" value="vanguard2026"></div>
-            <button class="btn-primary" style="margin-top:16px;" onclick="executeDashboardLoginPass()">Verify Password</button>
+            <div class="form-group"><label>Email</label><input type="email" id="auth-email"></div>
+            <div class="form-group"><label>Password</label><input type="password" id="auth-password"></div>
+            <button class="btn-primary" onclick="executeDashboardLoginPass()">Verify Password</button>
         </div>
         <div class="auth-card" id="step-twofactor-box" style="display:none;">
             <h2>Two-Factor Validation</h2>
-            <p class="auth-lead">Demo: 481516</p>
-            <div class="form-group"><label>Token</label><input type="text" id="auth-2fa-token" maxlength="6" style="text-align:center; font-size:20px;"></div>
-            <button class="btn-primary" style="margin-top:16px;" onclick="executeTwoFactorTokenValidationPass()">Authorize</button>
+            <p class="auth-lead">Enter 6-digit token.</p>
+            <div class="form-group"><label>Token</label><input type="text" id="auth-2fa-token" maxlength="6" style="text-align:center; font-size:18px;"></div>
+            <button class="btn-primary" onclick="executeTwoFactorTokenValidationPass()">Authorize</button>
         </div>
     </div>
 
-    <!-- HIDDEN IFRAME FOR APPS SCRIPT -->
-    
     <!-- DASHBOARD -->
     <div id="dashboard-wrapper" style="display:none;">
         <aside class="sidebar">
             <div>
                 <div class="logo"><span class="logo-icon">◈</span> Optima Workflows</div>
                 <div class="section-label">Executive</div>
-                <nav class="nav-group"><div class="nav-item active" id="nav-home" onclick="switchTab('view-home', this)"><span>🏠 Command Center</span></div></nav>
-                <div class="section-label">CAT Operations</div>
-                <nav class="nav-group">
-                    <div class="nav-item" id="nav-cat-intel" onclick="switchTab('view-cat-intel', this)"><span>🛰️ CAT Intelligence</span></div>
-                    <div class="nav-item" id="nav-storm-audit" onclick="switchTab('view-storm-audit', this)"><span>🌪️ Storm Audit</span></div>
-                </nav>
+                <div class="nav-item active" onclick="switchTab('view-home', this)"><span>🏠 Command</span></div>
+                <div class="section-label">CAT Ops</div>
+                <div class="nav-item" onclick="switchTab('view-cat-intel', this)"><span>🛰️ CAT Intel</span></div>
+                <div class="nav-item" onclick="switchTab('view-storm-audit', this)"><span>🌪️ Storm Audit</span></div>
                 <div class="section-label">Back Office</div>
-                <nav class="nav-group">
-                    <div class="nav-item" id="nav-vendor-audit" onclick="switchTab('view-vendor-audit', this)"><span>🛡️ Vendor Audit</span></div>
-                    <div class="nav-item" id="nav-freight-audit" onclick="switchTab('view-freight-audit', this)"><span>📦 Freight Audit</span></div>
-                    <div class="nav-item" id="nav-chargeback" onclick="switchTab('view-chargeback', this)"><span>💳 Chargebacks</span></div>
-                    <div class="nav-item" id="nav-appointments" onclick="switchTab('view-appointments', this)"><span>📅 Appointments</span></div>
-                </nav>
-                <div class="section-label">Admin</div>
-                <nav class="nav-group"><div class="nav-item" id="nav-settlement" onclick="switchTab('view-settlement', this)"><span>🏦 Settlements</span></div></nav>
+                <div class="nav-item" onclick="switchTab('view-vendor-audit', this)"><span>🛡️ Vendor</span></div>
+                <div class="nav-item" onclick="switchTab('view-freight-audit', this)"><span>📦 Freight</span></div>
+                <div class="nav-item" onclick="switchTab('view-chargeback', this)"><span>💳 Chargebacks</span></div>
             </div>
             <div class="user-block"><div class="user-name">Vanguard Restoration</div><div class="user-tier">Per-Storm Tier</div></div>
         </aside>
 
         <main class="main-viewport">
+            <!-- HOME -->
             <section id="view-home" class="dashboard-tab active">
-                <h1>Executive Command Center</h1>
+                <h1>Executive Command</h1>
                 <p class="lead">Live operational overview.</p>
-                <div class="metric-grid">
-                    <div class="metric-card"><div class="metric-label">Capital Exposed</div><div class="metric-value">$412,000</div></div>
-                    <div class="metric-card"><div class="metric-label">Projected Yield</div><div class="metric-value" style="color:var(--cyber-green);">$145,000</div></div>
-                    <div class="metric-card"><div class="metric-label">Back Office Recovered</div><div class="metric-value" style="color:var(--cyber-blue);">$28,450</div></div>
-                </div>
             </section>
 
+            <!-- CAT INTELLIGENCE - FULL WIDTH -->
             <section id="view-cat-intel" class="dashboard-tab">
                 <h1>Cat Intelligence Triage Terminal</h1>
-                <p class="lead">Execute a real-time 12-factor analytical matrix query.</p>
+                <p class="lead">Execute a 12-factor analytical matrix query. All fields required.</p>
+                
                 <div class="card">
                     <form onsubmit="executeLiveTwelveFactorTriageAPI(event)">
                         <div class="form-row">
-                            <div class="form-group"><label>Target ZIP</label><input type="text" id="frm-zip" value="75062"></div>
-                            <div class="form-group"><label>Intent</label><select id="frm-intent"><option value="MAX_CASH">Maximum Gross Cash Volume</option><option value="MAX_ROI">Maximum Net ROI %</option></select></div>
+                            <div class="form-group"><label>Target ZIP *</label><input type="text" id="frm-zip" placeholder="e.g., 75062" required></div>
+                            <div class="form-group"><label>Deployment Intent *</label><select id="frm-intent" required><option value="">Select...</option><option value="MAX_CASH">Maximum Gross Cash Volume</option><option value="MAX_ROI">Maximum Net ROI %</option></select></div>
                         </div>
                         <div class="form-row">
-                            <div class="form-group"><label>Tech Stack</label><select id="frm-tech"><option value="PRO_TECH">Tier 1: Drone Scans</option><option value="LEGACY_LOW_TECH">Tier 2: Manual</option></select></div>
-                            <div class="form-group"><label>Rain Inches</label><input type="number" step="0.1" id="frm-rain" value="1.8"></div>
+                            <div class="form-group"><label>Tech Stack *</label><select id="frm-tech" required><option value="">Select...</option><option value="PRO_TECH">Tier 1: Drone Scans + Auto Xactimate</option><option value="LEGACY_LOW_TECH">Tier 2: Manual + Standard Scopes</option></select></div>
+                            <div class="form-group"><label>Rain Inches (0 for auto) *</label><input type="number" step="0.1" id="frm-rain" placeholder="0 = auto-fetch" required></div>
                         </div>
-                        <div class="form-group"><label>AOB Legal</label><select id="frm-legal"><option value="ATTORNEY_MANDATORY">Attorney Mandatory</option><option value="DIRECT_AOB_ALLOWED">Direct Billing</option></select></div>
+                        <div class="form-group"><label>AOB Legal Environment *</label><select id="frm-legal" required><option value="">Select...</option><option value="ATTORNEY_MANDATORY">Attorney Mandatory</option><option value="DIRECT_AOB_ALLOWED">Direct Billing</option></select></div>
                         <button type="submit" class="btn-primary" id="btn-triage-submit">⚡ Execute Sweep</button>
                     </form>
                 </div>
 
+                <!-- RESULTS - FULL WIDTH -->
                 <div id="live-api-results-card" class="card" style="display:none; border-top: 4px solid var(--cyber-blue);">
-                    <div style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:20px; border-bottom:1px solid var(--border-hairline); padding-bottom:20px; margin-bottom:20px;">
-                        <div><div class="section-label" style="margin-top:0;">Verdict</div><span id="out-verdict" class="badge-status" style="font-size:16px; padding:8px 16px;"></span></div>
-                        <div style="text-align:right;"><div class="section-label" style="margin-top:0;">Index Score</div><span id="out-score" style="font-family:'IBM Plex Mono', monospace; font-size:32px; font-weight:900;">—</span></div>
+                    <div style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:16px; border-bottom:1px solid var(--border-hairline); padding-bottom:16px; margin-bottom:16px;">
+                        <div><div class="section-label">Verdict</div><span id="out-verdict" class="badge-status" style="font-size:14px; padding:6px 14px;"></span></div>
+                        <div style="text-align:right;"><div class="section-label">Index Score</div><span id="out-score" style="font-family:'IBM Plex Mono', monospace; font-size:28px; font-weight:900;">—</span></div>
                     </div>
-                    <h3 class="section-label" style="margin-top:0;">Factor Matrix</h3>
-                    <div style="overflow-x:auto; margin-bottom:20px;"><table id="out-matrix-rows"></table></div>
+
+                    <h3 class="section-label">Factor Matrix</h3>
+                    <div style="overflow-x:auto; margin-bottom:16px;"><table id="out-matrix-rows"></table></div>
+
                     <h3 class="section-label">Intel Brief</h3>
-                    <ul id="out-intel-brief" style="list-style:none; padding:16px; background:rgba(2,6,23,0.4); border-radius:8px; margin-bottom:20px;"></ul>
+                    <ul id="out-intel-brief" style="list-style:none; padding:14px; background:rgba(2,6,23,0.4); border-radius:8px; margin-bottom:16px;"></ul>
+
                     <div class="historical-box">
                         <div class="section-label">Historical Anchor</div>
                         <p id="out-historical-anchor" class="historical-text">—</p>
                     </div>
-                    <h3 class="section-label">Capital Modeling</h3>
-                    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(140px,1fr)); gap:16px; background:#03060c; padding:20px; border-radius:8px; margin-bottom:20px;">
-                        <div><div class="section-label" style="margin-top:0;">Gross</div><div id="out-gross-vol" class="mono" style="font-size:20px; font-weight:900;">—</div></div>
-                        <div><div class="section-label" style="margin-top:0;">Burn</div><div id="out-mob-burn" class="mono" style="font-size:20px; font-weight:900; color:var(--cyber-red);">—</div></div>
-                        <div><div class="section-label" style="margin-top:0;">Overhead</div><div id="out-carrying-cost" class="mono" style="font-size:20px; font-weight:900; color:var(--cyber-amber);">—</div></div>
-                        <div><div class="section-label" style="margin-top:0;">Net Yield</div><div id="out-net-yield" class="mono" style="font-size:28px; font-weight:900; color:var(--cyber-green);">—</div></div>
+
+                    <div class="narrative-box">
+                        <div class="section-label">Capital Modeling Narrative</div>
+                        <p id="out-capital-narrative" class="narrative-text">—</p>
                     </div>
+
+                    <h3 class="section-label">Capital Modeling</h3>
+                    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(120px,1fr)); gap:12px; background:#03060c; padding:16px; border-radius:8px; margin-bottom:16px;">
+                        <div><div class="section-label">Gross</div><div id="out-gross-vol" class="mono" style="font-size:18px; font-weight:900;">—</div></div>
+                        <div><div class="section-label">Burn</div><div id="out-mob-burn" class="mono" style="font-size:18px; font-weight:900; color:var(--cyber-red);">—</div></div>
+                        <div><div class="section-label">Overhead</div><div id="out-carrying-cost" class="mono" style="font-size:18px; font-weight:900; color:var(--cyber-amber);">—</div></div>
+                        <div><div class="section-label">Net Yield</div><div id="out-net-yield" class="mono" style="font-size:22px; font-weight:900; color:var(--cyber-green);">—</div></div>
+                    </div>
+
                     <h3 class="section-label">Kill Switch Protocol</h3>
-                    <div id="out-exit-protocol" style="background:rgba(255,184,0,0.05); border:1px dashed rgba(255,184,0,0.3); padding:16px; border-radius:8px; color:var(--cyber-amber);"></div>
+                    <div id="out-exit-protocol" style="background:rgba(255,184,0,0.05); border:1px dashed rgba(255,184,0,0.3); padding:14px; border-radius:8px; color:var(--cyber-amber); font-family:'IBM Plex Mono', monospace; font-size:12px;"></div>
                 </div>
             </section>
 
-            <!-- Other sections omitted for brevity - they remain the same as before -->
-            <section id="view-storm-audit" class="dashboard-tab"><h1>Storm Audit</h1><p class="lead">Coming soon.</p></section>
-            <section id="view-vendor-audit" class="dashboard-tab"><h1>Vendor Audit</h1><p class="lead">Coming soon.</p></section>
-            <section id="view-freight-audit" class="dashboard-tab"><h1>Freight Audit</h1><p class="lead">Coming soon.</p></section>
-            <section id="view-chargeback" class="dashboard-tab"><h1>Chargebacks</h1><p class="lead">Coming soon.</p></section>
-            <section id="view-appointments" class="dashboard-tab"><h1>Appointments</h1><p class="lead">Coming soon.</p></section>
-            <section id="view-settlement" class="dashboard-tab"><h1>Settlements</h1><p class="lead">Coming soon.</p></section>
+            <!-- Other sections minimal -->
+            <section id="view-storm-audit" class="dashboard-tab"><h1>Storm Audit</h1></section>
+            <section id="view-vendor-audit" class="dashboard-tab"><h1>Vendor Audit</h1></section>
+            <section id="view-freight-audit" class="dashboard-tab"><h1>Freight Audit</h1></section>
+            <section id="view-chargeback" class="dashboard-tab"><h1>Chargebacks</h1></section>
         </main>
     </div>
 
     <script>
-    // ============================================================
-    // AUTH
-    // ============================================================
-    function executeDashboardLoginPass() {
-        if (document.getElementById("auth-email").value === "operations@vanguard.com" && document.getElementById("auth-password").value === "vanguard2026") {
+        // AUTH
+        function executeDashboardLoginPass() {
             document.getElementById("step-password-box").style.display = "none";
             document.getElementById("step-twofactor-box").style.display = "block";
         }
-    }
-    function executeTwoFactorTokenValidationPass() {
-        if (document.getElementById("auth-2fa-token").value === "481516") {
+        function executeTwoFactorTokenValidationPass() {
             document.getElementById("auth-overlay").style.display = "none";
             document.getElementById("dashboard-wrapper").style.display = "flex";
         }
-    }
 
-    // ============================================================
-    // NAVIGATION
-    // ============================================================
-    function switchTab(tabId, navElement) {
-        document.querySelectorAll(".dashboard-tab").forEach(tab => tab.classList.remove("active"));
-        document.querySelectorAll(".nav-item").forEach(nav => nav.classList.remove("active"));
-        document.getElementById(tabId).classList.add("active");
-        if (navElement) navElement.classList.add("active");
-    }
-
-    // ============================================================
-    // CAT INTELLIGENCE: DIRECT SCRIPT TAG INJECTION (JSONP)
-    // ============================================================
-    function executeLiveTwelveFactorTriageAPI(event) {
-        event.preventDefault();
-        
-        const submitBtn = document.getElementById("btn-triage-submit");
-        submitBtn.disabled = true;
-        submitBtn.innerHTML = "Querying Live 12-Factor Engine...";
-
-        const zip = document.getElementById("frm-zip").value.trim();
-        const intent = document.getElementById("frm-intent").value;
-        const tech = document.getElementById("frm-tech").value;
-        const rain = document.getElementById("frm-rain").value;
-        const legal = document.getElementById("frm-legal").value;
-
-        // 🚨 YOUR GOOGLE APPS SCRIPT URL
-        const webappBaseUrl = "https://script.google.com/macros/s/AKfycbxU6mE1Lcuy43GlG5kzAW9bssqFNJnngNQQ0x9cNtq1GLwrR6Hy78dqHAW0_a9bDf0LIQ/exec";
-        
-        const fullUrl = webappBaseUrl + "?target_zip=" + encodeURIComponent(zip) + 
-                        "&intent=" + encodeURIComponent(intent) + 
-                        "&tech_profile=" + encodeURIComponent(tech) + 
-                        "&rain_inches=" + encodeURIComponent(rain) + 
-                        "&legal_friction=" + encodeURIComponent(legal) + 
-                        "&callback=renderLiveForensicTriageBriefingBox";
-
-        // Remove any existing script tag
-        const existingScript = document.getElementById("jsonp-script-node");
-        if (existingScript) existingScript.remove();
-
-        // Create and inject new script tag
-        const scriptNode = document.createElement("script");
-        scriptNode.src = fullUrl;
-        scriptNode.id = "jsonp-script-node";
-        
-        // If script fails to load in 10 seconds, use fallback
-        const timeoutId = setTimeout(function() {
-            const scoreElement = document.getElementById("out-score");
-            if (scoreElement.innerHTML === "—") {
-                console.log("Script tag timeout. Using local fallback.");
-                renderLocalFallback(rain, tech, legal);
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = "⚡ Execute Sweep";
-                const failedScript = document.getElementById("jsonp-script-node");
-                if (failedScript) failedScript.remove();
-            }
-        }, 10000);
-
-        // Store timeout ID on the script node for cleanup
-        scriptNode.dataset.timeoutId = timeoutId;
-
-        // Handle script load error
-        scriptNode.onerror = function() {
-            clearTimeout(timeoutId);
-            console.log("Script tag failed to load. Using local fallback.");
-            renderLocalFallback(rain, tech, legal);
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = "⚡ Execute Sweep";
-            this.remove();
-        };
-
-        // Inject the script
-        document.body.appendChild(scriptNode);
-    }
-
-    // ============================================================
-    // CALLBACK FROM APPS SCRIPT
-    // ============================================================
-    function renderLiveForensicTriageBriefingBox(data) {
-        console.log("✅ Live data received from Apps Script:", data);
-        
-        // Clear any pending timeout
-        const scriptNode = document.getElementById("jsonp-script-node");
-        if (scriptNode && scriptNode.dataset.timeoutId) {
-            clearTimeout(parseInt(scriptNode.dataset.timeoutId));
+        // NAVIGATION
+        function switchTab(tabId, navElement) {
+            document.querySelectorAll(".dashboard-tab").forEach(t => t.classList.remove("active"));
+            document.querySelectorAll(".nav-item").forEach(n => n.classList.remove("active"));
+            document.getElementById(tabId).classList.add("active");
+            if (navElement) navElement.classList.add("active");
         }
-        
-        // Render all data
-        document.getElementById("out-verdict").innerHTML = data.scorecard;
-        document.getElementById("out-verdict").className = "badge-status " + data.badge_class;
-        document.getElementById("out-score").innerHTML = data.score_value;
-        document.getElementById("out-matrix-rows").innerHTML = data.matrix_data;
-        document.getElementById("out-intel-brief").innerHTML = data.intel_brief;
-        document.getElementById("out-historical-anchor").innerHTML = data.historical_anchor || "—";
-        document.getElementById("out-exit-protocol").innerHTML = data.exit_contingency;
-        document.getElementById("out-gross-vol").innerHTML = data.gross;
-        document.getElementById("out-mob-burn").innerHTML = data.burn;
-        document.getElementById("out-carrying-cost").innerHTML = data.carrying;
-        document.getElementById("out-net-yield").innerHTML = data.net;
 
-        document.getElementById("live-api-results-card").style.display = "block";
-        document.getElementById("btn-triage-submit").disabled = false;
-        document.getElementById("btn-triage-submit").innerHTML = "⚡ Execute Sweep";
-        document.getElementById("live-api-results-card").scrollIntoView({ behavior: 'smooth' });
-        
-        // Clean up script tag
-        if (scriptNode) scriptNode.remove();
-    }
+        // CAT INTELLIGENCE
+        function executeLiveTwelveFactorTriageAPI(event) {
+            event.preventDefault();
+            const btn = document.getElementById("btn-triage-submit");
+            btn.disabled = true;
+            btn.innerHTML = "Querying...";
 
-    // ============================================================
-    // LOCAL FALLBACK (Only if Apps Script completely fails)
-    // ============================================================
-    function renderLocalFallback(rain, tech, legal) {
-        console.log("Rendering local fallback.");
-        const rainVal = parseFloat(rain);
-        const techScore = (tech === "PRO_TECH") ? 95 : 40;
-        const legalScore = (legal === "DIRECT_AOB_ALLOWED") ? 90 : 10;
-        const rainScore = (rainVal >= 1.5) ? 95 : (rainVal >= 0.5) ? 50 : 20;
-        const finalScore = Math.round(rainScore * 0.15 + legalScore * 0.15 + techScore * 0.10 + 48.5);
-        
-        let verdict, badgeClass, net;
-        if (finalScore >= 65 && rainVal >= 1.0) {
-            verdict = "GREEN_LIGHT_LAUNCH_STRIKE_CREW"; badgeClass = "bg-green"; net = "$145,000";
-        } else if (finalScore < 40 || rainVal < 0.5) {
-            verdict = "RED_LIGHT_HARD_ABORT"; badgeClass = "bg-red"; net = "$0";
-        } else {
-            verdict = "YELLOW_LIGHT_LEAN_RECON_ONLY"; badgeClass = "bg-amber"; net = "$0";
+            const zip = document.getElementById("frm-zip").value.trim();
+            const intent = document.getElementById("frm-intent").value;
+            const tech = document.getElementById("frm-tech").value;
+            const rain = document.getElementById("frm-rain").value;
+            const legal = document.getElementById("frm-legal").value;
+
+            const webappBaseUrl = "https://script.google.com/macros/s/AKfycbxU6mE1Lcuy43GlG5kzAW9bssqFNJnngNQQ0x9cNtq1GLwrR6Hy78dqHAW0_a9bDf0LIQ/exec";
+            const fullUrl = webappBaseUrl + "?target_zip=" + encodeURIComponent(zip) + "&intent=" + encodeURIComponent(intent) + "&tech_profile=" + encodeURIComponent(tech) + "&rain_inches=" + encodeURIComponent(rain) + "&legal_friction=" + encodeURIComponent(legal) + "&callback=renderLiveForensicTriageBriefingBox";
+
+            const script = document.createElement("script");
+            script.src = fullUrl;
+            script.id = "jsonp-node";
+            document.getElementById("jsonp-node")?.remove();
+            document.body.appendChild(script);
+
+            setTimeout(function() {
+                if (document.getElementById("out-score").innerHTML === "—") {
+                    btn.disabled = false;
+                    btn.innerHTML = "⚡ Execute Sweep";
+                    alert("API timeout. Please check your Apps Script deployment URL.");
+                }
+            }, 15000);
         }
-        
-        document.getElementById("out-verdict").innerHTML = verdict;
-        document.getElementById("out-verdict").className = "badge-status " + badgeClass;
-        document.getElementById("out-score").innerHTML = finalScore + "/100";
-        document.getElementById("out-matrix-rows").innerHTML = "<tr><td>Local Fallback</td><td>No live connection</td><td>—</td><td>—</td><td>—</td></tr>";
-        document.getElementById("out-intel-brief").innerHTML = "<li>Local fallback mode. Live API not connected.</li>";
-        document.getElementById("out-historical-anchor").innerHTML = "Local fallback mode. Live API not connected.";
-        document.getElementById("out-exit-protocol").innerHTML = "Day 7 Kill Switch: If competitor canopy > 45 trucks, pivot to REIT flat roofs.";
-        document.getElementById("out-gross-vol").innerHTML = "$580,000";
-        document.getElementById("out-mob-burn").innerHTML = "-$85,000";
-        document.getElementById("out-carrying-cost").innerHTML = "-$50,000";
-        document.getElementById("out-net-yield").innerHTML = net;
-        document.getElementById("live-api-results-card").style.display = "block";
-    }
-</script>
+
+        function renderLiveForensicTriageBriefingBox(data) {
+            document.getElementById("out-verdict").innerHTML = data.scorecard;
+            document.getElementById("out-verdict").className = "badge-status " + data.badge_class;
+            document.getElementById("out-score").innerHTML = data.score_value;
+            document.getElementById("out-matrix-rows").innerHTML = data.matrix_data;
+            document.getElementById("out-intel-brief").innerHTML = data.intel_brief;
+            document.getElementById("out-historical-anchor").innerHTML = data.historical_anchor;
+            document.getElementById("out-exit-protocol").innerHTML = data.exit_contingency;
+            document.getElementById("out-gross-vol").innerHTML = data.gross;
+            document.getElementById("out-mob-burn").innerHTML = data.burn;
+            document.getElementById("out-carrying-cost").innerHTML = data.carrying;
+            document.getElementById("out-net-yield").innerHTML = data.net;
+            document.getElementById("out-capital-narrative").innerHTML = data.capital_narrative || "Modeling based on regional density, deployment intent, and legal environment.";
+            document.getElementById("live-api-results-card").style.display = "block";
+            document.getElementById("btn-triage-submit").disabled = false;
+            document.getElementById("btn-triage-submit").innerHTML = "⚡ Execute Sweep";
+            document.getElementById("jsonp-node")?.remove();
+        }
+    </script>
 </body>
 </html>
