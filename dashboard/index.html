@@ -24,7 +24,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { background-color: var(--bg-deep); color: var(--text-primary); font-family: 'Inter', sans-serif; display: flex; height: 100vh; overflow: hidden; }
         .mono { font-family: 'IBM Plex Mono', monospace; }
-        
+
         /* AUTH */
         #auth-overlay { position: fixed; inset: 0; background: var(--bg-deep); z-index: 9999; display: flex; align-items: center; justify-content: center; padding: 20px; }
         .auth-card { background: linear-gradient(145deg, #0b101b, #070b13); border: 1px solid var(--border-hairline); width: 100%; max-width: 420px; padding: 40px; border-radius: 16px; }
@@ -50,7 +50,7 @@
         h1 { font-size: 24px; font-weight: 900; letter-spacing: -0.02em; margin-bottom: 4px; }
         .lead { font-size: 13.5px; color: var(--text-muted); margin-bottom: 28px; }
         .card { background: linear-gradient(145deg, #0b101b, #070b13); border: 1px solid var(--border-hairline); border-radius: 16px; padding: 28px; margin-bottom: 24px; }
-        
+
         .notification-banner { background: rgba(255, 184, 0, 0.03); border: 1px solid rgba(255, 184, 0, 0.3); color: var(--cyber-amber); padding: 12px 16px; border-radius: 8px; font-size: 12.5px; font-weight: 600; display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
         .notification-pulse { height: 8px; width: 8px; background-color: var(--cyber-amber); border-radius: 50%; animation: pulse 1.5s infinite; }
         @keyframes pulse { 0% { transform: scale(0.9); opacity: 0.6; } 50% { transform: scale(1.2); opacity: 1; } 100% { transform: scale(0.9); opacity: 0.6; } }
@@ -75,9 +75,10 @@
         .bg-red { background: rgba(255, 59, 59, 0.1); color: var(--cyber-red); }
         .bg-blue { background: rgba(56, 189, 248, 0.1); color: var(--cyber-blue); }
 
-        .btn-primary { border: 1px solid rgba(0, 255, 163, 0.3); color: var(--cyber-green); padding: 12px 20px; border-radius: 8px; font-weight: 800; cursor: pointer; text-transform: uppercase; background: rgba(0, 255, 163, 0.03); font-size: 12px; letter-spacing: 0.05em; }
+        .btn-primary { border: 1px solid rgba(0, 255, 163, 0.3); color: var(--cyber-green); padding: 12px 20px; border-radius: 8px; font-weight: 800; cursor: pointer; text-transform: uppercase; background: rgba(0, 255, 163, 0.03); font-size: 12px; letter-spacing: 0.05em; transition: all 0.2s; }
         .btn-primary:hover { background: var(--cyber-green); color: #05080f; }
-        
+        .btn-primary:disabled { opacity: 0.5; cursor: wait; }
+
         .form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
         .form-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
         label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-detail); }
@@ -88,7 +89,7 @@
 <body>
 
     <!-- ====================================================================
-         🔒 AUTH OVERLAY
+         AUTH OVERLAY
          ==================================================================== -->
     <div id="auth-overlay">
         <div class="auth-card" id="step-password-box">
@@ -109,15 +110,15 @@
     </div>
 
     <!-- ====================================================================
-         🌌 DASHBOARD WRAPPER
+         DASHBOARD WRAPPER
          ==================================================================== -->
     <div id="dashboard-wrapper" style="display:none;">
-        
+
         <!-- LAYER 1: SIDEBAR SILOS -->
         <aside class="sidebar">
             <div>
                 <div class="logo"><span class="logo-icon">◈</span> Optima Workflows</div>
-                
+
                 <div class="section-label">Executive Command</div>
                 <nav class="nav-group">
                     <div class="nav-item active" id="nav-home" onclick="switchTab('view-home', this)"><span>🏠 Command Center</span></div>
@@ -220,11 +221,12 @@
                         <button type="submit" class="btn-primary" style="width:100%;" id="btn-triage-submit">⚡ Execute Sweep</button>
                     </form>
                 </div>
-                <!-- Results injected here -->
+
+                <!-- Results injected dynamically -->
                 <div id="live-api-results-card" class="card" style="display:none; border-top: 4px solid var(--cyber-blue);">
                     <div style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:20px; border-bottom:1px solid var(--border-hairline); padding-bottom:20px; margin-bottom:20px;">
                         <div><div class="section-label">Verdict</div><span id="out-verdict" class="badge-status" style="font-size:16px; padding:8px 16px;"></span></div>
-                        <div style="text-align:right;"><div class="section-label">Index Score</div><span id="out-score" style="font-family:'IBM Plex Mono', monospace; font-size:32px; font-weight:900;">75/100</span></div>
+                        <div style="text-align:right;"><div class="section-label">Index Score</div><span id="out-score" style="font-family:'IBM Plex Mono', monospace; font-size:32px; font-weight:900;">—</span></div>
                     </div>
                     <h3 class="section-label">Factor Matrix</h3>
                     <div style="overflow-x:auto; margin-bottom:20px;"><table id="out-matrix-rows"></table></div>
@@ -232,10 +234,10 @@
                     <ul id="out-intel-brief" style="list-style:none; padding:16px; background:rgba(2,6,23,0.4); border-radius:8px; margin-bottom:20px;"></ul>
                     <h3 class="section-label">Capital Modeling</h3>
                     <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(140px,1fr)); gap:16px; background:#03060c; padding:20px; border-radius:8px; margin-bottom:20px;">
-                        <div><div class="section-label">Gross</div><div id="out-gross-vol" class="mono" style="font-size:20px; font-weight:900;">$580,000</div></div>
-                        <div><div class="section-label">Burn</div><div id="out-mob-burn" class="mono" style="font-size:20px; font-weight:900; color:var(--cyber-red);">-$85,000</div></div>
-                        <div><div class="section-label">Overhead</div><div id="out-carrying-cost" class="mono" style="font-size:20px; font-weight:900; color:var(--cyber-amber);">-$50,000</div></div>
-                        <div><div class="section-label">Net Yield</div><div id="out-net-yield" class="mono" style="font-size:28px; font-weight:900; color:var(--cyber-green);">$145,000</div></div>
+                        <div><div class="section-label">Gross</div><div id="out-gross-vol" class="mono" style="font-size:20px; font-weight:900;">—</div></div>
+                        <div><div class="section-label">Burn</div><div id="out-mob-burn" class="mono" style="font-size:20px; font-weight:900; color:var(--cyber-red);">—</div></div>
+                        <div><div class="section-label">Overhead</div><div id="out-carrying-cost" class="mono" style="font-size:20px; font-weight:900; color:var(--cyber-amber);">—</div></div>
+                        <div><div class="section-label">Net Yield</div><div id="out-net-yield" class="mono" style="font-size:28px; font-weight:900; color:var(--cyber-green);">—</div></div>
                     </div>
                     <h3 class="section-label">Kill Switch Protocol</h3>
                     <div id="out-exit-protocol" style="background:rgba(255,184,0,0.05); border:1px dashed rgba(255,184,0,0.3); padding:16px; border-radius:8px; color:var(--cyber-amber);"></div>
@@ -355,6 +357,9 @@
     </div>
 
     <script>
+        // ============================================================
+        // AUTHENTICATION LOGIC
+        // ============================================================
         function executeDashboardLoginPass() {
             if (document.getElementById("auth-email").value === "operations@vanguard.com" && document.getElementById("auth-password").value === "vanguard2026") {
                 document.getElementById("step-password-box").style.display = "none";
@@ -369,6 +374,9 @@
             } else { document.getElementById("auth-error-2fa").style.display = "block"; }
         }
 
+        // ============================================================
+        // NAVIGATION LOGIC
+        // ============================================================
         function switchTab(tabId, navElement) {
             document.querySelectorAll(".dashboard-tab").forEach(tab => tab.classList.remove("active"));
             document.querySelectorAll(".nav-item").forEach(nav => nav.classList.remove("active"));
@@ -376,57 +384,82 @@
             if (navElement) navElement.classList.add("active");
         }
 
+        // ============================================================
+        // CAT INTELLIGENCE: LIVE JSONP API CALL
+        // ============================================================
         function executeLiveTwelveFactorTriageAPI(event) {
             event.preventDefault();
-            const btn = document.getElementById("btn-triage-submit");
-            const card = document.getElementById("live-api-results-card");
-            btn.disabled = true;
-            btn.innerHTML = "Processing...";
+            
+            const submitBtn = document.getElementById("btn-triage-submit");
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = "Querying Live 12-Factor Script Radars...";
 
-            // setTimeout is a built-in browser function (no download needed)
-            setTimeout(() => {
-                const rain = parseFloat(document.getElementById("frm-rain").value);
-                let verdict = "GREEN_LIGHT_LAUNCH_STRIKE_CREW";
-                let color = "var(--cyber-green)";
-                let bg = "rgba(0, 255, 163, 0.1)";
-                let net = "$145,000.00";
-                let matrix = "";
+            // Retrieve active values entered by the contractor on their monitor screen
+            const zip = document.getElementById("frm-zip").value.trim();
+            const intent = document.getElementById("frm-intent").value;
+            const tech = document.getElementById("frm-tech").value;
+            const rain = document.getElementById("frm-rain").value;
+            const legal = document.getElementById("frm-legal").value;
 
-                if (rain < 0.5) {
-                    verdict = "RED_LIGHT_HARD_ABORT";
-                    color = "var(--cyber-red)";
-                    bg = "rgba(255, 59, 59, 0.1)";
-                    net = "$0.00";
-                }
+            // Connect to your live Apps Script file by appending data parameters to the URL query string
+            const webappBaseUrl = "https://script.google.com/macros/s/AKfycbxU6mE1Lcuy43GlG5kzAW9bssqFNJnngNQQ0x9cNtq1GLwrR6Hy78dqHAW0_a9bDf0LIQ/exec";
+            
+            const jsonpFullApiUrl = webappBaseUrl + "?target_zip=" + zip + 
+                                    "&intent=" + intent + 
+                                    "&tech_profile=" + tech + 
+                                    "&rain_inches=" + rain + 
+                                    "&legal_friction=" + legal + 
+                                    "&callback=renderLiveForensicTriageBriefingBox";
 
-                matrix += "<tr><td>F01: Hail Kinetic</td><td>1.75\" High Velocity</td><td style='text-align:right;'>85</td><td style='text-align:right;'>15%</td><td style='text-align:right; font-weight:700; color:var(--cyber-blue);'>12.75</td></tr>";
-                matrix += "<tr><td>F02: Envelope Age</td><td>18 Years (Brittle)</td><td style='text-align:right;'>90</td><td style='text-align:right;'>10%</td><td style='text-align:right; font-weight:700; color:var(--cyber-blue);'>9.00</td></tr>";
-                matrix += "<tr><td>F03: Rain Saturation</td><td>" + rain + "\"</td><td style='text-align:right;'>95</td><td style='text-align:right;'>15%</td><td style='text-align:right; font-weight:700; color:var(--cyber-green);'>14.25</td></tr>";
-                matrix += "<tr><td>F04: Legal Friction</td><td>Attorney Mandatory</td><td style='text-align:right;'>10</td><td style='text-align:right;'>15%</td><td style='text-align:right; font-weight:700; color:var(--cyber-red);'>1.50</td></tr>";
-                matrix += "<tr><td>F05: Competitor Canopy</td><td>25 Trucks</td><td style='text-align:right;'>60</td><td style='text-align:right;'>10%</td><td style='text-align:right;'>6.00</td></tr>";
-                matrix += "<tr><td>F06: Structural Density</td><td>120 Assets</td><td style='text-align:right;'>90</td><td style='text-align:right;'>10%</td><td style='text-align:right;'>9.00</td></tr>";
-                matrix += "<tr><td>F07: Tech Stack</td><td>Drone Scans</td><td style='text-align:right;'>95</td><td style='text-align:right;'>10%</td><td style='text-align:right;'>9.50</td></tr>";
-                matrix += "<tr><td>F08: Line of Credit</td><td>LOC $500k</td><td style='text-align:right;'>80</td><td style='text-align:right;'>5%</td><td style='text-align:right;'>4.00</td></tr>";
-                matrix += "<tr><td>F09: PM Roster</td><td>Verified PM</td><td style='text-align:right;'>85</td><td style='text-align:right;'>5%</td><td style='text-align:right;'>4.25</td></tr>";
-                matrix += "<tr><td>F10: Materials</td><td>ABC Supply</td><td style='text-align:right;'>75</td><td style='text-align:right;'>5%</td><td style='text-align:right;'>3.75</td></tr>";
+            // Inject a temporary runtime script element node to bypass cross-origin browser lock bars safely
+            const scriptNode = document.createElement("script");
+            scriptNode.src = jsonpFullApiUrl;
+            scriptNode.id = "temp-jsonp-trigger-node";
+            
+            // Clean up the DOM element automatically after the code runs
+            scriptNode.onerror = function() {
+                alert("Live Connection Error: Verification trace drop.");
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = "⚡ Execute Sweep";
+                const existingNode = document.getElementById("temp-jsonp-trigger-node");
+                if (existingNode) existingNode.remove();
+            };
 
-                document.getElementById("out-verdict").innerHTML = verdict;
-                document.getElementById("out-verdict").style.color = color;
-                document.getElementById("out-verdict").style.background = bg;
-                document.getElementById("out-score").innerHTML = (rain < 0.5) ? "35/100" : "75/100";
-                document.getElementById("out-matrix-rows").innerHTML = matrix;
-                document.getElementById("out-intel-brief").innerHTML = (rain < 0.5) ? "<li><strong>Saturation Drop:</strong> Dry interiors. Adjusters will deny as cosmetic.</li>" : "<li><strong>Saturation Win:</strong> " + rain + "\" inches confirms interior water damage.</li>";
-                document.getElementById("out-gross-vol").innerHTML = "$580,000";
-                document.getElementById("out-mob-burn").innerHTML = "-$85,000";
-                document.getElementById("out-carrying-cost").innerHTML = "-$50,000";
-                document.getElementById("out-net-yield").innerHTML = net;
-                document.getElementById("out-exit-protocol").innerHTML = "Day 7 Material Kill Switch: If competitor influx spikes canopy past 45 trucks, pull retail crews. Shift focus to REIT flat roofs via drone scans.";
+            document.body.appendChild(scriptNode);
+        }
 
-                card.style.display = "block";
-                btn.disabled = false;
-                btn.innerHTML = "⚡ Execute Sweep";
-                card.scrollIntoView({ behavior: 'smooth' });
-            }, 800); // 800ms delay
+        // ============================================================
+        // UNIVERSAL CALLBACK RENDER ENGINE
+        // Fires automatically when the Apps Script returns data
+        // ============================================================
+        function renderLiveForensicTriageBriefingBox(data) {
+            const submitBtn = document.getElementById("btn-triage-submit");
+            const resultsCard = document.getElementById("live-api-results-card");
+
+            // Map real-time calculated values straight into our HTML elements dynamically
+            document.getElementById("out-verdict").innerHTML = data.scorecard;
+            document.getElementById("out-verdict").className = "badge-status " + data.badge_class;
+            document.getElementById("out-score").innerHTML = data.score_value;
+            document.getElementById("out-matrix-rows").innerHTML = data.matrix_data;
+            document.getElementById("out-intel-brief").innerHTML = data.intel_brief;
+            document.getElementById("out-exit-protocol").innerHTML = data.exit_contingency;
+            
+            // Map live financial constants
+            document.getElementById("out-gross-vol").innerHTML = data.gross;
+            document.getElementById("out-mob-burn").innerHTML = data.burn;
+            document.getElementById("out-carrying-cost").innerHTML = data.carrying;
+            document.getElementById("out-net-yield").innerHTML = data.net;
+
+            // Reveal the card on screen and unlock the interface buttons instantly
+            resultsCard.style.display = "block";
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = "⚡ Execute Sweep";
+            
+            resultsCard.scrollIntoView({ behavior: 'smooth' });
+            
+            // Wipe script node trash to keep the cache light
+            const existingNode = document.getElementById("temp-jsonp-trigger-node");
+            if (existingNode) existingNode.remove();
         }
     </script>
 </body>
