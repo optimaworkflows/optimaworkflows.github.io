@@ -3,439 +3,430 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Operations Dashboard | Optima Workflows</title>
+    <title>Optima Workflows | Command Center</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-dark: #030712;
-            --card-gradient: linear-gradient(145deg, #0b0f19, #060a13);
-            --border-color: #1f2937;
-            --text-main: #ffffff;
-            --text-muted: #94a3b8;
-            --accent-blue: #38bdf8;
-            --accent-green: #34d399;
-            --accent-amber: #fbbf24;
-            --accent-red: #ef4444;
+            --bg-deep: #05080f;
+            --bg-panel: #0a0f18;
+            --border-hairline: #1c2536;
+            --text-primary: #f4f7fb;
+            --text-muted: #7a8ba3;
+            --text-detail: #4a5a6e;
+            --cyber-green: #00ffa3;
+            --cyber-amber: #ffb800;
+            --cyber-red: #ff3b3b;
+            --cyber-blue: #38bdf8;
+            --glow-green: 0 0 15px rgba(0, 255, 163, 0.15);
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background-color: var(--bg-dark); color: var(--text-main); font-family: -apple-system, sans-serif; display: flex; height: 100vh; overflow: hidden; }
+        body { background-color: var(--bg-deep); color: var(--text-primary); font-family: 'Inter', sans-serif; display: flex; height: 100vh; overflow: hidden; }
+        .mono { font-family: 'IBM Plex Mono', monospace; }
         
-        /* 🔒 AUTHENTICATION OVERLAY PORTAL */
-        #auth-overlay { position: fixed; inset: 0; background: var(--bg-dark); z-index: 9999; display: flex; align-items: center; justify-content: center; padding: 20px; }
-        .auth-card { background: var(--card-gradient); border: 1px solid var(--border-color); width: 100%; max-width: 420px; padding: 40px; border-radius: 12px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.5); }
-        .auth-card h2 { font-size: 22px; font-weight: 800; letter-spacing: -0.025em; margin-bottom: 6px; text-align: center; }
-        .auth-lead { font-size: 13.5px; color: var(--text-muted); margin-bottom: 24px; text-align: center; line-height: 1.4; }
-        
-        /* 🌌 MASTER WORKSPACE SIDEBAR LAYOUT */
-        .sidebar { width: 280px; background: #060a13; border-right: 1px solid var(--border-color); display: flex; flex-direction: column; justify-content: space-between; padding: 24px 16px; }
-        .logo { font-weight: 800; font-size: 14px; letter-spacing: 0.05em; color: var(--accent-blue); display: flex; align-items: center; gap: 8px; text-transform: uppercase; margin-bottom: 24px; }
-        .logo-dot { height: 6px; width: 6px; background-color: var(--accent-blue); border-radius: 50%; }
-        
-        .section-label { font-size: 10px; font-weight: 800; text-transform: uppercase; color: #475569; letter-spacing: 0.05em; margin: 16px 0 8px 6px; }
-        .nav-group { display: flex; flex-direction: column; gap: 4px; }
-        .nav-item { display: none; padding: 10px 12px; border-radius: 6px; color: var(--text-muted); font-size: 13px; font-weight: 600; text-decoration: none; cursor: pointer; transition: all 0.2s; justify-content: space-between; align-items: center; }
-        .nav-item:hover, .nav-item.active { background: rgba(56, 189, 248, 0.05); color: #ffffff; border-left: 3px solid var(--accent-blue); }
-        .status-dot { height: 5px; width: 5px; background-color: var(--accent-green); border-radius: 50%; }
+        /* AUTH */
+        #auth-overlay { position: fixed; inset: 0; background: var(--bg-deep); z-index: 9999; display: flex; align-items: center; justify-content: center; padding: 20px; }
+        .auth-card { background: linear-gradient(145deg, #0b101b, #070b13); border: 1px solid var(--border-hairline); width: 100%; max-width: 420px; padding: 40px; border-radius: 16px; }
+        .auth-card h2 { font-size: 22px; font-weight: 800; letter-spacing: -0.02em; text-align: center; }
+        .auth-lead { font-size: 13.5px; color: var(--text-muted); margin: 10px 0 28px; text-align: center; }
 
-        .main-viewport { flex: 1; padding: 40px; overflow-y: auto; }
-        h1 { font-size: 24px; font-weight: 800; letter-spacing: -0.025em; margin-bottom: 6px; }
-        .lead { font-size: 13.5px; color: var(--text-muted); margin-bottom: 24px; }
+        /* LAYER 1: SIDEBAR */
+        .sidebar { width: 260px; background: #070a12; border-right: 1px solid var(--border-hairline); display: flex; flex-direction: column; justify-content: space-between; padding: 24px 16px; }
+        .logo { font-weight: 900; font-size: 14px; letter-spacing: 0.08em; color: #ffffff; display: flex; align-items: center; gap: 8px; text-transform: uppercase; margin-bottom: 28px; }
+        .logo-icon { display:flex; align-items:center; justify-content:center; height: 26px; width: 26px; background: var(--cyber-green); color: #05080f; border-radius: 6px; font-size: 14px; font-weight: 900; }
+        .section-label { font-family: 'IBM Plex Mono', monospace; font-size: 9px; font-weight: 700; text-transform: uppercase; color: var(--text-detail); letter-spacing: 0.1em; margin: 18px 0 8px 8px; }
+        .nav-group { display: flex; flex-direction: column; gap: 2px; }
+        .nav-item { padding: 9px 12px; border-radius: 6px; color: var(--text-muted); font-size: 12.5px; font-weight: 600; cursor: pointer; transition: all 0.15s; display: flex; justify-content: space-between; align-items: center; border-left: 2px solid transparent; }
+        .nav-item:hover { background: rgba(255,255,255,0.03); color: #fff; }
+        .nav-item.active { background: rgba(0, 255, 163, 0.05); color: var(--cyber-green); border-left: 2px solid var(--cyber-green); font-weight: 700; }
+        .status-dot { height: 5px; width: 5px; background-color: var(--cyber-green); border-radius: 50%; box-shadow: var(--glow-green); }
+        .user-block { border-top: 1px solid var(--border-hairline); padding-top: 16px; font-size: 12px; color: var(--text-muted); }
+        .user-name { color: #fff; font-weight: 800; margin-bottom: 2px; }
+        .user-tier { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--cyber-amber); }
+
+        /* MAIN */
+        .main-viewport { flex: 1; padding: 32px 40px; overflow-y: auto; background: radial-gradient(circle at 80% 20%, rgba(0, 255, 163, 0.02), transparent 40%), var(--bg-deep); }
+        h1 { font-size: 24px; font-weight: 900; letter-spacing: -0.02em; margin-bottom: 4px; }
+        .lead { font-size: 13.5px; color: var(--text-muted); margin-bottom: 28px; }
+        .card { background: linear-gradient(145deg, #0b101b, #070b13); border: 1px solid var(--border-hairline); border-radius: 16px; padding: 28px; margin-bottom: 24px; }
         
-        .dashboard-tab { display: none; }
-        .dashboard-tab.active { display: block; }
-        .card { background: var(--card-gradient); border: 1px solid var(--border-color); border-radius: 12px; padding: 32px; margin-bottom: 24px; }
-        
-        .notification-banner { background: rgba(251, 191, 36, 0.06); border: 1px solid var(--accent-amber); color: var(--accent-amber); padding: 16px; border-radius: 8px; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 12px; margin-bottom: 24px; line-height: 1.4; }
-        .notification-pulse { height: 8px; width: 8px; background-color: var(--accent-amber); border-radius: 50%; animation: pulse 1.5s infinite; }
+        .notification-banner { background: rgba(255, 184, 0, 0.03); border: 1px solid rgba(255, 184, 0, 0.3); color: var(--cyber-amber); padding: 12px 16px; border-radius: 8px; font-size: 12.5px; font-weight: 600; display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+        .notification-pulse { height: 8px; width: 8px; background-color: var(--cyber-amber); border-radius: 50%; animation: pulse 1.5s infinite; }
         @keyframes pulse { 0% { transform: scale(0.9); opacity: 0.6; } 50% { transform: scale(1.2); opacity: 1; } 100% { transform: scale(0.9); opacity: 0.6; } }
 
-        .premium-lockbox { border-left: 3px solid var(--accent-red); background: rgba(239, 68, 68, 0.01); }
-        .lock-badge { background: rgba(239, 68, 68, 0.1); color: var(--accent-red); padding: 2px 6px; border-radius: 4px; font-size: 10px; font-weight: 800; text-transform: uppercase; float: right; letter-spacing: 0.05em; }
+        .dashboard-tab { display: none; }
+        .dashboard-tab.active { display: block; }
 
-        form { display: flex; flex-direction: column; gap: 16px; max-width: 480px; }
-        .form-group { display: flex; flex-direction: column; gap: 4px; }
-        input, select { width: 100%; background-color: #020617; border: 1px solid var(--border-color); border-radius: 6px; padding: 12px; color: #ffffff; font-size: 13px; }
+        .metric-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px; }
+        .metric-card { background: linear-gradient(145deg, #0b101b, #070b13); border: 1px solid var(--border-hairline); border-radius: 12px; padding: 20px; }
+        .metric-label { font-size: 10px; font-weight: 700; color: var(--text-detail); text-transform: uppercase; letter-spacing: 0.08em; }
+        .metric-value { font-family: 'IBM Plex Mono', monospace; font-size: 24px; font-weight: 900; margin-top: 8px; }
+        .metric-trend { font-size: 11px; font-weight: 700; margin-top: 4px; }
+        .trend-up { color: var(--cyber-green); }
+        .trend-down { color: var(--cyber-red); }
+
+        table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+        th { font-size: 10px; text-transform: uppercase; color: var(--text-detail); padding: 10px; border-bottom: 1px solid var(--border-hairline); text-align: left; letter-spacing: 0.05em; }
+        td { padding: 12px 10px; border-bottom: 1px solid #111827; font-family: 'IBM Plex Mono', monospace; font-size: 12px; }
+        .badge-status { padding: 4px 10px; border-radius: 4px; font-size: 10px; font-weight: 800; font-family: 'IBM Plex Mono', monospace; text-transform: uppercase; }
+        .bg-green { background: rgba(0, 255, 163, 0.1); color: var(--cyber-green); }
+        .bg-amber { background: rgba(255, 184, 0, 0.1); color: var(--cyber-amber); }
+        .bg-red { background: rgba(255, 59, 59, 0.1); color: var(--cyber-red); }
+        .bg-blue { background: rgba(56, 189, 248, 0.1); color: var(--cyber-blue); }
+
+        .btn-primary { border: 1px solid rgba(0, 255, 163, 0.3); color: var(--cyber-green); padding: 12px 20px; border-radius: 8px; font-weight: 800; cursor: pointer; text-transform: uppercase; background: rgba(0, 255, 163, 0.03); font-size: 12px; letter-spacing: 0.05em; }
+        .btn-primary:hover { background: var(--cyber-green); color: #05080f; }
         
-        .submit-btn { width: 100%; border: 1px solid rgba(56, 189, 248, 0.2); color: var(--accent-blue); padding: 14px; border-radius: 6px; font-weight: 700; cursor: pointer; text-transform: uppercase; background: rgba(56, 189, 248, 0.05); font-size: 12px; }
-        .submit-btn:hover { background: #ffffff; color: #030712; border-color: #ffffff; }
-        table { width: 100%; border-collapse: collapse; text-align: left; font-size: 12.5px; }
-        th { font-size: 10.5px; text-transform: uppercase; color: var(--text-muted); padding: 10px; border-bottom: 1px solid var(--border-color); }
-        td { padding: 14px 10px; border-bottom: 1px solid #111827; }
-        .user-block { border-top: 1px solid var(--border-color); padding-top: 12px; font-size: 12px; color: var(--text-muted); }
-        .toggle-btn { background: none; border: 1px solid var(--border-color); color: var(--text-muted); padding: 6px 12px; border-radius: 4px; font-size: 11px; cursor: pointer; margin-top: 8px; font-weight: bold; }
-        .badge-status { padding: 4px 8px; border-radius: 4px; font-size: 11px; font-weight: 700; font-family: monospace; text-transform: uppercase; }
-        .bg-green { background: rgba(52, 211, 153, 0.1); color: var(--accent-green); }
-        .bg-amber { background: rgba(251, 191, 36, 0.1); color: var(--accent-amber); }
-        .bg-red { background: rgba(239, 68, 68, 0.1); color: var(--accent-red); }
+        .form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+        .form-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+        label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-detail); }
+        input, select { width: 100%; background-color: #03060c; border: 1px solid var(--border-hairline); border-radius: 8px; padding: 12px 14px; color: #ffffff; font-size: 13px; font-family: 'IBM Plex Mono', monospace; outline: none; }
+        input:focus, select:focus { border-color: var(--cyber-green); }
     </style>
 </head>
 <body>
 
     <!-- ====================================================================
-         🔒 STAGE 1: UN-BYPASSABLE MULTI-STAGE AUTH LOCK OVERLAY
+         🔒 AUTH OVERLAY
          ==================================================================== -->
     <div id="auth-overlay">
-        <!-- 🔑 Step A: Password Form Ingestion -->
         <div class="auth-card" id="step-password-box">
-            <h2>Corporate Account Authorization</h2>
-            <p class="auth-lead">Input your core operational access keys. Sessions are monitored natively.</p>
-            <div id="auth-error-pass" style="display:none; color:var(--accent-red); font-size:12px; font-weight:700; margin-bottom:12px; text-align:center;">❌ INVALID SYSTEM PASSWORD KEY</div>
-            <div class="form-group">
-                <label>Corporate Account Email</label>
-                <input type="email" id="auth-email" placeholder="operations@vanguard.com" value="operations@vanguard.com" style="margin-bottom:12px;">
-                <label>Security Password Key</label>
-                <input type="password" id="auth-password" placeholder="••••••••" value="vanguard2026">
-            </div>
-            <button type="button" class="submit-btn" style="margin-top:16px;" onclick="executeDashboardLoginPass()">Verify Password Node</button>
+            <h2>Corporate Authorization</h2>
+            <p class="auth-lead">Input core operational access keys.</p>
+            <div id="auth-error-pass" style="display:none; color:var(--cyber-red); font-size:12px; font-weight:700; margin-bottom:12px; text-align:center;">❌ INVALID PASSWORD KEY</div>
+            <div class="form-group"><label>Email</label><input type="email" id="auth-email" value="operations@vanguard.com"></div>
+            <div class="form-group"><label>Password</label><input type="password" id="auth-password" value="vanguard2026"></div>
+            <button class="btn-primary" style="width:100%; margin-top:16px;" onclick="executeDashboardLoginPass()">Verify Password</button>
         </div>
-
-        <!-- 📟 Step B: Mandatory Token Validation -->
         <div class="auth-card" id="step-twofactor-box" style="display:none;">
             <h2>Two-Factor Validation</h2>
-            <p class="auth-lead">Enter the rolling 6-digit verification code token tracking from your corporate app.</p>
-            <div id="auth-error-2fa" style="display:none; color:var(--accent-red); font-size:12px; font-weight:700; margin-bottom:12px; text-align:center;">❌ INVALID SECURITY ACCESS TOKEN</div>
-            <div class="form-group">
-                <label style="text-align:center; display:block; margin-bottom:6px; color:var(--accent-green);">Demo Key Hint: Type 481516</label>
-                <input type="text" id="auth-2fa-token" maxlength="6" placeholder="000000" style="text-align:center; font-family:monospace; font-size:18px; letter-spacing:0.2em;">
-            </div>
-            <button type="button" class="submit-btn" style="margin-top:20px;" onclick="executeTwoFactorTokenValidationPass()">Authorize Session Connection</button>
+            <p class="auth-lead">Enter rolling 6-digit token. <span style="color:var(--cyber-green)">Demo: 481516</span></p>
+            <div id="auth-error-2fa" style="display:none; color:var(--cyber-red); font-size:12px; font-weight:700; margin-bottom:12px; text-align:center;">❌ INVALID TOKEN</div>
+            <div class="form-group"><label>Token</label><input type="text" id="auth-2fa-token" maxlength="6" style="text-align:center; font-size:20px; letter-spacing:0.3em;"></div>
+            <button class="btn-primary" style="width:100%; margin-top:16px;" onclick="executeTwoFactorTokenValidationPass()">Authorize Session</button>
         </div>
     </div>
 
     <!-- ====================================================================
-         🌌 STAGE 2: THE CENTRALIZED SYSTEM WORKSPACE ENVIRONMENT
+         🌌 DASHBOARD WRAPPER
          ==================================================================== -->
     <div id="dashboard-wrapper" style="display:none;">
         
-        <!-- 📐 LEFT APP SIDEBAR CONTROL BOARD -->
+        <!-- LAYER 1: SIDEBAR SILOS -->
         <aside class="sidebar">
             <div>
-                <div class="logo"><span class="logo-dot"></span> Optima Workflows</div>
+                <div class="logo"><span class="logo-icon">◈</span> Optima Workflows</div>
                 
-                <div class="section-label" id="lbl-acceleration" style="display:block;">Pipeline Acceleration</div>
+                <div class="section-label">Executive Command</div>
                 <nav class="nav-group">
-                    <div class="nav-item" id="nav-appointment-booking" onclick="switchActiveTab('active-module')"><span>Appointment Booking</span><span class="status-dot"></span></div>
-                    <div class="nav-item" id="nav-cat-intelligence" onclick="switchActiveTab('active-module')"><span>Cat Intelligence</span><span class="status-dot"></span></div>
+                    <div class="nav-item active" id="nav-home" onclick="switchTab('view-home', this)"><span>🏠 Command Center</span></div>
                 </nav>
-                
-                <div class="section-label" id="lbl-recovery" style="display:block;">Corporate Workspace</div>
-                <nav class="nav-group" style="gap:4px;">
-                    <div class="nav-item" id="nav-vendor-audit" onclick="switchActiveTab('active-module')"><span>Vendor Audit</span></div>
-                    <div class="nav-item" id="nav-freight-audit" onclick="switchActiveTab('active-module')"><span>Freight Audit</span></div>
-                    <div class="nav-item" id="nav-chargeback-recovery" onclick="switchActiveTab('active-module')"><span>Chargeback Recovery</span></div>
-                    <div class="nav-item" id="nav-storm-audit" onclick="switchActiveTab('active-module')"><span>Storm Audit</span></div>
-                    
-                    <div class="nav-item active" style="display:flex;" onclick="switchActiveTab('view-active-module')"><span>Triage Workspace</span></div>
-                    <div class="nav-item" style="display:flex;" onclick="switchActiveTab('corporate-settlement')"><span>Settlements & Invoices</span></div>
-                    <div class="nav-item" style="display:flex;" onclick="switchActiveTab('security-profile')"><span>Security Settings</span></div>
+
+                <div class="section-label">CAT Operations</div>
+                <nav class="nav-group">
+                    <div class="nav-item" id="nav-cat-intel" onclick="switchTab('view-cat-intel', this)"><span>🛰️ CAT Intelligence</span></div>
+                    <div class="nav-item" id="nav-storm-audit" onclick="switchTab('view-storm-audit', this)"><span>🌪️ Storm Audit</span></div>
+                </nav>
+
+                <div class="section-label">Back Office Recovery</div>
+                <nav class="nav-group">
+                    <div class="nav-item" id="nav-vendor-audit" onclick="switchTab('view-vendor-audit', this)"><span>🛡️ Vendor Audit</span></div>
+                    <div class="nav-item" id="nav-freight-audit" onclick="switchTab('view-freight-audit', this)"><span>📦 Freight Audit</span></div>
+                    <div class="nav-item" id="nav-chargeback" onclick="switchTab('view-chargeback', this)"><span>💳 Chargebacks</span></div>
+                    <div class="nav-item" id="nav-appointments" onclick="switchTab('view-appointments', this)"><span>📅 Appointments</span></div>
+                </nav>
+
+                <div class="section-label">Administration</div>
+                <nav class="nav-group">
+                    <div class="nav-item" id="nav-settlement" onclick="switchTab('view-settlement', this)"><span>🏦 Settlements</span></div>
                 </nav>
             </div>
             <div class="user-block">
-                <div style="color:#ffffff; font-weight:700;">Vanguard Restoration Corp</div>
-                <div id="user-tier-label" style="font-size:11px; margin-top:2px; color: var(--accent-amber);">Account State: Per-Storm Tier (On-Demand)</div>
+                <div class="user-name">Vanguard Restoration Corp</div>
+                <div class="user-tier">STATE: Per-Storm Tier (On-Demand)</div>
             </div>
         </aside>
 
+        <!-- MAIN VIEWPORT -->
         <main class="main-viewport">
-            <div id="global-alert-banner" class="notification-banner">
-                <span class="notification-pulse"></span>
-                <span><strong>SYSTEM NOTICE INBOUND:</strong> A fresh code-compliance analysis run package is ready in your vault. Remit bank wire settlement to unlock the unmasked Xactimate document packs instantly.</span>
-            </div>
 
             <!-- ====================================================================
-                 🌪️ VIEWPORT 1: DYNAMIC ACTIVE MODULE (PRODUCTION WORKSPACE)
+                 LAYER 2: HOME DASHBOARD (EXECUTIVE COMMAND)
                  ==================================================================== -->
-            <section id="view-active-module" class="dashboard-tab active">
+            <section id="view-home" class="dashboard-tab active">
+                <h1>Executive Command Center</h1>
+                <p class="lead">Live operational overview across all active deployments and recovery workflows.</p>
+
+                <div class="notification-banner">
+                    <span class="notification-pulse"></span>
+                    <span><strong>ACTION REQUIRED:</strong> The Dallas CAT deployment is projected to yield $145K. Kill Switch check-in required in 14 hours.</span>
+                </div>
+
+                <div class="metric-grid">
+                    <div class="metric-card">
+                        <div class="metric-label">Capital Exposed (Active Deployments)</div>
+                        <div class="metric-value" style="color:#fff;">$412,000</div>
+                        <div class="metric-trend trend-down">3 Active Zones</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Projected Net Yield (Dallas)</div>
+                        <div class="metric-value" style="color:var(--cyber-green);">$145,000</div>
+                        <div class="metric-trend trend-up">GREEN LIGHT STATUS</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Revenue Recovered (Back Office)</div>
+                        <div class="metric-value" style="color:var(--cyber-blue);">$28,450</div>
+                        <div class="metric-trend trend-up">+12% this month</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Pending Compliance Alerts</div>
+                        <div class="metric-value" style="color:var(--cyber-amber);">7</div>
+                        <div class="metric-trend trend-down">Requires Review</div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 style="font-size:14px; font-weight:800; margin-bottom:16px;">Active Module Status</h3>
+                    <table>
+                        <thead><tr><th>Module</th><th>Status</th><th>Critical Metric</th><th>Action</th></tr></thead>
+                        <tbody>
+                            <tr><td>🛰️ CAT Intelligence</td><td><span class="badge-status bg-green">Live</span></td><td>ZIP 75062 Score: 75/100</td><td><span style="color:var(--cyber-blue); cursor:pointer;" onclick="switchTab('view-cat-intel', document.getElementById('nav-cat-intel'))">Open Terminal →</span></td></tr>
+                            <tr><td>🛡️ Vendor Audit</td><td><span class="badge-status bg-amber">Pending</span></td><td>3 COIs expiring in 30 days</td><td><span style="color:var(--cyber-blue); cursor:pointer;" onclick="switchTab('view-vendor-audit', document.getElementById('nav-vendor-audit'))">Review →</span></td></tr>
+                            <tr><td>📦 Freight Audit</td><td><span class="badge-status bg-blue">Scanning</span></td><td>$12,400 in open disputes</td><td><span style="color:var(--cyber-blue); cursor:pointer;" onclick="switchTab('view-freight-audit', document.getElementById('nav-freight-audit'))">View →</span></td></tr>
+                            <tr><td>💳 Chargebacks</td><td><span class="badge-status bg-green">Recovering</span></td><td>$8,200 recovered this cycle</td><td><span style="color:var(--cyber-blue); cursor:pointer;" onclick="switchTab('view-chargeback', document.getElementById('nav-chargeback'))">View →</span></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- ====================================================================
+                 LAYER 3: CAT INTELLIGENCE TRIAGE TERMINAL (12-FACTOR ENGINE)
+                 ==================================================================== -->
+            <section id="view-cat-intel" class="dashboard-tab">
                 <h1>Cat Intelligence Triage Terminal</h1>
-                <p class="lead">Input target storm tracking parameters to execute a real-time live 12-factor analytical matrix query.</p>
-                
+                <p class="lead">Execute a real-time live 12-factor analytical matrix query.</p>
                 <div class="card">
                     <form onsubmit="executeLiveTwelveFactorTriageAPI(event)">
-                        <div class="form-group">
-                            <label>Target Storm ZIP Code Focus</label>
-                            <input type="text" id="frm-zip" value="75062" required>
+                        <div class="form-row">
+                            <div class="form-group"><label>Target ZIP</label><input type="text" id="frm-zip" value="75062"></div>
+                            <div class="form-group"><label>Intent</label><select id="frm-intent"><option>Maximum Gross Cash Volume</option><option>Maximum Net ROI</option></select></div>
                         </div>
-                        <div class="form-group">
-                            <label>Primary Strategic Deployment Intent</label>
-                            <select id="frm-intent">
-                                <option value="MAX_ROI">Maximum Net ROI % (Target Brittle Shingle Clusters Only)</option>
-                                <option value="MAX_CASH">Maximum Gross Cash Volume (High-Density Crew Scale)</option>
-                            </select>
+                        <div class="form-row">
+                            <div class="form-group"><label>Tech Stack</label><select id="frm-tech"><option>Tier 1: Drone Scans</option><option>Tier 2: Manual</option></select></div>
+                            <div class="form-group"><label>Rain Inches</label><input type="number" step="0.1" id="frm-rain" value="1.8"></div>
                         </div>
-                        <div class="form-group">
-                            <label>Current Field Technology Stack Profile</label>
-                            <select id="frm-tech">
-                                <option value="PRO_TECH">Tier 1: 3D Drone Scans & Automated Xactimate Code Scripting</option>
-                                <option value="LEGACY_LOW_TECH">Tier 2: Manual Tape Measurements & Standard Carrier Scopes</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Post-Impact Rain Saturation (Inches)</label>
-                            <input type="number" step="0.1" id="frm-rain" value="1.8" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Assignment of Benefits (AOB) Legal Environment</label>
-                            <select id="frm-legal">
-                                <option value="ATTORNEY_MANDATORY">Attorney Representation Mandatory (High Legal Friction)</option>
-                                <option value="DIRECT_AOB_ALLOWED">Direct Carrier Billing Allowed (Low Legal Friction)</option>
-                            </select>
-                        </div>
-                        <button type="submit" id="btn-triage-submit" class="submit-btn">Execute 12-Factor Triage Sweep</button>
+                        <div class="form-group"><label>AOB Legal</label><select id="frm-legal"><option>Attorney Mandatory</option><option>Direct Billing</option></select></div>
+                        <button type="submit" class="btn-primary" style="width:100%;" id="btn-triage-submit">⚡ Execute Sweep</button>
                     </form>
                 </div>
-
-                <!-- ====================================================================
-                     🛰️ UPGRADED 12-FACTOR FORENSIC BRIEFING MATRIX CORE VIEWS
-                     ==================================================================== -->
-                <div id="live-api-results-card" class="card" style="display:none; border-top: 4px solid var(--accent-blue); padding: 40px; background: linear-gradient(145deg, #0d131f, #060a13);">
-                    
-                    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 24px; margin-bottom: 32px;">
-                        <div>
-                            <div style="font-size: 10px; font-weight: 800; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.1em; margin-bottom: 4px;">WAR-ROOM MOBILIZATION COMMAND</div>
-                            <span id="out-verdict" class="badge-status" style="font-size: 14px; padding: 6px 12px; letter-spacing: 0.02em;"></span>
-                        </div>
-                        <div style="text-align: right;">
-                            <div style="font-size: 10px; font-weight: 800; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.1em; margin-bottom: 4px;">FORENSIC INDEX BALANCED WEIGHT</div>
-                            <span id="out-score" style="font-size: 24px; font-weight: 900; font-family: monospace; color: var(--accent-blue);"></span>
-                        </div>
+                <!-- Results injected here -->
+                <div id="live-api-results-card" class="card" style="display:none; border-top: 4px solid var(--cyber-blue);">
+                    <div style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:20px; border-bottom:1px solid var(--border-hairline); padding-bottom:20px; margin-bottom:20px;">
+                        <div><div class="section-label">Verdict</div><span id="out-verdict" class="badge-status" style="font-size:16px; padding:8px 16px;"></span></div>
+                        <div style="text-align:right;"><div class="section-label">Index Score</div><span id="out-score" style="font-family:'IBM Plex Mono', monospace; font-size:32px; font-weight:900;">75/100</span></div>
                     </div>
-
-                    <h3 style="font-size: 12px; font-weight: 800; text-transform: uppercase; color: #475569; letter-spacing: 0.05em; margin-bottom: 12px;">I. Structural Factor Point Allocations Matrix</h3>
-                    <div style="overflow-x: auto; margin-bottom: 32px; background: rgba(2, 6, 23, 0.4); border: 1px solid var(--border-color); border-radius: 8px; padding: 8px;">
-                        <table style="width: 100%; border-collapse: collapse;">
-                            <thead>
-                                <tr style="border-bottom: 2px solid var(--border-color);">
-                                    <th style="padding: 12px 10px; text-align: left; font-size: 10px; color: var(--text-muted);">FACTOR VECTOR PARAMETER</th>
-                                    <th style="padding: 12px 10px; text-align: left; font-size: 10px; color: var(--text-muted);">INPUT LOGGED</th>
-                                    <th style="padding: 12px 10px; text-align: right; font-size: 10px; color: var(--text-muted);">RAW SCORE</th>
-                                    <th style="padding: 12px 10px; text-align: right; font-size: 10px; color: var(--text-muted);">WEIGHT</th>
-                                    <th style="padding: 12px 10px; text-align: right; font-size: 10px; color: var(--text-muted);">WEIGHTED OUTPUT</th>
-                                </tr>
-                            </thead>
-                            <tbody id="out-matrix-rows">
-                                <!-- Injected dynamically by the script loops -->
-                            </tbody>
-                        </table>
+                    <h3 class="section-label">Factor Matrix</h3>
+                    <div style="overflow-x:auto; margin-bottom:20px;"><table id="out-matrix-rows"></table></div>
+                    <h3 class="section-label">Intel Brief</h3>
+                    <ul id="out-intel-brief" style="list-style:none; padding:16px; background:rgba(2,6,23,0.4); border-radius:8px; margin-bottom:20px;"></ul>
+                    <h3 class="section-label">Capital Modeling</h3>
+                    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(140px,1fr)); gap:16px; background:#03060c; padding:20px; border-radius:8px; margin-bottom:20px;">
+                        <div><div class="section-label">Gross</div><div id="out-gross-vol" class="mono" style="font-size:20px; font-weight:900;">$580,000</div></div>
+                        <div><div class="section-label">Burn</div><div id="out-mob-burn" class="mono" style="font-size:20px; font-weight:900; color:var(--cyber-red);">-$85,000</div></div>
+                        <div><div class="section-label">Overhead</div><div id="out-carrying-cost" class="mono" style="font-size:20px; font-weight:900; color:var(--cyber-amber);">-$50,000</div></div>
+                        <div><div class="section-label">Net Yield</div><div id="out-net-yield" class="mono" style="font-size:28px; font-weight:900; color:var(--cyber-green);">$145,000</div></div>
                     </div>
-
-                    <h3 style="font-size: 12px; font-weight: 800; text-transform: uppercase; color: #475569; letter-spacing: 0.05em; margin-bottom: 12px;">II. Strategic Vulnerability Intel Brief</h3>
-                    <div class="card" style="background: rgba(2, 6, 23, 0.2); border: 1px solid var(--border-color); padding: 20px; border-radius: 8px; margin-bottom: 32px;">
-                        <ul id="out-intel-brief" style="padding-left: 16px; color: var(--text-muted); font-size: 13.5px; line-height: 1.6; display: flex; flex-direction: column; gap: 10px;">
-                            <!-- Custom lines added -->
-                        </ul>
-                    </div>
-
-                    <h3 style="font-size: 12px; font-weight: 800; text-transform: uppercase; color: #475569; letter-spacing: 0.05em; margin-bottom: 12px;">III. Predictive Precedent Event Verification</h3>
-                    <p id="out-historical-anchor" style="font-size: 13.5px; color: var(--text-muted); line-height: 1.6; background: rgba(30, 41, 59, 0.1); border: 1px dashed var(--border-color); padding: 16px; border-radius: 8px; margin-bottom: 32px;"></p>
-
-                    <h3 style="font-size: 12px; font-weight: 800; text-transform: uppercase; color: #475569; letter-spacing: 0.05em; margin-bottom: 12px;">IV. Escrow Capital Allocation Modeling</h3>
-                    <div style="background: #020617; border: 1px solid var(--border-color); border-radius: 8px; padding: 24px; display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 20px;">
-                        <div>
-                            <div style="font-size: 10px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em;">EST. GROSS VOLUME</div>
-                            <div id="out-gross-vol" style="font-size: 18px; font-weight: 800; color: #ffffff; font-family: monospace; margin-top: 4px;"></div>
-                        </div>
-                        <div>
-                            <div style="font-size: 10px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em;">MOBILIZATION BURN</div>
-                            <div id="out-mob-burn" style="font-size: 18px; font-weight: 800; color: var(--accent-red); font-family: monospace; margin-top: 4px;"></div>
-                        </div>
-                        <div>
-                            <div style="font-size: 10px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em;">CARRYING OVERHEAD</div>
-                            <div id="out-carrying-cost" style="font-size: 18px; font-weight: 800; color: var(--accent-amber); font-family: monospace; margin-top: 4px;"></div>
-                        </div>
-                        <div style="border-left: 1px solid var(--border-color); padding-left: 20px;">
-                            <div style="font-size: 10px; font-weight: 800; color: var(--accent-green); text-transform: uppercase; letter-spacing: 0.05em;">PROJECTED NET YIELD</div>
-                            <div id="out-net-yield" style="font-size: 24px; font-weight: 900; color: var(--accent-green); font-family: monospace; margin-top: 2px;"></div>
-                        </div>
-                    </div>
-
-                    <!-- 🛑 6. THE SYSTEM AUTOMATED EXIT CONTINGENCY PROTOCOL -->
-                    <h3 style="font-size: 12px; font-weight: 800; text-transform: uppercase; color: #475569; letter-spacing: 0.05em; margin-top: 32px; margin-bottom: 12px;">V. Active Operational Exit Kill-Switch Checklists</h3>
-                    <div id="out-exit-protocol" style="font-size: 13.5px; color: var(--accent-amber); font-weight: 600; line-height: 1.6; background: rgba(251, 191, 36, 0.02); border: 1px dashed rgba(251, 191, 36, 0.2); padding: 16px; border-radius: 8px;"></div>
-                </div>
-
-                <div class="card premium-lockbox" id="premium-layer-card" style="margin-top:24px;">
-                    <span class="lock-badge" id="premium-lock-badge">Retainer Feature Locked</span>
-                    <h3 id="premium-lock-title" style="font-size: 14px; font-weight: 800; color: var(--accent-red); margin-bottom: 6px;">Live Multi-Variant Exit Blueprints & Litigation Tracking</h3>
-                    <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5;">Continuous Asynchronous Google Drive 06:00 AM Sync Pipes, real-time market-saturation indexes, carrier denial litigation risk maps, and automated post-engagement cash flow prompts are highly restricted. Upgrade your operational profile to a Premium Monthly Retainer Core to release these features.</p>
+                    <h3 class="section-label">Kill Switch Protocol</h3>
+                    <div id="out-exit-protocol" style="background:rgba(255,184,0,0.05); border:1px dashed rgba(255,184,0,0.3); padding:16px; border-radius:8px; color:var(--cyber-amber);"></div>
                 </div>
             </section>
 
-            <section id="view-corporate-settlement" class="dashboard-tab">
-                <h1>Corporate Settlements & Bank Parameters</h1>
-                <p class="lead">Remit monthly retentions and flat report complexity fees using our permanent, static banking credentials below.</p>
-                <div class="card" style="border-left: 3px solid var(--accent-green); max-width:620px;">
-                    <h3 style="font-size: 14px; font-weight: 800; color: var(--accent-green); text-transform: uppercase; margin-bottom: 12px;">Optima Workflows Corporate Settlement Destination</h3>
-                    <div style="background:#020617; border:1px solid var(--border-color); padding:16px; border-radius:6px; font-family:monospace; font-size:13px; line-height:1.6; color:#ffffff;">
-                        <div>Beneficiary Bank: <strong>State Bank of India</strong></div>
-                        <div>Branch Name:     <strong>Karnal Corporate Hub (Haryana, IN)</strong></div>
-                        <div>Account Name:    <strong>Optima Workflows Private Operations</strong></div>
-                        <div>Account Number:  <strong>XXXXXXXXXXXXX</strong></div>
-                        <div>IFSC Routing Key: <strong>SBIN00XXXXX</strong></div>
+            <!-- ====================================================================
+                 MODULE: STORM AUDIT
+                 ==================================================================== -->
+            <section id="view-storm-audit" class="dashboard-tab">
+                <h1>Storm Audit Forensics</h1>
+                <p class="lead">Post-event claims forensics and damage verification intelligence.</p>
+                <div class="card">
+                    <h3 style="font-size:14px; font-weight:800; margin-bottom:16px;">Upload Claim Files for Cross-Referencing</h3>
+                    <div style="border:2px dashed var(--border-hairline); border-radius:12px; padding:40px; text-align:center; color:var(--text-detail);">
+                        <div style="font-size:32px; margin-bottom:12px;">📄</div>
+                        <p>Drag and drop adjuster reports, Xactimate files, or drone imagery here.</p>
+                        <p class="mono" style="font-size:11px; margin-top:8px;">(Placeholder for future API integration)</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3 style="font-size:14px; font-weight:800; margin-bottom:16px;">Recent Storm Audits</h3>
+                    <table><thead><tr><th>Storm ID</th><th>Claim Count</th><th>Discrepancy Rate</th><th>Status</th></tr></thead>
+                    <tbody>
+                        <tr><td>TX-2024-0421</td><td>47</td><td>12%</td><td><span class="badge-status bg-green">Complete</span></td></tr>
+                        <tr><td>FL-2024-0315</td><td>32</td><td>28%</td><td><span class="badge-status bg-amber">In Review</span></td></tr>
+                    </tbody></table>
+                </div>
+            </section>
+
+            <!-- ====================================================================
+                 MODULE: VENDOR AUDIT
+                 ==================================================================== -->
+            <section id="view-vendor-audit" class="dashboard-tab">
+                <h1>Vendor Audit & Compliance</h1>
+                <p class="lead">Verify subcontractor insurance, licensing, and compliance status.</p>
+                <div class="card">
+                    <table><thead><tr><th>Vendor</th><th>Trade</th><th>COI Status</th><th>Expiry</th><th>Risk Level</th></tr></thead>
+                    <tbody>
+                        <tr><td>ABC Roofing Supply</td><td>Materials</td><td><span class="badge-status bg-green">Verified</span></td><td>Nov 2026</td><td class="mono">Low</td></tr>
+                        <tr><td>Lone Star Crane Co.</td><td>Equipment</td><td><span class="badge-status bg-amber">Expiring</span></td><td>Sep 2026</td><td class="mono" style="color:var(--cyber-amber);">Medium</td></tr>
+                        <tr><td>Perez Subcontracting</td><td>Labor</td><td><span class="badge-status bg-red">Missing</span></td><td>—</td><td class="mono" style="color:var(--cyber-red);">Critical</td></tr>
+                    </tbody></table>
+                </div>
+            </section>
+
+            <!-- ====================================================================
+                 MODULE: FREIGHT AUDIT
+                 ==================================================================== -->
+            <section id="view-freight-audit" class="dashboard-tab">
+                <h1>Freight Audit & Chargeback Recovery</h1>
+                <p class="lead">Recover revenue from incorrect freight billing and logistical overcharges.</p>
+                <div class="metric-grid">
+                    <div class="metric-card"><div class="metric-label">Open Disputes</div><div class="metric-value" style="color:var(--cyber-blue);">$12,400</div></div>
+                    <div class="metric-card"><div class="metric-label">Recovered QTD</div><div class="metric-value" style="color:var(--cyber-green);">$8,200</div></div>
+                </div>
+                <div class="card">
+                    <table><thead><tr><th>Carrier</th><th>Invoice #</th><th>Dispute Reason</th><th>Amount</th><th>Status</th></tr></thead>
+                    <tbody>
+                        <tr><td>FedEx Freight</td><td>INV-88231</td><td>Duplicate billing</td><td class="mono">$4,500</td><td><span class="badge-status bg-amber">In Dispute</span></td></tr>
+                        <tr><td>UPS LTL</td><td>INV-77120</td><td>Late delivery penalty</td><td class="mono">$2,300</td><td><span class="badge-status bg-green">Recovered</span></td></tr>
+                    </tbody></table>
+                </div>
+            </section>
+
+            <!-- ====================================================================
+                 MODULE: CHARGEBACK RECOVERY
+                 ==================================================================== -->
+            <section id="view-chargeback" class="dashboard-tab">
+                <h1>Retail Chargeback Recovery</h1>
+                <p class="lead">Automated identification and recovery of retail vendor chargebacks.</p>
+                <div class="card">
+                    <table><thead><tr><th>Retailer</th><th>Chargeback ID</th><th>Reason</th><th>Amount</th><th>Deadline</th></tr></thead>
+                    <tbody>
+                        <tr><td>Home Depot</td><td>CB-2024-889</td><td>Late shipment</td><td class="mono">$1,200</td><td class="mono">Oct 15</td></tr>
+                        <tr><td>Lowe's</td><td>CB-2024-776</td><td>Pricing mismatch</td><td class="mono">$850</td><td class="mono">Oct 22</td></tr>
+                    </tbody></table>
+                </div>
+            </section>
+
+            <!-- ====================================================================
+                 MODULE: APPOINTMENT BOOKING
+                 ==================================================================== -->
+            <section id="view-appointments" class="dashboard-tab">
+                <h1>Appointment Booking</h1>
+                <p class="lead">Schedule insurance inspections, adjuster meetings, and client walkthroughs.</p>
+                <div class="card">
+                    <div class="form-row">
+                        <div class="form-group"><label>Client</label><input type="text" value="Vanguard Restoration"></div>
+                        <div class="form-group"><label>Date</label><input type="date" value="2026-08-20"></div>
+                    </div>
+                    <div class="form-group"><label>Type</label><select><option>Insurance Inspection</option><option>Adjuster Meeting</option></select></div>
+                    <button class="btn-primary" style="width:100%;">Schedule Appointment</button>
+                </div>
+            </section>
+
+            <!-- ====================================================================
+                 MODULE: SETTLEMENTS
+                 ==================================================================== -->
+            <section id="view-settlement" class="dashboard-tab">
+                <h1>Settlements & Invoices</h1>
+                <p class="lead">Manage monthly retentions and per-storm complexity billing.</p>
+                <div class="card">
+                    <div class="metric-grid">
+                        <div class="metric-card"><div class="metric-label">Current Balance</div><div class="metric-value" style="color:#fff;">$18,600</div></div>
+                        <div class="metric-card"><div class="metric-label">Next Billing Cycle</div><div class="metric-value mono" style="font-size:18px;">Nov 01</div></div>
+                    </div>
+                    <div style="background:#03060c; border:1px solid var(--border-hairline); padding:16px; border-radius:8px; font-family:'IBM Plex Mono', monospace; font-size:13px; line-height:1.8;">
+                        <div>Wire To: <strong>State Bank of India</strong></div>
+                        <div>Account: <strong>Optima Workflows Private Operations</strong></div>
+                        <div>Routing Key: <strong>SBIN00XXXXX</strong></div>
                     </div>
                 </div>
             </section>
 
-            <section id="view-security-profile" class="dashboard-tab" style="max-width:550px;">
-                <h1>Security Profile & Cryptographic Setup</h1>
-                <p class="lead">Manage your master system password keys and multi-factor authentication policies.</p>
-                <div class="card" style="display:flex; flex-direction:column; gap:16px;">
-                    <div style="font-size:13px; line-height:1.5;"><span style="font-weight:700; color:var(--text-muted);">Master Account Key:</span> OPT-77421</div>
-                    <div style="font-size:13px; line-height:1.5;"><span style="font-weight:700; color:var(--text-muted);">Whitelisted Corporate Email:</span> operations@vanguard.com</div>
-                    <div style="font-size:13px; line-height:1.5;"><span style="font-weight:700; color:var(--text-muted);">Verified Industry Category:</span> Commercial Roofing Contractor</div>
-                    
-                    <div style="border-top:1px solid var(--border-color); padding-top:16px; margin-top:8px;">
-                        <label style="color:var(--accent-blue); display:block; margin-bottom:8px;">Two-Factor Authentication (2FA) Status</label>
-                        <div style="display:flex; align-items:center; gap:12px; margin-top:8px;">
-                            <span id="status-badge-2fa" class="badge-status bg-green">● ENFORCED_SECURED</span>
-                            <button type="button" id="toggle-2fa-policy-btn" class="toggle-btn" style="margin-top:0; border-color:var(--accent-red); color:var(--accent-red);" onclick="toggleAccountLevelTwoFactorPolicy()">Deactivate 2FA Security Protection</button>
-                        </div>
-                    </div>
-                </div>
-            </section>
         </main>
     </div>
 
     <script>
-        const whitelistedMockEmail = "operations@vanguard.com";
-        const whitelistedMockPassword = "vanguard2026";
-        const whitelistedMock2FA = "481516";
-        
-        // 🚨 LIVE ENDPOINT HOOK: Replace this with your newly generated deployment URL string pass!
-        const LIVE_APPS_SCRIPT_WEBHOOK_URL = "https://google.com";
-
         function executeDashboardLoginPass() {
-            if (document.getElementById("auth-email").value.trim() === "operations@vanguard.com" && document.getElementById("auth-password").value === "vanguard2026") {
+            if (document.getElementById("auth-email").value === "operations@vanguard.com" && document.getElementById("auth-password").value === "vanguard2026") {
                 document.getElementById("step-password-box").style.display = "none";
-                document.getElementById("step-twofactor-box").style.display = "flex";
+                document.getElementById("step-twofactor-box").style.display = "block";
             } else { document.getElementById("auth-error-pass").style.display = "block"; }
         }
 
         function executeTwoFactorTokenValidationPass() {
-            if (document.getElementById("auth-2fa-token").value.trim() === "481516") {
+            if (document.getElementById("auth-2fa-token").value === "481516") {
                 document.getElementById("auth-overlay").style.display = "none";
                 document.getElementById("dashboard-wrapper").style.display = "flex";
-                initializeConditionalDashboardLayers();
             } else { document.getElementById("auth-error-2fa").style.display = "block"; }
         }
 
-        function initializeConditionalDashboardLayers() {
-            const cachedTrackToken = localStorage.getItem("active_purchased_service") || "cat-intelligence";
-            const targetNav = document.getElementById("nav-" + cachedTrackToken);
-            if (targetNav) { targetNav.style.display = "flex"; targetNav.classList.add("active"); }
+        function switchTab(tabId, navElement) {
+            document.querySelectorAll(".dashboard-tab").forEach(tab => tab.classList.remove("active"));
+            document.querySelectorAll(".nav-item").forEach(nav => nav.classList.remove("active"));
+            document.getElementById(tabId).classList.add("active");
+            if (navElement) navElement.classList.add("active");
         }
 
-        function switchActiveTab(targetTabId) {
-            document.getElementById("view-active-module").style.display = "none";
-            document.getElementById("view-corporate-settlement").style.display = "none";
-            document.getElementById("view-security-profile").style.display = "none";
-            document.getElementById("view-" + targetTabId).style.display = "block";
-        }
-
-        function toggleAccountLevelTwoFactorPolicy() {
-            const badge = document.getElementById("status-badge-2fa");
-            const btn   = document.getElementById("toggle-2fa-policy-btn");
-            if (badge.innerHTML.indexOf("ENFORCED") !== -1) {
-                badge.innerHTML = "○ DEACTIVATED_UNSECURE"; badge.className = "badge-status bg-amber";
-                btn.innerHTML = "🔒 Activate 2FA Security Protection"; btn.style.borderColor = "var(--accent-green)"; btn.style.color = "var(--accent-green)";
-            } else {
-                badge.innerHTML = "● ENFORCED_SECURED"; badge.className = "badge-status bg-green";
-                btn.innerHTML = "Deactivate 2FA Security Protection"; btn.style.borderColor = "var(--accent-red)"; btn.style.color = "var(--accent-red)";
-            }
-        }
-
-        // 🚀 THE LIVE, REAL-TIME FETCH() API CALCULATION PIPELINE LOOP
         function executeLiveTwelveFactorTriageAPI(event) {
             event.preventDefault();
-            
-            const submitBtn = document.getElementById("btn-triage-submit");
-            const resultsCard = document.getElementById("live-api-results-card");
-            
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = "Processing Live 12-Factor Data Stream...";
+            const btn = document.getElementById("btn-triage-submit");
+            const card = document.getElementById("live-api-results-card");
+            btn.disabled = true;
+            btn.innerHTML = "Processing...";
 
-            const requestPayload = {
-                "account_uid": "OPT-77421",
-                "target_zip": document.getElementById("frm-zip").value.trim(),
-                "intent": document.getElementById("frm-intent").value,
-                "tech_profile": document.getElementById("frm-tech").value,
-                "rain_inches": document.getElementById("frm-rain").value,
-                "legal_friction": document.getElementById("frm-legal").value
-            };
+            // setTimeout is a built-in browser function (no download needed)
+            setTimeout(() => {
+                const rain = parseFloat(document.getElementById("frm-rain").value);
+                let verdict = "GREEN_LIGHT_LAUNCH_STRIKE_CREW";
+                let color = "var(--cyber-green)";
+                let bg = "rgba(0, 255, 163, 0.1)";
+                let net = "$145,000.00";
+                let matrix = "";
 
-            fetch(LIVE_APPS_SCRIPT_WEBHOOK_URL, {
-                method: "POST",
-                mode: "no-cors", 
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(requestPayload)
-            })
-            .then(() => {
-                const rainVal = parseFloat(requestPayload.rain_inches);
-                const techVal = requestPayload.tech_profile;
-                const legalVal = requestPayload.legal_friction;
-                
-                let score = 75;
-                let verdict = "YELLOW_LIGHT_LEAN_RECON_ONLY";
-                let badgeClass = "bg-amber";
-                let net = "$0.00";
-                
-                let matrixHtml = "";
-                let intelHtml = "";
-                
-                if (rainVal < 0.5) {
-                    score = 35; verdict = "RED_LIGHT_HARD_ABORT"; badgeClass = "bg-red";
-                    matrixHtml += "<tr><td style='padding:14px 10px; border-bottom:1px solid #111827;'>F01: Hail Kinetic Energy</td><td style='padding:14px 10px; border-bottom:1px solid #111827; color:var(--text-muted);'>1.75\" / High Velocity</td><td style='padding:14px 10px; border-bottom:1px solid #111827; text-align:right; font-family:monospace;'>85</td><td style='padding:14px 10px; border-bottom:1px solid #111827; text-align:right; color:#64748b;'>15%</td><td style='padding:14px 10px; border-bottom:1px solid #111827; text-align:right; color:var(--accent-blue); font-weight:bold; font-family:monospace;'>12.75</td></tr>" +
-                                  "<tr><td style='padding:14px 10px; border-bottom:1px solid #111827;'>F02: Commercial Envelope Age</td><td style='padding:14px 10px; border-bottom:1px solid #111827; color:var(--text-muted);'>18 Years (Brittle)</td><td style='padding:14px 10px; border-bottom:1px solid #111827; text-align:right; font-family:monospace;'>90</td><td style='padding:14px 10px; border-bottom:1px solid #111827; text-align:right; color:#64748b;'>10%</td><td style='padding:14px 10px; border-bottom:1px solid #111827; text-align:right; color:var(--accent-blue); font-weight:bold; font-family:monospace;'>9.00</td></tr>" +
-                                  "<tr><td style='padding:14px 10px; border-bottom:1px solid #111827;'>F03: Post-Impact Rain Saturation</td><td style='padding:14px 10px; border-bottom:1px solid #111827; color:var(--text-muted);'>" + rainVal + "\" (Dry Membrane)</td><td style='padding:14px 10px; border-bottom:1px solid #111827; text-align:right; font-family:monospace;'>20</td><td style='padding:14px 10px; border-bottom:1px solid #111827; text-align:right; color:#64748b;'>15%</td><td style='padding:14px 10px; border-bottom:1px solid #111827; text-align:right; color:var(--accent-blue); font-weight:bold; font-family:monospace;'>3.00</td></tr>";
-                    intelHtml += "<li><strong>Saturation Drop:</strong> Cosmetic Denial Hazard. Low rain saturation leaves the building interior dry. Adjusters will flag as cosmetic damage.</li>";
-                } else {
-                    matrixHtml += "<tr><td style='padding:14px 10px; border-bottom:1px solid #111827;'>F01: Hail Kinetic Energy</td><td style='padding:14px 10px; border-bottom:1px solid #111827; color:var(--text-muted);'>1.75\" / High Velocity</td><td style='padding:14px 10px; border-bottom:1px solid #111827; text-align:right; font-family:monospace;'>85</td><td style='padding:14px 10px; border-bottom:1px solid #111827; text-align:right; color:#64748b;'>15%</td><td style='padding:14px 10px; border-bottom:1px solid #111827; text-align:right; color:var(--accent-blue); font-weight:bold; font-family:monospace;'>12.75</td></tr>" +
-                                  "<tr><td style='padding:14px 10px; border-bottom:1px solid #111827;'>F02: Commercial Envelope Age</td><td style='padding:14px 10px; border-bottom:1px solid #111827; color:var(--text-muted);'>18 Years (Brittle)</td><td style='padding:14px 10px; border-bottom:1px solid #111827; text-align:right; font-family:monospace;'>90</td><td style='padding:14px 10px; border-bottom:1px solid #111827; text-align:right; color:#64748b;'>10%</td><td style='padding:14px 10px; border-bottom:1px solid #111827; text-align:right; color:var(--accent-blue); font-weight:bold; font-family:monospace;'>9.00</td></tr>" +
-                                  "<tr><td style='padding:14px 10px; border-bottom:1px solid #111827;'>F03: Post-Impact Rain Saturation</td><td style='padding:14px 10px; border-bottom:1px solid #111827; color:var(--text-muted);'>" + rainVal + "\" (Interior Flood)</td><td style='padding:14px 10px; border-bottom:1px solid #111827; text-align:right; font-family:monospace;'>95</td><td style='padding:14px 10px; border-bottom:1px solid #111827; text-align:right; color:#64748b;'>15%</td><td style='padding:14px 10px; border-bottom:1px solid #111827; text-align:right; color:var(--accent-blue); font-weight:bold; font-family:monospace;'>14.25</td></tr>";
-                    intelHtml += "<li><strong>Saturation Win:</strong> " + rainVal + " inches of rain confirms interior water damage, bypassing 'cosmetic damage' denials instantly.</li>";
-                    if (techVal === "PRO_TECH") { verdict = "GREEN_LIGHT_LAUNCH_STRIKE_CREW"; badgeClass = "bg-green"; net = "$145,000.00"; }
+                if (rain < 0.5) {
+                    verdict = "RED_LIGHT_HARD_ABORT";
+                    color = "var(--cyber-red)";
+                    bg = "rgba(255, 59, 59, 0.1)";
+                    net = "$0.00";
                 }
 
-                if (legalVal === "ATTORNEY_MANDATORY") {
-                    matrixHtml += "<tr><td style='padding:14px 10px; border-bottom:1px solid #111827;'>F04: Legal Friction Index (AOB)</td><td style='padding:14px 10px; border-bottom:1px solid #111827; color:var(--text-muted);'>Attorney Mandatory</td><td style='padding:14px 10px; border-bottom:1px solid #111827; text-align:right; font-family:monospace;'>10</td><td style='padding:14px 10px; border-bottom:1px solid #111827; text-align:right; color:#64748b;'>15%</td><td style='padding:14px 10px; border-bottom:1px solid #111827; text-align:right; color:var(--accent-blue); font-weight:bold; font-family:monospace;'>1.50</td></tr>";
-                    intelHtml += "<li><strong>Legal Friction Drag:</strong> Statutory AOB boundaries increase insurance funding carrying cycles by 45 days. Local working capital parameters must scale.</li>";
-                } else {
-                    matrixHtml += "<tr><td style='padding:14px 10px; border-bottom:1px solid #111827;'>F04: Legal Friction Index (AOB)</td><td style='padding:14px 10px; border-bottom:1px solid #111827; color:var(--text-muted);'>Direct Billing</td><td style='padding:14px 10px; border-bottom:1px solid #111827; text-align:right; font-family:monospace;'>90</td><td style='padding:14px 10px; border-bottom:1px solid #111827; text-align:right; color:#64748b;'>15%</td><td style='padding:14px 10px; border-bottom:1px solid #111827; text-align:right; color:var(--accent-blue); font-weight:bold; font-family:monospace;'>13.50</td></tr>";
-                }
-
-                matrixHtml += "<tr><td style='padding:14px 10px; border-bottom:1px solid #111827;'>F05: Competitor Saturation Canopy</td><td style='padding:14px 10px; border-bottom:1px solid #111827; color:var(--text-muted);'>25 Trucks Tracked</td><td style='padding:14px 10px; border-bottom:1px solid #111827; text-align:right; font-family:monospace;'>60</td><td style='padding:14px 10px; border-bottom:1px solid #111827; text-align:right; color:#64748b;'>10%</td><td style='padding:14px 10px; border-bottom:1px solid #111827; text-align:right; color:var(--accent-blue); font-weight:bold; font-family:monospace;'>6.00</td></tr>" +
-                              "<tr><td style='padding:14px 10px; border-bottom:1px solid #111827;'>F06: Property Structural Density</td><td style='padding:14px 10px; border-bottom:1px solid #111827; color:var(--text-muted);'>120 Pinned Assets</td><td style='padding:14px 10px; border-bottom:1px solid #111827; text-align:right; font-family:monospace;'>90</td><td style='padding:14px 10px; border-bottom:1px solid #111827; text-align:right; color:#64748b;'>10%</td><td style='padding:14px 10px; border-bottom:1px solid #111827; text-align:right; color:var(--accent-blue); font-weight:bold; font-family:monospace;'>9.00</td></tr>" +
-                              "<tr><td style='padding:14px 10px; border-bottom:1px solid #111827;'>F07: Tech Stack Profiler</td><td style='padding:14px 10px; border-bottom:1px solid #111827; color:var(--text-muted);'>Tier 1 Drone Scans</td><td style='padding:14px 10px; border-bottom:1px solid #111827; text-align:right; font-family:monospace;'>95</td><td style='padding:14px 10px; border-bottom:1px solid #111827; text-align:right; color:#64748b;'>10%</td><td style='padding:14px 10px; border-bottom:1px solid #111827; text-align:right; color:var(--accent-blue); font-weight:bold; font-family:monospace;'>9.50</td></tr>" +
-                              "<tr><td style='padding:14px 10px; border-bottom:1px solid #111827;'>F08: Working Line of Credit Capacity</td><td style='padding:14px 10px; border-bottom:1px solid #111827; color:var(--text-muted);'>LOC $500k Secure</td><td style='padding:14px 10px; border-bottom:1px solid #111827; text-align:right; font-family:monospace;'>80</td><td style='padding:14px 10px; border-bottom:1px solid #111827; text-align:right; color:#64748b;'>5%</td><td style='padding:14px 10px; border-bottom:1px solid #111827; text-align:right; color:var(--accent-blue); font-weight:bold; font-family:monospace;'>4.00</td></tr>" +
-                              "<tr><td style='padding:14px 10px; border-bottom:1px solid #111827;'>F09: PM Commercial Crane Roster</td><td style='padding:14px 10px; border-bottom:1px solid #111827; color:var(--text-muted);'>Verified PM</td><td style='padding:14px 10px; border-bottom:1px solid #111827; text-align:right; font-family:monospace;'>85</td><td style='padding:14px 10px; border-bottom:1px solid #111827; text-align:right; color:#64748b;'>5%</td><td style='padding:14px 10px; border-bottom:1px solid #111827; text-align:right; color:var(--accent-blue); font-weight:bold; font-family:monospace;'>4.25</td></tr>" +
-                              "<tr><td style='padding:14px 10px; border-bottom:1px solid #111827;'>F10: Material Allocation Chain</td><td style='padding:14px 10px; border-bottom:1px solid #111827; color:var(--text-muted);'>ABC Supply Priority</td><td style='padding:14px 10px; border-bottom:1px solid #111827; text-align:right; font-family:monospace;'>75</td><td style='padding:14px 10px; border-bottom:1px solid #111827; text-align:right; color:#64748b;'>5%</td><td style='padding:14px 10px; border-bottom:1px solid #111827; text-align:right; color:var(--accent-blue); font-weight:bold; font-family:monospace;'>3.75</td></tr>";
-
-                let exitText = "Day 7 Material Kill Switch: If competitor influx spikes canopy past 45 trucks, pull retail crews. Shift focus to REIT flat roofs via drone scans.";
-                if (verdict === "RED_LIGHT_HARD_ABORT") {
-                    exitText = "Day 3 Kill Switch: If adjuster denial rate crosses 60% on first 10 inspections due to dry interiors, freeze spend and withdraw trucks.";
-                }
+                matrix += "<tr><td>F01: Hail Kinetic</td><td>1.75\" High Velocity</td><td style='text-align:right;'>85</td><td style='text-align:right;'>15%</td><td style='text-align:right; font-weight:700; color:var(--cyber-blue);'>12.75</td></tr>";
+                matrix += "<tr><td>F02: Envelope Age</td><td>18 Years (Brittle)</td><td style='text-align:right;'>90</td><td style='text-align:right;'>10%</td><td style='text-align:right; font-weight:700; color:var(--cyber-blue);'>9.00</td></tr>";
+                matrix += "<tr><td>F03: Rain Saturation</td><td>" + rain + "\"</td><td style='text-align:right;'>95</td><td style='text-align:right;'>15%</td><td style='text-align:right; font-weight:700; color:var(--cyber-green);'>14.25</td></tr>";
+                matrix += "<tr><td>F04: Legal Friction</td><td>Attorney Mandatory</td><td style='text-align:right;'>10</td><td style='text-align:right;'>15%</td><td style='text-align:right; font-weight:700; color:var(--cyber-red);'>1.50</td></tr>";
+                matrix += "<tr><td>F05: Competitor Canopy</td><td>25 Trucks</td><td style='text-align:right;'>60</td><td style='text-align:right;'>10%</td><td style='text-align:right;'>6.00</td></tr>";
+                matrix += "<tr><td>F06: Structural Density</td><td>120 Assets</td><td style='text-align:right;'>90</td><td style='text-align:right;'>10%</td><td style='text-align:right;'>9.00</td></tr>";
+                matrix += "<tr><td>F07: Tech Stack</td><td>Drone Scans</td><td style='text-align:right;'>95</td><td style='text-align:right;'>10%</td><td style='text-align:right;'>9.50</td></tr>";
+                matrix += "<tr><td>F08: Line of Credit</td><td>LOC $500k</td><td style='text-align:right;'>80</td><td style='text-align:right;'>5%</td><td style='text-align:right;'>4.00</td></tr>";
+                matrix += "<tr><td>F09: PM Roster</td><td>Verified PM</td><td style='text-align:right;'>85</td><td style='text-align:right;'>5%</td><td style='text-align:right;'>4.25</td></tr>";
+                matrix += "<tr><td>F10: Materials</td><td>ABC Supply</td><td style='text-align:right;'>75</td><td style='text-align:right;'>5%</td><td style='text-align:right;'>3.75</td></tr>";
 
                 document.getElementById("out-verdict").innerHTML = verdict;
-                document.getElementById("out-verdict").className = "badge-status " + badgeClass;
-                document.getElementById("out-score").innerHTML = (rainVal < 0.5) ? "35/100" : "75/100";
-                document.getElementById("out-matrix-rows").innerHTML = matrixHtml;
-                document.getElementById("out-intel-brief").innerHTML = intelHtml;
-                document.getElementById("out-historical-anchor").innerHTML = "<strong>Pattern Match:</strong> Dallas/Fort Worth April 2021 Hail Corridor Event (Score: 78). Historic Field Outcome: 4 local strike crews mobilized, generating <strong>$2.1M Gross Revenue</strong> inside a compressed 60-day operational track window.";
-                
+                document.getElementById("out-verdict").style.color = color;
+                document.getElementById("out-verdict").style.background = bg;
+                document.getElementById("out-score").innerHTML = (rain < 0.5) ? "35/100" : "75/100";
+                document.getElementById("out-matrix-rows").innerHTML = matrix;
+                document.getElementById("out-intel-brief").innerHTML = (rain < 0.5) ? "<li><strong>Saturation Drop:</strong> Dry interiors. Adjusters will deny as cosmetic.</li>" : "<li><strong>Saturation Win:</strong> " + rain + "\" inches confirms interior water damage.</li>";
                 document.getElementById("out-gross-vol").innerHTML = "$580,000";
                 document.getElementById("out-mob-burn").innerHTML = "-$85,000";
                 document.getElementById("out-carrying-cost").innerHTML = "-$50,000";
                 document.getElementById("out-net-yield").innerHTML = net;
-                document.getElementById("out-exit-protocol").innerHTML = exitText;
+                document.getElementById("out-exit-protocol").innerHTML = "Day 7 Material Kill Switch: If competitor influx spikes canopy past 45 trucks, pull retail crews. Shift focus to REIT flat roofs via drone scans.";
 
-                resultsCard.style.display = "block";
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = "Execute 12-Factor Triage Sweep";
-                resultsCard.scrollIntoView({ behavior: 'smooth' });
-            })
-            .catch(err => {
-                alert("Live Ingestion Interrupted: " + err.toString());
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = "Execute 12-Factor Triage Sweep";
-            });
+                card.style.display = "block";
+                btn.disabled = false;
+                btn.innerHTML = "⚡ Execute Sweep";
+                card.scrollIntoView({ behavior: 'smooth' });
+            }, 800); // 800ms delay
         }
     </script>
 </body>
