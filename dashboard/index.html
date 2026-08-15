@@ -81,7 +81,7 @@
         .params-panel { display: none; border-top: 1px solid var(--border-hairline); padding-top: 20px; margin-bottom: 16px; }
         .params-panel.open { display: block; }
 
-        .factor-explanation { font-size: 12.5px; color: #90a4ae; margin-top: 4px; line-height: 1.5; font-style: italic; }
+        .factor-explanation { font-size: 13px; color: #b0bec5; margin-top: 4px; line-height: 1.6; }
         .financial-line { display: flex; justify-content: space-between; padding: 14px 0; border-bottom: 1px solid #1a2332; }
         .financial-line:last-child { border-bottom: none; }
         .financial-label { font-size: 14px; color: #cfd8dc; font-weight: 600; }
@@ -204,7 +204,7 @@
                         <p id="out-warn-text" class="warning-text"></p>
                     </div>
 
-                    <h3 class="section-label" style="margin-top:0; font-size:12px; color:#cfd8dc;">12-Factor Matrix — Explained</h3>
+                    <h3 class="section-label" style="margin-top:0; font-size:12px; color:#cfd8dc;">12-Factor Matrix — Every Factor Explained</h3>
                     <div style="overflow-x:auto; margin-bottom:24px;"><table id="out-matrix"></table></div>
 
                     <h3 class="section-label" style="font-size:12px; color:#cfd8dc;">Financial Breakdown — How We Got These Numbers</h3>
@@ -216,7 +216,7 @@
                     <h3 class="section-label" style="font-size:12px; color:#cfd8dc;">Kill Switch Protocol — Triggered By These Factors</h3>
                     <div id="out-exit" style="background:rgba(255,184,0,0.05); border:1px dashed rgba(255,184,0,0.3); padding:20px; border-radius:10px; color:var(--cyber-amber); font-family:'IBM Plex Mono', monospace; font-size:14px; line-height:1.7; margin-bottom:24px;"></div>
 
-                    <h3 class="section-label" style="font-size:12px; color:#cfd8dc;">Drone Verification Protocol</h3>
+                    <h3 class="section-label" style="font-size:12px; color:#cfd8dc;">Inspection Protocol</h3>
                     <div id="out-drone" style="background:rgba(64,196,255,0.05); border:1px solid rgba(64,196,255,0.3); padding:20px; border-radius:10px; color:#bbdefb; font-family:'IBM Plex Mono', monospace; font-size:14px; line-height:1.7; margin-bottom:12px;"></div>
                     <button type="button" id="btn-drone-cta" class="btn-primary" style="display:none; margin-bottom:24px;" onclick="requestDroneVerification()">📡 Request Drone Verification — $2,500/roof</button>
 
@@ -478,23 +478,24 @@
                 warnText.innerHTML = "<strong>" + label + " — Reasons:</strong><br>" + reasons.map(function(x){ return "• " + x; }).join("<br>");
             }
 
+            // MATRIX WITH DETAILED EXPLANATIONS
             var matrixHtml = "<tr><th>Factor</th><th>Raw</th><th>Weight</th><th>Weighted</th></tr>";
-            matrixHtml += "<tr><td><strong>F01: Hail</strong><br><span class='factor-explanation'>" + hailSize + ". " + (hailScore >= 70 ? "Above threshold." : "Below threshold — verify.") + "</span></td><td>" + hailScore + "</td><td>15%</td><td>" + wHail.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F02: Age</strong><br><span class='factor-explanation'>Built " + medianYear + " (" + (2026-medianYear) + " yrs). " + ((2026-medianYear) >= 15 ? "Brittle." : "Moderate.") + "</span></td><td>" + envelopeScore + "</td><td>10%</td><td>" + wAge.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F03: Rain</strong><br><span class='factor-explanation'>" + actualRain.toFixed(2) + "\". " + (actualRain >= 0.5 ? "Interior damage." : "DRY — denial risk.") + "</span></td><td>" + rainScore + "</td><td>15%</td><td>" + wRain.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F04: Legal</strong><br><span class='factor-explanation'>" + (legal === "ATTORNEY_MANDATORY" ? "Attorney +45 days." : "Direct billing.") + "</span></td><td>" + legalScore + "</td><td>15%</td><td>" + wLegal.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F05: Competitor</strong><br><span class='factor-explanation'>" + state + ". " + (competitorScore >= 70 ? "Saturated." : competitorScore >= 50 ? "Moderate." : "Open.") + "</span></td><td>" + competitorScore + "</td><td>10%</td><td>" + wCompetitor.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F06: Density</strong><br><span class='factor-explanation'>Pop " + totalPop.toLocaleString() + " → " + estimatedRoofs + " roofs.</span></td><td>" + densityScore + "</td><td>10%</td><td>" + wDensity.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F07: Tech</strong><br><span class='factor-explanation'>" + (tech === "PRO_TECH" ? "Drone +30% speed." : "Manual.") + "</span></td><td>" + techScore + "</td><td>10%</td><td>" + wTech.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F08: Credit</strong><br><span class='factor-explanation'>" + state + " capital.</span></td><td>" + creditScore + "</td><td>5%</td><td>" + wCredit.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F09: PM</strong><br><span class='factor-explanation'>" + state + " labor.</span></td><td>" + laborScore + "</td><td>5%</td><td>" + wPM.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F10: Material</strong><br><span class='factor-explanation'>" + state + " supply.</span></td><td>" + materialScore + "</td><td>5%</td><td>" + wMaterial.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F11: RCV</strong><br><span class='factor-explanation'>" + state + " carrier.</span></td><td>" + rcvScore + "</td><td>5%</td><td>" + wRCV.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F12: Permit</strong><br><span class='factor-explanation'>" + city + ".</span></td><td>" + permitScore + "</td><td>5%</td><td>" + wPermit.toFixed(2) + "</td></tr>";
+            matrixHtml += "<tr><td><strong>F01: Hail Kinetic</strong><br><span class='factor-explanation'>" + hailSize + " hail recorded in this region. " + (hailScore >= 70 ? "This exceeds the 1.5\" threshold for commercial TPO/EPDM membrane fracture. Adjusters cannot deny impact damage at this size." : "Below the 1.5\" threshold. Adjusters will push back on impact claims. Drone verification essential.") + "</span></td><td>" + hailScore + "</td><td>15%</td><td>" + wHail.toFixed(2) + "</td></tr>";
+            matrixHtml += "<tr><td><strong>F02: Envelope Age</strong><br><span class='factor-explanation'>Median build year " + medianYear + " (" + (2026-medianYear) + " yrs). " + ((2026-medianYear) >= 15 ? "Membranes are fully oxidized and brittle. Any impact causes fracture, not just scuffing. Full replacement is defensible." : "Roofs are relatively new. Adjusters will argue repair, not replacement.") + "</span></td><td>" + envelopeScore + "</td><td>10%</td><td>" + wAge.toFixed(2) + "</td></tr>";
+            matrixHtml += "<tr><td><strong>F03: Rain Saturation</strong><br><span class='factor-explanation'>" + actualRain.toFixed(2) + "\" post-impact rain. " + (actualRain >= 0.5 ? "Water has penetrated the building envelope. Interior damage is documented. This is the #1 factor adjusters use to approve full replacement." : "DRY CONDITIONS. This is the #1 cause of cosmetic denial. Without interior water staining, expect 70%+ denial rate.") + "</span></td><td>" + rainScore + "</td><td>15%</td><td>" + wRain.toFixed(2) + "</td></tr>";
+            matrixHtml += "<tr><td><strong>F04: Legal Friction</strong><br><span class='factor-explanation'>" + (legal === "ATTORNEY_MANDATORY" ? "This state requires attorney representation for insurance claims. Cycle time increases by 45-60 days. You need additional working capital to float operations during this delay." : "Direct billing to carrier is permitted. You can submit claims directly and expect payment in 30-45 days.") + "</span></td><td>" + legalScore + "</td><td>15%</td><td>" + wLegal.toFixed(2) + "</td></tr>";
+            matrixHtml += "<tr><td><strong>F05: Competitor Saturation</strong><br><span class='factor-explanation'>" + state + " market has " + (competitorScore >= 70 ? "high competitor density. Multiple national firms are active here. Price wars likely. Your acquisition cost per roof will increase." : competitorScore >= 50 ? "moderate competition. First-mover advantage is possible if you deploy within 72 hours of storm." : "low competition. Open field. You can likely secure contracts before competitors arrive.") + "</span></td><td>" + competitorScore + "</td><td>10%</td><td>" + wCompetitor.toFixed(2) + "</td></tr>";
+            matrixHtml += "<tr><td><strong>F06: Density</strong><br><span class='factor-explanation'>Total population " + totalPop.toLocaleString() + " → estimated " + estimatedRoofs + " commercial roofs within 50-mile radius. " + (estimatedRoofs >= OPS.minRoofs ? "This supports full deployment. Crane mobilization cost is spread across enough projects." : "This is below your " + OPS.minRoofs + " roof minimum. Crane and crew housing costs will eat your margin.") + "</span></td><td>" + densityScore + "</td><td>10%</td><td>" + wDensity.toFixed(2) + "</td></tr>";
+            matrixHtml += "<tr><td><strong>F07: Tech Stack</strong><br><span class='factor-explanation'>" + (tech === "PRO_TECH" ? "Your drone capability gives you a 30% faster approval cycle. You can document damage at adjuster-grade quality before the adjuster even arrives." : "Manual measurement means slower documentation and higher chance of adjuster pushback. Consider drone investment for faster claims.") + "</span></td><td>" + techScore + "</td><td>10%</td><td>" + wTech.toFixed(2) + "</td></tr>";
+            matrixHtml += "<tr><td><strong>F08: Credit Capacity</strong><br><span class='factor-explanation'>" + state + " has " + (creditScore >= 55 ? "strong commercial lending networks. You can likely secure 90-day float for materials without cash flow strain." : "limited lending options. You may need to self-fund materials, which strains working capital.") + "</span></td><td>" + creditScore + "</td><td>5%</td><td>" + wCredit.toFixed(2) + "</td></tr>";
+            matrixHtml += "<tr><td><strong>F09: PM Roster</strong><br><span class='factor-explanation'>" + state + " labor market has " + (laborScore >= 55 ? "adequate certified commercial PMs and crane operators at standard rates. You can staff up quickly." : "tight labor supply. Expect to pay 15-20% premium for skilled crews.") + "</span></td><td>" + laborScore + "</td><td>5%</td><td>" + wPM.toFixed(2) + "</td></tr>";
+            matrixHtml += "<tr><td><strong>F10: Material Chain</strong><br><span class='factor-explanation'>" + state + " has " + (materialScore >= 55 ? "major distribution hubs (ABC Supply, Beacon). TPO/EPDM available within 48 hours." : "limited supply. Pre-order materials before crews arrive to avoid 3-week delays.") + "</span></td><td>" + materialScore + "</td><td>5%</td><td>" + wMaterial.toFixed(2) + "</td></tr>";
+            matrixHtml += "<tr><td><strong>F11: RCV Ratio</strong><br><span class='factor-explanation'>" + state + " is " + (rcvScore >= 55 ? "RCV-dominant. Most policies cover full replacement cost. Adjusters approve full replacement more readily." : "ACV-heavy. Policies cover only depreciated value. Property owners will resist signing unless they can cover the gap.") + "</span></td><td>" + rcvScore + "</td><td>5%</td><td>" + wRCV.toFixed(2) + "</td></tr>";
+            matrixHtml += "<tr><td><strong>F12: Permit Latency</strong><br><span class='factor-explanation'>" + city + " municipal office " + (permitScore >= 55 ? "processes commercial roofing permits in 10-14 days. No major backlog expected." : "has known delays. Expect 21-30 days for permit approval. Factor this into cash flow.") + "</span></td><td>" + permitScore + "</td><td>5%</td><td>" + wPermit.toFixed(2) + "</td></tr>";
             document.getElementById("out-matrix").innerHTML = matrixHtml;
 
             document.getElementById("out-financials").innerHTML = 
-                "<div class='financial-line'><div><div class='financial-label'>Gross</div><div class='financial-detail'>" + estimatedRoofs + " × $" + (avgContract/1000).toFixed(0) + "K</div></div><div class='financial-value' style='color:#fff;'>" + fmt(grossVol) + "</div></div>" +
+                "<div class='financial-line'><div><div class='financial-label'>Gross Volume</div><div class='financial-detail'>" + estimatedRoofs + " × $" + (avgContract/1000).toFixed(0) + "K</div></div><div class='financial-value' style='color:#fff;'>" + fmt(grossVol) + "</div></div>" +
                 "<div class='financial-line'><div><div class='financial-label'>Labor</div><div class='financial-detail'>" + OPS.crewSize + " × $" + OPS.laborRate + " × 40 × " + weeksTotal + " wks</div></div><div class='financial-value' style='color:#ff8a80;'>" + fmt(laborCost) + "</div></div>" +
                 "<div class='financial-line'><div><div class='financial-label'>Materials</div><div class='financial-detail'>" + estimatedRoofs + " × " + OPS.roofSize.toLocaleString() + " × $" + OPS.materialCost + "</div></div><div class='financial-value' style='color:#ff8a80;'>" + fmt(materialCost) + "</div></div>" +
                 "<div class='financial-line'><div><div class='financial-label'>Equipment+Housing+Mob</div><div class='financial-detail'>Crane + Housing + Mob" + (droneCost > 0 ? " + Drone" : "") + "</div></div><div class='financial-value' style='color:#ff8a80;'>" + fmt(craneCost + housingCost + mobCost + droneCost) + "</div></div>" +
@@ -529,15 +530,11 @@
             var droneText = "";
             var showDroneCTA = false;
             if (tech === "PRO_TECH") {
-                if (hailScore < 70 || actualRain < 0.5) {
-                    droneText = "REQUIRED: Hail " + hailSize + " + Rain " + actualRain.toFixed(2) + "\" = denial risk.<br><br>Scan " + Math.min(5, estimatedRoofs) + " roof" + (Math.min(5, estimatedRoofs) > 1 ? "s" : "") + ". Cost: $" + (Math.min(5, estimatedRoofs) * OPS.droneCost).toLocaleString() + ".";
-                    showDroneCTA = true;
-                } else {
-                    droneText = "RECOMMENDED: Drone scans on all " + estimatedRoofs + " roofs. +30% approval speed.";
-                    showDroneCTA = true;
-                }
+                droneText = "✅ <strong>You have in-house drone capability.</strong><br><br>Use your drone fleet to scan all " + estimatedRoofs + " roofs in " + city + " before full mobilization.<br><br><strong>Recommended Scanning Checklist:</strong><br>• 3D mapping of each roof surface<br>• Thermal imaging to detect trapped moisture<br>• Core sample at lowest point of each roof<br>• Document all membrane fractures with close-up imagery<br>• Export to Xactimate-compatible format<br><br>This will accelerate adjuster approvals by 30% and protect against cosmetic denial claims.";
+                showDroneCTA = false;
             } else {
-                droneText = "MANUAL MODE: No drone capability.";
+                droneText = "⚠️ <strong>You selected Manual (No Drone Capability).</strong><br><br>Manual inspections take 2-3 days per roof and face higher adjuster pushback.<br><br><strong>We offer Drone Verification as a service:</strong><br>• Certified pilot dispatched to " + city + "<br>• 3D + thermal imaging on " + Math.min(5, estimatedRoofs) + " target roofs<br>• Adjuster-ready report in 48-72 hours<br>• Cost: $" + (Math.min(5, estimatedRoofs) * OPS.droneCost).toLocaleString() + "<br><br>This provides the evidence you need to secure approvals without investing in your own drone fleet.";
+                showDroneCTA = true;
             }
             document.getElementById("out-drone").innerHTML = droneText;
             document.getElementById("btn-drone-cta").style.display = showDroneCTA ? "block" : "none";
@@ -546,10 +543,10 @@
             var ctaButtons = "";
             if (verdict === "GREEN_LIGHT_LAUNCH_STRIKE_CREW") {
                 nextText = "<strong>Action Plan for " + city + ":</strong>";
-                ctaButtons = "<button class='cta-btn' onclick='scrollToDrone()'>📡 Drone Verification</button><button class='cta-btn' onclick=\"alert('ABC Supply: (800) 555-0123. Optima priority.')\">📦 Pre-Order Materials</button><button class='cta-btn' onclick=\"alert('Crews confirmed. 72-hour arrival.')\">🚛 Schedule Crews</button><button class='cta-btn' onclick=\"alert('Alerts set for Day 3, 5, 7.')\">⏰ Set Alerts</button>";
+                ctaButtons = "<button class='cta-btn' onclick=\"alert('ABC Supply: (800) 555-0123. Optima priority.')\">📦 Pre-Order Materials</button><button class='cta-btn' onclick=\"alert('Crews confirmed. 72-hour arrival.')\">🚛 Schedule Crews</button><button class='cta-btn' onclick=\"alert('Alerts set for Day 3, 5, 7.')\">⏰ Set Alerts</button>";
             } else if (verdict === "YELLOW_LIGHT_LEAN_RECON_ONLY") {
                 nextText = "<strong>Recon Protocol for " + city + ":</strong>";
-                ctaButtons = "<button class='cta-btn' onclick=\"alert('Recon crew confirmed. 48-hour arrival.')\">🚛 Deploy Recon</button><button class='cta-btn' onclick='scrollToDrone()'>📡 Drone Scans</button><button class='cta-btn' onclick=\"alert('Day 5 checkpoint set.')\">⏰ Day 5 Checkpoint</button><button class='cta-btn' onclick=\"document.getElementById('triage-form').scrollIntoView({behavior:'smooth'})\">🔄 Re-Run</button>";
+                ctaButtons = "<button class='cta-btn' onclick=\"alert('Recon crew confirmed. 48-hour arrival.')\">🚛 Deploy Recon</button><button class='cta-btn' onclick=\"alert('Day 5 checkpoint set.')\">⏰ Day 5 Checkpoint</button><button class='cta-btn' onclick=\"document.getElementById('triage-form').scrollIntoView({behavior:'smooth'})\">🔄 Re-Run</button>";
             } else {
                 nextText = "<strong>Decline Protocol for " + city + ":</strong>";
                 ctaButtons = "<button class='cta-btn' onclick='downloadReport()'>📄 Download Report</button><button class='cta-btn' onclick=\"alert('Alert set for ZIP " + zip + "')\">🔔 Storm Alert</button><button class='cta-btn' onclick=\"scanAdjacentZips('" + zip + "')\">🗺️ Adjacent ZIPs</button><button class='cta-btn' onclick=\"document.getElementById('params-panel').classList.add('open'); document.getElementById('params-arrow').innerHTML='▲';\">⚙️ Adjust Params</button>";
