@@ -10,7 +10,9 @@
     <style>
         :root {
             --bg-deep: #05080f;
+            --bg-panel: #0a0f18;
             --border-hairline: #1c2536;
+            --border-active: #2a3a55;
             --text-primary: #f4f7fb;
             --text-muted: #7a8ba3;
             --text-detail: #4a5a6e;
@@ -18,62 +20,77 @@
             --cyber-amber: #ffb800;
             --cyber-red: #ff3b3b;
             --cyber-blue: #38bdf8;
+            --glow-green: 0 0 15px rgba(0, 255, 163, 0.15);
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { background-color: var(--bg-deep); color: var(--text-primary); font-family: 'Inter', sans-serif; display: flex; height: 100vh; overflow: hidden; }
         .mono { font-family: 'IBM Plex Mono', monospace; }
 
-        /* AUTH */
+        /* AUTH OVERLAY - PREMIUM */
         #auth-overlay { position: fixed; inset: 0; background: var(--bg-deep); z-index: 9999; display: flex; align-items: center; justify-content: center; padding: 20px; }
-        .auth-card { background: linear-gradient(145deg, #0b101b, #070b13); border: 1px solid var(--border-hairline); width: 100%; max-width: 420px; padding: 40px; border-radius: 16px; }
-        .auth-card h2 { font-size: 22px; font-weight: 800; text-align: center; margin-bottom: 6px; }
-        .auth-lead { font-size: 13.5px; color: var(--text-muted); margin-bottom: 24px; text-align: center; }
+        .auth-card { background: linear-gradient(145deg, #0b101b, #070b13); border: 1px solid var(--border-hairline); width: 100%; max-width: 420px; padding: 40px; border-radius: 16px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.8); }
+        .auth-card h2 { font-size: 22px; font-weight: 800; letter-spacing: -0.02em; text-align: center; margin-bottom: 6px; }
+        .auth-lead { font-size: 13.5px; color: var(--text-muted); margin: 10px 0 28px; text-align: center; }
 
         /* SIDEBAR */
-        .sidebar { width: 240px; background: #070a12; border-right: 1px solid var(--border-hairline); display: flex; flex-direction: column; justify-content: space-between; padding: 20px 14px; }
-        .logo { font-weight: 900; font-size: 13px; color: #fff; display: flex; align-items: center; gap: 8px; text-transform: uppercase; margin-bottom: 24px; }
-        .logo-icon { display:flex; align-items:center; justify-content:center; height: 24px; width: 24px; background: var(--cyber-green); color: #05080f; border-radius: 4px; font-size: 13px; font-weight: 900; }
-        .section-label { font-family: 'IBM Plex Mono', monospace; font-size: 9px; font-weight: 700; text-transform: uppercase; color: var(--text-detail); letter-spacing: 0.1em; margin: 14px 0 6px 6px; }
-        .nav-item { padding: 8px 10px; border-radius: 6px; color: var(--text-muted); font-size: 12px; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; border-left: 2px solid transparent; }
+        .sidebar { width: 260px; background: #070a12; border-right: 1px solid var(--border-hairline); display: flex; flex-direction: column; justify-content: space-between; padding: 24px 16px; }
+        .logo { font-weight: 900; font-size: 14px; letter-spacing: 0.08em; color: #ffffff; display: flex; align-items: center; gap: 8px; text-transform: uppercase; margin-bottom: 28px; }
+        .logo-icon { display:flex; align-items:center; justify-content:center; height: 26px; width: 26px; background: var(--cyber-green); color: #05080f; border-radius: 6px; font-size: 14px; font-weight: 900; }
+        .section-label { font-family: 'IBM Plex Mono', monospace; font-size: 9px; font-weight: 700; text-transform: uppercase; color: var(--text-detail); letter-spacing: 0.1em; margin: 18px 0 8px 8px; }
+        .nav-group { display: flex; flex-direction: column; gap: 2px; }
+        .nav-item { padding: 9px 12px; border-radius: 6px; color: var(--text-muted); font-size: 12.5px; font-weight: 600; cursor: pointer; transition: all 0.15s; display: flex; justify-content: space-between; align-items: center; border-left: 2px solid transparent; }
         .nav-item:hover { background: rgba(255,255,255,0.03); color: #fff; }
         .nav-item.active { background: rgba(0, 255, 163, 0.05); color: var(--cyber-green); border-left: 2px solid var(--cyber-green); font-weight: 700; }
-        .user-block { border-top: 1px solid var(--border-hairline); padding-top: 14px; font-size: 11px; color: var(--text-muted); }
-        .user-name { color: #fff; font-weight: 800; }
-        .user-tier { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--cyber-amber); }
+        .status-dot { height: 5px; width: 5px; background-color: var(--cyber-green); border-radius: 50%; box-shadow: var(--glow-green); }
+        .user-block { border-top: 1px solid var(--border-hairline); padding-top: 16px; font-size: 12px; color: var(--text-muted); }
+        .user-name { color: #fff; font-weight: 800; margin-bottom: 2px; }
+        .user-tier { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--cyber-amber); }
 
-        /* MAIN - FULL WIDTH FIX */
-        .main-viewport { flex: 1; padding: 24px 32px; overflow-y: auto; background: radial-gradient(circle at 80% 20%, rgba(0, 255, 163, 0.02), transparent 40%), var(--bg-deep); }
-        h1 { font-size: 22px; font-weight: 900; margin-bottom: 4px; }
-        .lead { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; }
-        .card { background: linear-gradient(145deg, #0b101b, #070b13); border: 1px solid var(--border-hairline); border-radius: 12px; padding: 24px; margin-bottom: 20px; }
+        /* MAIN */
+        .main-viewport { flex: 1; padding: 32px 40px; overflow-y: auto; background: radial-gradient(circle at 80% 20%, rgba(0, 255, 163, 0.02), transparent 40%), var(--bg-deep); }
+        h1 { font-size: 24px; font-weight: 900; letter-spacing: -0.02em; margin-bottom: 4px; }
+        .lead { font-size: 13.5px; color: var(--text-muted); margin-bottom: 28px; }
+        .card { background: linear-gradient(145deg, #0b101b, #070b13); border: 1px solid var(--border-hairline); border-radius: 16px; padding: 28px; margin-bottom: 24px; }
+
+        .notification-banner { background: rgba(255, 184, 0, 0.03); border: 1px solid rgba(255, 184, 0, 0.3); color: var(--cyber-amber); padding: 12px 16px; border-radius: 8px; font-size: 12.5px; font-weight: 600; display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+        .notification-pulse { height: 8px; width: 8px; background-color: var(--cyber-amber); border-radius: 50%; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% { transform: scale(0.9); opacity: 0.6; } 50% { transform: scale(1.2); opacity: 1; } 100% { transform: scale(0.9); opacity: 0.6; } }
 
         .dashboard-tab { display: none; }
         .dashboard-tab.active { display: block; }
 
-        /* FORM - FULL WIDTH */
-        .form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; }
-        .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
-        label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 600; text-transform: uppercase; color: var(--text-detail); }
-        input, select { width: 100%; background-color: #03060c; border: 1px solid var(--border-hairline); border-radius: 6px; padding: 10px 12px; color: #fff; font-size: 13px; font-family: 'IBM Plex Mono', monospace; }
-        input:focus, select:focus { border-color: var(--cyber-green); outline: none; }
+        .metric-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px; }
+        .metric-card { background: linear-gradient(145deg, #0b101b, #070b13); border: 1px solid var(--border-hairline); border-radius: 12px; padding: 20px; }
+        .metric-label { font-size: 10px; font-weight: 700; color: var(--text-detail); text-transform: uppercase; letter-spacing: 0.08em; }
+        .metric-value { font-family: 'IBM Plex Mono', monospace; font-size: 24px; font-weight: 900; margin-top: 8px; }
+        .metric-trend { font-size: 11px; font-weight: 700; margin-top: 4px; }
+        .trend-up { color: var(--cyber-green); }
+        .trend-down { color: var(--cyber-red); }
 
-        .btn-primary { border: 1px solid rgba(0, 255, 163, 0.3); color: var(--cyber-green); padding: 14px; border-radius: 8px; font-weight: 800; cursor: pointer; text-transform: uppercase; background: rgba(0, 255, 163, 0.03); font-size: 12px; width: 100%; letter-spacing: 0.05em; }
-        .btn-primary:hover { background: var(--cyber-green); color: #05080f; }
-        .btn-primary:disabled { opacity: 0.5; cursor: wait; }
-
-        table { width: 100%; border-collapse: collapse; font-size: 12px; }
-        th { font-size: 10px; text-transform: uppercase; color: var(--text-detail); padding: 10px; border-bottom: 1px solid var(--border-hairline); text-align: left; }
-        td { padding: 10px; border-bottom: 1px solid #111827; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; }
+        table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+        th { font-size: 10px; text-transform: uppercase; color: var(--text-detail); padding: 10px; border-bottom: 1px solid var(--border-hairline); text-align: left; letter-spacing: 0.05em; }
+        td { padding: 12px 10px; border-bottom: 1px solid #111827; font-family: 'IBM Plex Mono', monospace; font-size: 12px; }
         .badge-status { padding: 4px 10px; border-radius: 4px; font-size: 10px; font-weight: 800; font-family: 'IBM Plex Mono', monospace; text-transform: uppercase; }
         .bg-green { background: rgba(0, 255, 163, 0.1); color: var(--cyber-green); }
         .bg-amber { background: rgba(255, 184, 0, 0.1); color: var(--cyber-amber); }
         .bg-red { background: rgba(255, 59, 59, 0.1); color: var(--cyber-red); }
+        .bg-blue { background: rgba(56, 189, 248, 0.1); color: var(--cyber-blue); }
 
-        .historical-box { background: rgba(56, 189, 248, 0.05); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 8px; padding: 16px; margin-bottom: 16px; }
-        .historical-text { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--text-primary); line-height: 1.6; margin-top: 6px; }
+        .btn-primary { border: 1px solid rgba(0, 255, 163, 0.3); color: var(--cyber-green); padding: 14px 20px; border-radius: 8px; font-weight: 800; cursor: pointer; text-transform: uppercase; background: rgba(0, 255, 163, 0.03); font-size: 12px; letter-spacing: 0.05em; transition: all 0.2s; width: 100%; }
+        .btn-primary:hover { background: var(--cyber-green); color: #05080f; box-shadow: var(--glow-green); }
+        .btn-primary:disabled { opacity: 0.5; cursor: wait; }
 
-        .narrative-box { background: rgba(2, 6, 23, 0.5); border: 1px solid var(--border-hairline); border-radius: 8px; padding: 16px; margin-bottom: 16px; }
-        .narrative-text { font-size: 12.5px; color: var(--text-muted); line-height: 1.7; }
+        .form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+        .form-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+        label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-detail); }
+        input, select { width: 100%; background-color: #03060c; border: 1px solid var(--border-hairline); border-radius: 8px; padding: 12px 14px; color: #ffffff; font-size: 13px; font-family: 'IBM Plex Mono', monospace; outline: none; transition: border 0.2s; }
+        input:focus, select:focus { border-color: var(--cyber-green); box-shadow: 0 0 0 3px rgba(0, 255, 163, 0.05); }
+
+        .historical-box { background: rgba(56, 189, 248, 0.05); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 8px; padding: 20px; margin-bottom: 20px; }
+        .historical-text { font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--text-primary); line-height: 1.7; margin-top: 8px; }
+
+        .narrative-box { background: rgba(2, 6, 23, 0.5); border: 1px solid var(--border-hairline); border-radius: 8px; padding: 16px 20px; margin-bottom: 20px; }
+        .narrative-text { font-size: 13px; color: var(--text-muted); line-height: 1.7; }
     </style>
 </head>
 <body>
@@ -82,16 +99,17 @@
     <div id="auth-overlay">
         <div class="auth-card" id="step-password-box">
             <h2>Corporate Authorization</h2>
-            <p class="auth-lead">Input core operational access keys.</p>
-            <div class="form-group"><label>Email</label><input type="email" id="auth-email"></div>
-            <div class="form-group"><label>Password</label><input type="password" id="auth-password"></div>
-            <button class="btn-primary" onclick="executeDashboardLoginPass()">Verify Password</button>
+            <p class="auth-lead">Input core operational access keys. Sessions are monitored.</p>
+            <div id="auth-error-pass" style="display:none; color:var(--cyber-red); font-size:12px; font-weight:700; margin-bottom:12px; text-align:center;">❌ INVALID PASSWORD KEY</div>
+            <div class="form-group"><label>Corporate Email</label><input type="email" id="auth-email" value="operations@vanguard.com"></div>
+            <div class="form-group"><label>Security Key</label><input type="password" id="auth-password" value="vanguard2026"></div>
+            <button class="btn-primary" style="margin-top:24px;" onclick="executeDashboardLoginPass()">Verify Password Node</button>
         </div>
         <div class="auth-card" id="step-twofactor-box" style="display:none;">
             <h2>Two-Factor Validation</h2>
-            <p class="auth-lead">Enter 6-digit token.</p>
-            <div class="form-group"><label>Token</label><input type="text" id="auth-2fa-token" maxlength="6" style="text-align:center; font-size:18px;"></div>
-            <button class="btn-primary" onclick="executeTwoFactorTokenValidationPass()">Authorize</button>
+            <p class="auth-lead">Enter rolling 6-digit token. <span style="color:var(--cyber-green)">Demo: 481516</span></p>
+            <div class="form-group"><label>Token</label><input type="text" id="auth-2fa-token" maxlength="6" style="text-align:center; font-size:20px; letter-spacing:0.3em;"></div>
+            <button class="btn-primary" style="margin-top:16px;" onclick="executeTwoFactorTokenValidationPass()">Authorize Session</button>
         </div>
     </div>
 
@@ -100,102 +118,111 @@
         <aside class="sidebar">
             <div>
                 <div class="logo"><span class="logo-icon">◈</span> Optima Workflows</div>
-                <div class="section-label">Executive</div>
-                <div class="nav-item active" onclick="switchTab('view-home', this)"><span>🏠 Command</span></div>
-                <div class="section-label">CAT Ops</div>
-                <div class="nav-item" onclick="switchTab('view-cat-intel', this)"><span>🛰️ CAT Intel</span></div>
+                <div class="section-label">Executive Command</div>
+                <div class="nav-item active" onclick="switchTab('view-home', this)"><span>🏠 Command Center</span></div>
+                <div class="section-label">CAT Operations</div>
+                <div class="nav-item" onclick="switchTab('view-cat-intel', this)"><span>🛰️ CAT Intelligence</span><span class="status-dot"></span></div>
                 <div class="nav-item" onclick="switchTab('view-storm-audit', this)"><span>🌪️ Storm Audit</span></div>
-                <div class="section-label">Back Office</div>
-                <div class="nav-item" onclick="switchTab('view-vendor-audit', this)"><span>🛡️ Vendor</span></div>
-                <div class="nav-item" onclick="switchTab('view-freight-audit', this)"><span>📦 Freight</span></div>
+                <div class="section-label">Back Office Recovery</div>
+                <div class="nav-item" onclick="switchTab('view-vendor-audit', this)"><span>🛡️ Vendor Audit</span></div>
+                <div class="nav-item" onclick="switchTab('view-freight-audit', this)"><span>📦 Freight Audit</span></div>
                 <div class="nav-item" onclick="switchTab('view-chargeback', this)"><span>💳 Chargebacks</span></div>
+                <div class="section-label">Administration</div>
+                <div class="nav-item" onclick="switchTab('view-settlement', this)"><span>🏦 Settlements</span></div>
             </div>
-            <div class="user-block"><div class="user-name">Vanguard Restoration</div><div class="user-tier">Per-Storm Tier</div></div>
+            <div class="user-block">
+                <div class="user-name">Vanguard Restoration Corp</div>
+                <div class="user-tier">STATE: Per-Storm Tier (On-Demand)</div>
+            </div>
         </aside>
 
         <main class="main-viewport">
             <!-- HOME -->
             <section id="view-home" class="dashboard-tab active">
-                <h1>Executive Command</h1>
-                <p class="lead">Live operational overview.</p>
+                <h1>Executive Command Center</h1>
+                <p class="lead">Live operational overview across all active deployments and recovery workflows.</p>
+                <div class="notification-banner">
+                    <span class="notification-pulse"></span>
+                    <span><strong>ACTION REQUIRED:</strong> Dallas CAT deployment projected to yield $145K. Kill Switch check-in due in 14 hours.</span>
+                </div>
+                <div class="metric-grid">
+                    <div class="metric-card"><div class="metric-label">Capital Exposed</div><div class="metric-value">$412,000</div><div class="metric-trend trend-down">3 Active Zones</div></div>
+                    <div class="metric-card"><div class="metric-label">Projected Net Yield</div><div class="metric-value" style="color:var(--cyber-green);">$145,000</div><div class="metric-trend trend-up">GREEN LIGHT</div></div>
+                    <div class="metric-card"><div class="metric-label">Back Office Recovered</div><div class="metric-value" style="color:var(--cyber-blue);">$28,450</div><div class="metric-trend trend-up">+12% MoM</div></div>
+                    <div class="metric-card"><div class="metric-label">Compliance Alerts</div><div class="metric-value" style="color:var(--cyber-amber);">7</div><div class="metric-trend trend-down">Review</div></div>
+                </div>
             </section>
 
-            <!-- CAT INTELLIGENCE - FULL WIDTH -->
+            <!-- CAT INTELLIGENCE -->
             <section id="view-cat-intel" class="dashboard-tab">
                 <h1>Cat Intelligence Triage Terminal</h1>
-                <p class="lead">Execute a 12-factor analytical matrix query. All fields required.</p>
-                
+                <p class="lead">Execute a real-time 12-factor analytical matrix query. Leave Rain at 0 to auto-fetch.</p>
                 <div class="card">
                     <form onsubmit="executeLiveTwelveFactorTriageAPI(event)">
                         <div class="form-row">
-                            <div class="form-group"><label>Target ZIP *</label><input type="text" id="frm-zip" placeholder="e.g., 75062" required></div>
-                            <div class="form-group"><label>Deployment Intent *</label><select id="frm-intent" required><option value="">Select...</option><option value="MAX_CASH">Maximum Gross Cash Volume</option><option value="MAX_ROI">Maximum Net ROI %</option></select></div>
+                            <div class="form-group"><label>Target ZIP</label><input type="text" id="frm-zip" placeholder="e.g., 75062" required></div>
+                            <div class="form-group"><label>Intent</label><select id="frm-intent" required><option value="">Select...</option><option value="MAX_CASH">Maximum Gross Cash Volume</option><option value="MAX_ROI">Maximum Net ROI %</option></select></div>
                         </div>
                         <div class="form-row">
-                            <div class="form-group"><label>Tech Stack *</label><select id="frm-tech" required><option value="">Select...</option><option value="PRO_TECH">Tier 1: Drone Scans + Auto Xactimate</option><option value="LEGACY_LOW_TECH">Tier 2: Manual + Standard Scopes</option></select></div>
-                            <div class="form-group"><label>Rain Inches (0 for auto) *</label><input type="number" step="0.1" id="frm-rain" placeholder="0 = auto-fetch" required></div>
+                            <div class="form-group"><label>Tech Stack</label><select id="frm-tech" required><option value="">Select...</option><option value="PRO_TECH">Tier 1: Drone Scans + Auto Xactimate</option><option value="LEGACY_LOW_TECH">Tier 2: Manual + Standard Scopes</option></select></div>
+                            <div class="form-group"><label>Rain Inches (0 = auto)</label><input type="number" step="0.1" id="frm-rain" value="0" required></div>
                         </div>
-                        <div class="form-group"><label>AOB Legal Environment *</label><select id="frm-legal" required><option value="">Select...</option><option value="ATTORNEY_MANDATORY">Attorney Mandatory</option><option value="DIRECT_AOB_ALLOWED">Direct Billing</option></select></div>
+                        <div class="form-group"><label>AOB Legal</label><select id="frm-legal" required><option value="">Select...</option><option value="ATTORNEY_MANDATORY">Attorney Mandatory</option><option value="DIRECT_AOB_ALLOWED">Direct Billing</option></select></div>
                         <button type="submit" class="btn-primary" id="btn-triage-submit">⚡ Execute Sweep</button>
                     </form>
                 </div>
 
-                <!-- RESULTS - FULL WIDTH -->
                 <div id="live-api-results-card" class="card" style="display:none; border-top: 4px solid var(--cyber-blue);">
-                    <div style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:16px; border-bottom:1px solid var(--border-hairline); padding-bottom:16px; margin-bottom:16px;">
-                        <div><div class="section-label">Verdict</div><span id="out-verdict" class="badge-status" style="font-size:14px; padding:6px 14px;"></span></div>
-                        <div style="text-align:right;"><div class="section-label">Index Score</div><span id="out-score" style="font-family:'IBM Plex Mono', monospace; font-size:28px; font-weight:900;">—</span></div>
+                    <div style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:20px; border-bottom:1px solid var(--border-hairline); padding-bottom:20px; margin-bottom:20px;">
+                        <div><div class="section-label" style="margin-top:0;">Verdict</div><span id="out-verdict" class="badge-status" style="font-size:16px; padding:8px 16px;"></span></div>
+                        <div style="text-align:right;"><div class="section-label" style="margin-top:0;">Index Score</div><span id="out-score" style="font-family:'IBM Plex Mono', monospace; font-size:32px; font-weight:900;">—</span></div>
                     </div>
-
-                    <h3 class="section-label">Factor Matrix</h3>
-                    <div style="overflow-x:auto; margin-bottom:16px;"><table id="out-matrix-rows"></table></div>
-
+                    <h3 class="section-label" style="margin-top:0;">Factor Matrix</h3>
+                    <div style="overflow-x:auto; margin-bottom:20px;"><table id="out-matrix-rows"></table></div>
                     <h3 class="section-label">Intel Brief</h3>
-                    <ul id="out-intel-brief" style="list-style:none; padding:14px; background:rgba(2,6,23,0.4); border-radius:8px; margin-bottom:16px;"></ul>
-
+                    <ul id="out-intel-brief" style="list-style:none; padding:16px; background:rgba(2,6,23,0.4); border-radius:8px; margin-bottom:20px;"></ul>
                     <div class="historical-box">
-                        <div class="section-label">Historical Anchor</div>
+                        <div class="section-label" style="margin-top:0;">Historical Anchor</div>
                         <p id="out-historical-anchor" class="historical-text">—</p>
                     </div>
-
                     <div class="narrative-box">
-                        <div class="section-label">Capital Modeling Narrative</div>
+                        <div class="section-label" style="margin-top:0;">Capital Modeling Narrative</div>
                         <p id="out-capital-narrative" class="narrative-text">—</p>
                     </div>
-
                     <h3 class="section-label">Capital Modeling</h3>
-                    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(120px,1fr)); gap:12px; background:#03060c; padding:16px; border-radius:8px; margin-bottom:16px;">
-                        <div><div class="section-label">Gross</div><div id="out-gross-vol" class="mono" style="font-size:18px; font-weight:900;">—</div></div>
-                        <div><div class="section-label">Burn</div><div id="out-mob-burn" class="mono" style="font-size:18px; font-weight:900; color:var(--cyber-red);">—</div></div>
-                        <div><div class="section-label">Overhead</div><div id="out-carrying-cost" class="mono" style="font-size:18px; font-weight:900; color:var(--cyber-amber);">—</div></div>
-                        <div><div class="section-label">Net Yield</div><div id="out-net-yield" class="mono" style="font-size:22px; font-weight:900; color:var(--cyber-green);">—</div></div>
+                    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(120px,1fr)); gap:16px; background:#03060c; padding:20px; border-radius:8px; margin-bottom:20px;">
+                        <div><div class="section-label" style="margin-top:0;">Gross</div><div id="out-gross-vol" class="mono" style="font-size:20px; font-weight:900;">—</div></div>
+                        <div><div class="section-label" style="margin-top:0;">Burn</div><div id="out-mob-burn" class="mono" style="font-size:20px; font-weight:900; color:var(--cyber-red);">—</div></div>
+                        <div><div class="section-label" style="margin-top:0;">Overhead</div><div id="out-carrying-cost" class="mono" style="font-size:20px; font-weight:900; color:var(--cyber-amber);">—</div></div>
+                        <div><div class="section-label" style="margin-top:0;">Net Yield</div><div id="out-net-yield" class="mono" style="font-size:26px; font-weight:900; color:var(--cyber-green);">—</div></div>
                     </div>
-
                     <h3 class="section-label">Kill Switch Protocol</h3>
-                    <div id="out-exit-protocol" style="background:rgba(255,184,0,0.05); border:1px dashed rgba(255,184,0,0.3); padding:14px; border-radius:8px; color:var(--cyber-amber); font-family:'IBM Plex Mono', monospace; font-size:12px;"></div>
+                    <div id="out-exit-protocol" style="background:rgba(255,184,0,0.05); border:1px dashed rgba(255,184,0,0.3); padding:16px; border-radius:8px; color:var(--cyber-amber); font-family:'IBM Plex Mono', monospace; font-size:12px;"></div>
                 </div>
             </section>
 
-            <!-- Other sections minimal -->
-            <section id="view-storm-audit" class="dashboard-tab"><h1>Storm Audit</h1></section>
-            <section id="view-vendor-audit" class="dashboard-tab"><h1>Vendor Audit</h1></section>
-            <section id="view-freight-audit" class="dashboard-tab"><h1>Freight Audit</h1></section>
-            <section id="view-chargeback" class="dashboard-tab"><h1>Chargebacks</h1></section>
+            <!-- Placeholder sections for other modules -->
+            <section id="view-storm-audit" class="dashboard-tab"><h1>Storm Audit</h1><p class="lead">Coming soon.</p></section>
+            <section id="view-vendor-audit" class="dashboard-tab"><h1>Vendor Audit</h1><p class="lead">Coming soon.</p></section>
+            <section id="view-freight-audit" class="dashboard-tab"><h1>Freight Audit</h1><p class="lead">Coming soon.</p></section>
+            <section id="view-chargeback" class="dashboard-tab"><h1>Chargebacks</h1><p class="lead">Coming soon.</p></section>
+            <section id="view-settlement" class="dashboard-tab"><h1>Settlements</h1><p class="lead">Coming soon.</p></section>
         </main>
     </div>
 
     <script>
-        // AUTH
         function executeDashboardLoginPass() {
-            document.getElementById("step-password-box").style.display = "none";
-            document.getElementById("step-twofactor-box").style.display = "block";
+            if (document.getElementById("auth-email").value === "operations@vanguard.com" && document.getElementById("auth-password").value === "vanguard2026") {
+                document.getElementById("step-password-box").style.display = "none";
+                document.getElementById("step-twofactor-box").style.display = "block";
+            }
         }
         function executeTwoFactorTokenValidationPass() {
-            document.getElementById("auth-overlay").style.display = "none";
-            document.getElementById("dashboard-wrapper").style.display = "flex";
+            if (document.getElementById("auth-2fa-token").value === "481516") {
+                document.getElementById("auth-overlay").style.display = "none";
+                document.getElementById("dashboard-wrapper").style.display = "flex";
+            }
         }
-
-        // NAVIGATION
         function switchTab(tabId, navElement) {
             document.querySelectorAll(".dashboard-tab").forEach(t => t.classList.remove("active"));
             document.querySelectorAll(".nav-item").forEach(n => n.classList.remove("active"));
@@ -203,7 +230,6 @@
             if (navElement) navElement.classList.add("active");
         }
 
-        // CAT INTELLIGENCE
         function executeLiveTwelveFactorTriageAPI(event) {
             event.preventDefault();
             const btn = document.getElementById("btn-triage-submit");
@@ -219,17 +245,19 @@
             const webappBaseUrl = "https://script.google.com/macros/s/AKfycbxU6mE1Lcuy43GlG5kzAW9bssqFNJnngNQQ0x9cNtq1GLwrR6Hy78dqHAW0_a9bDf0LIQ/exec";
             const fullUrl = webappBaseUrl + "?target_zip=" + encodeURIComponent(zip) + "&intent=" + encodeURIComponent(intent) + "&tech_profile=" + encodeURIComponent(tech) + "&rain_inches=" + encodeURIComponent(rain) + "&legal_friction=" + encodeURIComponent(legal) + "&callback=renderLiveForensicTriageBriefingBox";
 
+            const existing = document.getElementById("jsonp-node");
+            if (existing) existing.remove();
+            
             const script = document.createElement("script");
             script.src = fullUrl;
             script.id = "jsonp-node";
-            document.getElementById("jsonp-node")?.remove();
             document.body.appendChild(script);
 
             setTimeout(function() {
                 if (document.getElementById("out-score").innerHTML === "—") {
                     btn.disabled = false;
                     btn.innerHTML = "⚡ Execute Sweep";
-                    alert("API timeout. Please check your Apps Script deployment URL.");
+                    alert("API timeout. Check Apps Script deployment URL.");
                 }
             }, 15000);
         }
@@ -241,16 +269,17 @@
             document.getElementById("out-matrix-rows").innerHTML = data.matrix_data;
             document.getElementById("out-intel-brief").innerHTML = data.intel_brief;
             document.getElementById("out-historical-anchor").innerHTML = data.historical_anchor;
+            document.getElementById("out-capital-narrative").innerHTML = data.capital_narrative || "—";
             document.getElementById("out-exit-protocol").innerHTML = data.exit_contingency;
             document.getElementById("out-gross-vol").innerHTML = data.gross;
             document.getElementById("out-mob-burn").innerHTML = data.burn;
             document.getElementById("out-carrying-cost").innerHTML = data.carrying;
             document.getElementById("out-net-yield").innerHTML = data.net;
-            document.getElementById("out-capital-narrative").innerHTML = data.capital_narrative || "Modeling based on regional density, deployment intent, and legal environment.";
             document.getElementById("live-api-results-card").style.display = "block";
             document.getElementById("btn-triage-submit").disabled = false;
             document.getElementById("btn-triage-submit").innerHTML = "⚡ Execute Sweep";
-            document.getElementById("jsonp-node")?.remove();
+            const node = document.getElementById("jsonp-node");
+            if (node) node.remove();
         }
     </script>
 </body>
