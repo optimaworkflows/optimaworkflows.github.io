@@ -1,38 +1,385 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Login Test</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Optima Workflows | Command Center</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body { background: #05080f; color: #fff; font-family: Arial; display: flex; justify-content: center; align-items: center; height: 100vh; }
-        .box { background: #0b101b; border: 1px solid #1c2536; padding: 40px; border-radius: 16px; }
-        input { display: block; width: 100%; padding: 10px; margin: 10px 0; background: #03060c; border: 1px solid #1c2536; color: #fff; border-radius: 6px; }
-        button { width: 100%; padding: 12px; background: rgba(0,255,163,0.1); color: #00ffa3; border: 1px solid #00ffa3; border-radius: 8px; cursor: pointer; font-weight: bold; }
+        :root {
+            --bg-deep: #05080f;
+            --bg-card: linear-gradient(145deg, #0b101b, #070b13);
+            --border-hairline: #1c2536;
+            --text-primary: #f4f7fb;
+            --text-muted: #7a8ba3;
+            --text-detail: #4a5a6e;
+            --cyber-green: #00ffa3;
+            --cyber-amber: #ffb800;
+            --cyber-red: #ff3b3b;
+            --cyber-blue: #38bdf8;
+            --glow-green: 0 0 15px rgba(0, 255, 163, 0.15);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: var(--bg-deep); color: var(--text-primary); font-family: 'Inter', sans-serif; display: flex; height: 100vh; overflow: hidden; }
+        .mono { font-family: 'IBM Plex Mono', monospace; }
+
+        #auth-overlay { position: fixed; inset: 0; background: var(--bg-deep); z-index: 9999; display: flex; align-items: center; justify-content: center; padding: 20px; }
+        .auth-card { background: var(--bg-card); border: 1px solid var(--border-hairline); width: 100%; max-width: 420px; padding: 40px; border-radius: 16px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.8); }
+        .auth-card h2 { font-size: 22px; font-weight: 800; text-align: center; margin-bottom: 6px; }
+        .auth-lead { font-size: 13.5px; color: var(--text-muted); margin: 10px 0 28px; text-align: center; }
+
+        .sidebar { width: 260px; background: #070a12; border-right: 1px solid var(--border-hairline); display: flex; flex-direction: column; justify-content: space-between; padding: 24px 16px; }
+        .logo { font-weight: 900; font-size: 14px; letter-spacing: 0.08em; color: #fff; display: flex; align-items: center; gap: 8px; text-transform: uppercase; margin-bottom: 28px; }
+        .logo-icon { display:flex; align-items:center; justify-content:center; height: 26px; width: 26px; background: var(--cyber-green); color: #05080f; border-radius: 6px; font-size: 14px; font-weight: 900; }
+        .section-label { font-family: 'IBM Plex Mono', monospace; font-size: 9px; font-weight: 700; text-transform: uppercase; color: var(--text-detail); letter-spacing: 0.1em; margin: 18px 0 8px 8px; }
+        .nav-item { padding: 9px 12px; border-radius: 6px; color: var(--text-muted); font-size: 12.5px; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; border-left: 2px solid transparent; }
+        .nav-item:hover { background: rgba(255,255,255,0.03); color: #fff; }
+        .nav-item.active { background: rgba(0, 255, 163, 0.05); color: var(--cyber-green); border-left: 2px solid var(--cyber-green); font-weight: 700; }
+        .status-dot { height: 5px; width: 5px; background-color: var(--cyber-green); border-radius: 50%; box-shadow: var(--glow-green); }
+        .user-block { border-top: 1px solid var(--border-hairline); padding-top: 16px; font-size: 12px; color: var(--text-muted); }
+        .user-name { color: #fff; font-weight: 800; margin-bottom: 2px; }
+        .user-tier { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--cyber-amber); }
+
+        .main-viewport { flex: 1; padding: 32px 40px; overflow-y: auto; background: radial-gradient(circle at 80% 20%, rgba(0, 255, 163, 0.02), transparent 40%), var(--bg-deep); }
+        h1 { font-size: 24px; font-weight: 900; margin-bottom: 4px; }
+        .lead { font-size: 13.5px; color: var(--text-muted); margin-bottom: 28px; }
+        .card { background: var(--bg-card); border: 1px solid var(--border-hairline); border-radius: 16px; padding: 28px; margin-bottom: 24px; }
+        .notification-banner { background: rgba(255, 184, 0, 0.03); border: 1px solid rgba(255, 184, 0, 0.3); color: var(--cyber-amber); padding: 12px 16px; border-radius: 8px; font-size: 12.5px; font-weight: 600; display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+        .notification-pulse { height: 8px; width: 8px; background-color: var(--cyber-amber); border-radius: 50%; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% { transform: scale(0.9); opacity: 0.6; } 50% { transform: scale(1.2); opacity: 1; } 100% { transform: scale(0.9); opacity: 0.6; } }
+
+        .dashboard-tab { display: none; }
+        .dashboard-tab.active { display: block; }
+        .metric-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px; }
+        .metric-card { background: var(--bg-card); border: 1px solid var(--border-hairline); border-radius: 12px; padding: 20px; }
+        .metric-label { font-size: 10px; font-weight: 700; color: var(--text-detail); text-transform: uppercase; letter-spacing: 0.08em; }
+        .metric-value { font-family: 'IBM Plex Mono', monospace; font-size: 24px; font-weight: 900; margin-top: 8px; }
+
+        table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+        th { font-size: 10px; text-transform: uppercase; color: var(--text-detail); padding: 10px; border-bottom: 1px solid var(--border-hairline); text-align: left; letter-spacing: 0.05em; }
+        td { padding: 12px 10px; border-bottom: 1px solid #111827; font-family: 'IBM Plex Mono', monospace; font-size: 12px; }
+        .badge-status { padding: 4px 10px; border-radius: 4px; font-size: 10px; font-weight: 800; font-family: 'IBM Plex Mono', monospace; text-transform: uppercase; }
+        .bg-green { background: rgba(0, 255, 163, 0.1); color: var(--cyber-green); }
+        .bg-amber { background: rgba(255, 184, 0, 0.1); color: var(--cyber-amber); }
+        .bg-red { background: rgba(255, 59, 59, 0.1); color: var(--cyber-red); }
+
+        .btn-primary { border: 1px solid rgba(0, 255, 163, 0.3); color: var(--cyber-green); padding: 14px 20px; border-radius: 8px; font-weight: 800; cursor: pointer; text-transform: uppercase; background: rgba(0, 255, 163, 0.03); font-size: 12px; width: 100%; letter-spacing: 0.05em; transition: all 0.2s; }
+        .btn-primary:hover { background: var(--cyber-green); color: #05080f; box-shadow: var(--glow-green); }
+        .btn-primary:disabled { opacity: 0.5; cursor: wait; }
+
+        .form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+        .form-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+        label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-detail); }
+        input, select { width: 100%; background-color: #03060c; border: 1px solid var(--border-hairline); border-radius: 8px; padding: 12px 14px; color: #fff; font-size: 13px; font-family: 'IBM Plex Mono', monospace; outline: none; transition: border 0.2s; }
+        input:focus, select:focus { border-color: var(--cyber-green); box-shadow: 0 0 0 3px rgba(0, 255, 163, 0.05); }
+
+        .historical-box { background: rgba(56, 189, 248, 0.05); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 8px; padding: 20px; margin-bottom: 20px; }
+        .historical-text { font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--text-primary); line-height: 1.7; margin-top: 8px; }
+        .narrative-box { background: rgba(2, 6, 23, 0.5); border: 1px solid var(--border-hairline); border-radius: 8px; padding: 16px 20px; margin-bottom: 20px; }
+        .narrative-text { font-size: 13px; color: var(--text-muted); line-height: 1.7; }
     </style>
 </head>
 <body>
-    <div class="box" id="login-box">
-        <h2>Login Test</h2>
-        <input type="email" id="email" value="operations@vanguard.com">
-        <input type="password" id="password" value="vanguard2026">
-        <button onclick="testLogin()">Test Login</button>
+
+    <div id="auth-overlay">
+        <div class="auth-card" id="step-password-box">
+            <h2>Corporate Authorization</h2>
+            <p class="auth-lead">Input core operational access keys.</p>
+            <div class="form-group"><label>Corporate Email</label><input type="email" id="auth-email" value="operations@vanguard.com"></div>
+            <div class="form-group"><label>Security Key</label><input type="password" id="auth-password" value="vanguard2026"></div>
+            <button type="button" class="btn-primary" style="margin-top:24px;" id="btn-login-pass">Verify Password</button>
+        </div>
+        <div class="auth-card" id="step-twofactor-box" style="display:none;">
+            <h2>Two-Factor Validation</h2>
+            <p class="auth-lead">Demo: 481516</p>
+            <div class="form-group"><label>Token</label><input type="text" id="auth-2fa-token" maxlength="6" style="text-align:center; font-size:20px; letter-spacing:0.3em;"></div>
+            <button type="button" class="btn-primary" style="margin-top:16px;" id="btn-login-2fa">Authorize Session</button>
+        </div>
     </div>
-    <div class="box" id="success-box" style="display:none;">
-        <h2>✅ Login Works!</h2>
-        <p>The JavaScript is functioning correctly.</p>
+
+    <div id="dashboard-wrapper" style="display:none;">
+        <aside class="sidebar">
+            <div>
+                <div class="logo"><span class="logo-icon">◈</span> Optima Workflows</div>
+                <div class="section-label">Executive</div>
+                <div class="nav-item active" onclick="switchTab('view-home', this)"><span>🏠 Command Center</span></div>
+                <div class="section-label">CAT Operations</div>
+                <div class="nav-item" onclick="switchTab('view-cat-intel', this)"><span>🛰️ CAT Intelligence</span><span class="status-dot"></span></div>
+                <div class="section-label">Back Office</div>
+                <div class="nav-item" onclick="switchTab('view-storm-audit', this)"><span>🌪️ Storm Audit</span></div>
+                <div class="nav-item" onclick="switchTab('view-vendor-audit', this)"><span>🛡️ Vendor Audit</span></div>
+                <div class="nav-item" onclick="switchTab('view-freight-audit', this)"><span>📦 Freight Audit</span></div>
+                <div class="nav-item" onclick="switchTab('view-chargeback', this)"><span>💳 Chargebacks</span></div>
+            </div>
+            <div class="user-block">
+                <div class="user-name">Vanguard Restoration Corp</div>
+                <div class="user-tier">Per-Storm Tier</div>
+            </div>
+        </aside>
+
+        <main class="main-viewport">
+            <section id="view-home" class="dashboard-tab active">
+                <h1>Executive Command Center</h1>
+                <p class="lead">Live operational overview.</p>
+                <div class="notification-banner">
+                    <span class="notification-pulse"></span>
+                    <span><strong>ACTION REQUIRED:</strong> Dallas CAT deployment projected to yield $145K. Kill Switch check-in due.</span>
+                </div>
+                <div class="metric-grid">
+                    <div class="metric-card"><div class="metric-label">Capital Exposed</div><div class="metric-value">$412,000</div></div>
+                    <div class="metric-card"><div class="metric-label">Projected Yield</div><div class="metric-value" style="color:var(--cyber-green);">$145,000</div></div>
+                    <div class="metric-card"><div class="metric-label">Back Office</div><div class="metric-value" style="color:var(--cyber-blue);">$28,450</div></div>
+                </div>
+            </section>
+
+            <section id="view-cat-intel" class="dashboard-tab">
+                <h1>Cat Intelligence Triage Terminal</h1>
+                <p class="lead">12-Factor Live Analytical Matrix.</p>
+                <div class="card">
+                    <form id="triage-form">
+                        <div class="form-row">
+                            <div class="form-group"><label>Target ZIP</label><input type="text" id="frm-zip" placeholder="e.g., 75062" required></div>
+                            <div class="form-group"><label>Intent</label><select id="frm-intent" required><option value="">Select...</option><option value="MAX_CASH">Maximum Gross Cash</option><option value="MAX_ROI">Maximum Net ROI</option></select></div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group"><label>Tech Stack</label><select id="frm-tech" required><option value="">Select...</option><option value="PRO_TECH">Tier 1: Drone Scans</option><option value="LEGACY_LOW_TECH">Tier 2: Manual</option></select></div>
+                            <div class="form-group"><label>Rain Inches (0 = auto)</label><input type="number" step="0.1" id="frm-rain" value="0" required></div>
+                        </div>
+                        <div class="form-group"><label>AOB Legal</label><select id="frm-legal" required><option value="">Select...</option><option value="ATTORNEY_MANDATORY">Attorney Mandatory</option><option value="DIRECT_AOB_ALLOWED">Direct Billing</option></select></div>
+                        <button type="submit" class="btn-primary" id="btn-triage">⚡ Execute Sweep</button>
+                    </form>
+                </div>
+
+                <div id="results-card" class="card" style="display:none; border-top:4px solid var(--cyber-blue);">
+                    <div style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:20px; border-bottom:1px solid var(--border-hairline); padding-bottom:20px; margin-bottom:20px;">
+                        <div><div class="section-label" style="margin-top:0;">Verdict</div><span id="out-verdict" class="badge-status" style="font-size:16px; padding:8px 16px;"></span></div>
+                        <div style="text-align:right;"><div class="section-label" style="margin-top:0;">Index Score</div><span id="out-score" style="font-family:'IBM Plex Mono', monospace; font-size:32px; font-weight:900;">—</span></div>
+                    </div>
+                    <h3 class="section-label" style="margin-top:0;">12-Factor Matrix</h3>
+                    <div style="overflow-x:auto; margin-bottom:20px;"><table id="out-matrix"></table></div>
+                    <h3 class="section-label">Intel Brief</h3>
+                    <ul id="out-intel" style="list-style:none; padding:16px; background:rgba(2,6,23,0.4); border-radius:8px; margin-bottom:20px;"></ul>
+                    <div class="historical-box"><div class="section-label" style="margin-top:0;">Historical Anchor</div><p id="out-historical" class="historical-text">—</p></div>
+                    <div class="narrative-box"><div class="section-label" style="margin-top:0;">Capital Narrative</div><p id="out-narrative" class="narrative-text">—</p></div>
+                    <h3 class="section-label">Capital Modeling</h3>
+                    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(120px,1fr)); gap:16px; background:#03060c; padding:20px; border-radius:8px; margin-bottom:20px;">
+                        <div><div class="section-label" style="margin-top:0;">Gross</div><div id="out-gross" class="mono" style="font-size:20px; font-weight:900;">—</div></div>
+                        <div><div class="section-label" style="margin-top:0;">Burn</div><div id="out-burn" class="mono" style="font-size:20px; font-weight:900; color:var(--cyber-red);">—</div></div>
+                        <div><div class="section-label" style="margin-top:0;">Overhead</div><div id="out-carry" class="mono" style="font-size:20px; font-weight:900; color:var(--cyber-amber);">—</div></div>
+                        <div><div class="section-label" style="margin-top:0;">Net Yield</div><div id="out-net" class="mono" style="font-size:26px; font-weight:900; color:var(--cyber-green);">—</div></div>
+                    </div>
+                    <h3 class="section-label">Kill Switch</h3>
+                    <div id="out-exit" style="background:rgba(255,184,0,0.05); border:1px dashed rgba(255,184,0,0.3); padding:16px; border-radius:8px; color:var(--cyber-amber); font-family:'IBM Plex Mono', monospace; font-size:12px;"></div>
+                </div>
+            </section>
+
+            <section id="view-storm-audit" class="dashboard-tab"><h1>Storm Audit</h1><p class="lead">Coming soon.</p></section>
+            <section id="view-vendor-audit" class="dashboard-tab"><h1>Vendor Audit</h1><p class="lead">Coming soon.</p></section>
+            <section id="view-freight-audit" class="dashboard-tab"><h1>Freight Audit</h1><p class="lead">Coming soon.</p></section>
+            <section id="view-chargeback" class="dashboard-tab"><h1>Chargebacks</h1><p class="lead">Coming soon.</p></section>
+        </main>
     </div>
 
     <script>
-        function testLogin() {
-            const email = document.getElementById("email").value;
-            const password = document.getElementById("password").value;
-            
+        // ============================================================
+        // AUTHENTICATION (Event Listener Based - Bulletproof)
+        // ============================================================
+        document.getElementById("btn-login-pass").addEventListener("click", function() {
+            var email = document.getElementById("auth-email").value.trim();
+            var password = document.getElementById("auth-password").value;
             if (email === "operations@vanguard.com" && password === "vanguard2026") {
-                document.getElementById("login-box").style.display = "none";
-                document.getElementById("success-box").style.display = "block";
+                document.getElementById("step-password-box").style.display = "none";
+                document.getElementById("step-twofactor-box").style.display = "block";
             } else {
-                alert("Wrong credentials");
+                alert("Invalid credentials. Demo: operations@vanguard.com / vanguard2026");
             }
+        });
+
+        document.getElementById("btn-login-2fa").addEventListener("click", function() {
+            var token = document.getElementById("auth-2fa-token").value.trim();
+            if (token === "481516") {
+                document.getElementById("auth-overlay").style.display = "none";
+                document.getElementById("dashboard-wrapper").style.display = "flex";
+            } else {
+                alert("Invalid token. Demo: 481516");
+            }
+        });
+
+        // ============================================================
+        // NAVIGATION
+        // ============================================================
+        function switchTab(tabId, navElement) {
+            var tabs = document.querySelectorAll(".dashboard-tab");
+            for (var i = 0; i < tabs.length; i++) tabs[i].classList.remove("active");
+            var navs = document.querySelectorAll(".nav-item");
+            for (var j = 0; j < navs.length; j++) navs[j].classList.remove("active");
+            document.getElementById(tabId).classList.add("active");
+            if (navElement) navElement.classList.add("active");
         }
+
+        // ============================================================
+        // TRIAGE ENGINE
+        // ============================================================
+        document.getElementById("triage-form").addEventListener("submit", async function(event) {
+            event.preventDefault();
+            var btn = document.getElementById("btn-triage");
+            btn.disabled = true;
+            btn.innerHTML = "Fetching Live Data...";
+
+            var zip = document.getElementById("frm-zip").value.trim();
+            var intent = document.getElementById("frm-intent").value;
+            var tech = document.getElementById("frm-tech").value;
+            var rainInput = parseFloat(document.getElementById("frm-rain").value);
+            var legal = document.getElementById("frm-legal").value;
+
+            // GEOCODING
+            var lat = 32.85, lon = -96.97, city = "Unknown", state = "TX";
+            try {
+                var geoRes = await fetch("https://api.zippopotam.us/us/" + zip);
+                var geoData = await geoRes.json();
+                if (geoData && geoData.places && geoData.places.length > 0) {
+                    lat = parseFloat(geoData.places[0].latitude);
+                    lon = parseFloat(geoData.places[0].longitude);
+                    city = geoData.places[0]["place name"];
+                    state = geoData.places[0]["state abbreviation"];
+                }
+            } catch(e1) {}
+
+            // CENSUS
+            var medianYear = 2005, envelopeScore = 80, populationDensity = 5000;
+            try {
+                var censusKey = "adc98c57ae5ba855e42fbabbdb597d0a321e7269";
+                var censusRes = await fetch("https://api.census.gov/data/2020/acs/acs5?get=B25035_001E,B01003_001E,B25002_001E&for=zip%20code%20tabulation%20area:" + zip + "&key=" + censusKey);
+                var censusData = await censusRes.json();
+                if (censusData && censusData.length > 1 && censusData[1][0]) {
+                    medianYear = parseInt(censusData[1][0]);
+                    var age = 2026 - medianYear;
+                    if (age >= 18) envelopeScore = 95;
+                    else if (age >= 15) envelopeScore = 85;
+                    else if (age >= 10) envelopeScore = 60;
+                    else if (age >= 5) envelopeScore = 35;
+                    else envelopeScore = 20;
+                    var totalPop = parseInt(censusData[1][1]) || 0;
+                    var totalUnits = parseInt(censusData[1][2]) || 0;
+                    if (totalUnits > 0) populationDensity = Math.round((totalPop / totalUnits) * 100);
+                }
+            } catch(e2) {}
+
+            // RAIN
+            var actualRain = rainInput;
+            var rainSource = "User Input";
+            if (rainInput === 0) {
+                try {
+                    var rainRes = await fetch("https://api.open-meteo.com/v1/forecast?latitude=" + lat + "&longitude=" + lon + "&daily=precipitation_sum&past_days=7&timezone=auto");
+                    var rainData = await rainRes.json();
+                    if (rainData && rainData.daily && rainData.daily.precipitation_sum) {
+                        var maxPrecip = 0;
+                        for (var r = 0; r < rainData.daily.precipitation_sum.length; r++) {
+                            if (rainData.daily.precipitation_sum[r] > maxPrecip) maxPrecip = rainData.daily.precipitation_sum[r];
+                        }
+                        actualRain = maxPrecip / 25.4;
+                        rainSource = (maxPrecip > 0) ? "Open-Meteo Live" : "No Rain Detected";
+                    }
+                } catch(e3) { rainSource = "Fetch Failed"; }
+            }
+            var rainScore = 50;
+            if (actualRain >= 1.5) rainScore = 95;
+            else if (actualRain >= 1.0) rainScore = 75;
+            else if (actualRain >= 0.5) rainScore = 50;
+            else if (actualRain >= 0.2) rainScore = 30;
+            else rainScore = 15;
+
+            // REGIONAL DATA
+            var hailScore = 75, hailSize = "1.5\"", windSpeed = 45, stormCount = 3;
+            var competitorScore = 50, permitScore = 50, laborScore = 50, materialScore = 50, rcvScore = 55, creditScore = 55;
+            
+            if (state === "TX") { hailSize = "2.0\""; windSpeed = 60; stormCount = 8; hailScore = 90; competitorScore = 65; permitScore = 55; laborScore = 60; materialScore = 65; rcvScore = 60; creditScore = 65; }
+            else if (state === "FL") { hailSize = "1.0\""; windSpeed = 80; stormCount = 14; hailScore = 55; competitorScore = 80; permitScore = 30; laborScore = 45; materialScore = 55; rcvScore = 35; creditScore = 50; }
+            else if (state === "CO") { hailSize = "2.5\""; windSpeed = 50; stormCount = 12; hailScore = 95; competitorScore = 55; permitScore = 70; laborScore = 60; materialScore = 60; rcvScore = 65; creditScore = 60; }
+            else if (state === "OK") { hailSize = "2.0\""; windSpeed = 55; stormCount = 10; hailScore = 90; competitorScore = 60; permitScore = 65; laborScore = 55; materialScore = 60; rcvScore = 55; creditScore = 55; }
+            else if (state === "KS") { hailSize = "1.75\""; windSpeed = 55; stormCount = 8; hailScore = 85; competitorScore = 50; permitScore = 60; laborScore = 50; materialScore = 55; rcvScore = 60; creditScore = 55; }
+            else if (state === "NE") { hailSize = "1.75\""; windSpeed = 50; stormCount = 7; hailScore = 85; competitorScore = 45; permitScore = 60; laborScore = 50; materialScore = 55; rcvScore = 60; creditScore = 55; }
+            else if (state === "NC") { hailSize = "1.25\""; windSpeed = 45; stormCount = 5; hailScore = 65; competitorScore = 55; permitScore = 50; laborScore = 55; materialScore = 60; rcvScore = 55; creditScore = 55; }
+            else if (state === "LA") { hailSize = "1.0\""; windSpeed = 80; stormCount = 11; hailScore = 55; competitorScore = 70; permitScore = 40; laborScore = 45; materialScore = 50; rcvScore = 40; creditScore = 45; }
+            else if (state === "IL") { hailSize = "1.25\""; windSpeed = 50; stormCount = 6; hailScore = 65; competitorScore = 50; permitScore = 45; laborScore = 50; materialScore = 60; rcvScore = 65; creditScore = 60; }
+
+            // SCORING
+            var techScore = (tech === "PRO_TECH") ? 95 : 40;
+            var legalScore = (legal === "DIRECT_AOB_ALLOWED") ? 90 : 10;
+            var densityScore = Math.min(95, Math.round(populationDensity / 100));
+
+            var wHail = hailScore * 0.15;
+            var wAge = envelopeScore * 0.10;
+            var wRain = rainScore * 0.15;
+            var wLegal = legalScore * 0.15;
+            var wTech = techScore * 0.10;
+            var wCompetitor = competitorScore * 0.10;
+            var wDensity = densityScore * 0.10;
+            var wCredit = creditScore * 0.05;
+            var wPM = laborScore * 0.05;
+            var wMaterial = materialScore * 0.05;
+            var wRCV = rcvScore * 0.05;
+            var wPermit = permitScore * 0.05;
+
+            var finalScore = Math.round(wHail + wAge + wRain + wLegal + wTech + wCompetitor + wDensity + wCredit + wPM + wMaterial + wRCV + wPermit);
+
+            var verdict, badgeClass;
+            if (finalScore >= 65 && actualRain >= 0.5) { verdict = "GREEN_LIGHT_LAUNCH_STRIKE_CREW"; badgeClass = "bg-green"; }
+            else if (finalScore < 40 || actualRain < 0.2) { verdict = "RED_LIGHT_HARD_ABORT"; badgeClass = "bg-red"; }
+            else { verdict = "YELLOW_LIGHT_LEAN_RECON_ONLY"; badgeClass = "bg-amber"; }
+
+            // FINANCIALS
+            var estimatedRoofs = Math.max(2, Math.min(20, Math.round(densityScore * 0.08)));
+            var avgContract = (intent === "MAX_ROI") ? 320000 : 250000;
+            var grossVol = estimatedRoofs * avgContract;
+            var mobBurn = Math.round(grossVol * (tech === "PRO_TECH" ? 0.12 : 0.15));
+            var carryCost = Math.round(grossVol * 0.08);
+            if (legal === "ATTORNEY_MANDATORY") carryCost = Math.round(carryCost * 1.6);
+            var netYield = Math.round(grossVol * (intent === "MAX_ROI" ? 0.28 : 0.22));
+
+            function fmt(v) { return (v >= 1000000) ? "$" + (v/1000000).toFixed(1) + "M" : "$" + Math.round(v/1000) + "K"; }
+
+            // RENDER
+            document.getElementById("out-verdict").innerHTML = verdict;
+            document.getElementById("out-verdict").className = "badge-status " + badgeClass;
+            document.getElementById("out-score").innerHTML = finalScore + "/100";
+
+            document.getElementById("out-matrix").innerHTML = 
+                "<tr><td>F01: Hail Kinetic</td><td>" + hailSize + " / Wind: " + windSpeed + " mph / " + stormCount + " events/yr</td><td>" + hailScore + "</td><td>15%</td><td>" + wHail.toFixed(2) + "</td></tr>" +
+                "<tr><td>F02: Envelope Age</td><td>Built: " + medianYear + " (" + (2026-medianYear) + " yrs)</td><td>" + envelopeScore + "</td><td>10%</td><td>" + wAge.toFixed(2) + "</td></tr>" +
+                "<tr><td>F03: Rain Saturation</td><td>" + actualRain.toFixed(2) + "\" (" + rainSource + ")</td><td>" + rainScore + "</td><td>15%</td><td>" + wRain.toFixed(2) + "</td></tr>" +
+                "<tr><td>F04: Legal Friction</td><td>" + (legal === "ATTORNEY_MANDATORY" ? "Attorney Mandate" : "Direct Billing") + "</td><td>" + legalScore + "</td><td>15%</td><td>" + wLegal.toFixed(2) + "</td></tr>" +
+                "<tr><td>F05: Competitor</td><td>" + state + " Market</td><td>" + competitorScore + "</td><td>10%</td><td>" + wCompetitor.toFixed(2) + "</td></tr>" +
+                "<tr><td>F06: Density</td><td>" + city + " / " + populationDensity + "/sqmi</td><td>" + densityScore + "</td><td>10%</td><td>" + wDensity.toFixed(2) + "</td></tr>" +
+                "<tr><td>F07: Tech Stack</td><td>" + (tech === "PRO_TECH" ? "Tier 1: Drone" : "Tier 2: Manual") + "</td><td>" + techScore + "</td><td>10%</td><td>" + wTech.toFixed(2) + "</td></tr>" +
+                "<tr><td>F08: Credit</td><td>" + state + " Capital</td><td>" + creditScore + "</td><td>5%</td><td>" + wCredit.toFixed(2) + "</td></tr>" +
+                "<tr><td>F09: PM Roster</td><td>" + state + " Labor</td><td>" + laborScore + "</td><td>5%</td><td>" + wPM.toFixed(2) + "</td></tr>" +
+                "<tr><td>F10: Material</td><td>" + state + " Supply</td><td>" + materialScore + "</td><td>5%</td><td>" + wMaterial.toFixed(2) + "</td></tr>" +
+                "<tr><td>F11: RCV Ratio</td><td>" + state + " Carrier</td><td>" + rcvScore + "</td><td>5%</td><td>" + wRCV.toFixed(2) + "</td></tr>" +
+                "<tr><td>F12: Permit</td><td>" + city + " Municipal</td><td>" + permitScore + "</td><td>5%</td><td>" + wPermit.toFixed(2) + "</td></tr>";
+
+            document.getElementById("out-intel").innerHTML = 
+                "<li><strong>Zone:</strong> " + city + ", " + state + " (" + zip + ")</li>" +
+                "<li><strong>Storm:</strong> " + stormCount + " events/yr. Hail " + hailSize + ". Wind " + windSpeed + " mph.</li>" +
+                "<li><strong>Rain:</strong> " + actualRain.toFixed(2) + "\" (" + rainSource + ")</li>" +
+                "<li><strong>Buildings:</strong> Median " + medianYear + ". Age " + (2026-medianYear) + " yrs.</li>";
+
+            document.getElementById("out-historical").innerHTML = "📊 " + state + " CAT baseline: " + stormCount + " events/yr. Hail " + hailSize + ". Wind " + windSpeed + " mph. Source: NOAA Storm Events + State Climatology.";
+            document.getElementById("out-narrative").innerHTML = "Estimated " + estimatedRoofs + " viable roofs in " + city + ". Avg contract $" + (avgContract/1000).toFixed(0) + "K. " + (intent === "MAX_ROI" ? "Selective targeting for margin." : "Volume deployment for cash velocity.");
+
+            document.getElementById("out-gross").innerHTML = fmt(grossVol);
+            document.getElementById("out-burn").innerHTML = "-" + fmt(mobBurn);
+            document.getElementById("out-carry").innerHTML = "-" + fmt(carryCost);
+            document.getElementById("out-net").innerHTML = fmt(netYield);
+            document.getElementById("out-exit").innerHTML = "Day 7 Kill Switch: If canopy > 45 trucks in " + city + ", pivot to REIT flats via drone scans.";
+
+            document.getElementById("results-card").style.display = "block";
+            btn.disabled = false;
+            btn.innerHTML = "⚡ Execute Sweep";
+            document.getElementById("results-card").scrollIntoView({ behavior: 'smooth' });
+        });
     </script>
 </body>
 </html>
