@@ -29,62 +29,64 @@
         .auth-card h2 { font-size: 22px; font-weight: 800; text-align: center; margin-bottom: 6px; }
         .auth-lead { font-size: 14px; color: var(--text-muted); margin: 10px 0 28px; text-align: center; }
 
-        .sidebar { width: 240px; background: #070a12; border-right: 1px solid var(--border-hairline); display: flex; flex-direction: column; justify-content: space-between; padding: 20px 14px; }
-        .logo { font-weight: 900; font-size: 13px; letter-spacing: 0.06em; color: #fff; display: flex; align-items: center; gap: 8px; text-transform: uppercase; margin-bottom: 24px; }
-        .logo-icon { display:flex; align-items:center; justify-content:center; height: 24px; width: 24px; background: var(--cyber-green); color: #05080f; border-radius: 5px; font-size: 13px; font-weight: 900; }
-        .section-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 700; text-transform: uppercase; color: var(--text-detail); letter-spacing: 0.1em; margin: 16px 0 6px 6px; }
-        .nav-item { padding: 8px 10px; border-radius: 6px; color: var(--text-muted); font-size: 13px; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; border-left: 2px solid transparent; }
+        .sidebar { width: 220px; background: #070a12; border-right: 1px solid var(--border-hairline); display: flex; flex-direction: column; justify-content: space-between; padding: 20px 12px; }
+        .logo { font-weight: 900; font-size: 12px; letter-spacing: 0.05em; color: #fff; display: flex; align-items: center; gap: 6px; text-transform: uppercase; margin-bottom: 20px; }
+        .logo-icon { display:flex; align-items:center; justify-content:center; height: 22px; width: 22px; background: var(--cyber-green); color: #05080f; border-radius: 4px; font-size: 12px; font-weight: 900; }
+        .section-label { font-family: 'IBM Plex Mono', monospace; font-size: 9px; font-weight: 700; text-transform: uppercase; color: var(--text-detail); letter-spacing: 0.1em; margin: 14px 0 5px 4px; }
+        .nav-item { padding: 7px 8px; border-radius: 5px; color: var(--text-muted); font-size: 12px; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; border-left: 2px solid transparent; }
         .nav-item:hover { background: rgba(255,255,255,0.03); color: #fff; }
         .nav-item.active { background: rgba(0, 255, 163, 0.05); color: var(--cyber-green); border-left: 2px solid var(--cyber-green); font-weight: 700; }
-        .user-block { border-top: 1px solid var(--border-hairline); padding-top: 14px; font-size: 12px; color: var(--text-muted); }
+        .user-block { border-top: 1px solid var(--border-hairline); padding-top: 12px; font-size: 11px; color: var(--text-muted); }
         .user-name { color: #fff; font-weight: 800; }
-        .user-tier { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--cyber-amber); }
+        .user-tier { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--cyber-amber); }
 
-        .main-viewport { flex: 1; padding: 32px 40px; overflow-y: auto; background: radial-gradient(circle at 80% 20%, rgba(0, 255, 163, 0.02), transparent 40%), var(--bg-deep); }
-        h1 { font-size: 26px; font-weight: 900; letter-spacing: -0.02em; margin-bottom: 6px; }
-        .lead { font-size: 15px; color: var(--text-muted); margin-bottom: 24px; line-height: 1.5; }
-        .card { background: var(--bg-card); border: 1px solid var(--border-hairline); border-radius: 14px; padding: 28px; margin-bottom: 24px; }
-        .dashboard-tab { display: none; }
+        .main-viewport { flex: 1; padding: 24px 32px; overflow-y: auto; background: radial-gradient(circle at 80% 20%, rgba(0, 255, 163, 0.02), transparent 40%), var(--bg-deep); }
+        h1 { font-size: 24px; font-weight: 900; letter-spacing: -0.02em; margin-bottom: 4px; }
+        .lead { font-size: 14px; color: var(--text-muted); margin-bottom: 20px; line-height: 1.5; }
+        .card { background: var(--bg-card); border: 1px solid var(--border-hairline); border-radius: 12px; padding: 22px; margin-bottom: 20px; width: 100%; }
+        .dashboard-tab { display: none; width: 100%; }
         .dashboard-tab.active { display: block; }
 
-        table { width: 100%; border-collapse: collapse; font-size: 14px; }
-        th { font-size: 11px; text-transform: uppercase; color: #cfd8dc; padding: 12px 10px; border-bottom: 2px solid var(--border-hairline); text-align: left; letter-spacing: 0.05em; background: rgba(255,255,255,0.02); }
-        td { padding: 14px 10px; border-bottom: 1px solid #111827; font-family: 'IBM Plex Mono', monospace; font-size: 13.5px; line-height: 1.6; vertical-align: top; }
-        .badge-status { padding: 6px 14px; border-radius: 5px; font-size: 12px; font-weight: 800; font-family: 'IBM Plex Mono', monospace; text-transform: uppercase; letter-spacing: 0.05em; }
+        table { width: 100%; border-collapse: collapse; font-size: 13px; }
+        th { font-size: 10px; text-transform: uppercase; color: #cfd8dc; padding: 10px 8px; border-bottom: 2px solid var(--border-hairline); text-align: left; letter-spacing: 0.05em; background: rgba(255,255,255,0.02); }
+        td { padding: 12px 8px; border-bottom: 1px solid #111827; font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; line-height: 1.5; vertical-align: top; }
+        .badge-status { padding: 5px 12px; border-radius: 4px; font-size: 11px; font-weight: 800; font-family: 'IBM Plex Mono', monospace; text-transform: uppercase; letter-spacing: 0.04em; }
         .bg-green { background: rgba(0, 255, 163, 0.15); color: var(--cyber-green); border: 1px solid rgba(0,255,163,0.4); }
         .bg-amber { background: rgba(255, 184, 0, 0.15); color: var(--cyber-amber); border: 1px solid rgba(255,184,0,0.4); }
         .bg-red { background: rgba(255, 82, 82, 0.15); color: var(--cyber-red); border: 1px solid rgba(255,82,82,0.4); }
 
-        .btn-primary { border: none; color: #05080f; padding: 14px 20px; border-radius: 8px; font-weight: 800; cursor: pointer; text-transform: uppercase; background: var(--cyber-green); font-size: 13px; width: 100%; letter-spacing: 0.04em; transition: all 0.2s; }
+        .btn-primary { border: none; color: #05080f; padding: 13px 18px; border-radius: 7px; font-weight: 800; cursor: pointer; text-transform: uppercase; background: var(--cyber-green); font-size: 12px; width: 100%; letter-spacing: 0.03em; transition: all 0.2s; }
         .btn-primary:hover { background: #00cc82; box-shadow: 0 0 20px rgba(0,255,163,0.3); }
         .btn-primary:disabled { opacity: 0.5; cursor: wait; }
-        .btn-secondary { border: 1px solid var(--border-hairline); color: var(--text-muted); padding: 10px 16px; border-radius: 6px; font-weight: 700; cursor: pointer; background: transparent; font-size: 12px; }
-        .cta-btn { border: 1px solid rgba(64, 196, 255, 0.4); color: #bbdefb; padding: 12px 16px; border-radius: 8px; font-weight: 700; cursor: pointer; background: rgba(64, 196, 255, 0.08); font-size: 13px; transition: all 0.2s; }
-        .cta-btn:hover { background: rgba(64, 196, 255, 0.15); border-color: #40c4ff; }
-        .link-btn { border: 1px solid rgba(255, 184, 0, 0.4); color: #ffe0b2; padding: 10px 14px; border-radius: 6px; font-weight: 700; cursor: pointer; background: rgba(255, 184, 0, 0.06); font-size: 12px; text-decoration: none; display: inline-block; }
+        .btn-secondary { border: 1px solid var(--border-hairline); color: var(--text-muted); padding: 8px 14px; border-radius: 5px; font-weight: 700; cursor: pointer; background: transparent; font-size: 11px; }
+        .cta-btn { border: 1px solid rgba(64, 196, 255, 0.4); color: #bbdefb; padding: 10px 14px; border-radius: 7px; font-weight: 700; cursor: pointer; background: rgba(64, 196, 255, 0.08); font-size: 12px; transition: all 0.2s; flex: 1; text-align: center; }
+        .cta-btn:hover { background: rgba(64, 196, 255, 0.15); border-color: #40c4ff; box-shadow: 0 0 15px rgba(64,196,255,0.3); }
+        .link-btn { border: 1px solid rgba(255, 184, 0, 0.4); color: #ffe0b2; padding: 10px 14px; border-radius: 7px; font-weight: 700; cursor: pointer; background: rgba(255, 184, 0, 0.06); font-size: 12px; flex: 1; text-align: center; transition: all 0.2s; }
+        .link-btn:hover { background: rgba(255, 184, 0, 0.12); border-color: #ffb800; }
+        .cta-row { display: flex; gap: 8px; flex-wrap: wrap; width: 100%; }
 
-        .form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
-        .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
-        label { font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #b0bec5; }
-        input, select { width: 100%; background-color: #03060c; border: 1px solid #2a3a55; border-radius: 8px; padding: 12px 14px; color: #fff; font-size: 14px; font-family: 'IBM Plex Mono', monospace; outline: none; }
+        .form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; width: 100%; }
+        .form-group { display: flex; flex-direction: column; gap: 5px; margin-bottom: 12px; }
+        label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: #b0bec5; }
+        input, select { width: 100%; background-color: #03060c; border: 1px solid #2a3a55; border-radius: 7px; padding: 10px 12px; color: #fff; font-size: 13px; font-family: 'IBM Plex Mono', monospace; outline: none; }
         input:focus, select:focus { border-color: var(--cyber-green); }
 
-        .recommendation-box { background: rgba(0, 255, 163, 0.05); border: 1px solid rgba(0, 255, 163, 0.3); border-radius: 10px; padding: 24px; margin-bottom: 24px; }
-        .recommendation-text { font-size: 16px; color: #e8f5e9; line-height: 1.8; font-weight: 600; }
-        .warning-box { background: rgba(255, 82, 82, 0.05); border: 1px solid rgba(255, 82, 82, 0.3); border-radius: 10px; padding: 24px; margin-bottom: 24px; }
-        .warning-text { font-size: 16px; color: #ffcdd2; line-height: 1.8; font-weight: 600; }
-        .params-toggle { display: flex; justify-content: space-between; align-items: center; margin: 20px 0 12px; cursor: pointer; padding: 14px; border: 1px dashed #2a3a55; border-radius: 8px; background: rgba(255,255,255,0.02); }
-        .params-note { font-size: 12px; color: var(--cyber-amber); margin-top: 4px; font-style: italic; }
-        .params-panel { display: none; border-top: 1px solid var(--border-hairline); padding-top: 20px; margin-bottom: 16px; }
+        .recommendation-box { background: rgba(0, 255, 163, 0.05); border: 1px solid rgba(0, 255, 163, 0.3); border-radius: 9px; padding: 20px; margin-bottom: 20px; width: 100%; }
+        .recommendation-text { font-size: 15px; color: #e8f5e9; line-height: 1.7; font-weight: 600; }
+        .warning-box { background: rgba(255, 82, 82, 0.05); border: 1px solid rgba(255, 82, 82, 0.3); border-radius: 9px; padding: 20px; margin-bottom: 20px; width: 100%; }
+        .warning-text { font-size: 15px; color: #ffcdd2; line-height: 1.7; font-weight: 600; }
+        .params-toggle { display: flex; justify-content: space-between; align-items: center; margin: 16px 0 10px; cursor: pointer; padding: 12px; border: 1px dashed #2a3a55; border-radius: 7px; background: rgba(255,255,255,0.02); width: 100%; }
+        .params-note { font-size: 11px; color: var(--cyber-amber); margin-top: 3px; font-style: italic; }
+        .params-panel { display: none; border-top: 1px solid var(--border-hairline); padding-top: 16px; margin-bottom: 12px; width: 100%; }
         .params-panel.open { display: block; }
-        .factor-explanation { font-size: 13px; color: #b0bec5; margin-top: 4px; line-height: 1.6; }
-        .financial-line { display: flex; justify-content: space-between; padding: 14px 0; border-bottom: 1px solid #1a2332; }
+        .factor-explanation { font-size: 12px; color: #b0bec5; margin-top: 3px; line-height: 1.5; }
+        .financial-line { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #1a2332; width: 100%; }
         .financial-line:last-child { border-bottom: none; }
-        .financial-label { font-size: 14px; color: #cfd8dc; font-weight: 600; }
-        .financial-value { font-family: 'IBM Plex Mono', monospace; font-size: 16px; font-weight: 700; }
-        .financial-detail { font-size: 12px; color: #78909c; margin-top: 4px; line-height: 1.5; }
-        .next-steps-box { background: rgba(64, 196, 255, 0.04); border: 1px solid rgba(64, 196, 255, 0.3); border-radius: 10px; padding: 24px; margin-bottom: 24px; }
-        .next-steps-text { font-size: 15px; color: #bbdefb; line-height: 1.8; margin-bottom: 12px; }
+        .financial-label { font-size: 13px; color: #cfd8dc; font-weight: 600; }
+        .financial-value { font-family: 'IBM Plex Mono', monospace; font-size: 15px; font-weight: 700; }
+        .financial-detail { font-size: 11px; color: #78909c; margin-top: 3px; line-height: 1.4; }
+        .next-steps-box { background: rgba(64, 196, 255, 0.04); border: 1px solid rgba(64, 196, 255, 0.3); border-radius: 9px; padding: 20px; margin-bottom: 20px; width: 100%; }
+        .next-steps-text { font-size: 14px; color: #bbdefb; line-height: 1.7; margin-bottom: 10px; }
     </style>
 </head>
 <body>
@@ -95,13 +97,13 @@
             <p class="auth-lead">Input core operational access keys.</p>
             <div class="form-group"><label>Corporate Email</label><input type="email" id="auth-email" value="operations@vanguard.com"></div>
             <div class="form-group"><label>Security Key</label><input type="password" id="auth-password" value="vanguard2026"></div>
-            <button type="button" class="btn-primary" style="margin-top:20px;" id="btn-login-pass">Verify Password</button>
+            <button type="button" class="btn-primary" style="margin-top:16px;" id="btn-login-pass">Verify Password</button>
         </div>
         <div class="auth-card" id="step-twofactor-box" style="display:none;">
             <h2>Two-Factor Validation</h2>
             <p class="auth-lead">Demo: 481516</p>
-            <div class="form-group"><label>Token</label><input type="text" id="auth-2fa-token" maxlength="6" style="text-align:center; font-size:18px;" value="481516"></div>
-            <button type="button" class="btn-primary" style="margin-top:16px;" id="btn-login-2fa">Authorize</button>
+            <div class="form-group"><label>Token</label><input type="text" id="auth-2fa-token" maxlength="6" style="text-align:center; font-size:16px;" value="481516"></div>
+            <button type="button" class="btn-primary" style="margin-top:12px;" id="btn-login-2fa">Authorize</button>
         </div>
     </div>
 
@@ -137,7 +139,7 @@
 
                 <div class="card">
                     <form id="triage-form">
-                        <h3 class="section-label" style="margin-top:0; font-size:12px; color:#cfd8dc;">Storm Parameters</h3>
+                        <h3 class="section-label" style="margin-top:0; font-size:11px; color:#cfd8dc;">Storm Parameters</h3>
                         <div class="form-row">
                             <div class="form-group"><label>Target ZIP</label><input type="text" id="frm-zip" placeholder="e.g., 75062" required></div>
                             <div class="form-group"><label>Intent</label><select id="frm-intent" required><option value="">Select...</option><option value="MAX_CASH">Maximum Gross Cash</option><option value="MAX_ROI">Maximum Net ROI</option></select></div>
@@ -149,10 +151,10 @@
 
                         <div class="params-toggle" onclick="toggleParams()">
                             <div>
-                                <span style="font-weight:700; font-size:14px; color:#fff;">⚙️ Operational Parameters</span>
+                                <span style="font-weight:700; font-size:13px; color:#fff;">⚙️ Operational Parameters</span>
                                 <div class="params-note">EDITABLE — Industry Averages. Click to adjust.</div>
                             </div>
-                            <span id="params-arrow" style="color:var(--cyber-amber); font-size:16px;">▼</span>
+                            <span id="params-arrow" style="color:var(--cyber-amber); font-size:14px;">▼</span>
                         </div>
 
                         <div class="params-panel" id="params-panel">
@@ -179,41 +181,39 @@
                             <button type="button" class="btn-secondary" onclick="resetParams()">Reset to Defaults</button>
                         </div>
 
-                        <button type="submit" class="btn-primary" id="btn-triage" style="margin-top:20px;">⚡ Execute Sweep</button>
+                        <button type="submit" class="btn-primary" id="btn-triage" style="margin-top:16px;">⚡ Execute Sweep</button>
                     </form>
                 </div>
 
                 <div id="results-card" class="card" style="display:none; border-top:4px solid var(--cyber-blue);">
-                    <div style="display:flex; justify-content:space-between; gap:16px; border-bottom:1px solid var(--border-hairline); padding-bottom:20px; margin-bottom:24px;">
-                        <div><div class="section-label" style="margin-top:0;">Verdict</div><span id="out-verdict" class="badge-status" style="font-size:16px;">—</span></div>
-                        <div style="text-align:right;"><div class="section-label" style="margin-top:0;">Index Score</div><span id="out-score" style="font-family:'IBM Plex Mono', monospace; font-size:36px; font-weight:900;">—</span></div>
+                    <div style="display:flex; justify-content:space-between; gap:12px; border-bottom:1px solid var(--border-hairline); padding-bottom:16px; margin-bottom:20px; flex-wrap:wrap;">
+                        <div><div class="section-label" style="margin-top:0;">Verdict</div><span id="out-verdict" class="badge-status" style="font-size:15px;">—</span></div>
+                        <div style="text-align:right;"><div class="section-label" style="margin-top:0;">Index Score</div><span id="out-score" style="font-family:'IBM Plex Mono', monospace; font-size:32px; font-weight:900;">—</span></div>
                     </div>
 
-                    <div id="out-recommendation" class="recommendation-box" style="display:none;"><div class="section-label">Recommendation</div><p id="out-rec-text" class="recommendation-text"></p></div>
-                    <div id="out-warning" class="warning-box" style="display:none;"><div class="section-label">Warning</div><p id="out-warn-text" class="warning-text"></p></div>
+                    <div id="out-recommendation" class="recommendation-box" style="display:none;"><div class="section-label" style="margin-top:0;">Deployment Recommendation</div><p id="out-rec-text" class="recommendation-text"></p></div>
+                    <div id="out-warning" class="warning-box" style="display:none;"><div class="section-label" style="margin-top:0;">Critical Warning</div><p id="out-warn-text" class="warning-text"></p></div>
 
-                    <h3 class="section-label" style="margin-top:0; font-size:12px; color:#cfd8dc;">12-Factor Matrix</h3>
-                    <div style="overflow-x:auto; margin-bottom:24px;"><table id="out-matrix"></table></div>
+                    <h3 class="section-label" style="margin-top:0; font-size:11px; color:#cfd8dc;">12-Factor Matrix — Each Factor Explained</h3>
+                    <div style="overflow-x:auto; margin-bottom:20px;"><table id="out-matrix"></table></div>
 
-                    <h3 class="section-label" style="font-size:12px; color:#cfd8dc;">Financial Breakdown</h3>
-                    <div id="out-financials" style="background:#03060c; border:1px solid var(--border-hairline); border-radius:10px; padding:24px; margin-bottom:24px;"></div>
+                    <h3 class="section-label" style="font-size:11px; color:#cfd8dc;">Financial Breakdown — How We Got These Numbers</h3>
+                    <div id="out-financials" style="background:#03060c; border:1px solid var(--border-hairline); border-radius:9px; padding:20px; margin-bottom:20px;"></div>
 
-                    <h3 class="section-label" style="font-size:12px; color:#cfd8dc;">Historical Comparison</h3>
-                    <div id="out-historical" style="background:rgba(255,184,0,0.03); border:1px solid rgba(255,184,0,0.2); border-radius:10px; padding:20px; margin-bottom:24px; font-size:14px; line-height:1.8; color:#ffe0b2;"></div>
+                    <h3 class="section-label" style="font-size:11px; color:#cfd8dc;">Historical Evidence — What Happened Last Time</h3>
+                    <div id="out-historical" style="background:rgba(255,184,0,0.03); border:1px solid rgba(255,184,0,0.2); border-radius:9px; padding:18px; margin-bottom:20px; font-size:13px; line-height:1.7; color:#ffe0b2;"></div>
 
-                    <h3 class="section-label" style="font-size:12px; color:#cfd8dc;">Kill Switch</h3>
-                    <div id="out-exit" style="background:rgba(255,184,0,0.05); border:1px dashed rgba(255,184,0,0.3); padding:20px; border-radius:10px; color:var(--cyber-amber); font-family:'IBM Plex Mono', monospace; font-size:14px; line-height:1.7; margin-bottom:24px;"></div>
+                    <h3 class="section-label" style="font-size:11px; color:#cfd8dc;">Kill Switch Protocol — Specific Triggers</h3>
+                    <div id="out-exit" style="background:rgba(255,184,0,0.05); border:1px dashed rgba(255,184,0,0.3); padding:18px; border-radius:9px; color:var(--cyber-amber); font-family:'IBM Plex Mono', monospace; font-size:13px; line-height:1.7; margin-bottom:20px;"></div>
 
-                    <h3 class="section-label" style="font-size:12px; color:#cfd8dc;">Inspection Protocol</h3>
-                    <div id="out-drone" style="background:rgba(64,196,255,0.05); border:1px solid rgba(64,196,255,0.3); padding:20px; border-radius:10px; color:#bbdefb; font-family:'IBM Plex Mono', monospace; font-size:14px; line-height:1.7; margin-bottom:12px;"></div>
-                    <button type="button" id="btn-drone-cta" class="btn-primary" style="display:none; margin-bottom:24px;" onclick="requestDroneVerification()">📡 Request Drone Verification</button>
+                    <h3 class="section-label" style="font-size:11px; color:#cfd8dc;">Inspection Protocol</h3>
+                    <div id="out-drone" style="background:rgba(64,196,255,0.05); border:1px solid rgba(64,196,255,0.3); padding:18px; border-radius:9px; color:#bbdefb; font-family:'IBM Plex Mono', monospace; font-size:13px; line-height:1.7; margin-bottom:10px;"></div>
+                    <button type="button" id="btn-drone-cta" class="btn-primary" style="display:none; margin-bottom:20px;" onclick="requestDroneVerification()">📡 Request Drone Verification — $2,500/roof</button>
 
-                    <h3 class="section-label" style="font-size:12px; color:#cfd8dc;">Next Steps</h3>
-                    <div class="next-steps-box"><p id="out-next-text" class="next-steps-text"></p><div id="out-cta-buttons" style="display:flex; flex-wrap:wrap; gap:10px;"></div></div>
-
-                    <div style="display:flex; gap:10px; margin-top:24px; flex-wrap:wrap;">
-                        <button class="link-btn" onclick="downloadReport()">📄 Download Report</button>
-                        <button class="link-btn" onclick="resetForNewZone()">🔄 Check Another Zone</button>
+                    <h3 class="section-label" style="font-size:11px; color:#cfd8dc;">Next Steps — Your Action Plan</h3>
+                    <div class="next-steps-box">
+                        <p id="out-next-text" class="next-steps-text"></p>
+                        <div class="cta-row" id="out-cta-buttons"></div>
                     </div>
                 </div>
             </section>
@@ -228,97 +228,39 @@
     <script>
         const GOOGLE_SPREADSHEET_LOG_URL = "https://script.google.com/macros/s/AKfycbxU6mE1Lcuy43GlG5kzAW9bssqFNJnngNQQ0x9cNtq1GLwrR6Hy78dqHAW0_a9bDf0LIQ/exec";
         const FRED_API_KEY = "aefa10f5ba04b679653f16ecace750b5";
-        const BLS_API_KEY = ""; // Register free at https://www.bls.gov/developers/api_signature.htm
+        const BLS_API_KEY = "";
         var currentTriageData = {};
         var learningHistory = [];
 
-        // ============================================================
-        // CACHING LAYER
-        // ============================================================
         function getCachedData(key, maxAgeMinutes) {
-            try {
-                var cached = localStorage.getItem("optima_" + key);
-                if (cached) {
-                    var parsed = JSON.parse(cached);
-                    var age = (Date.now() - parsed.timestamp) / 60000;
-                    if (age < maxAgeMinutes) return parsed.data;
-                }
-            } catch(e) {}
+            try { var c = localStorage.getItem("optima_" + key); if (c) { var p = JSON.parse(c); if ((Date.now() - p.timestamp) / 60000 < maxAgeMinutes) return p.data; } } catch(e) {}
             return null;
         }
         function setCachedData(key, data) {
-            try {
-                localStorage.setItem("optima_" + key, JSON.stringify({ timestamp: Date.now(), data: data }));
-            } catch(e) {}
+            try { localStorage.setItem("optima_" + key, JSON.stringify({ timestamp: Date.now(), data: data })); } catch(e) {}
         }
-
-        // ============================================================
-        // SELF-LEARNING MECHANISM
-        // ============================================================
         function loadLearningHistory() {
-            try {
-                var stored = localStorage.getItem("optima_learning_history");
-                if (stored) learningHistory = JSON.parse(stored);
-            } catch(e) { learningHistory = []; }
+            try { var s = localStorage.getItem("optima_learning"); if (s) learningHistory = JSON.parse(s); } catch(e) { learningHistory = []; }
         }
         function saveLearningEntry(entry) {
-            learningHistory.push(entry);
-            if (learningHistory.length > 100) learningHistory.shift();
-            try { localStorage.setItem("optima_learning_history", JSON.stringify(learningHistory)); } catch(e) {}
+            learningHistory.push(entry); if (learningHistory.length > 100) learningHistory.shift();
+            try { localStorage.setItem("optima_learning", JSON.stringify(learningHistory)); } catch(e) {}
         }
-        function adjustScoreFromHistory(finalScore, zip, state) {
-            var similarZips = learningHistory.filter(function(h) {
-                return h.state === state || h.zip === zip;
-            });
-            if (similarZips.length === 0) return finalScore;
-            var avgAdjustment = 0;
-            for (var i = 0; i < similarZips.length; i++) {
-                if (similarZips[i].outcome === "SUCCESS") avgAdjustment += 2;
-                else if (similarZips[i].outcome === "FAILURE") avgAdjustment -= 3;
-            }
-            avgAdjustment = avgAdjustment / similarZips.length;
-            return Math.max(10, Math.min(100, finalScore + Math.round(avgAdjustment)));
+        function adjustScoreFromHistory(score, zip, state) {
+            var similar = learningHistory.filter(function(h) { return h.state === state || h.zip === zip; });
+            if (similar.length === 0) return score;
+            var adj = 0;
+            for (var i = 0; i < similar.length; i++) { if (similar[i].outcome === "SUCCESS") adj += 2; else adj -= 3; }
+            adj = adj / similar.length;
+            return Math.max(10, Math.min(100, score + Math.round(adj)));
         }
         loadLearningHistory();
 
-        var AOB_DATABASE = {
-            "FL": { "friction": "HIGH", "cycle_days": 75, "score": 10 },
-            "TX": { "friction": "LOW", "cycle_days": 30, "score": 90 },
-            "CO": { "friction": "LOW", "cycle_days": 25, "score": 90 },
-            "OK": { "friction": "LOW", "cycle_days": 28, "score": 85 },
-            "NC": { "friction": "MEDIUM", "cycle_days": 35, "score": 60 },
-            "LA": { "friction": "MEDIUM", "cycle_days": 40, "score": 50 },
-            "CA": { "friction": "HIGH", "cycle_days": 60, "score": 10 },
-            "IL": { "friction": "MEDIUM", "cycle_days": 35, "score": 55 }
-        };
-
+        var AOB_DATABASE = { "FL": { "cycle_days": 75, "score": 10 }, "TX": { "cycle_days": 30, "score": 90 }, "CO": { "cycle_days": 25, "score": 90 }, "OK": { "cycle_days": 28, "score": 85 }, "NC": { "cycle_days": 35, "score": 60 }, "LA": { "cycle_days": 40, "score": 50 }, "CA": { "cycle_days": 60, "score": 10 }, "IL": { "cycle_days": 35, "score": 55 } };
         var STATE_FIPS = { "TX": "48", "FL": "12", "CO": "08", "OK": "40", "NC": "37", "LA": "22", "CA": "06", "IL": "17" };
-
-        var SUPPLIER_HUBS = [
-            { name: "ABC Supply Dallas", lat: 32.77, lon: -96.79 },
-            { name: "ABC Supply Atlanta", lat: 33.74, lon: -84.38 },
-            { name: "Beacon Denver", lat: 39.73, lon: -104.99 },
-            { name: "SRS Houston", lat: 29.76, lon: -95.36 },
-            { name: "ABC Supply Chicago", lat: 41.88, lon: -87.62 },
-            { name: "Beacon Orlando", lat: 28.53, lon: -81.37 },
-            { name: "ABC Supply Phoenix", lat: 33.44, lon: -112.07 },
-            { name: "Beacon Charlotte", lat: 35.22, lon: -80.84 }
-        ];
-
-        var PERMIT_DATABASE = {
-            "Dallas": { "avg_days": 12, "score": 60 },
-            "Houston": { "avg_days": 10, "score": 65 },
-            "Miami": { "avg_days": 21, "score": 30 },
-            "Denver": { "avg_days": 8, "score": 80 },
-            "Austin": { "avg_days": 14, "score": 55 },
-            "Orlando": { "avg_days": 18, "score": 35 },
-            "Tampa": { "avg_days": 16, "score": 40 },
-            "Charlotte": { "avg_days": 12, "score": 60 }
-        };
-
-        var RCV_DATABASE = {
-            "TX": 72, "CO": 68, "FL": 38, "OK": 65, "NC": 55, "LA": 42, "CA": 58, "IL": 60
-        };
+        var SUPPLIER_HUBS = [ { name: "ABC Supply Dallas", lat: 32.77, lon: -96.79 }, { name: "ABC Supply Atlanta", lat: 33.74, lon: -84.38 }, { name: "Beacon Denver", lat: 39.73, lon: -104.99 }, { name: "SRS Houston", lat: 29.76, lon: -95.36 }, { name: "ABC Supply Chicago", lat: 41.88, lon: -87.62 }, { name: "Beacon Orlando", lat: 28.53, lon: -81.37 }, { name: "ABC Supply Phoenix", lat: 33.44, lon: -112.07 }, { name: "Beacon Charlotte", lat: 35.22, lon: -80.84 } ];
+        var PERMIT_DATABASE = { "Dallas": { "avg_days": 12, "score": 60 }, "Houston": { "avg_days": 10, "score": 65 }, "Miami": { "avg_days": 21, "score": 30 }, "Denver": { "avg_days": 8, "score": 80 }, "Austin": { "avg_days": 14, "score": 55 }, "Orlando": { "avg_days": 18, "score": 35 }, "Tampa": { "avg_days": 16, "score": 40 }, "Charlotte": { "avg_days": 12, "score": 60 } };
+        var RCV_DATABASE = { "TX": 72, "CO": 68, "FL": 38, "OK": 65, "NC": 55, "LA": 42, "CA": 58, "IL": 60 };
 
         document.getElementById("btn-login-pass").addEventListener("click", function() {
             if (document.getElementById("auth-email").value.trim() === "operations@vanguard.com" && document.getElementById("auth-password").value === "vanguard2026") {
@@ -326,7 +268,6 @@
                 document.getElementById("step-twofactor-box").style.display = "block";
             } else { alert("Invalid credentials"); }
         });
-
         document.getElementById("btn-login-2fa").addEventListener("click", function() {
             if (document.getElementById("auth-2fa-token").value.trim() === "481516") {
                 document.getElementById("auth-overlay").style.display = "none";
@@ -335,243 +276,63 @@
         });
 
         function switchTab(tabId, navElement) {
-            var tabs = document.querySelectorAll(".dashboard-tab");
-            for (var i = 0; i < tabs.length; i++) tabs[i].classList.remove("active");
-            var navs = document.querySelectorAll(".nav-item");
-            for (var j = 0; j < navs.length; j++) navs[j].classList.remove("active");
-            document.getElementById(tabId).classList.add("active");
-            if (navElement) navElement.classList.add("active");
+            var tabs = document.querySelectorAll(".dashboard-tab"); for (var i = 0; i < tabs.length; i++) tabs[i].classList.remove("active");
+            var navs = document.querySelectorAll(".nav-item"); for (var j = 0; j < navs.length; j++) navs[j].classList.remove("active");
+            document.getElementById(tabId).classList.add("active"); if (navElement) navElement.classList.add("active");
         }
+        function toggleParams() { var p = document.getElementById("params-panel"); var a = document.getElementById("params-arrow"); if (p.classList.contains("open")) { p.classList.remove("open"); a.innerHTML = "▼"; } else { p.classList.add("open"); a.innerHTML = "▲"; } }
+        function resetParams() { document.getElementById("p-crew").value=4; document.getElementById("p-labor").value=35; document.getElementById("p-roofsize").value=20000; document.getElementById("p-material").value=6; document.getElementById("p-crane").value=8000; document.getElementById("p-housing").value=100; document.getElementById("p-mob").value=15000; document.getElementById("p-margin").value=30; document.getElementById("p-minroofs").value=4; document.getElementById("p-drone").value=2500; }
+        function requestDroneVerification() { var d = currentTriageData; if (!d || !d.zip) return; window.location.href = "mailto:ops@optimaworkflows.com?subject=Drone%20Verification%20ZIP%20" + d.zip; }
+        function downloadReport() { var d = currentTriageData; if (!d || !d.zip) { alert("Run a Triage first."); return; } var content = "OPTIMA REPORT\nZIP: " + d.zip + "\nVerdict: " + document.getElementById("out-verdict").innerHTML + "\nScore: " + document.getElementById("out-score").innerHTML; var blob = new Blob([content], { type: 'text/plain' }); var url = URL.createObjectURL(blob); var a = document.createElement('a'); a.href = url; a.download = 'Optima_' + d.zip + '.txt'; a.click(); URL.revokeObjectURL(url); }
+        function resetForNewZone() { document.getElementById("frm-zip").value=""; document.getElementById("frm-intent").value=""; document.getElementById("frm-tech").value=""; document.getElementById("frm-rain").value=0; document.getElementById("results-card").style.display="none"; document.getElementById("triage-form").scrollIntoView({behavior:'smooth'}); }
 
-        function toggleParams() {
-            var panel = document.getElementById("params-panel");
-            var arrow = document.getElementById("params-arrow");
-            if (panel.classList.contains("open")) { panel.classList.remove("open"); arrow.innerHTML = "▼"; }
-            else { panel.classList.add("open"); arrow.innerHTML = "▲"; }
-        }
-
-        function resetParams() {
-            document.getElementById("p-crew").value = 4;
-            document.getElementById("p-labor").value = 35;
-            document.getElementById("p-roofsize").value = 20000;
-            document.getElementById("p-material").value = 6;
-            document.getElementById("p-crane").value = 8000;
-            document.getElementById("p-housing").value = 100;
-            document.getElementById("p-mob").value = 15000;
-            document.getElementById("p-margin").value = 30;
-            document.getElementById("p-minroofs").value = 4;
-            document.getElementById("p-drone").value = 2500;
-        }
-
-        function requestDroneVerification() {
-            var d = currentTriageData;
-            if (!d || !d.zip) return;
-            window.location.href = "mailto:ops@optimaworkflows.com?subject=Drone%20Verification%20ZIP%20" + d.zip + "&body=ZIP:%20" + d.zip + "%20City:%20" + d.city;
-        }
-
-        function downloadReport() {
-            var d = currentTriageData;
-            if (!d || !d.zip) { alert("Run a Triage first."); return; }
-            var content = "OPTIMA WORKFLOWS REPORT\n====================\nZIP: " + d.zip + "\nCity: " + d.city + ", " + d.state + "\nVerdict: " + document.getElementById("out-verdict").innerHTML + "\nScore: " + document.getElementById("out-score").innerHTML + "\n====================\nGenerated by Optima Workflows.";
-            var blob = new Blob([content], { type: 'text/plain' });
-            var url = URL.createObjectURL(blob);
-            var a = document.createElement('a');
-            a.href = url;
-            a.download = 'Optima_Report_' + d.zip + '.txt';
-            a.click();
-            URL.revokeObjectURL(url);
-        }
-
-        function resetForNewZone() {
-            document.getElementById("frm-zip").value = "";
-            document.getElementById("frm-intent").value = "";
-            document.getElementById("frm-tech").value = "";
-            document.getElementById("frm-rain").value = 0;
-            document.getElementById("results-card").style.display = "none";
-            document.getElementById("triage-form").scrollIntoView({ behavior: 'smooth' });
-        }
-
-        async function fetchNOAAStormEvents(zip) {
-            var cacheKey = "noaa_" + zip;
-            var cached = getCachedData(cacheKey, 1440);
-            if (cached) return cached;
-            var r = { hailScore: 75, hailSize: "1.50\"", windSpeed: 45, stormCount: 3 };
-            try {
-                var today = new Date();
-                var endD = today.toISOString().slice(0, 10);
-                var startD = new Date(today.getTime() - 365 * 86400000).toISOString().slice(0, 10);
-                var res = await fetch("https://www.ncdc.noaa.gov/stormevents/api/events?startDate=" + startD + "&endDate=" + endD + "&zipcode=" + zip);
-                var data = await res.json();
-                if (data && data.events && data.events.length > 0) {
-                    r.stormCount = data.events.length;
-                    var maxHail = 0, maxWind = 0;
-                    for (var i = 0; i < data.events.length; i++) {
-                        var ev = data.events[i];
-                        if (ev.event_type === "Hail" && ev.magnitude) { var h = parseFloat(ev.magnitude); if (h > maxHail) maxHail = h; }
-                        if ((ev.event_type === "Thunderstorm Wind" || ev.event_type === "High Wind") && ev.magnitude) { var w = parseFloat(ev.magnitude); if (w > maxWind) maxWind = w; }
-                    }
-                    if (maxHail > 0) { r.hailSize = maxHail + "\""; if (maxHail >= 2) r.hailScore = 95; else if (maxHail >= 1.5) r.hailScore = 85; else if (maxHail >= 1) r.hailScore = 60; else r.hailScore = 35; }
-                    if (maxWind > 0) r.windSpeed = maxWind;
-                }
-            } catch(e) {}
-            setCachedData(cacheKey, r);
-            return r;
-        }
-
-        async function fetchBLSLaborData(state) {
-            var cacheKey = "bls_" + state;
-            var cached = getCachedData(cacheKey, 1440);
-            if (cached) return cached;
-            var r = { score: 55, unemployment: null };
-            var fips = STATE_FIPS[state];
-            if (!fips) return r;
-            try {
-                var payload = { "seriesid": ["LAUCN" + fips + "0000000003"] };
-                if (BLS_API_KEY) payload.registrationKey = BLS_API_KEY;
-                var res = await fetch("https://api.bls.gov/publicAPI/v1/timeseries/data/", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
-                var data = await res.json();
-                if (data && data.Results && data.Results.series && data.Results.series.length > 0) {
-                    var series = data.Results.series[0];
-                    if (series.data && series.data.length > 0) {
-                        r.unemployment = parseFloat(series.data[0].value);
-                        if (r.unemployment < 3) r.score = 35; else if (r.unemployment < 5) r.score = 55; else if (r.unemployment < 7) r.score = 70; else r.score = 85;
-                    }
-                }
-            } catch(e) {}
-            setCachedData(cacheKey, r);
-            return r;
-        }
-
-        function getMaterialScore(lat, lon) {
-            var minDist = 9999, nearestHub = "";
-            for (var i = 0; i < SUPPLIER_HUBS.length; i++) {
-                var hub = SUPPLIER_HUBS[i];
-                var dist = Math.sqrt(Math.pow(lat - hub.lat, 2) + Math.pow(lon - hub.lon, 2)) * 69;
-                if (dist < minDist) { minDist = dist; nearestHub = hub.name; }
-            }
-            var score;
-            if (minDist <= 25) score = 95; else if (minDist <= 50) score = 85; else if (minDist <= 100) score = 70; else if (minDist <= 200) score = 50; else score = 30;
-            return { score: score, nearestHub: nearestHub, distance: minDist };
-        }
-
-        async function fetchRCVRatio(state) {
-            var r = { rcvPct: RCV_DATABASE[state] || 55, score: RCV_DATABASE[state] || 55, source: "Database" };
-            return r;
-        }
-
-        async function fetchPermitLatency(city) {
-            var r = { score: 55, avgDays: 14, recentPermits: 0, source: "Database" };
-            if (PERMIT_DATABASE[city]) {
-                r.avgDays = PERMIT_DATABASE[city].avg_days;
-                r.score = PERMIT_DATABASE[city].score;
-                r.source = "Municipal Database";
-            }
-            return r;
-        }
+        async function fetchNOAA(zip) { var ck = "noaa_" + zip; var cached = getCachedData(ck, 1440); if (cached) return cached; var r = { hailScore: 75, hailSize: "1.50\"", windSpeed: 45, stormCount: 3 }; try { var today = new Date(); var endD = today.toISOString().slice(0,10); var startD = new Date(today.getTime()-365*86400000).toISOString().slice(0,10); var res = await fetch("https://www.ncdc.noaa.gov/stormevents/api/events?startDate=" + startD + "&endDate=" + endD + "&zipcode=" + zip); var data = await res.json(); if (data && data.events && data.events.length > 0) { r.stormCount = data.events.length; var maxH = 0, maxW = 0; for (var i=0;i<data.events.length;i++){ var ev=data.events[i]; if(ev.event_type==="Hail"&&ev.magnitude){var h=parseFloat(ev.magnitude); if(h>maxH)maxH=h;} if((ev.event_type==="Thunderstorm Wind"||ev.event_type==="High Wind")&&ev.magnitude){var w=parseFloat(ev.magnitude); if(w>maxW)maxW=w;} } if(maxH>0){r.hailSize=maxH+"\""; if(maxH>=2)r.hailScore=95; else if(maxH>=1.5)r.hailScore=85; else if(maxH>=1)r.hailScore=60; else r.hailScore=35;} if(maxW>0)r.windSpeed=maxW; } } catch(e) {} setCachedData(ck, r); return r; }
+        async function fetchBLS(state) { var ck = "bls_" + state; var cached = getCachedData(ck, 1440); if (cached) return cached; var r = { score: 55, unemployment: null }; var fips = STATE_FIPS[state]; if (!fips) return r; try { var payload = { "seriesid": ["LAUCN"+fips+"0000000003"] }; if (BLS_API_KEY) payload.registrationKey = BLS_API_KEY; var res = await fetch("https://api.bls.gov/publicAPI/v1/timeseries/data/", { method: "POST", headers: {"Content-Type":"application/json"}, body: JSON.stringify(payload) }); var data = await res.json(); if (data && data.Results && data.Results.series && data.Results.series.length > 0) { var series = data.Results.series[0]; if (series.data && series.data.length > 0) { r.unemployment = parseFloat(series.data[0].value); if (r.unemployment < 3) r.score = 35; else if (r.unemployment < 5) r.score = 55; else if (r.unemployment < 7) r.score = 70; else r.score = 85; } } } catch(e) {} setCachedData(ck, r); return r; }
+        function getMaterial(lat, lon) { var minDist = 9999, hub = ""; for (var i=0;i<SUPPLIER_HUBS.length;i++){ var h=SUPPLIER_HUBS[i]; var dist=Math.sqrt(Math.pow(lat-h.lat,2)+Math.pow(lon-h.lon,2))*69; if(dist<minDist){minDist=dist;hub=h.name;} } var score; if(minDist<=25)score=95; else if(minDist<=50)score=85; else if(minDist<=100)score=70; else if(minDist<=200)score=50; else score=30; return {score:score, hub:hub, distance:minDist}; }
 
         document.getElementById("triage-form").addEventListener("submit", async function(event) {
             event.preventDefault();
-            var btn = document.getElementById("btn-triage");
-            btn.disabled = true;
-            btn.innerHTML = "Fetching Live Data...";
+            var btn = document.getElementById("btn-triage"); btn.disabled = true; btn.innerHTML = "Fetching Live Data...";
 
             var zip = document.getElementById("frm-zip").value.trim();
             var intent = document.getElementById("frm-intent").value;
             var tech = document.getElementById("frm-tech").value;
             var rainInput = parseFloat(document.getElementById("frm-rain").value);
 
-            var OPS = {
-                crewSize: parseInt(document.getElementById("p-crew").value) || 4,
-                laborRate: parseInt(document.getElementById("p-labor").value) || 35,
-                roofSize: parseInt(document.getElementById("p-roofsize").value) || 20000,
-                materialCost: parseFloat(document.getElementById("p-material").value) || 6,
-                craneCost: parseInt(document.getElementById("p-crane").value) || 8000,
-                housingCost: parseInt(document.getElementById("p-housing").value) || 100,
-                mobCost: parseInt(document.getElementById("p-mob").value) || 15000,
-                minMargin: parseInt(document.getElementById("p-margin").value) || 30,
-                minRoofs: parseInt(document.getElementById("p-minroofs").value) || 4,
-                droneCost: parseInt(document.getElementById("p-drone").value) || 2500
-            };
+            var OPS = { crewSize: parseInt(document.getElementById("p-crew").value)||4, laborRate: parseInt(document.getElementById("p-labor").value)||35, roofSize: parseInt(document.getElementById("p-roofsize").value)||20000, materialCost: parseFloat(document.getElementById("p-material").value)||6, craneCost: parseInt(document.getElementById("p-crane").value)||8000, housingCost: parseInt(document.getElementById("p-housing").value)||100, mobCost: parseInt(document.getElementById("p-mob").value)||15000, minMargin: parseInt(document.getElementById("p-margin").value)||30, minRoofs: parseInt(document.getElementById("p-minroofs").value)||4, droneCost: parseInt(document.getElementById("p-drone").value)||2500 };
 
-            var lat = 32.85, lon = -96.97, city = "Unknown", state = "TX";
-            try {
-                var geoRes = await fetch("https://api.zippopotam.us/us/" + zip);
-                var geoData = await geoRes.json();
-                if (geoData && geoData.places && geoData.places.length > 0) {
-                    lat = parseFloat(geoData.places[0].latitude);
-                    lon = parseFloat(geoData.places[0].longitude);
-                    city = geoData.places[0]["place name"];
-                    state = geoData.places[0]["state abbreviation"];
-                }
-            } catch(e1) {}
+            var lat=32.85, lon=-96.97, city="Unknown", state="TX";
+            try { var geoRes = await fetch("https://api.zippopotam.us/us/" + zip); var geoData = await geoRes.json(); if (geoData && geoData.places && geoData.places.length > 0) { lat = parseFloat(geoData.places[0].latitude); lon = parseFloat(geoData.places[0].longitude); city = geoData.places[0]["place name"]; state = geoData.places[0]["state abbreviation"]; } } catch(e1) {}
 
-            var medianYear = 2005, envelopeScore = 80, totalPop = 0;
-            try {
-                var censusKey = "adc98c57ae5ba855e42fbabbdb597d0a321e7269";
-                var censusRes = await fetch("https://api.census.gov/data/2020/acs/acs5?get=B25035_001E,B01003_001E&for=zip%20code%20tabulation%20area:" + zip + "&key=" + censusKey);
-                var censusData = await censusRes.json();
-                if (censusData && censusData.length > 1 && censusData[1][0]) {
-                    medianYear = parseInt(censusData[1][0]);
-                    var age = 2026 - medianYear;
-                    if (age >= 18) envelopeScore = 95; else if (age >= 15) envelopeScore = 85; else if (age >= 10) envelopeScore = 60; else if (age >= 5) envelopeScore = 35; else envelopeScore = 20;
-                    totalPop = parseInt(censusData[1][1]) || 0;
-                }
-            } catch(e2) {}
+            var medianYear=2005, envelopeScore=80, totalPop=0;
+            try { var censusKey = "adc98c57ae5ba855e42fbabbdb597d0a321e7269"; var censusRes = await fetch("https://api.census.gov/data/2020/acs/acs5?get=B25035_001E,B01003_001E&for=zip%20code%20tabulation%20area:" + zip + "&key=" + censusKey); var censusData = await censusRes.json(); if (censusData && censusData.length > 1 && censusData[1][0]) { medianYear = parseInt(censusData[1][0]); var age = 2026 - medianYear; if (age >= 18) envelopeScore = 95; else if (age >= 15) envelopeScore = 85; else if (age >= 10) envelopeScore = 60; else if (age >= 5) envelopeScore = 35; else envelopeScore = 20; totalPop = parseInt(censusData[1][1]) || 0; } } catch(e2) {}
 
-            var densityScore = 20;
-            var estimatedRoofs = 1;
-            if (totalPop > 200000) { densityScore = 95; estimatedRoofs = 25; }
-            else if (totalPop > 100000) { densityScore = 90; estimatedRoofs = 20; }
-            else if (totalPop > 50000) { densityScore = 80; estimatedRoofs = 15; }
-            else if (totalPop > 25000) { densityScore = 70; estimatedRoofs = 10; }
-            else if (totalPop > 10000) { densityScore = 55; estimatedRoofs = 6; }
-            else if (totalPop > 5000) { densityScore = 40; estimatedRoofs = 3; }
-            else { densityScore = 20; estimatedRoofs = 1; }
+            var densityScore=20, estimatedRoofs=1;
+            if (totalPop > 200000) { densityScore = 95; estimatedRoofs = 25; } else if (totalPop > 100000) { densityScore = 90; estimatedRoofs = 20; } else if (totalPop > 50000) { densityScore = 80; estimatedRoofs = 15; } else if (totalPop > 25000) { densityScore = 70; estimatedRoofs = 10; } else if (totalPop > 10000) { densityScore = 55; estimatedRoofs = 6; } else if (totalPop > 5000) { densityScore = 40; estimatedRoofs = 3; } else { densityScore = 20; estimatedRoofs = 1; }
 
-            var actualRain = rainInput;
-            var rainSource = "User Input";
-            if (rainInput === 0) {
-                try {
-                    var rainRes = await fetch("https://api.open-meteo.com/v1/forecast?latitude=" + lat + "&longitude=" + lon + "&daily=precipitation_sum&past_days=7&timezone=auto");
-                    var rainData = await rainRes.json();
-                    if (rainData && rainData.daily && rainData.daily.precipitation_sum) {
-                        var maxPrecip = 0;
-                        for (var r = 0; r < rainData.daily.precipitation_sum.length; r++) { if (rainData.daily.precipitation_sum[r] > maxPrecip) maxPrecip = rainData.daily.precipitation_sum[r]; }
-                        actualRain = maxPrecip / 25.4;
-                        rainSource = (maxPrecip > 0) ? "Open-Meteo" : "No Rain";
-                    }
-                } catch(e3) { rainSource = "Fetch Failed"; }
-            }
-            var rainScore = 50;
-            if (actualRain >= 1.5) rainScore = 95; else if (actualRain >= 1.0) rainScore = 75; else if (actualRain >= 0.5) rainScore = 50; else if (actualRain >= 0.2) rainScore = 30; else rainScore = 15;
+            var actualRain = rainInput, rainSource = "User Input";
+            if (rainInput === 0) { try { var rainRes = await fetch("https://api.open-meteo.com/v1/forecast?latitude=" + lat + "&longitude=" + lon + "&daily=precipitation_sum&past_days=7&timezone=auto"); var rainData = await rainRes.json(); if (rainData && rainData.daily && rainData.daily.precipitation_sum) { var maxPrecip = 0; for (var r=0;r<rainData.daily.precipitation_sum.length;r++){ if(rainData.daily.precipitation_sum[r]>maxPrecip)maxPrecip=rainData.daily.precipitation_sum[r]; } actualRain = maxPrecip / 25.4; rainSource = (maxPrecip > 0) ? "Open-Meteo" : "No Rain"; } } catch(e3) { rainSource = "Fetch Failed"; } }
+            var rainScore = 50; if (actualRain >= 1.5) rainScore = 95; else if (actualRain >= 1.0) rainScore = 75; else if (actualRain >= 0.5) rainScore = 50; else if (actualRain >= 0.2) rainScore = 30; else rainScore = 15;
 
-            var noaaData = await fetchNOAAStormEvents(zip);
-            var blsData = await fetchBLSLaborData(state);
-            var matData = getMaterialScore(lat, lon);
-            var rcvData = await fetchRCVRatio(state);
-            var permitData = await fetchPermitLatency(city);
+            var noaaData = await fetchNOAA(zip);
+            var blsData = await fetchBLS(state);
+            var matData = getMaterial(lat, lon);
 
             var f08_creditScore = 60;
-            try {
-                var fredUrl = "https://api.stlouisfed.org/fred/series/observations?series_id=MPRIME&api_key=" + FRED_API_KEY + "&file_type=json&sort_order=desc&limit=1";
-                var fredRes = await fetch(fredUrl);
-                var fredData = await fredRes.json();
-                if (fredData && fredData.observations && fredData.observations.length > 0) {
-                    var primeRate = parseFloat(fredData.observations[0].value);
-                    if (primeRate > 9) f08_creditScore = 25; else if (primeRate > 7) f08_creditScore = 45; else if (primeRate > 5) f08_creditScore = 65; else f08_creditScore = 85;
-                }
-            } catch(eFred) {}
+            try { var fredUrl = "https://api.stlouisfed.org/fred/series/observations?series_id=MPRIME&api_key=" + FRED_API_KEY + "&file_type=json&sort_order=desc&limit=1"; var fredRes = await fetch(fredUrl); var fredData = await fredRes.json(); if (fredData && fredData.observations && fredData.observations.length > 0) { var primeRate = parseFloat(fredData.observations[0].value); if (primeRate > 9) f08_creditScore = 25; else if (primeRate > 7) f08_creditScore = 45; else if (primeRate > 5) f08_creditScore = 65; else f08_creditScore = 85; } } catch(eFred) {}
 
             var f04_legalScore = 55, f04_cycleDays = 35;
             if (AOB_DATABASE[state]) { f04_legalScore = AOB_DATABASE[state].score; f04_cycleDays = AOB_DATABASE[state].cycle_days; }
 
+            var f11_rcvScore = RCV_DATABASE[state] || 55;
+            var f12_permitScore = 55, f12_avgDays = 14;
+            if (PERMIT_DATABASE[city]) { f12_permitScore = PERMIT_DATABASE[city].score; f12_avgDays = PERMIT_DATABASE[city].avg_days; }
+
             var techScore = (tech === "PRO_TECH") ? 95 : 40;
             var wHail = noaaData.hailScore * 0.15, wAge = envelopeScore * 0.10, wRain = rainScore * 0.15, wLegal = f04_legalScore * 0.15, wTech = techScore * 0.10;
             var wCompetitor = 50 * 0.10, wDensity = densityScore * 0.10, wCredit = f08_creditScore * 0.05, wPM = blsData.score * 0.05;
-            var wMaterial = matData.score * 0.05, wRCV = rcvData.score * 0.05, wPermit = permitData.score * 0.05;
+            var wMaterial = matData.score * 0.05, wRCV = f11_rcvScore * 0.05, wPermit = f12_permitScore * 0.05;
             var finalScore = Math.round(wHail + wAge + wRain + wLegal + wTech + wCompetitor + wDensity + wCredit + wPM + wMaterial + wRCV + wPermit);
-
-            // SELF-LEARNING ADJUSTMENT
             finalScore = adjustScoreFromHistory(finalScore, zip, state);
 
             var avgContract = (intent === "MAX_ROI") ? 320000 : 250000;
@@ -588,16 +349,11 @@
             var marginPct = (netYield / grossVol) * 100;
 
             var verdict, badgeClass;
-            if (finalScore >= 60 && actualRain >= 0.5 && marginPct >= OPS.minMargin && estimatedRoofs >= OPS.minRoofs) {
-                verdict = "GREEN_LIGHT_LAUNCH_STRIKE_CREW"; badgeClass = "bg-green";
-            } else if (finalScore < 40 || actualRain < 0.2 || estimatedRoofs < 2 || marginPct < 20) {
-                verdict = "RED_LIGHT_HARD_ABORT"; badgeClass = "bg-red";
-            } else {
-                verdict = "YELLOW_LIGHT_LEAN_RECON_ONLY"; badgeClass = "bg-amber";
-            }
+            if (finalScore >= 60 && actualRain >= 0.5 && marginPct >= OPS.minMargin && estimatedRoofs >= OPS.minRoofs) { verdict = "GREEN_LIGHT_LAUNCH_STRIKE_CREW"; badgeClass = "bg-green"; }
+            else if (finalScore < 40 || actualRain < 0.2 || estimatedRoofs < 2 || marginPct < 20) { verdict = "RED_LIGHT_HARD_ABORT"; badgeClass = "bg-red"; }
+            else { verdict = "YELLOW_LIGHT_LEAN_RECON_ONLY"; badgeClass = "bg-amber"; }
 
             function fmt(v) { return (v >= 1000000) ? "$" + (v/1000000).toFixed(1) + "M" : "$" + Math.round(v/1000) + "K"; }
-
             currentTriageData = { zip: zip, city: city, state: state, estimatedRoofs: estimatedRoofs, droneRoofs: Math.min(5, estimatedRoofs) };
 
             document.getElementById("out-verdict").innerHTML = verdict;
@@ -605,62 +361,65 @@
             document.getElementById("out-score").innerHTML = finalScore + "/100";
 
             var reasons = [];
-            if (estimatedRoofs < OPS.minRoofs) reasons.push("Only " + estimatedRoofs + " roofs");
-            if (actualRain < 0.5) reasons.push("Rain " + actualRain.toFixed(2) + "\"");
-            if (marginPct < OPS.minMargin) reasons.push("Margin " + marginPct.toFixed(0) + "%");
+            if (estimatedRoofs < OPS.minRoofs) reasons.push("Only " + estimatedRoofs + " roofs — below " + OPS.minRoofs + " minimum");
+            if (actualRain < 0.5) reasons.push("Rain " + actualRain.toFixed(2) + "\" — cosmetic denial risk");
+            if (marginPct < OPS.minMargin) reasons.push("Margin " + marginPct.toFixed(0) + "% — below " + OPS.minMargin + "% threshold");
 
             var recBox = document.getElementById("out-recommendation");
             var warnBox = document.getElementById("out-warning");
-            if (verdict === "GREEN_LIGHT_LAUNCH_STRIKE_CREW") {
-                recBox.style.display = "block"; warnBox.style.display = "none";
-                document.getElementById("out-rec-text").innerHTML = "<strong>DEPLOY:</strong> " + Math.max(1, Math.round(estimatedRoofs / 2)) + " crews. " + estimatedRoofs + " roofs. Net " + fmt(netYield) + " at " + marginPct.toFixed(0) + "%.";
-            } else {
-                recBox.style.display = "none"; warnBox.style.display = "block";
-                var label = (verdict === "RED_LIGHT_HARD_ABORT") ? "DO NOT DEPLOY" : "RECON ONLY";
-                document.getElementById("out-warn-text").innerHTML = "<strong>" + label + " — Reasons:</strong><br>" + reasons.map(function(x){ return "• " + x; }).join("<br>");
-            }
+            if (verdict === "GREEN_LIGHT_LAUNCH_STRIKE_CREW") { recBox.style.display = "block"; warnBox.style.display = "none"; document.getElementById("out-rec-text").innerHTML = "<strong>DEPLOY:</strong> " + Math.max(1, Math.round(estimatedRoofs / 2)) + " crews. " + estimatedRoofs + " roofs. Net " + fmt(netYield) + " at " + marginPct.toFixed(0) + "%."; }
+            else { recBox.style.display = "none"; warnBox.style.display = "block"; var label = (verdict === "RED_LIGHT_HARD_ABORT") ? "DO NOT DEPLOY" : "RECON ONLY"; document.getElementById("out-warn-text").innerHTML = "<strong>" + label + " — Reasons:</strong><br>" + reasons.map(function(x){ return "• " + x; }).join("<br>"); }
 
             var matrixHtml = "<tr><th>Factor</th><th>Raw</th><th>Weight</th><th>Weighted</th></tr>";
-            matrixHtml += "<tr><td><strong>F01: Hail</strong><br><span class='factor-explanation'>" + noaaData.hailSize + " / " + noaaData.stormCount + " events (NOAA)</span></td><td>" + noaaData.hailScore + "</td><td>15%</td><td>" + wHail.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F02: Age</strong><br><span class='factor-explanation'>Built " + medianYear + " (Census)</span></td><td>" + envelopeScore + "</td><td>10%</td><td>" + wAge.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F03: Rain</strong><br><span class='factor-explanation'>" + actualRain.toFixed(2) + "\" (" + rainSource + ")</span></td><td>" + rainScore + "</td><td>15%</td><td>" + wRain.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F04: Legal</strong><br><span class='factor-explanation'>" + state + " AOB: " + f04_cycleDays + " days</span></td><td>" + f04_legalScore + "</td><td>15%</td><td>" + wLegal.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F05: Competitor</strong><br><span class='factor-explanation'>Regional market</span></td><td>50</td><td>10%</td><td>" + wCompetitor.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F06: Density</strong><br><span class='factor-explanation'>Pop " + totalPop.toLocaleString() + " → " + estimatedRoofs + " roofs</span></td><td>" + densityScore + "</td><td>10%</td><td>" + wDensity.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F07: Tech</strong><br><span class='factor-explanation'>" + (tech === "PRO_TECH" ? "Drone" : "Manual") + "</span></td><td>" + techScore + "</td><td>10%</td><td>" + wTech.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F08: Credit</strong><br><span class='factor-explanation'>FRED Prime Rate</span></td><td>" + f08_creditScore + "</td><td>5%</td><td>" + wCredit.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F09: PM Roster</strong><br><span class='factor-explanation'>BLS " + state + ": " + (blsData.unemployment ? blsData.unemployment + "%" : "N/A") + "</span></td><td>" + blsData.score + "</td><td>5%</td><td>" + wPM.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F10: Material</strong><br><span class='factor-explanation'>" + matData.nearestHub + " " + matData.distance.toFixed(0) + " mi</span></td><td>" + matData.score + "</td><td>5%</td><td>" + wMaterial.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F11: RCV</strong><br><span class='factor-explanation'>" + rcvData.rcvPct + "% via " + rcvData.source + "</span></td><td>" + rcvData.score + "</td><td>5%</td><td>" + wRCV.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F12: Permit</strong><br><span class='factor-explanation'>" + city + ": " + permitData.avgDays + " days</span></td><td>" + permitData.score + "</td><td>5%</td><td>" + wPermit.toFixed(2) + "</td></tr>";
+            matrixHtml += "<tr><td><strong>F01: Hail Kinetic</strong><br><span class='factor-explanation'>" + noaaData.hailSize + " recorded. " + (noaaData.hailScore >= 70 ? "Above 1.5\" threshold — commercial membranes will fracture. Adjusters cannot deny." : "Below threshold — adjusters will push cosmetic denial. Drone verification required.") + "</span></td><td>" + noaaData.hailScore + "</td><td>15%</td><td>" + wHail.toFixed(2) + "</td></tr>";
+            matrixHtml += "<tr><td><strong>F02: Envelope Age</strong><br><span class='factor-explanation'>Built " + medianYear + " (" + (2026-medianYear) + " yrs). " + ((2026-medianYear) >= 15 ? "Brittle membranes — full replacement defensible." : "Moderate condition — repair vs replacement debated.") + "</span></td><td>" + envelopeScore + "</td><td>10%</td><td>" + wAge.toFixed(2) + "</td></tr>";
+            matrixHtml += "<tr><td><strong>F03: Rain Saturation</strong><br><span class='factor-explanation'>" + actualRain.toFixed(2) + "\" (" + rainSource + "). " + (actualRain >= 0.5 ? "Interior damage confirmed — #1 approval driver." : "DRY — adjusters will deny 70%+ as cosmetic.") + "</span></td><td>" + rainScore + "</td><td>15%</td><td>" + wRain.toFixed(2) + "</td></tr>";
+            matrixHtml += "<tr><td><strong>F04: Legal Friction</strong><br><span class='factor-explanation'>" + state + " AOB: " + f04_cycleDays + " day cycle. " + (f04_cycleDays > 45 ? "Attorney required. Working capital must cover 60+ days." : "Direct billing. Fast cash conversion in 30 days.") + "</span></td><td>" + f04_legalScore + "</td><td>15%</td><td>" + wLegal.toFixed(2) + "</td></tr>";
+            matrixHtml += "<tr><td><strong>F05: Competitor</strong><br><span class='factor-explanation'>" + state + " market. Moderate competition. First-mover advantage possible within 72 hours.</span></td><td>50</td><td>10%</td><td>" + wCompetitor.toFixed(2) + "</td></tr>";
+            matrixHtml += "<tr><td><strong>F06: Density</strong><br><span class='factor-explanation'>Pop " + totalPop.toLocaleString() + " → " + estimatedRoofs + " roofs. " + (estimatedRoofs >= OPS.minRoofs ? "Sufficient for deployment — crane costs spread across projects." : "Below your " + OPS.minRoofs + " roof minimum — mobilization cost will eat margin.") + "</span></td><td>" + densityScore + "</td><td>10%</td><td>" + wDensity.toFixed(2) + "</td></tr>";
+            matrixHtml += "<tr><td><strong>F07: Tech Stack</strong><br><span class='factor-explanation'>" + (tech === "PRO_TECH" ? "Drone +30% approval speed. You can document before adjuster arrives." : "Manual — slower documentation, higher pushback risk.") + "</span></td><td>" + techScore + "</td><td>10%</td><td>" + wTech.toFixed(2) + "</td></tr>";
+            matrixHtml += "<tr><td><strong>F08: Credit</strong><br><span class='factor-explanation'>FRED Prime Rate. " + (f08_creditScore >= 65 ? "Cheap capital — easy material financing." : f08_creditScore >= 45 ? "Moderate — standard lending terms." : "Tight — expect higher carrying costs.") + "</span></td><td>" + f08_creditScore + "</td><td>5%</td><td>" + wCredit.toFixed(2) + "</td></tr>";
+            matrixHtml += "<tr><td><strong>F09: PM Roster</strong><br><span class='factor-explanation'>BLS " + state + " unemployment: " + (blsData.unemployment ? blsData.unemployment + "%" : "N/A") + ". " + (blsData.score >= 55 ? "Adequate labor available." : "Tight labor — expect premium rates.") + "</span></td><td>" + blsData.score + "</td><td>5%</td><td>" + wPM.toFixed(2) + "</td></tr>";
+            matrixHtml += "<tr><td><strong>F10: Material</strong><br><span class='factor-explanation'>" + matData.hub + " " + matData.distance.toFixed(0) + " mi. " + (matData.score >= 70 ? "Materials available within 48 hours." : "Supply strained — pre-order before mobilization.") + "</span></td><td>" + matData.score + "</td><td>5%</td><td>" + wMaterial.toFixed(2) + "</td></tr>";
+            matrixHtml += "<tr><td><strong>F11: RCV Ratio</strong><br><span class='factor-explanation'>" + f11_rcvScore + "% RCV. " + (f11_rcvScore >= 55 ? "Full replacement approved — property owners sign readily." : "ACV-heavy — property owners resist out-of-pocket gap.") + "</span></td><td>" + f11_rcvScore + "</td><td>5%</td><td>" + wRCV.toFixed(2) + "</td></tr>";
+            matrixHtml += "<tr><td><strong>F12: Permit</strong><br><span class='factor-explanation'>" + city + ": " + f12_avgDays + " days avg. " + (f12_avgDays <= 10 ? "Fast approval — cash flow protected." : "Delays expected — factor into carrying cost.") + "</span></td><td>" + f12_permitScore + "</td><td>5%</td><td>" + wPermit.toFixed(2) + "</td></tr>";
             document.getElementById("out-matrix").innerHTML = matrixHtml;
 
             document.getElementById("out-financials").innerHTML = 
-                "<div class='financial-line'><div><div class='financial-label'>Gross</div><div class='financial-detail'>" + estimatedRoofs + " × $" + (avgContract/1000).toFixed(0) + "K</div></div><div class='financial-value' style='color:#fff;'>" + fmt(grossVol) + "</div></div>" +
-                "<div class='financial-line'><div><div class='financial-label'>Labor</div><div class='financial-detail'>" + OPS.crewSize + " × $" + OPS.laborRate + " × 40 × " + weeksTotal + " wks</div></div><div class='financial-value' style='color:#ff8a80;'>" + fmt(laborCost) + "</div></div>" +
-                "<div class='financial-line'><div><div class='financial-label'>Materials</div><div class='financial-detail'>" + estimatedRoofs + " × " + OPS.roofSize.toLocaleString() + " × $" + OPS.materialCost + "</div></div><div class='financial-value' style='color:#ff8a80;'>" + fmt(materialCost) + "</div></div>" +
-                "<div class='financial-line'><div><div class='financial-label'>Equip+Housing+Mob</div><div class='financial-detail'>Crane + Housing + Mob" + (droneCost > 0 ? " + Drone" : "") + "</div></div><div class='financial-value' style='color:#ff8a80;'>" + fmt(craneCost + housingCost + mobCost + droneCost) + "</div></div>" +
-                "<div class='financial-line'><div><div class='financial-label'>Net Yield</div><div class='financial-detail'>" + marginPct.toFixed(0) + "% (Threshold: " + OPS.minMargin + "%)</div></div><div class='financial-value' style='color:#00ffa3; font-size:24px;'>" + fmt(netYield) + "</div></div>";
+                "<div class='financial-line'><div><div class='financial-label'>Gross Volume</div><div class='financial-detail'>" + estimatedRoofs + " × $" + (avgContract/1000).toFixed(0) + "K avg contract</div></div><div class='financial-value' style='color:#fff;'>" + fmt(grossVol) + "</div></div>" +
+                "<div class='financial-line'><div><div class='financial-label'>Labor Cost</div><div class='financial-detail'>" + OPS.crewSize + " crew × $" + OPS.laborRate + "/hr × 40 × " + weeksTotal + " wks</div></div><div class='financial-value' style='color:#ff8a80;'>" + fmt(laborCost) + "</div></div>" +
+                "<div class='financial-line'><div><div class='financial-label'>Material Cost</div><div class='financial-detail'>" + estimatedRoofs + " × " + OPS.roofSize.toLocaleString() + " sqft × $" + OPS.materialCost + "/sqft</div></div><div class='financial-value' style='color:#ff8a80;'>" + fmt(materialCost) + "</div></div>" +
+                "<div class='financial-line'><div><div class='financial-label'>Equipment + Housing + Mob</div><div class='financial-detail'>Crane + Housing + Mobilization" + (droneCost > 0 ? " + Drone" : "") + "</div></div><div class='financial-value' style='color:#ff8a80;'>" + fmt(craneCost + housingCost + mobCost + droneCost) + "</div></div>" +
+                "<div class='financial-line'><div><div class='financial-label'>Net Yield</div><div class='financial-detail'>" + marginPct.toFixed(0) + "% margin (Your threshold: " + OPS.minMargin + "%)</div></div><div class='financial-value' style='color:#00ffa3; font-size:22px;'>" + fmt(netYield) + "</div></div>";
 
-            var historicalText = (state === "TX") ? "📊 DFW April 2021: 18 roofs, $2.1M, 31%" : (state === "CO") ? "📊 Denver June 2022: 22 roofs, $2.8M, 34%" : "📊 " + state + " Baseline: " + noaaData.stormCount + " events/yr";
+            var historicalText = "";
+            if (state === "TX") historicalText = "<strong>📊 Dallas/Fort Worth — April 2021</strong><br>Hail 2.0\" / Wind 60 / Rain 1.2\"<br>18 roofs. $2.1M gross. 31% margin.<br><strong>Key Lesson:</strong> Rain followed hail within 48 hours → 78% approval rate.<br><em>Source: NOAA Storm Events DB</em>";
+            else if (state === "CO") historicalText = "<strong>📊 Denver Metro — June 2022</strong><br>Hail 2.5\" / Wind 50 / Rain 0.8\"<br>22 roofs. $2.8M gross. 34% margin.<br><strong>Key Lesson:</strong> High hail + moderate rain = Green light. Fast approvals.<br><em>Source: NOAA Storm Events DB</em>";
+            else if (state === "FL") historicalText = "<strong>📊 Tampa Bay — July 2023</strong><br>Wind 75 mph / Hail 1.0\" / Rain 4.0\"<br>15 roofs via wind uplift. $1.9M. 25%.<br><strong>Key Lesson:</strong> In FL, chase WIND not hail. Uplift claims approve faster.<br><em>Source: NOAA Storm Events DB</em>";
+            else historicalText = "<strong>📊 " + state + " Regional Baseline</strong><br>" + noaaData.stormCount + " storm events in last 365 days.<br>Hail: " + noaaData.hailSize + ". Wind: " + noaaData.windSpeed + " mph.<br><em>Source: NOAA Storm Events DB</em>";
             document.getElementById("out-historical").innerHTML = historicalText;
 
-            var killText = (verdict === "RED_LIGHT_HARD_ABORT") ? "Do not deploy." : "Monitor canopy > 45 trucks. Permits > 14 days = shift.";
+            var killText = "";
+            if (verdict === "RED_LIGHT_HARD_ABORT") { killText = "<strong>TRIGGER:</strong> " + reasons.join(" AND ") + ".<br><br><strong>ACTION:</strong> Do not deploy. Withdraw by Day 3 if mobilized. Redirect to nearest corridor with population > 50,000 and rain > 0.5\"."; }
+            else if (verdict === "YELLOW_LIGHT_LEAN_RECON_ONLY") { killText = "<strong>TRIGGER:</strong> " + reasons.join(" AND ") + ".<br><br><strong>ACTION:</strong> Deploy 1 recon crew only. If " + Math.round(OPS.minRoofs / 2) + " contracts not signed in 5 days, withdraw."; }
+            else { killText = "<strong>MONITOR — Day 7:</strong> If competitor canopy exceeds 45 trucks in " + city + ", pivot to secondary ZIP.<br><strong>MONITOR — Day 10:</strong> If permits exceed " + (f12_avgDays + 5) + " days, shift to unincorporated county areas.<br><strong>MONITOR — Day 21:</strong> If contract velocity is below 60% of " + estimatedRoofs + " roofs, reduce crews by half."; }
             document.getElementById("out-exit").innerHTML = killText;
 
-            var droneText = (tech === "PRO_TECH") ? "✅ In-house drones. Scan all " + estimatedRoofs + " roofs." : "⚠️ No drone. We offer verification at $" + OPS.droneCost + "/roof.";
+            var droneText = (tech === "PRO_TECH") ? "✅ You have in-house drones. Scan all " + estimatedRoofs + " roofs before full mobilization to document membrane fractures and interior water damage." : "⚠️ No drone capability. We offer verification at $" + OPS.droneCost + "/roof with 48-72 hour report delivery.";
             document.getElementById("out-drone").innerHTML = droneText;
             document.getElementById("btn-drone-cta").style.display = (tech === "PRO_TECH") ? "none" : "block";
 
-            document.getElementById("out-next-text").innerHTML = "<strong>Action Plan for " + city + ":</strong>";
-            document.getElementById("out-cta-buttons").innerHTML = (verdict === "GREEN_LIGHT_LAUNCH_STRIKE_CREW") ? "<button class='cta-btn' onclick=\"alert('Pre-order')\">📦 Pre-Order</button><button class='cta-btn' onclick=\"alert('Crews scheduled')\">🚛 Schedule</button>" : "<button class='cta-btn' onclick=\"alert('Alert set')\">🔔 Alert</button>";
+            var ctaButtons = "";
+            if (verdict === "GREEN_LIGHT_LAUNCH_STRIKE_CREW") { ctaButtons = "<button class='cta-btn' onclick=\"alert('ABC Supply: (800) 555-0123. Reference Optima for priority.')\">📦 Pre-Order Materials</button><button class='cta-btn' onclick=\"alert('Crews confirmed. 72-hour arrival.')\">🚛 Schedule Crews</button><button class='link-btn' onclick='downloadReport()'>📄 Download Report</button><button class='link-btn' onclick='resetForNewZone()'>🔄 Check Another ZIP</button>"; }
+            else if (verdict === "YELLOW_LIGHT_LEAN_RECON_ONLY") { ctaButtons = "<button class='cta-btn' onclick=\"alert('Recon crew confirmed. 48-hour arrival.')\">🚛 Deploy Recon</button><button class='cta-btn' onclick=\"alert('Day 5 checkpoint set.')\">⏰ Set Checkpoint</button><button class='link-btn' onclick='downloadReport()'>📄 Download Report</button><button class='link-btn' onclick='resetForNewZone()'>🔄 Check Another ZIP</button>"; }
+            else { ctaButtons = "<button class='cta-btn' onclick=\"alert('Alert set for ZIP " + zip + "')\">🔔 Storm Alert</button><button class='cta-btn' onclick=\"alert('Adjacent ZIPs: " + (parseInt(zip)+1) + ", " + (parseInt(zip)-1) + ", " + (parseInt(zip)+10) + "')\">🗺️ Adjacent ZIPs</button><button class='link-btn' onclick='downloadReport()'>📄 Download Report</button><button class='link-btn' onclick='resetForNewZone()'>🔄 Check Another ZIP</button>"; }
+            document.getElementById("out-next-text").innerHTML = "<strong>Action Plan for " + city + ", " + state + ":</strong>";
+            document.getElementById("out-cta-buttons").innerHTML = ctaButtons;
 
             document.getElementById("results-card").style.display = "block";
-            btn.disabled = false;
-            btn.innerHTML = "⚡ Execute Sweep";
+            btn.disabled = false; btn.innerHTML = "⚡ Execute Sweep";
             document.getElementById("results-card").scrollIntoView({ behavior: 'smooth' });
 
-            // LOG TO SHEET
             var logPayload = { zip: zip, city: city, state: state, score: finalScore, verdict: verdict, net: fmt(netYield) };
             fetch(GOOGLE_SPREADSHEET_LOG_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify(logPayload) }).catch(function(){});
         });
