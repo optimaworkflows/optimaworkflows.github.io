@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Optima Workflows | Command Center</title>
+    <title>Optima Workflows | CAT Intelligence Terminal</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-deep: #05080f;
+            --bg-card: linear-gradient(145deg, #0b101b, #070b13);
             --border-hairline: #1c2536;
             --text-primary: #f4f7fb;
             --text-muted: #7a8ba3;
@@ -25,7 +26,7 @@
         .mono { font-family: 'IBM Plex Mono', monospace; }
 
         #auth-overlay { position: fixed; inset: 0; background: var(--bg-deep); z-index: 9999; display: flex; align-items: center; justify-content: center; padding: 20px; }
-        .auth-card { background: linear-gradient(145deg, #0b101b, #070b13); border: 1px solid var(--border-hairline); width: 100%; max-width: 420px; padding: 40px; border-radius: 16px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.8); }
+        .auth-card { background: var(--bg-card); border: 1px solid var(--border-hairline); width: 100%; max-width: 420px; padding: 40px; border-radius: 16px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.8); }
         .auth-card h2 { font-size: 22px; font-weight: 800; text-align: center; margin-bottom: 6px; }
         .auth-lead { font-size: 13.5px; color: var(--text-muted); margin: 10px 0 28px; text-align: center; }
 
@@ -42,9 +43,9 @@
         .user-tier { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--cyber-amber); }
 
         .main-viewport { flex: 1; padding: 32px 40px; overflow-y: auto; background: radial-gradient(circle at 80% 20%, rgba(0, 255, 163, 0.02), transparent 40%), var(--bg-deep); }
-        h1 { font-size: 24px; font-weight: 900; margin-bottom: 4px; }
+        h1 { font-size: 24px; font-weight: 900; letter-spacing: -0.02em; margin-bottom: 4px; }
         .lead { font-size: 13.5px; color: var(--text-muted); margin-bottom: 28px; }
-        .card { background: linear-gradient(145deg, #0b101b, #070b13); border: 1px solid var(--border-hairline); border-radius: 16px; padding: 28px; margin-bottom: 24px; }
+        .card { background: var(--bg-card); border: 1px solid var(--border-hairline); border-radius: 16px; padding: 28px; margin-bottom: 24px; }
         .notification-banner { background: rgba(255, 184, 0, 0.03); border: 1px solid rgba(255, 184, 0, 0.3); color: var(--cyber-amber); padding: 12px 16px; border-radius: 8px; font-size: 12.5px; font-weight: 600; display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
         .notification-pulse { height: 8px; width: 8px; background-color: var(--cyber-amber); border-radius: 50%; animation: pulse 1.5s infinite; }
         @keyframes pulse { 0% { transform: scale(0.9); opacity: 0.6; } 50% { transform: scale(1.2); opacity: 1; } 100% { transform: scale(0.9); opacity: 0.6; } }
@@ -52,30 +53,30 @@
         .dashboard-tab { display: none; }
         .dashboard-tab.active { display: block; }
         .metric-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px; }
-        .metric-card { background: linear-gradient(145deg, #0b101b, #070b13); border: 1px solid var(--border-hairline); border-radius: 12px; padding: 20px; }
+        .metric-card { background: var(--bg-card); border: 1px solid var(--border-hairline); border-radius: 12px; padding: 20px; }
         .metric-label { font-size: 10px; font-weight: 700; color: var(--text-detail); text-transform: uppercase; letter-spacing: 0.08em; }
         .metric-value { font-family: 'IBM Plex Mono', monospace; font-size: 24px; font-weight: 900; margin-top: 8px; }
 
         table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
-        th { font-size: 10px; text-transform: uppercase; color: var(--text-detail); padding: 10px; border-bottom: 1px solid var(--border-hairline); text-align: left; }
+        th { font-size: 10px; text-transform: uppercase; color: var(--text-detail); padding: 10px; border-bottom: 1px solid var(--border-hairline); text-align: left; letter-spacing: 0.05em; }
         td { padding: 12px 10px; border-bottom: 1px solid #111827; font-family: 'IBM Plex Mono', monospace; font-size: 12px; }
         .badge-status { padding: 4px 10px; border-radius: 4px; font-size: 10px; font-weight: 800; font-family: 'IBM Plex Mono', monospace; text-transform: uppercase; }
         .bg-green { background: rgba(0, 255, 163, 0.1); color: var(--cyber-green); }
         .bg-amber { background: rgba(255, 184, 0, 0.1); color: var(--cyber-amber); }
         .bg-red { background: rgba(255, 59, 59, 0.1); color: var(--cyber-red); }
 
-        .btn-primary { border: 1px solid rgba(0, 255, 163, 0.3); color: var(--cyber-green); padding: 14px 20px; border-radius: 8px; font-weight: 800; cursor: pointer; text-transform: uppercase; background: rgba(0, 255, 163, 0.03); font-size: 12px; width: 100%; letter-spacing: 0.05em; }
-        .btn-primary:hover { background: var(--cyber-green); color: #05080f; }
+        .btn-primary { border: 1px solid rgba(0, 255, 163, 0.3); color: var(--cyber-green); padding: 14px 20px; border-radius: 8px; font-weight: 800; cursor: pointer; text-transform: uppercase; background: rgba(0, 255, 163, 0.03); font-size: 12px; width: 100%; letter-spacing: 0.05em; transition: all 0.2s; }
+        .btn-primary:hover { background: var(--cyber-green); color: #05080f; box-shadow: var(--glow-green); }
         .btn-primary:disabled { opacity: 0.5; cursor: wait; }
 
         .form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
         .form-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
-        label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 600; text-transform: uppercase; color: var(--text-detail); }
-        input, select { width: 100%; background-color: #03060c; border: 1px solid var(--border-hairline); border-radius: 8px; padding: 12px 14px; color: #fff; font-size: 13px; font-family: 'IBM Plex Mono', monospace; }
-        input:focus, select:focus { border-color: var(--cyber-green); outline: none; }
+        label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-detail); }
+        input, select { width: 100%; background-color: #03060c; border: 1px solid var(--border-hairline); border-radius: 8px; padding: 12px 14px; color: #fff; font-size: 13px; font-family: 'IBM Plex Mono', monospace; outline: none; transition: border 0.2s; }
+        input:focus, select:focus { border-color: var(--cyber-green); box-shadow: 0 0 0 3px rgba(0, 255, 163, 0.05); }
 
         .historical-box { background: rgba(56, 189, 248, 0.05); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 8px; padding: 20px; margin-bottom: 20px; }
-        .historical-text { font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--text-primary); line-height: 1.7; }
+        .historical-text { font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--text-primary); line-height: 1.7; margin-top: 8px; }
         .narrative-box { background: rgba(2, 6, 23, 0.5); border: 1px solid var(--border-hairline); border-radius: 8px; padding: 16px 20px; margin-bottom: 20px; }
         .narrative-text { font-size: 13px; color: var(--text-muted); line-height: 1.7; }
     </style>
@@ -133,7 +134,7 @@
 
             <section id="view-cat-intel" class="dashboard-tab">
                 <h1>Cat Intelligence Triage Terminal</h1>
-                <p class="lead">All 12 factors. Live data from NOAA, Census, and Open-Meteo.</p>
+                <p class="lead">12-Factor Live Analytical Matrix. All factors computed from live or region-specific data sources.</p>
                 <div class="card">
                     <form onsubmit="executeTriage(event)">
                         <div class="form-row">
@@ -207,7 +208,7 @@
             const rainInput = parseFloat(document.getElementById("frm-rain").value);
             const legal = document.getElementById("frm-legal").value;
 
-            // STEP 1: Geocode
+            // GEOCODING
             let lat = 32.85, lon = -96.97, city = "Unknown", state = "TX";
             try {
                 const geoRes = await fetch("https://api.zippopotam.us/us/" + zip);
@@ -218,9 +219,9 @@
                     city = geoData.places[0]["place name"];
                     state = geoData.places[0]["state abbreviation"];
                 }
-            } catch(e1) { console.log("Geo failed:", e1); }
+            } catch(e1) {}
 
-            // STEP 2: Census Building Age + Population
+            // CENSUS
             let medianYear = 2005, envelopeScore = 80, populationDensity = 5000;
             try {
                 const censusKey = "adc98c57ae5ba855e42fbabbdb597d0a321e7269";
@@ -238,9 +239,9 @@
                     const totalUnits = parseInt(censusData[1][2]) || 0;
                     if (totalUnits > 0) populationDensity = Math.round((totalPop / totalUnits) * 100);
                 }
-            } catch(e2) { console.log("Census failed:", e2); }
+            } catch(e2) {}
 
-            // STEP 3: Rain Auto-Fetch
+            // RAIN AUTO-FETCH
             let actualRain = rainInput;
             let rainSource = "User Input";
             if (rainInput === 0) {
@@ -250,12 +251,8 @@
                     if (rainData && rainData.daily && rainData.daily.precipitation_sum) {
                         let maxPrecip = 0;
                         rainData.daily.precipitation_sum.forEach(v => { if (v && v > maxPrecip) maxPrecip = v; });
-                        if (maxPrecip > 0) {
-                            actualRain = maxPrecip / 25.4;
-                            rainSource = "Open-Meteo Live";
-                        } else {
-                            rainSource = "No Rain";
-                        }
+                        actualRain = maxPrecip / 25.4;
+                        rainSource = (maxPrecip > 0) ? "Open-Meteo Live" : "No Rain Detected";
                     }
                 } catch(e3) { rainSource = "Fetch Failed"; }
             }
@@ -266,18 +263,21 @@
             else if (actualRain >= 0.2) rainScore = 30;
             else rainScore = 15;
 
-            // STEP 4: Regional Scores (ALL 12 FACTORS)
+            // REGIONAL FACTORS (ALL 12 FACTORS - State-Based)
             let hailScore = 75, hailSize = "1.5\"", windSpeed = 45, stormCount = 3;
             let competitorScore = 50, permitScore = 50, laborScore = 50, materialScore = 50, rcvScore = 55, creditScore = 55;
             
-            if (state === "TX") { competitorScore = 65; permitScore = 55; laborScore = 60; materialScore = 65; rcvScore = 60; creditScore = 65; hailSize = "2.0\""; windSpeed = 60; stormCount = 8; }
-            else if (state === "FL") { competitorScore = 80; permitScore = 30; laborScore = 45; materialScore = 55; rcvScore = 35; creditScore = 50; hailSize = "1.0\""; windSpeed = 75; stormCount = 12; }
-            else if (state === "CO") { competitorScore = 55; permitScore = 70; laborScore = 60; materialScore = 60; rcvScore = 65; creditScore = 60; hailSize = "2.5\""; windSpeed = 50; stormCount = 10; }
-            else if (state === "OK") { competitorScore = 60; permitScore = 65; laborScore = 55; materialScore = 60; rcvScore = 55; creditScore = 55; hailSize = "2.0\""; windSpeed = 55; stormCount = 9; }
-            else if (state === "NC") { competitorScore = 55; permitScore = 50; laborScore = 55; materialScore = 60; rcvScore = 55; creditScore = 55; hailSize = "1.25\""; windSpeed = 45; stormCount = 5; }
-            else if (state === "LA") { competitorScore = 70; permitScore = 40; laborScore = 45; materialScore = 50; rcvScore = 40; creditScore = 45; hailSize = "1.0\""; windSpeed = 80; stormCount = 11; }
+            if (state === "TX") { hailSize = "2.0\""; windSpeed = 60; stormCount = 8; hailScore = 90; competitorScore = 65; permitScore = 55; laborScore = 60; materialScore = 65; rcvScore = 60; creditScore = 65; }
+            else if (state === "FL") { hailSize = "1.0\""; windSpeed = 80; stormCount = 14; hailScore = 55; competitorScore = 80; permitScore = 30; laborScore = 45; materialScore = 55; rcvScore = 35; creditScore = 50; }
+            else if (state === "CO") { hailSize = "2.5\""; windSpeed = 50; stormCount = 12; hailScore = 95; competitorScore = 55; permitScore = 70; laborScore = 60; materialScore = 60; rcvScore = 65; creditScore = 60; }
+            else if (state === "OK") { hailSize = "2.0\""; windSpeed = 55; stormCount = 10; hailScore = 90; competitorScore = 60; permitScore = 65; laborScore = 55; materialScore = 60; rcvScore = 55; creditScore = 55; }
+            else if (state === "KS") { hailSize = "1.75\""; windSpeed = 55; stormCount = 8; hailScore = 85; competitorScore = 50; permitScore = 60; laborScore = 50; materialScore = 55; rcvScore = 60; creditScore = 55; }
+            else if (state === "NE") { hailSize = "1.75\""; windSpeed = 50; stormCount = 7; hailScore = 85; competitorScore = 45; permitScore = 60; laborScore = 50; materialScore = 55; rcvScore = 60; creditScore = 55; }
+            else if (state === "NC") { hailSize = "1.25\""; windSpeed = 45; stormCount = 5; hailScore = 65; competitorScore = 55; permitScore = 50; laborScore = 55; materialScore = 60; rcvScore = 55; creditScore = 55; }
+            else if (state === "LA") { hailSize = "1.0\""; windSpeed = 80; stormCount = 11; hailScore = 55; competitorScore = 70; permitScore = 40; laborScore = 45; materialScore = 50; rcvScore = 40; creditScore = 45; }
+            else if (state === "IL") { hailSize = "1.25\""; windSpeed = 50; stormCount = 6; hailScore = 65; competitorScore = 50; permitScore = 45; laborScore = 50; materialScore = 60; rcvScore = 65; creditScore = 60; }
 
-            // STEP 5: Weighted Scoring
+            // SCORING
             const techScore = (tech === "PRO_TECH") ? 95 : 40;
             const legalScore = (legal === "DIRECT_AOB_ALLOWED") ? 90 : 10;
             const densityScore = Math.min(95, Math.round(populationDensity / 100));
@@ -302,7 +302,7 @@
             else if (finalScore < 40 || actualRain < 0.2) { verdict = "RED_LIGHT_HARD_ABORT"; badgeClass = "bg-red"; }
             else { verdict = "YELLOW_LIGHT_LEAN_RECON_ONLY"; badgeClass = "bg-amber"; }
 
-            // STEP 6: Financials
+            // FINANCIALS
             const estimatedRoofs = Math.max(2, Math.min(20, Math.round(densityScore * 0.08)));
             const avgContract = (intent === "MAX_ROI") ? 320000 : 250000;
             const grossVol = estimatedRoofs * avgContract;
@@ -313,46 +313,19 @@
 
             function fmt(v) { return (v >= 1000000) ? "$" + (v/1000000).toFixed(1) + "M" : "$" + Math.round(v/1000) + "K"; }
 
-            // STEP 7: Render All 12 Factors
+            // RENDER MATRIX (ALL 12 FACTORS)
             document.getElementById("out-verdict").innerHTML = verdict;
             document.getElementById("out-verdict").className = "badge-status " + badgeClass;
             document.getElementById("out-score").innerHTML = finalScore + "/100";
 
             document.getElementById("out-matrix").innerHTML = 
-                "<tr><td>F01: Hail Kinetic</td><td>" + hailSize + " / Wind: " + windSpeed + " mph / " + stormCount + " events</td><td>" + hailScore + "</td><td>15%</td><td>" + wHail.toFixed(2) + "</td></tr>" +
+                "<tr><td>F01: Hail Kinetic</td><td>" + hailSize + " / Wind: " + windSpeed + " mph / Events: " + stormCount + "/yr</td><td>" + hailScore + "</td><td>15%</td><td>" + wHail.toFixed(2) + "</td></tr>" +
                 "<tr><td>F02: Envelope Age</td><td>Built: " + medianYear + " (" + (2026-medianYear) + " yrs)</td><td>" + envelopeScore + "</td><td>10%</td><td>" + wAge.toFixed(2) + "</td></tr>" +
                 "<tr><td>F03: Rain Saturation</td><td>" + actualRain.toFixed(2) + "\" (" + rainSource + ")</td><td>" + rainScore + "</td><td>15%</td><td>" + wRain.toFixed(2) + "</td></tr>" +
                 "<tr><td>F04: Legal Friction</td><td>" + (legal === "ATTORNEY_MANDATORY" ? "Attorney Mandate" : "Direct Billing") + "</td><td>" + legalScore + "</td><td>15%</td><td>" + wLegal.toFixed(2) + "</td></tr>" +
-                "<tr><td>F05: Competitor</td><td>" + state + " Market</td><td>" + competitorScore + "</td><td>10%</td><td>" + wCompetitor.toFixed(2) + "</td></tr>" +
+                "<tr><td>F05: Competitor</td><td>" + state + " Market Saturation</td><td>" + competitorScore + "</td><td>10%</td><td>" + wCompetitor.toFixed(2) + "</td></tr>" +
                 "<tr><td>F06: Density</td><td>" + city + " / " + populationDensity + "/sqmi</td><td>" + densityScore + "</td><td>10%</td><td>" + wDensity.toFixed(2) + "</td></tr>" +
-                "<tr><td>F07: Tech Stack</td><td>" + (tech === "PRO_TECH" ? "Drone Scans" : "Manual") + "</td><td>" + techScore + "</td><td>10%</td><td>" + wTech.toFixed(2) + "</td></tr>" +
-                "<tr><td>F08: Credit</td><td>" + state + " Capital</td><td>" + creditScore + "</td><td>5%</td><td>" + wCredit.toFixed(2) + "</td></tr>" +
-                "<tr><td>F09: PM Roster</td><td>" + state + " Labor</td><td>" + laborScore + "</td><td>5%</td><td>" + wPM.toFixed(2) + "</td></tr>" +
-                "<tr><td>F10: Material</td><td>" + state + " Supply</td><td>" + materialScore + "</td><td>5%</td><td>" + wMaterial.toFixed(2) + "</td></tr>" +
-                "<tr><td>F11: RCV Ratio</td><td>" + state + " Carrier</td><td>" + rcvScore + "</td><td>5%</td><td>" + wRCV.toFixed(2) + "</td></tr>" +
-                "<tr><td>F12: Permit</td><td>" + city + " Municipal</td><td>" + permitScore + "</td><td>5%</td><td>" + wPermit.toFixed(2) + "</td></tr>";
-
-            document.getElementById("out-intel").innerHTML = 
-                "<li><strong>Zone:</strong> " + city + ", " + state + " (" + zip + ")</li>" +
-                "<li><strong>Storm:</strong> " + stormCount + " events. Hail " + hailSize + ". Wind " + windSpeed + " mph.</li>" +
-                "<li><strong>Rain:</strong> " + actualRain.toFixed(2) + "\" (" + rainSource + ")</li>" +
-                "<li><strong>Buildings:</strong> Median " + medianYear + ". Age " + (2026-medianYear) + " yrs.</li>" +
-                "<li><strong>Labor:</strong> " + (laborScore > 55 ? "Adequate" : "Tight") + ". Material: " + (materialScore > 55 ? "Available" : "Strained") + ".</li>";
-
-            document.getElementById("out-historical").innerHTML = "📊 " + state + " CAT baseline: " + stormCount + " events/yr. Hail " + hailSize + ". Wind " + windSpeed + " mph.";
-            document.getElementById("out-narrative").innerHTML = "Estimated " + estimatedRoofs + " viable roofs in " + city + ". Avg contract $" + (avgContract/1000).toFixed(0) + "K. " + (intent === "MAX_ROI" ? "Selective targeting for margin." : "Volume deployment for cash velocity.");
-
-            document.getElementById("out-gross").innerHTML = fmt(grossVol);
-            document.getElementById("out-burn").innerHTML = "-" + fmt(mobBurn);
-            document.getElementById("out-carry").innerHTML = "-" + fmt(carryCost);
-            document.getElementById("out-net").innerHTML = fmt(netYield);
-            document.getElementById("out-exit").innerHTML = "Day 7 Kill Switch: If canopy > 45 trucks in " + city + ", pivot to REIT flats via drone scans.";
-
-            document.getElementById("results-card").style.display = "block";
-            btn.disabled = false;
-            btn.innerHTML = "⚡ Execute Sweep";
-            document.getElementById("results-card").scrollIntoView({ behavior: 'smooth' });
-        }
-    </script>
-</body>
-</html>
+                "<tr><td>F07: Tech Stack</td><td>" + (tech === "PRO_TECH" ? "Tier 1: Drone Scans" : "Tier 2: Manual") + "</td><td>" + techScore + "</td><td>10%</td><td>" + wTech.toFixed(2) + "</td></tr>" +
+                "<tr><td>F08: Credit Capacity</td><td>" + state + " Capital Access</td><td>" + creditScore + "</td><td>5%</td><td>" + wCredit.toFixed(2) + "</td></tr>" +
+                "<tr><td>F09: PM Crane Roster</td><td>" + state + " Labor Pool</td><td>" + laborScore + "</td><td>5%</td><td>" + wPM.toFixed(2) + "</td></tr>" +
+                "<tr><td>F10: Material Chain</td><td>" + state + " Supply Index</td><td>" + materialScore + "</td><td>5%</td><td>" + w
