@@ -56,11 +56,13 @@
         .bg-amber { background: rgba(255, 184, 0, 0.15); color: var(--cyber-amber); border: 1px solid rgba(255,184,0,0.4); }
         .bg-red { background: rgba(255, 82, 82, 0.15); color: var(--cyber-red); border: 1px solid rgba(255,82,82,0.4); }
 
-        .btn-primary { border: 1px solid rgba(0, 255, 163, 0.4); color: #05080f; padding: 14px 20px; border-radius: 8px; font-weight: 800; cursor: pointer; text-transform: uppercase; background: var(--cyber-green); font-size: 13px; width: 100%; letter-spacing: 0.04em; transition: all 0.2s; }
+        .btn-primary { border: none; color: #05080f; padding: 14px 20px; border-radius: 8px; font-weight: 800; cursor: pointer; text-transform: uppercase; background: var(--cyber-green); font-size: 13px; width: 100%; letter-spacing: 0.04em; transition: all 0.2s; }
         .btn-primary:hover { background: #00cc82; box-shadow: 0 0 20px rgba(0,255,163,0.3); }
         .btn-primary:disabled { opacity: 0.5; cursor: wait; }
         .btn-secondary { border: 1px solid var(--border-hairline); color: var(--text-muted); padding: 10px 16px; border-radius: 6px; font-weight: 700; cursor: pointer; background: transparent; font-size: 12px; }
         .btn-secondary:hover { color: #fff; border-color: #fff; }
+        .cta-btn { border: 1px solid rgba(64, 196, 255, 0.4); color: #bbdefb; padding: 12px 16px; border-radius: 8px; font-weight: 700; cursor: pointer; background: rgba(64, 196, 255, 0.08); font-size: 13px; transition: all 0.2s; font-family: 'Inter', sans-serif; }
+        .cta-btn:hover { background: rgba(64, 196, 255, 0.15); border-color: #40c4ff; box-shadow: 0 0 15px rgba(64,196,255,0.3); }
 
         .form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
         .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
@@ -87,7 +89,7 @@
         .financial-detail { font-size: 12px; color: #78909c; margin-top: 4px; line-height: 1.5; }
 
         .next-steps-box { background: rgba(64, 196, 255, 0.04); border: 1px solid rgba(64, 196, 255, 0.3); border-radius: 10px; padding: 24px; margin-bottom: 24px; }
-        .next-steps-text { font-size: 15px; color: #bbdefb; line-height: 1.8; }
+        .next-steps-text { font-size: 15px; color: #bbdefb; line-height: 1.8; margin-bottom: 12px; }
     </style>
 </head>
 <body>
@@ -154,7 +156,7 @@
                         <div class="params-toggle" onclick="toggleParams()">
                             <div>
                                 <span style="font-weight:700; font-size:14px; color:#fff;">⚙️ Operational Parameters</span>
-                                <div class="params-note">EDITABLE — Currently set to Industry Averages. Click to adjust to your operation.</div>
+                                <div class="params-note">EDITABLE — Currently set to Industry Averages. Click to adjust.</div>
                             </div>
                             <span id="params-arrow" style="color:var(--cyber-amber); font-size:16px;">▼</span>
                         </div>
@@ -216,8 +218,9 @@
                     <button type="button" id="btn-drone-cta" class="btn-primary" style="display:none; margin-bottom:24px;" onclick="requestDroneVerification()">📡 Request Drone Verification — $2,500/roof</button>
 
                     <h3 class="section-label" style="font-size:12px; color:#cfd8dc;">Next Steps — Your Action Plan</h3>
-                    <div id="out-next-steps" class="next-steps-box">
+                    <div class="next-steps-box" id="out-next-steps">
                         <p id="out-next-text" class="next-steps-text"></p>
+                        <div id="out-cta-buttons" style="display:flex; flex-wrap:wrap; gap:10px;"></div>
                     </div>
                 </div>
             </section>
@@ -278,9 +281,33 @@
             var d = currentTriageData;
             if (!d || !d.zip) return;
             var subject = encodeURIComponent("Drone Verification Request - ZIP " + d.zip + " - " + d.city + " " + d.state);
-            var body = encodeURIComponent("Client: Vanguard Restoration Corp\nZIP: " + d.zip + "\nCity: " + d.city + ", " + d.state + "\nRoofs to Scan: " + d.droneRoofs + "\nCost: $" + (d.droneRoofs * 2500).toLocaleString() + "\n\nPlease dispatch drone pilot.");
+            var body = encodeURIComponent("Client: Vanguard Restoration Corp\nZIP: " + d.zip + "\nCity: " + d.city + ", " + d.state + "\nRoofs to Scan: " + d.droneRoofs + "\nCost: $" + (d.droneRoofs * 2500).toLocaleString());
             window.location.href = "mailto:ops@optimaworkflows.com?subject=" + subject + "&body=" + body;
-            alert("Drone Verification request prepared. Sending email to our dispatch team.\n\nZIP: " + d.zip + "\nRoofs: " + d.droneRoofs + "\nCost: $" + (d.droneRoofs * 2500).toLocaleString());
+            alert("Drone Verification request prepared. Sending email to dispatch.\n\nZIP: " + d.zip + "\nRoofs: " + d.droneRoofs + "\nCost: $" + (d.droneRoofs * 2500).toLocaleString());
+        }
+
+        function scrollToDrone() {
+            document.getElementById("btn-drone-cta").scrollIntoView({ behavior: 'smooth' });
+            document.getElementById("btn-drone-cta").style.boxShadow = "0 0 30px rgba(0,255,163,0.6)";
+            setTimeout(function() { document.getElementById("btn-drone-cta").style.boxShadow = "none"; }, 2000);
+        }
+
+        function downloadReport() {
+            var d = currentTriageData;
+            var reportContent = "OPTIMA WORKFLOWS - CAT INTELLIGENCE REPORT\n==========================================\nDate: " + new Date().toLocaleDateString() + "\nZIP: " + d.zip + "\nCity: " + d.city + ", " + d.state + "\nVerdict: " + document.getElementById("out-verdict").innerHTML + "\nScore: " + document.getElementById("out-score").innerHTML + "\n==========================================\nGenerated by Optima Workflows CAT Intelligence.\nContact: ops@optimaworkflows.com\n";
+            var blob = new Blob([reportContent], { type: 'text/plain' });
+            var url = URL.createObjectURL(blob);
+            var a = document.createElement('a');
+            a.href = url;
+            a.download = 'Optima_Report_' + d.zip + '.txt';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function scanAdjacentZips(zip) {
+            var baseZip = parseInt(zip);
+            var adjacent = [baseZip + 1, baseZip - 1, baseZip + 10, baseZip - 10];
+            alert("Scanning adjacent ZIPs: " + adjacent.join(", ") + "\n\nRun Triage on each ZIP to find the best deployment corridor.");
         }
 
         document.getElementById("triage-form").addEventListener("submit", async function(event) {
@@ -337,7 +364,6 @@
                 }
             } catch(e2) {}
 
-            // CORRECTED DENSITY MAPPING
             var densityScore = 20;
             var estimatedRoofs = 1;
             if (totalPop > 200000) { densityScore = 95; estimatedRoofs = 25; }
@@ -437,68 +463,68 @@
                 warnText.innerHTML = "<strong>" + label + " — Reasons:</strong><br>" + reasons.map(function(x){ return "• " + x; }).join("<br>");
             }
 
-            // MATRIX WITH HEADERS AND EXPLANATIONS
             var matrixHtml = "<tr><th>Factor</th><th>Raw Score</th><th>Weight</th><th>Weighted</th></tr>";
-            matrixHtml += "<tr><td><strong>F01: Hail Kinetic</strong><br><span class='factor-explanation'>" + hailSize + " hail. " + (hailScore >= 70 ? "Above 1.5\" threshold — commercial membranes will fracture." : "Below 1.5\" threshold — drone verification required.") + "</span></td><td>" + hailScore + "</td><td>15%</td><td>" + wHail.toFixed(2) + "</td></tr>";
+            matrixHtml += "<tr><td><strong>F01: Hail Kinetic</strong><br><span class='factor-explanation'>" + hailSize + " hail. " + (hailScore >= 70 ? "Above 1.5\" threshold — membranes will fracture." : "Below threshold — drone verification required.") + "</span></td><td>" + hailScore + "</td><td>15%</td><td>" + wHail.toFixed(2) + "</td></tr>";
             matrixHtml += "<tr><td><strong>F02: Envelope Age</strong><br><span class='factor-explanation'>Median build " + medianYear + " (" + (2026-medianYear) + " yrs). " + ((2026-medianYear) >= 15 ? "Brittle — full replacement likely." : "Moderate — repair possible.") + "</span></td><td>" + envelopeScore + "</td><td>10%</td><td>" + wAge.toFixed(2) + "</td></tr>";
             matrixHtml += "<tr><td><strong>F03: Rain Saturation</strong><br><span class='factor-explanation'>" + actualRain.toFixed(2) + "\" (" + rainSource + "). " + (actualRain >= 0.5 ? "Interior damage confirmed." : "DRY — adjusters will deny as cosmetic.") + "</span></td><td>" + rainScore + "</td><td>15%</td><td>" + wRain.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F04: Legal Friction</strong><br><span class='factor-explanation'>" + (legal === "ATTORNEY_MANDATORY" ? "Attorney required — cycle time +45 days." : "Direct billing — fast cash conversion.") + "</span></td><td>" + legalScore + "</td><td>15%</td><td>" + wLegal.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F05: Competitor</strong><br><span class='factor-explanation'>" + state + " market. " + (competitorScore >= 70 ? "High saturation — price wars likely." : competitorScore >= 50 ? "Moderate — first-mover advantage possible." : "Low — open field.") + "</span></td><td>" + competitorScore + "</td><td>10%</td><td>" + wCompetitor.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F06: Density</strong><br><span class='factor-explanation'>Total pop " + totalPop.toLocaleString() + " → " + estimatedRoofs + " est. commercial roofs. " + (estimatedRoofs >= OPS.minRoofs ? "Sufficient for deployment." : "Below your " + OPS.minRoofs + " roof minimum.") + "</span></td><td>" + densityScore + "</td><td>10%</td><td>" + wDensity.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F07: Tech Stack</strong><br><span class='factor-explanation'>" + (tech === "PRO_TECH" ? "Drone scans accelerate approvals by 30%." : "Manual scopes face higher pushback.") + "</span></td><td>" + techScore + "</td><td>10%</td><td>" + wTech.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F08: Credit</strong><br><span class='factor-explanation'>" + state + " capital access. Affects ability to float 90-day insurance cycles.</span></td><td>" + creditScore + "</td><td>5%</td><td>" + wCredit.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F09: PM Roster</strong><br><span class='factor-explanation'>" + state + " labor pool. " + (laborScore >= 55 ? "Adequate PMs." : "Labor tight — premium rates.") + "</span></td><td>" + laborScore + "</td><td>5%</td><td>" + wPM.toFixed(2) + "</td></tr>";
+            matrixHtml += "<tr><td><strong>F04: Legal Friction</strong><br><span class='factor-explanation'>" + (legal === "ATTORNEY_MANDATORY" ? "Attorney required — cycle +45 days." : "Direct billing — fast cash.") + "</span></td><td>" + legalScore + "</td><td>15%</td><td>" + wLegal.toFixed(2) + "</td></tr>";
+            matrixHtml += "<tr><td><strong>F05: Competitor</strong><br><span class='factor-explanation'>" + state + " market. " + (competitorScore >= 70 ? "High saturation — price wars." : competitorScore >= 50 ? "Moderate — first-mover possible." : "Low — open field.") + "</span></td><td>" + competitorScore + "</td><td>10%</td><td>" + wCompetitor.toFixed(2) + "</td></tr>";
+            matrixHtml += "<tr><td><strong>F06: Density</strong><br><span class='factor-explanation'>Pop " + totalPop.toLocaleString() + " → " + estimatedRoofs + " est. roofs. " + (estimatedRoofs >= OPS.minRoofs ? "Sufficient." : "Below your " + OPS.minRoofs + " minimum.") + "</span></td><td>" + densityScore + "</td><td>10%</td><td>" + wDensity.toFixed(2) + "</td></tr>";
+            matrixHtml += "<tr><td><strong>F07: Tech Stack</strong><br><span class='factor-explanation'>" + (tech === "PRO_TECH" ? "Drone scans accelerate approvals 30%." : "Manual — higher pushback.") + "</span></td><td>" + techScore + "</td><td>10%</td><td>" + wTech.toFixed(2) + "</td></tr>";
+            matrixHtml += "<tr><td><strong>F08: Credit</strong><br><span class='factor-explanation'>" + state + " capital access. Affects 90-day insurance float.</span></td><td>" + creditScore + "</td><td>5%</td><td>" + wCredit.toFixed(2) + "</td></tr>";
+            matrixHtml += "<tr><td><strong>F09: PM Roster</strong><br><span class='factor-explanation'>" + state + " labor. " + (laborScore >= 55 ? "Adequate PMs." : "Tight — premium rates.") + "</span></td><td>" + laborScore + "</td><td>5%</td><td>" + wPM.toFixed(2) + "</td></tr>";
             matrixHtml += "<tr><td><strong>F10: Material</strong><br><span class='factor-explanation'>" + state + " supply. " + (materialScore >= 55 ? "Available." : "Strained — pre-order.") + "</span></td><td>" + materialScore + "</td><td>5%</td><td>" + wMaterial.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F11: RCV Ratio</strong><br><span class='factor-explanation'>" + state + " carrier mix. " + (rcvScore >= 55 ? "RCV-dominant — replacement approved." : "ACV-heavy — owners resist.") + "</span></td><td>" + rcvScore + "</td><td>5%</td><td>" + wRCV.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F12: Permit</strong><br><span class='factor-explanation'>" + city + " municipal. " + (permitScore >= 55 ? "Permits process normally." : "Delays likely — factor into cash flow.") + "</span></td><td>" + permitScore + "</td><td>5%</td><td>" + wPermit.toFixed(2) + "</td></tr>";
+            matrixHtml += "<tr><td><strong>F11: RCV Ratio</strong><br><span class='factor-explanation'>" + state + " carrier mix. " + (rcvScore >= 55 ? "RCV-dominant." : "ACV-heavy.") + "</span></td><td>" + rcvScore + "</td><td>5%</td><td>" + wRCV.toFixed(2) + "</td></tr>";
+            matrixHtml += "<tr><td><strong>F12: Permit</strong><br><span class='factor-explanation'>" + city + " municipal. " + (permitScore >= 55 ? "Normal processing." : "Delays likely.") + "</span></td><td>" + permitScore + "</td><td>5%</td><td>" + wPermit.toFixed(2) + "</td></tr>";
             document.getElementById("out-matrix").innerHTML = matrixHtml;
 
-            // FINANCIALS
             document.getElementById("out-financials").innerHTML = 
-                "<div class='financial-line'><div><div class='financial-label'>Gross Volume</div><div class='financial-detail'>" + estimatedRoofs + " roof" + (estimatedRoofs > 1 ? "s" : "") + " × $" + (avgContract/1000).toFixed(0) + "K avg contract</div></div><div class='financial-value' style='color:#fff;'>" + fmt(grossVol) + "</div></div>" +
-                "<div class='financial-line'><div><div class='financial-label'>Labor Cost</div><div class='financial-detail'>" + OPS.crewSize + " crew × $" + OPS.laborRate + "/hr × 40 hrs × " + weeksTotal + " wks</div></div><div class='financial-value' style='color:#ff8a80;'>" + fmt(laborCost) + "</div></div>" +
-                "<div class='financial-line'><div><div class='financial-label'>Material Cost</div><div class='financial-detail'>" + estimatedRoofs + " × " + OPS.roofSize.toLocaleString() + " sqft × $" + OPS.materialCost + "/sqft</div></div><div class='financial-value' style='color:#ff8a80;'>" + fmt(materialCost) + "</div></div>" +
-                "<div class='financial-line'><div><div class='financial-label'>Equipment + Housing + Mob</div><div class='financial-detail'>Crane $" + OPS.craneCost + "/wk × " + weeksTotal + " wks + Housing + Mob" + (droneCost > 0 ? " + Drone" : "") + "</div></div><div class='financial-value' style='color:#ff8a80;'>" + fmt(craneCost + housingCost + mobCost + droneCost) + "</div></div>" +
-                "<div class='financial-line'><div><div class='financial-label'>Net Yield</div><div class='financial-detail'>" + marginPct.toFixed(0) + "% margin (Your threshold: " + OPS.minMargin + "%)</div></div><div class='financial-value' style='color:#00ffa3; font-size:24px;'>" + fmt(netYield) + "</div></div>";
+                "<div class='financial-line'><div><div class='financial-label'>Gross Volume</div><div class='financial-detail'>" + estimatedRoofs + " roof" + (estimatedRoofs > 1 ? "s" : "") + " × $" + (avgContract/1000).toFixed(0) + "K</div></div><div class='financial-value' style='color:#fff;'>" + fmt(grossVol) + "</div></div>" +
+                "<div class='financial-line'><div><div class='financial-label'>Labor</div><div class='financial-detail'>" + OPS.crewSize + " × $" + OPS.laborRate + "/hr × 40 × " + weeksTotal + " wks</div></div><div class='financial-value' style='color:#ff8a80;'>" + fmt(laborCost) + "</div></div>" +
+                "<div class='financial-line'><div><div class='financial-label'>Materials</div><div class='financial-detail'>" + estimatedRoofs + " × " + OPS.roofSize.toLocaleString() + " sqft × $" + OPS.materialCost + "</div></div><div class='financial-value' style='color:#ff8a80;'>" + fmt(materialCost) + "</div></div>" +
+                "<div class='financial-line'><div><div class='financial-label'>Equipment + Housing + Mob</div><div class='financial-detail'>Crane + Housing + Mobilization" + (droneCost > 0 ? " + Drone" : "") + "</div></div><div class='financial-value' style='color:#ff8a80;'>" + fmt(craneCost + housingCost + mobCost + droneCost) + "</div></div>" +
+                "<div class='financial-line'><div><div class='financial-label'>Net Yield</div><div class='financial-detail'>" + marginPct.toFixed(0) + "% margin (Threshold: " + OPS.minMargin + "%)</div></div><div class='financial-value' style='color:#00ffa3; font-size:24px;'>" + fmt(netYield) + "</div></div>";
 
-            // KILL SWITCH
             var killText = "";
             if (verdict === "RED_LIGHT_HARD_ABORT") {
-                killText = "TRIGGER: " + reasons.join(" AND ") + ".<br><br>ACTION: Do not deploy. If already mobilized, withdraw by Day 3. Redirect to nearest corridor with population > 50,000.";
+                killText = "TRIGGER: " + reasons.join(" AND ") + ".<br><br>ACTION: Do not deploy. Withdraw by Day 3 if mobilized. Redirect to corridor with pop > 50,000.";
             } else if (verdict === "YELLOW_LIGHT_LEAN_RECON_ONLY") {
-                killText = "TRIGGER: " + reasons.join(" AND ") + ".<br><br>ACTION: Deploy 1 recon crew only. If " + Math.round(OPS.minRoofs / 2) + " contracts not signed within 5 days, withdraw.";
+                killText = "TRIGGER: " + reasons.join(" AND ") + ".<br><br>ACTION: 1 recon crew only. If " + Math.round(OPS.minRoofs / 2) + " contracts not signed in 5 days, withdraw.";
             } else {
-                killText = "MONITOR: Competitor canopy in " + city + ". If > 45 trucks detected, pivot to secondary ZIP.<br><br>MONITOR: Permit latency. If first 10 permits exceed 14 days, shift to unincorporated areas.";
+                killText = "MONITOR: Competitor canopy in " + city + ". > 45 trucks = pivot.<br>MONITOR: Permit latency. > 14 days = shift to unincorporated areas.";
             }
             document.getElementById("out-exit").innerHTML = killText;
 
-            // DRONE
             var droneText = "";
             var showDroneCTA = false;
             if (tech === "PRO_TECH") {
                 if (hailScore < 70 || actualRain < 0.5) {
-                    droneText = "REQUIRED: Hail " + hailSize + " + Rain " + actualRain.toFixed(2) + "\" = high denial risk.<br><br>Deploy drone scans on " + Math.min(5, estimatedRoofs) + " roof" + (Math.min(5, estimatedRoofs) > 1 ? "s" : "") + " before full mobilization. Cost: $" + (Math.min(5, estimatedRoofs) * OPS.droneCost).toLocaleString() + ".<br><br>If scans show no interior water damage, downgrade to recon only.";
+                    droneText = "REQUIRED: Hail " + hailSize + " + Rain " + actualRain.toFixed(2) + "\" = high denial risk.<br><br>Deploy drone scans on " + Math.min(5, estimatedRoofs) + " roof" + (Math.min(5, estimatedRoofs) > 1 ? "s" : "") + ". Cost: $" + (Math.min(5, estimatedRoofs) * OPS.droneCost).toLocaleString() + ".<br><br>If no interior water damage, downgrade to recon.";
                     showDroneCTA = true;
                 } else {
-                    droneText = "RECOMMENDED: Conditions support deployment. Drone scans on all " + estimatedRoofs + " roofs will accelerate adjuster approvals by 30%.";
+                    droneText = "RECOMMENDED: Drone scans on all " + estimatedRoofs + " roofs will accelerate approvals by 30%.";
                     showDroneCTA = true;
                 }
             } else {
-                droneText = "MANUAL MODE: No drone capability. Manual inspections take 2-3 days per roof. Consider drone investment for faster cycle time.";
+                droneText = "MANUAL MODE: No drone capability. Manual inspections take 2-3 days per roof.";
             }
             document.getElementById("out-drone").innerHTML = droneText;
             document.getElementById("btn-drone-cta").style.display = showDroneCTA ? "block" : "none";
 
-            // NEXT STEPS
             var nextText = "";
+            var ctaButtons = "";
             if (verdict === "GREEN_LIGHT_LAUNCH_STRIKE_CREW") {
-                nextText = "<strong>1.</strong> Request Drone Verification (above)<br><strong>2.</strong> Pre-order materials: " + (estimatedRoofs * OPS.roofSize).toLocaleString() + " sqft TPO/EPDM<br><strong>3.</strong> Schedule " + Math.max(1, Math.round(estimatedRoofs / 2)) + " crews for 72-hour arrival<br><strong>4.</strong> Set Day 3, Day 5, Day 7 kill switch checkpoints";
+                nextText = "<strong>Action Plan for " + city + ":</strong>";
+                ctaButtons = "<button class='cta-btn' onclick='scrollToDrone()'>📡 Request Drone Verification</button><button class='cta-btn' onclick=\"alert('Contact ABC Supply: (800) 555-0123. Reference Optima for priority pricing.')\">📦 Pre-Order Materials</button><button class='cta-btn' onclick=\"alert('Crew mobilization confirmed. Target arrival: 72 hours.')\">🚛 Schedule Crews</button><button class='cta-btn' onclick=\"alert('Kill switch alerts set for Day 3, 5, 7.')\">⏰ Set Alerts</button>";
             } else if (verdict === "YELLOW_LIGHT_LEAN_RECON_ONLY") {
-                nextText = "<strong>1.</strong> Deploy 1 recon crew to " + city + "<br><strong>2.</strong> Run drone scans on top 3 roofs<br><strong>3.</strong> Day 5 checkpoint: " + Math.round(OPS.minRoofs / 2) + " contracts or withdraw<br><strong>4.</strong> Re-run Triage with field data";
+                nextText = "<strong>Recon Protocol for " + city + ":</strong>";
+                ctaButtons = "<button class='cta-btn' onclick=\"alert('Recon crew confirmed. Arrival: 48 hours.')\">🚛 Deploy Recon</button><button class='cta-btn' onclick='scrollToDrone()'>📡 Drone Scans</button><button class='cta-btn' onclick=\"alert('Day 5 checkpoint set.')\">⏰ Day 5 Checkpoint</button><button class='cta-btn' onclick=\"document.getElementById('triage-form').scrollIntoView({behavior:'smooth'})\">🔄 Re-Run</button>";
             } else {
-                nextText = "<strong>1.</strong> Save this report (document decline rationale)<br><strong>2.</strong> Set NOAA alert for next hail event<br><strong>3.</strong> Check adjacent ZIPs with higher density<br><strong>4.</strong> Review operational parameters — adjust if needed";
+                nextText = "<strong>Decline Protocol for " + city + ":</strong>";
+                ctaButtons = "<button class='cta-btn' onclick='downloadReport()'>📄 Download Report</button><button class='cta-btn' onclick=\"alert('Storm alert set for ZIP " + zip + "')\">🔔 Set Storm Alert</button><button class='cta-btn' onclick=\"scanAdjacentZips('" + zip + "')\">🗺️ Adjacent ZIPs</button><button class='cta-btn' onclick=\"document.getElementById('params-panel').classList.add('open'); document.getElementById('params-arrow').innerHTML='▲';\">⚙️ Adjust Params</button>";
             }
             document.getElementById("out-next-text").innerHTML = nextText;
+            document.getElementById("out-cta-buttons").innerHTML = ctaButtons;
 
             document.getElementById("results-card").style.display = "block";
             btn.disabled = false;
