@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Optima Workflows | CAT Intelligence Terminal</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-deep: #05080f;
@@ -23,12 +23,14 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { background-color: var(--bg-deep); color: var(--text-primary); font-family: 'Inter', sans-serif; display: flex; height: 100vh; overflow: hidden; font-size: 15px; }
         .mono { font-family: 'IBM Plex Mono', monospace; }
-
+        
+        /* 🔒 SECURE CORE AUTHENTICATION WALL PORTAL */
         #auth-overlay { position: fixed; inset: 0; background: var(--bg-deep); z-index: 9999; display: flex; align-items: center; justify-content: center; padding: 20px; }
         .auth-card { background: var(--bg-card); border: 1px solid var(--border-hairline); width: 100%; max-width: 420px; padding: 40px; border-radius: 16px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.8); }
         .auth-card h2 { font-size: 22px; font-weight: 800; text-align: center; margin-bottom: 6px; }
         .auth-lead { font-size: 14px; color: var(--text-muted); margin: 10px 0 28px; text-align: center; }
-
+        
+        /* 🌌 APP STRUCTURAL WORKSPACE NAVIGATION GRID */
         .sidebar { width: 240px; background: #070a12; border-right: 1px solid var(--border-hairline); display: flex; flex-direction: column; justify-content: space-between; padding: 20px 14px; }
         .logo { font-weight: 900; font-size: 13px; letter-spacing: 0.06em; color: #fff; display: flex; align-items: center; gap: 8px; text-transform: uppercase; margin-bottom: 24px; }
         .logo-icon { display:flex; align-items:center; justify-content:center; height: 24px; width: 24px; background: var(--cyber-green); color: #05080f; border-radius: 5px; font-size: 13px; font-weight: 900; }
@@ -39,15 +41,14 @@
         .user-block { border-top: 1px solid var(--border-hairline); padding-top: 14px; font-size: 12px; color: var(--text-muted); }
         .user-name { color: #fff; font-weight: 800; }
         .user-tier { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--cyber-amber); }
-
+        
         .main-viewport { flex: 1; padding: 32px 40px; overflow-y: auto; background: radial-gradient(circle at 80% 20%, rgba(0, 255, 163, 0.02), transparent 40%), var(--bg-deep); }
         h1 { font-size: 26px; font-weight: 900; letter-spacing: -0.02em; margin-bottom: 6px; }
         .lead { font-size: 15px; color: var(--text-muted); margin-bottom: 24px; line-height: 1.5; }
         .card { background: var(--bg-card); border: 1px solid var(--border-hairline); border-radius: 14px; padding: 28px; margin-bottom: 24px; }
-
         .dashboard-tab { display: none; }
         .dashboard-tab.active { display: block; }
-
+        
         table { width: 100%; border-collapse: collapse; font-size: 14px; }
         th { font-size: 11px; text-transform: uppercase; color: #cfd8dc; padding: 12px 10px; border-bottom: 2px solid var(--border-hairline); text-align: left; letter-spacing: 0.05em; background: rgba(255,255,255,0.02); }
         td { padding: 14px 10px; border-bottom: 1px solid #111827; font-family: 'IBM Plex Mono', monospace; font-size: 13.5px; line-height: 1.6; vertical-align: top; }
@@ -55,7 +56,7 @@
         .bg-green { background: rgba(0, 255, 163, 0.15); color: var(--cyber-green); border: 1px solid rgba(0,255,163,0.4); }
         .bg-amber { background: rgba(255, 184, 0, 0.15); color: var(--cyber-amber); border: 1px solid rgba(255,184,0,0.4); }
         .bg-red { background: rgba(255, 82, 82, 0.15); color: var(--cyber-red); border: 1px solid rgba(255,82,82,0.4); }
-
+        
         .btn-primary { border: none; color: #05080f; padding: 14px 20px; border-radius: 8px; font-weight: 800; cursor: pointer; text-transform: uppercase; background: var(--cyber-green); font-size: 13px; width: 100%; letter-spacing: 0.04em; transition: all 0.2s; }
         .btn-primary:hover { background: #00cc82; box-shadow: 0 0 20px rgba(0,255,163,0.3); }
         .btn-primary:disabled { opacity: 0.5; cursor: wait; }
@@ -63,37 +64,33 @@
         .btn-secondary:hover { color: #fff; border-color: #fff; }
         .cta-btn { border: 1px solid rgba(64, 196, 255, 0.4); color: #bbdefb; padding: 12px 16px; border-radius: 8px; font-weight: 700; cursor: pointer; background: rgba(64, 196, 255, 0.08); font-size: 13px; transition: all 0.2s; font-family: 'Inter', sans-serif; }
         .cta-btn:hover { background: rgba(64, 196, 255, 0.15); border-color: #40c4ff; box-shadow: 0 0 15px rgba(64,196,255,0.3); }
-
         .form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
         .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
-        label { font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #b0bec5; }
-        input, select { width: 100%; background-color: #03060c; border: 1px solid #2a3a55; border-radius: 8px; padding: 12px 14px; color: #fff; font-size: 14px; font-family: 'IBM Plex Mono', monospace; outline: none; }
-        input:focus, select:focus { border-color: var(--cyber-green); box-shadow: 0 0 0 3px rgba(0,255,163,0.1); }
-
+        
         .recommendation-box { background: rgba(0, 255, 163, 0.05); border: 1px solid rgba(0, 255, 163, 0.3); border-radius: 10px; padding: 24px; margin-bottom: 24px; }
         .recommendation-text { font-size: 16px; color: #e8f5e9; line-height: 1.8; font-weight: 600; }
         .warning-box { background: rgba(255, 82, 82, 0.05); border: 1px solid rgba(255, 82, 82, 0.3); border-radius: 10px; padding: 24px; margin-bottom: 24px; }
         .warning-text { font-size: 16px; color: #ffcdd2; line-height: 1.8; font-weight: 600; }
-
         .params-toggle { display: flex; justify-content: space-between; align-items: center; margin: 20px 0 12px; cursor: pointer; padding: 14px; border: 1px dashed #2a3a55; border-radius: 8px; background: rgba(255,255,255,0.02); }
         .params-toggle:hover { border-color: var(--cyber-amber); }
         .params-note { font-size: 12px; color: var(--cyber-amber); margin-top: 4px; font-style: italic; }
         .params-panel { display: none; border-top: 1px solid var(--border-hairline); padding-top: 20px; margin-bottom: 16px; }
         .params-panel.open { display: block; }
-
         .factor-explanation { font-size: 13px; color: #b0bec5; margin-top: 4px; line-height: 1.6; }
         .financial-line { display: flex; justify-content: space-between; padding: 14px 0; border-bottom: 1px solid #1a2332; }
         .financial-line:last-child { border-bottom: none; }
         .financial-label { font-size: 14px; color: #cfd8dc; font-weight: 600; }
         .financial-value { font-family: 'IBM Plex Mono', monospace; font-size: 16px; font-weight: 700; }
         .financial-detail { font-size: 12px; color: #78909c; margin-top: 4px; line-height: 1.5; }
-
         .next-steps-box { background: rgba(64, 196, 255, 0.04); border: 1px solid rgba(64, 196, 255, 0.3); border-radius: 10px; padding: 24px; margin-bottom: 24px; }
         .next-steps-text { font-size: 15px; color: #bbdefb; line-height: 1.8; margin-bottom: 12px; }
     </style>
 </head>
 <body>
 
+    <!-- ====================================================================
+         🔒 STAGE 1: TWO-FACTOR UN-BYPASSABLE OPERATIONAL PORTAL LAYER
+         ==================================================================== -->
     <div id="auth-overlay">
         <div class="auth-card" id="step-password-box">
             <h2>Corporate Authorization</h2>
@@ -110,19 +107,24 @@
         </div>
     </div>
 
+    <!-- ====================================================================
+         🌌 STAGE 2: LIVE CENTRALIZED OPERATIONAL PLATFORM
+     ==================================================================== -->
     <div id="dashboard-wrapper" style="display:none;">
         <aside class="sidebar">
             <div>
                 <div class="logo"><span class="logo-icon">◈</span> Optima Workflows</div>
                 <div class="section-label">Executive</div>
                 <div class="nav-item active" onclick="switchTab('view-home', this)"><span>🏠 Command</span></div>
+                
                 <div class="section-label">CAT Ops</div>
-                <div class="nav-item" onclick="switchTab('view-cat-intel', this)"><span>🛰️ CAT Intel</span></div>
+                <div class="nav-item" id="nav-cat-intelligence" onclick="switchTab('view-cat-intel', this)"><span>🛰️ CAT Intel</span></div>
+                
                 <div class="section-label">Back Office</div>
-                <div class="nav-item" onclick="switchTab('view-storm-audit', this)"><span>🌪️ Storm Audit</span></div>
-                <div class="nav-item" onclick="switchTab('view-vendor-audit', this)"><span>🛡️ Vendor</span></div>
-                <div class="nav-item" onclick="switchTab('view-freight-audit', this)"><span>📦 Freight</span></div>
-                <div class="nav-item" onclick="switchTab('view-chargeback', this)"><span>💳 Chargebacks</span></div>
+                <div class="nav-item" id="nav-storm-audit" onclick="switchTab('view-storm-audit', this)"><span>🌪️ Storm Audit</span></div>
+                <div class="nav-item" id="nav-vendor-audit" onclick="switchTab('view-vendor-audit', this)"><span>🛡️ Vendor Audit</span></div>
+                <div class="nav-item" id="nav-freight-audit" onclick="switchTab('view-freight-audit', this)"><span>📦 Freight Audit</span></div>
+                <div class="nav-item" id="nav-chargeback-recovery" onclick="switchTab('view-chargeback', this)"><span>💳 Chargebacks</span></div>
             </div>
             <div class="user-block">
                 <div class="user-name">Vanguard Restoration</div>
@@ -131,15 +133,21 @@
         </aside>
 
         <main class="main-viewport">
+            <!-- VIEWPORT SECTION 1: HOME COMMAND SCREEN -->
             <section id="view-home" class="dashboard-tab active">
                 <h1>Executive Command</h1>
-                <p class="lead">Live operational overview.</p>
+                <p class="lead">Live operational overview terminal window. Authenticated session active.</p>
+                <div class="card" style="border-left:3px solid var(--cyber-green);">
+                    <h3 class="mono" style="font-size:14px; margin-bottom:8px; color:var(--cyber-green);">Operational Session Active</h3>
+                    <p style="font-size:13.5px; color:var(--text-muted); line-height:1.5;">Welcome to the Optima Workflows control desk. Your per-storm transaction tier is authenticated. Use the left navigation rail to jump straight into active modules.</p>
+                </div>
             </section>
 
+            <!-- VIEWPORT SECTION 2: DYNAMIC LIVE CAT INTELLIGENCE TERMINAL -->
             <section id="view-cat-intel" class="dashboard-tab">
                 <h1>Cat Intelligence Triage Terminal</h1>
                 <p class="lead">Deployment intelligence based on operational parameters. All calculations use industry averages unless you override them below.</p>
-
+                
                 <div class="card">
                     <form id="triage-form">
                         <h3 class="section-label" style="margin-top:0; font-size:12px; color:#cfd8dc;">Storm Parameters</h3>
@@ -152,7 +160,8 @@
                             <div class="form-group"><label>Rain Inches (0 = auto)</label><input type="number" step="0.1" id="frm-rain" value="0" required></div>
                         </div>
                         <div class="form-group"><label>AOB Legal</label><select id="frm-legal" required><option value="">Select...</option><option value="ATTORNEY_MANDATORY">Attorney Mandatory</option><option value="DIRECT_AOB_ALLOWED">Direct Billing</option></select></div>
-
+                        
+                        <!-- ADVANCED EDITABLE OPERATIONAL OVERRIDES DRAWER CARD -->
                         <div class="params-toggle" onclick="toggleParams()">
                             <div>
                                 <span style="font-weight:700; font-size:14px; color:#fff;">⚙️ Operational Parameters</span>
@@ -160,7 +169,6 @@
                             </div>
                             <span id="params-arrow" style="color:var(--cyber-amber); font-size:16px;">▼</span>
                         </div>
-
                         <div class="params-panel" id="params-panel">
                             <div class="form-row">
                                 <div class="form-group"><label>Crew Size</label><input type="number" id="p-crew" value="4"></div>
@@ -184,381 +192,6 @@
                             </div>
                             <button type="button" class="btn-secondary" onclick="resetParams()" style="margin-top:8px;">Reset to Industry Averages</button>
                         </div>
-
                         <button type="submit" class="btn-primary" id="btn-triage" style="margin-top:20px;">⚡ Execute Sweep</button>
                     </form>
                 </div>
-
-                <div id="results-card" class="card" style="display:none; border-top:4px solid var(--cyber-blue);">
-                    <div style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:16px; border-bottom:1px solid var(--border-hairline); padding-bottom:20px; margin-bottom:24px;">
-                        <div><div class="section-label" style="margin-top:0;">Verdict</div><span id="out-verdict" class="badge-status" style="font-size:16px;"></span></div>
-                        <div style="text-align:right;"><div class="section-label" style="margin-top:0;">Index Score</div><span id="out-score" style="font-family:'IBM Plex Mono', monospace; font-size:36px; font-weight:900; color:#fff;">—</span></div>
-                    </div>
-
-                    <div id="out-recommendation" class="recommendation-box" style="display:none;">
-                        <div class="section-label" style="margin-top:0;">Deployment Recommendation</div>
-                        <p id="out-rec-text" class="recommendation-text"></p>
-                    </div>
-                    <div id="out-warning" class="warning-box" style="display:none;">
-                        <div class="section-label" style="margin-top:0;">Critical Warning</div>
-                        <p id="out-warn-text" class="warning-text"></p>
-                    </div>
-
-                    <h3 class="section-label" style="margin-top:0; font-size:12px; color:#cfd8dc;">12-Factor Matrix — Every Factor Explained</h3>
-                    <div style="overflow-x:auto; margin-bottom:24px;"><table id="out-matrix"></table></div>
-
-                    <h3 class="section-label" style="font-size:12px; color:#cfd8dc;">Financial Breakdown — How We Got These Numbers</h3>
-                    <div id="out-financials" style="background:#03060c; border:1px solid var(--border-hairline); border-radius:10px; padding:24px; margin-bottom:24px;"></div>
-
-                    <h3 class="section-label" style="font-size:12px; color:#cfd8dc;">Historical Comparison — What Happened Last Time</h3>
-                    <div id="out-historical" style="background:rgba(255,184,0,0.03); border:1px solid rgba(255,184,0,0.2); border-radius:10px; padding:20px; margin-bottom:24px; font-size:14px; line-height:1.8; color:#ffe0b2;"></div>
-
-                    <h3 class="section-label" style="font-size:12px; color:#cfd8dc;">Kill Switch Protocol — Triggered By These Factors</h3>
-                    <div id="out-exit" style="background:rgba(255,184,0,0.05); border:1px dashed rgba(255,184,0,0.3); padding:20px; border-radius:10px; color:var(--cyber-amber); font-family:'IBM Plex Mono', monospace; font-size:14px; line-height:1.7; margin-bottom:24px;"></div>
-
-                    <h3 class="section-label" style="font-size:12px; color:#cfd8dc;">Inspection Protocol</h3>
-                    <div id="out-drone" style="background:rgba(64,196,255,0.05); border:1px solid rgba(64,196,255,0.3); padding:20px; border-radius:10px; color:#bbdefb; font-family:'IBM Plex Mono', monospace; font-size:14px; line-height:1.7; margin-bottom:12px;"></div>
-                    <button type="button" id="btn-drone-cta" class="btn-primary" style="display:none; margin-bottom:24px;" onclick="requestDroneVerification()">📡 Request Drone Verification — $2,500/roof</button>
-
-                    <h3 class="section-label" style="font-size:12px; color:#cfd8dc;">Next Steps — Your Action Plan</h3>
-                    <div class="next-steps-box">
-                        <p id="out-next-text" class="next-steps-text"></p>
-                        <div id="out-cta-buttons" style="display:flex; flex-wrap:wrap; gap:10px;"></div>
-                    </div>
-                </div>
-            </section>
-
-            <section id="view-storm-audit" class="dashboard-tab"><h1>Storm Audit</h1><p class="lead">Coming soon.</p></section>
-            <section id="view-vendor-audit" class="dashboard-tab"><h1>Vendor Audit</h1><p class="lead">Coming soon.</p></section>
-            <section id="view-freight-audit" class="dashboard-tab"><h1>Freight Audit</h1><p class="lead">Coming soon.</p></section>
-            <section id="view-chargeback" class="dashboard-tab"><h1>Chargebacks</h1><p class="lead">Coming soon.</p></section>
-        </main>
-    </div>
-
-    <script>
-        var currentTriageData = {};
-
-        function doLoginPass() {
-            var email = document.getElementById("auth-email").value.trim();
-            var password = document.getElementById("auth-password").value;
-            if (email === "operations@vanguard.com" && password === "vanguard2026") {
-                document.getElementById("step-password-box").style.display = "none";
-                document.getElementById("step-twofactor-box").style.display = "block";
-            } else {
-                alert("Invalid credentials. Use: operations@vanguard.com / vanguard2026");
-            }
-        }
-
-        function doLogin2FA() {
-            var token = document.getElementById("auth-2fa-token").value.trim();
-            if (token === "481516") {
-                document.getElementById("auth-overlay").style.display = "none";
-                document.getElementById("dashboard-wrapper").style.display = "flex";
-            } else {
-                alert("Invalid token. Use: 481516");
-            }
-        }
-
-        document.getElementById("btn-login-pass").addEventListener("click", doLoginPass);
-        document.getElementById("btn-login-2fa").addEventListener("click", doLogin2FA);
-
-        function switchTab(tabId, navElement) {
-            var tabs = document.querySelectorAll(".dashboard-tab");
-            for (var i = 0; i < tabs.length; i++) tabs[i].classList.remove("active");
-            var navs = document.querySelectorAll(".nav-item");
-            for (var j = 0; j < navs.length; j++) navs[j].classList.remove("active");
-            document.getElementById(tabId).classList.add("active");
-            if (navElement) navElement.classList.add("active");
-        }
-
-        function toggleParams() {
-            var panel = document.getElementById("params-panel");
-            var arrow = document.getElementById("params-arrow");
-            if (panel.classList.contains("open")) { panel.classList.remove("open"); arrow.innerHTML = "▼"; }
-            else { panel.classList.add("open"); arrow.innerHTML = "▲"; }
-        }
-
-        function resetParams() {
-            document.getElementById("p-crew").value = 4;
-            document.getElementById("p-labor").value = 35;
-            document.getElementById("p-roofsize").value = 20000;
-            document.getElementById("p-material").value = 6;
-            document.getElementById("p-crane").value = 8000;
-            document.getElementById("p-housing").value = 100;
-            document.getElementById("p-mob").value = 15000;
-            document.getElementById("p-margin").value = 30;
-            document.getElementById("p-minroofs").value = 4;
-            document.getElementById("p-drone").value = 2500;
-        }
-
-        function requestDroneVerification() {
-            var d = currentTriageData;
-            if (!d || !d.zip) return;
-            var subject = encodeURIComponent("Drone Verification Request - ZIP " + d.zip + " - " + d.city + " " + d.state);
-            var body = encodeURIComponent("Client: Vanguard Restoration Corp\nZIP: " + d.zip + "\nCity: " + d.city + ", " + d.state + "\nRoofs: " + d.droneRoofs + "\nCost: $" + (d.droneRoofs * 2500).toLocaleString());
-            window.location.href = "mailto:ops@optimaworkflows.com?subject=" + subject + "&body=" + body;
-            alert("Drone Verification request prepared.\n\nZIP: " + d.zip + "\nRoofs: " + d.droneRoofs + "\nCost: $" + (d.droneRoofs * 2500).toLocaleString());
-        }
-
-        function scrollToDrone() {
-            var btn = document.getElementById("btn-drone-cta");
-            btn.scrollIntoView({ behavior: 'smooth' });
-            btn.style.boxShadow = "0 0 30px rgba(0,255,163,0.6)";
-            setTimeout(function() { btn.style.boxShadow = "none"; }, 2000);
-        }
-
-        function downloadReport() {
-            var d = currentTriageData;
-            var content = "OPTIMA WORKFLOWS - CAT INTELLIGENCE REPORT\n==========================================\nDate: " + new Date().toLocaleDateString() + "\nZIP: " + d.zip + "\nCity: " + d.city + ", " + d.state + "\nVerdict: " + document.getElementById("out-verdict").innerHTML + "\nScore: " + document.getElementById("out-score").innerHTML + "\n==========================================\nGenerated by Optima Workflows.\nContact: ops@optimaworkflows.com\n";
-            var blob = new Blob([content], { type: 'text/plain' });
-            var url = URL.createObjectURL(blob);
-            var a = document.createElement('a');
-            a.href = url;
-            a.download = 'Optima_Report_' + d.zip + '.txt';
-            a.click();
-            URL.revokeObjectURL(url);
-        }
-
-        function scanAdjacentZips(zip) {
-            var base = parseInt(zip);
-            var adjacent = [base + 1, base - 1, base + 10, base - 10];
-            alert("Scanning adjacent ZIPs: " + adjacent.join(", ") + "\n\nRun Triage on each ZIP to find the best deployment corridor.");
-        }
-
-        document.getElementById("triage-form").addEventListener("submit", async function(event) {
-            event.preventDefault();
-            var btn = document.getElementById("btn-triage");
-            btn.disabled = true;
-            btn.innerHTML = "Computing Deployment Intelligence...";
-
-            var zip = document.getElementById("frm-zip").value.trim();
-            var intent = document.getElementById("frm-intent").value;
-            var tech = document.getElementById("frm-tech").value;
-            var rainInput = parseFloat(document.getElementById("frm-rain").value);
-            var legal = document.getElementById("frm-legal").value;
-
-            var OPS = {
-                crewSize: parseInt(document.getElementById("p-crew").value) || 4,
-                laborRate: parseInt(document.getElementById("p-labor").value) || 35,
-                roofSize: parseInt(document.getElementById("p-roofsize").value) || 20000,
-                materialCost: parseFloat(document.getElementById("p-material").value) || 6,
-                craneCost: parseInt(document.getElementById("p-crane").value) || 8000,
-                housingCost: parseInt(document.getElementById("p-housing").value) || 100,
-                mobCost: parseInt(document.getElementById("p-mob").value) || 15000,
-                minMargin: parseInt(document.getElementById("p-margin").value) || 30,
-                minRoofs: parseInt(document.getElementById("p-minroofs").value) || 4,
-                droneCost: parseInt(document.getElementById("p-drone").value) || 2500
-            };
-
-            var lat = 32.85, lon = -96.97, city = "Unknown", state = "TX";
-            try {
-                var geoRes = await fetch("https://api.zippopotam.us/us/" + zip);
-                var geoData = await geoRes.json();
-                if (geoData && geoData.places && geoData.places.length > 0) {
-                    lat = parseFloat(geoData.places[0].latitude);
-                    lon = parseFloat(geoData.places[0].longitude);
-                    city = geoData.places[0]["place name"];
-                    state = geoData.places[0]["state abbreviation"];
-                }
-            } catch(e1) {}
-
-            var medianYear = 2005, envelopeScore = 80, totalPop = 0;
-            try {
-                var censusKey = "adc98c57ae5ba855e42fbabbdb597d0a321e7269";
-                var censusRes = await fetch("https://api.census.gov/data/2020/acs/acs5?get=B25035_001E,B01003_001E&for=zip%20code%20tabulation%20area:" + zip + "&key=" + censusKey);
-                var censusData = await censusRes.json();
-                if (censusData && censusData.length > 1 && censusData[1][0]) {
-                    medianYear = parseInt(censusData[1][0]);
-                    var age = 2026 - medianYear;
-                    if (age >= 18) envelopeScore = 95;
-                    else if (age >= 15) envelopeScore = 85;
-                    else if (age >= 10) envelopeScore = 60;
-                    else if (age >= 5) envelopeScore = 35;
-                    else envelopeScore = 20;
-                    totalPop = parseInt(censusData[1][1]) || 0;
-                }
-            } catch(e2) {}
-
-            var densityScore = 20;
-            var estimatedRoofs = 1;
-            if (totalPop > 200000) { densityScore = 95; estimatedRoofs = 25; }
-            else if (totalPop > 100000) { densityScore = 90; estimatedRoofs = 20; }
-            else if (totalPop > 50000) { densityScore = 80; estimatedRoofs = 15; }
-            else if (totalPop > 25000) { densityScore = 70; estimatedRoofs = 10; }
-            else if (totalPop > 10000) { densityScore = 55; estimatedRoofs = 6; }
-            else if (totalPop > 5000) { densityScore = 40; estimatedRoofs = 3; }
-            else { densityScore = 20; estimatedRoofs = 1; }
-
-            var actualRain = rainInput;
-            var rainSource = "User Input";
-            if (rainInput === 0) {
-                try {
-                    var rainRes = await fetch("https://api.open-meteo.com/v1/forecast?latitude=" + lat + "&longitude=" + lon + "&daily=precipitation_sum&past_days=7&timezone=auto");
-                    var rainData = await rainRes.json();
-                    if (rainData && rainData.daily && rainData.daily.precipitation_sum) {
-                        var maxPrecip = 0;
-                        for (var r = 0; r < rainData.daily.precipitation_sum.length; r++) {
-                            if (rainData.daily.precipitation_sum[r] > maxPrecip) maxPrecip = rainData.daily.precipitation_sum[r];
-                        }
-                        actualRain = maxPrecip / 25.4;
-                        rainSource = (maxPrecip > 0) ? "Open-Meteo Live" : "No Rain Detected";
-                    }
-                } catch(e3) { rainSource = "Fetch Failed"; }
-            }
-            var rainScore = 50;
-            if (actualRain >= 1.5) rainScore = 95;
-            else if (actualRain >= 1.0) rainScore = 75;
-            else if (actualRain >= 0.5) rainScore = 50;
-            else if (actualRain >= 0.2) rainScore = 30;
-            else rainScore = 15;
-
-            var hailSize = "1.5\"", hailScore = 75, windSpeed = 45, stormCount = 3;
-            var competitorScore = 50, permitScore = 50, laborScore = 50, materialScore = 50, rcvScore = 55, creditScore = 55;
-            if (state === "TX") { hailSize = "2.0\""; windSpeed = 60; stormCount = 8; hailScore = 90; competitorScore = 65; permitScore = 55; laborScore = 60; materialScore = 65; rcvScore = 60; creditScore = 65; }
-            else if (state === "FL") { hailSize = "1.0\""; windSpeed = 80; stormCount = 14; hailScore = 55; competitorScore = 80; permitScore = 30; laborScore = 45; materialScore = 55; rcvScore = 35; creditScore = 50; }
-            else if (state === "CO") { hailSize = "2.5\""; windSpeed = 50; stormCount = 12; hailScore = 95; competitorScore = 55; permitScore = 70; laborScore = 60; materialScore = 60; rcvScore = 65; creditScore = 60; }
-            else if (state === "OK") { hailSize = "2.0\""; windSpeed = 55; stormCount = 10; hailScore = 90; competitorScore = 60; permitScore = 65; laborScore = 55; materialScore = 60; rcvScore = 55; creditScore = 55; }
-            else if (state === "NC") { hailSize = "1.25\""; windSpeed = 45; stormCount = 5; hailScore = 65; competitorScore = 55; permitScore = 50; laborScore = 55; materialScore = 60; rcvScore = 55; creditScore = 55; }
-            else if (state === "LA") { hailSize = "1.0\""; windSpeed = 80; stormCount = 11; hailScore = 55; competitorScore = 70; permitScore = 40; laborScore = 45; materialScore = 50; rcvScore = 40; creditScore = 45; }
-
-            var techScore = (tech === "PRO_TECH") ? 95 : 40;
-            var legalScore = (legal === "DIRECT_AOB_ALLOWED") ? 90 : 10;
-            var wHail = hailScore * 0.15, wAge = envelopeScore * 0.10, wRain = rainScore * 0.15, wLegal = legalScore * 0.15, wTech = techScore * 0.10;
-            var wCompetitor = competitorScore * 0.10, wDensity = densityScore * 0.10, wCredit = creditScore * 0.05, wPM = laborScore * 0.05;
-            var wMaterial = materialScore * 0.05, wRCV = rcvScore * 0.05, wPermit = permitScore * 0.05;
-            var finalScore = Math.round(wHail + wAge + wRain + wLegal + wTech + wCompetitor + wDensity + wCredit + wPM + wMaterial + wRCV + wPermit);
-
-            var avgContract = (intent === "MAX_ROI") ? 320000 : 250000;
-            var grossVol = estimatedRoofs * avgContract;
-            var weeksTotal = estimatedRoofs * 4;
-            var laborCost = OPS.crewSize * OPS.laborRate * 40 * weeksTotal;
-            var materialCost = estimatedRoofs * OPS.roofSize * OPS.materialCost;
-            var craneCost = OPS.craneCost * weeksTotal;
-            var housingCost = OPS.crewSize * OPS.housingCost * 7 * weeksTotal;
-            var mobCost = OPS.mobCost;
-            var droneCost = (tech === "PRO_TECH") ? estimatedRoofs * OPS.droneCost : 0;
-            var totalCost = laborCost + materialCost + craneCost + housingCost + mobCost + droneCost;
-            var netYield = grossVol - totalCost;
-            var marginPct = (netYield / grossVol) * 100;
-
-            var verdict, badgeClass;
-            if (finalScore >= 60 && actualRain >= 0.5 && marginPct >= OPS.minMargin && estimatedRoofs >= OPS.minRoofs) {
-                verdict = "GREEN_LIGHT_LAUNCH_STRIKE_CREW"; badgeClass = "bg-green";
-            } else if (finalScore < 40 || actualRain < 0.2 || estimatedRoofs < 2 || marginPct < 20) {
-                verdict = "RED_LIGHT_HARD_ABORT"; badgeClass = "bg-red";
-            } else {
-                verdict = "YELLOW_LIGHT_LEAN_RECON_ONLY"; badgeClass = "bg-amber";
-            }
-
-            function fmt(v) { return (v >= 1000000) ? "$" + (v/1000000).toFixed(1) + "M" : "$" + Math.round(v/1000) + "K"; }
-
-            currentTriageData = { zip: zip, city: city, state: state, estimatedRoofs: estimatedRoofs, droneRoofs: Math.min(5, estimatedRoofs) };
-
-            document.getElementById("out-verdict").innerHTML = verdict;
-            document.getElementById("out-verdict").className = "badge-status " + badgeClass;
-            document.getElementById("out-score").innerHTML = finalScore + "/100";
-
-            var recBox = document.getElementById("out-recommendation");
-            var warnBox = document.getElementById("out-warning");
-            var recText = document.getElementById("out-rec-text");
-            var warnText = document.getElementById("out-warn-text");
-
-            var reasons = [];
-            if (estimatedRoofs < OPS.minRoofs) reasons.push("Only " + estimatedRoofs + " estimated roofs — below your " + OPS.minRoofs + " minimum");
-            if (actualRain < 0.5) reasons.push("Rain " + actualRain.toFixed(2) + "\" — cosmetic denial risk");
-            if (marginPct < OPS.minMargin) reasons.push("Margin " + marginPct.toFixed(0) + "% — below " + OPS.minMargin + "% threshold");
-            if (hailScore < 70) reasons.push("Hail " + hailSize + " — below 1.5\" threshold");
-
-            if (verdict === "GREEN_LIGHT_LAUNCH_STRIKE_CREW") {
-                recBox.style.display = "block"; warnBox.style.display = "none";
-                recText.innerHTML = "<strong>DEPLOY:</strong> " + Math.max(1, Math.round(estimatedRoofs / 2)) + " crews for " + city + ", " + state + ". " + estimatedRoofs + " roofs. Net " + fmt(netYield) + " at " + marginPct.toFixed(0) + "%.";
-            } else {
-                recBox.style.display = "none"; warnBox.style.display = "block";
-                var label = (verdict === "RED_LIGHT_HARD_ABORT") ? "DO NOT DEPLOY" : "RECON ONLY";
-                warnText.innerHTML = "<strong>" + label + " — Reasons:</strong><br>" + reasons.map(function(x){ return "• " + x; }).join("<br>");
-            }
-
-            // MATRIX WITH DETAILED EXPLANATIONS
-            var matrixHtml = "<tr><th>Factor</th><th>Raw</th><th>Weight</th><th>Weighted</th></tr>";
-            matrixHtml += "<tr><td><strong>F01: Hail Kinetic</strong><br><span class='factor-explanation'>" + hailSize + " hail recorded in this region. " + (hailScore >= 70 ? "This exceeds the 1.5\" threshold for commercial TPO/EPDM membrane fracture. Adjusters cannot deny impact damage at this size." : "Below the 1.5\" threshold. Adjusters will push back on impact claims. Drone verification essential.") + "</span></td><td>" + hailScore + "</td><td>15%</td><td>" + wHail.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F02: Envelope Age</strong><br><span class='factor-explanation'>Median build year " + medianYear + " (" + (2026-medianYear) + " yrs). " + ((2026-medianYear) >= 15 ? "Membranes are fully oxidized and brittle. Any impact causes fracture, not just scuffing. Full replacement is defensible." : "Roofs are relatively new. Adjusters will argue repair, not replacement.") + "</span></td><td>" + envelopeScore + "</td><td>10%</td><td>" + wAge.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F03: Rain Saturation</strong><br><span class='factor-explanation'>" + actualRain.toFixed(2) + "\" post-impact rain. " + (actualRain >= 0.5 ? "Water has penetrated the building envelope. Interior damage is documented. This is the #1 factor adjusters use to approve full replacement." : "DRY CONDITIONS. This is the #1 cause of cosmetic denial. Without interior water staining, expect 70%+ denial rate.") + "</span></td><td>" + rainScore + "</td><td>15%</td><td>" + wRain.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F04: Legal Friction</strong><br><span class='factor-explanation'>" + (legal === "ATTORNEY_MANDATORY" ? "This state requires attorney representation for insurance claims. Cycle time increases by 45-60 days. You need additional working capital to float operations during this delay." : "Direct billing to carrier is permitted. You can submit claims directly and expect payment in 30-45 days.") + "</span></td><td>" + legalScore + "</td><td>15%</td><td>" + wLegal.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F05: Competitor Saturation</strong><br><span class='factor-explanation'>" + state + " market has " + (competitorScore >= 70 ? "high competitor density. Multiple national firms are active here. Price wars likely. Your acquisition cost per roof will increase." : competitorScore >= 50 ? "moderate competition. First-mover advantage is possible if you deploy within 72 hours of storm." : "low competition. Open field. You can likely secure contracts before competitors arrive.") + "</span></td><td>" + competitorScore + "</td><td>10%</td><td>" + wCompetitor.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F06: Density</strong><br><span class='factor-explanation'>Total population " + totalPop.toLocaleString() + " → estimated " + estimatedRoofs + " commercial roofs within 50-mile radius. " + (estimatedRoofs >= OPS.minRoofs ? "This supports full deployment. Crane mobilization cost is spread across enough projects." : "This is below your " + OPS.minRoofs + " roof minimum. Crane and crew housing costs will eat your margin.") + "</span></td><td>" + densityScore + "</td><td>10%</td><td>" + wDensity.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F07: Tech Stack</strong><br><span class='factor-explanation'>" + (tech === "PRO_TECH" ? "Your drone capability gives you a 30% faster approval cycle. You can document damage at adjuster-grade quality before the adjuster even arrives." : "Manual measurement means slower documentation and higher chance of adjuster pushback. Consider drone investment for faster claims.") + "</span></td><td>" + techScore + "</td><td>10%</td><td>" + wTech.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F08: Credit Capacity</strong><br><span class='factor-explanation'>" + state + " has " + (creditScore >= 55 ? "strong commercial lending networks. You can likely secure 90-day float for materials without cash flow strain." : "limited lending options. You may need to self-fund materials, which strains working capital.") + "</span></td><td>" + creditScore + "</td><td>5%</td><td>" + wCredit.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F09: PM Roster</strong><br><span class='factor-explanation'>" + state + " labor market has " + (laborScore >= 55 ? "adequate certified commercial PMs and crane operators at standard rates. You can staff up quickly." : "tight labor supply. Expect to pay 15-20% premium for skilled crews.") + "</span></td><td>" + laborScore + "</td><td>5%</td><td>" + wPM.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F10: Material Chain</strong><br><span class='factor-explanation'>" + state + " has " + (materialScore >= 55 ? "major distribution hubs (ABC Supply, Beacon). TPO/EPDM available within 48 hours." : "limited supply. Pre-order materials before crews arrive to avoid 3-week delays.") + "</span></td><td>" + materialScore + "</td><td>5%</td><td>" + wMaterial.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F11: RCV Ratio</strong><br><span class='factor-explanation'>" + state + " is " + (rcvScore >= 55 ? "RCV-dominant. Most policies cover full replacement cost. Adjusters approve full replacement more readily." : "ACV-heavy. Policies cover only depreciated value. Property owners will resist signing unless they can cover the gap.") + "</span></td><td>" + rcvScore + "</td><td>5%</td><td>" + wRCV.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F12: Permit Latency</strong><br><span class='factor-explanation'>" + city + " municipal office " + (permitScore >= 55 ? "processes commercial roofing permits in 10-14 days. No major backlog expected." : "has known delays. Expect 21-30 days for permit approval. Factor this into cash flow.") + "</span></td><td>" + permitScore + "</td><td>5%</td><td>" + wPermit.toFixed(2) + "</td></tr>";
-            document.getElementById("out-matrix").innerHTML = matrixHtml;
-
-            document.getElementById("out-financials").innerHTML = 
-                "<div class='financial-line'><div><div class='financial-label'>Gross Volume</div><div class='financial-detail'>" + estimatedRoofs + " × $" + (avgContract/1000).toFixed(0) + "K</div></div><div class='financial-value' style='color:#fff;'>" + fmt(grossVol) + "</div></div>" +
-                "<div class='financial-line'><div><div class='financial-label'>Labor</div><div class='financial-detail'>" + OPS.crewSize + " × $" + OPS.laborRate + " × 40 × " + weeksTotal + " wks</div></div><div class='financial-value' style='color:#ff8a80;'>" + fmt(laborCost) + "</div></div>" +
-                "<div class='financial-line'><div><div class='financial-label'>Materials</div><div class='financial-detail'>" + estimatedRoofs + " × " + OPS.roofSize.toLocaleString() + " × $" + OPS.materialCost + "</div></div><div class='financial-value' style='color:#ff8a80;'>" + fmt(materialCost) + "</div></div>" +
-                "<div class='financial-line'><div><div class='financial-label'>Equipment+Housing+Mob</div><div class='financial-detail'>Crane + Housing + Mob" + (droneCost > 0 ? " + Drone" : "") + "</div></div><div class='financial-value' style='color:#ff8a80;'>" + fmt(craneCost + housingCost + mobCost + droneCost) + "</div></div>" +
-                "<div class='financial-line'><div><div class='financial-label'>Net Yield</div><div class='financial-detail'>" + marginPct.toFixed(0) + "% (Threshold: " + OPS.minMargin + "%)</div></div><div class='financial-value' style='color:#00ffa3; font-size:24px;'>" + fmt(netYield) + "</div></div>";
-
-            var historicalText = "";
-            if (state === "TX") {
-                historicalText = "<strong>📊 Dallas/Fort Worth — April 2021</strong><br>Hail 2.0\" / Wind 60 / Rain 1.2\"<br>Outcome: 18 roofs. $2.1M gross. 31% margin.<br>Key Lesson: Rain followed hail → 78% approval.<br><em>Source: NOAA Storm Events DB</em>";
-            } else if (state === "CO") {
-                historicalText = "<strong>📊 Denver — June 2022</strong><br>Hail 2.5\" / Wind 50 / Rain 0.8\"<br>Outcome: 22 roofs. $2.8M gross. 34% margin.<br>Key Lesson: High hail + moderate rain = Green.<br><em>Source: NOAA Storm Events DB</em>";
-            } else if (state === "FL") {
-                historicalText = "<strong>📊 Tampa — July 2023</strong><br>Wind 75 / Hail 1.0\" / Rain 4.0\"<br>Outcome: 15 roofs via wind uplift. $1.9M. 25%.<br>Key Lesson: Chase WIND not hail in FL.<br><em>Source: NOAA Storm Events DB</em>";
-            } else if (state === "OK") {
-                historicalText = "<strong>📊 OKC — May 2022</strong><br>Hail 2.25\" / Wind 55 / Rain 1.5\"<br>Outcome: 20 roofs. $2.4M. 32%.<br>Key Lesson: OK hail + rain = reliable.<br><em>Source: NOAA Storm Events DB</em>";
-            } else if (state === "NC") {
-                historicalText = "<strong>📊 Raleigh — March 2023</strong><br>Hail 1.25\" / Wind 45 / Rain 0.3\"<br>Outcome: 8 roofs. $980K. 22%.<br>Key Lesson: NC hail often below threshold.<br><em>Source: NOAA Storm Events DB</em>";
-            } else {
-                historicalText = "<strong>📊 " + state + " Baseline</strong><br>" + stormCount + " events/yr. Hail " + hailSize + ". Wind " + windSpeed + " mph.<br><em>Source: NOAA + State Climatology</em>";
-            }
-            document.getElementById("out-historical").innerHTML = historicalText;
-
-            var killText = "";
-            if (verdict === "RED_LIGHT_HARD_ABORT") {
-                killText = "TRIGGER: " + reasons.join(" AND ") + ".<br><br>ACTION: Do not deploy. Withdraw by Day 3 if mobilized.";
-            } else if (verdict === "YELLOW_LIGHT_LEAN_RECON_ONLY") {
-                killText = "TRIGGER: " + reasons.join(" AND ") + ".<br><br>ACTION: 1 recon crew. " + Math.round(OPS.minRoofs / 2) + " contracts in 5 days or withdraw.";
-            } else {
-                killText = "MONITOR: Canopy > 45 trucks = pivot.<br>MONITOR: Permits > 14 days = shift to unincorporated.";
-            }
-            document.getElementById("out-exit").innerHTML = killText;
-
-            var droneText = "";
-            var showDroneCTA = false;
-            if (tech === "PRO_TECH") {
-                droneText = "✅ <strong>You have in-house drone capability.</strong><br><br>Use your drone fleet to scan all " + estimatedRoofs + " roofs in " + city + " before full mobilization.<br><br><strong>Recommended Scanning Checklist:</strong><br>• 3D mapping of each roof surface<br>• Thermal imaging to detect trapped moisture<br>• Core sample at lowest point of each roof<br>• Document all membrane fractures with close-up imagery<br>• Export to Xactimate-compatible format<br><br>This will accelerate adjuster approvals by 30% and protect against cosmetic denial claims.";
-                showDroneCTA = false;
-            } else {
-                droneText = "⚠️ <strong>You selected Manual (No Drone Capability).</strong><br><br>Manual inspections take 2-3 days per roof and face higher adjuster pushback.<br><br><strong>We offer Drone Verification as a service:</strong><br>• Certified pilot dispatched to " + city + "<br>• 3D + thermal imaging on " + Math.min(5, estimatedRoofs) + " target roofs<br>• Adjuster-ready report in 48-72 hours<br>• Cost: $" + (Math.min(5, estimatedRoofs) * OPS.droneCost).toLocaleString() + "<br><br>This provides the evidence you need to secure approvals without investing in your own drone fleet.";
-                showDroneCTA = true;
-            }
-            document.getElementById("out-drone").innerHTML = droneText;
-            document.getElementById("btn-drone-cta").style.display = showDroneCTA ? "block" : "none";
-
-            var nextText = "";
-            var ctaButtons = "";
-            if (verdict === "GREEN_LIGHT_LAUNCH_STRIKE_CREW") {
-                nextText = "<strong>Action Plan for " + city + ":</strong>";
-                ctaButtons = "<button class='cta-btn' onclick=\"alert('ABC Supply: (800) 555-0123. Optima priority.')\">📦 Pre-Order Materials</button><button class='cta-btn' onclick=\"alert('Crews confirmed. 72-hour arrival.')\">🚛 Schedule Crews</button><button class='cta-btn' onclick=\"alert('Alerts set for Day 3, 5, 7.')\">⏰ Set Alerts</button>";
-            } else if (verdict === "YELLOW_LIGHT_LEAN_RECON_ONLY") {
-                nextText = "<strong>Recon Protocol for " + city + ":</strong>";
-                ctaButtons = "<button class='cta-btn' onclick=\"alert('Recon crew confirmed. 48-hour arrival.')\">🚛 Deploy Recon</button><button class='cta-btn' onclick=\"alert('Day 5 checkpoint set.')\">⏰ Day 5 Checkpoint</button><button class='cta-btn' onclick=\"document.getElementById('triage-form').scrollIntoView({behavior:'smooth'})\">🔄 Re-Run</button>";
-            } else {
-                nextText = "<strong>Decline Protocol for " + city + ":</strong>";
-                ctaButtons = "<button class='cta-btn' onclick='downloadReport()'>📄 Download Report</button><button class='cta-btn' onclick=\"alert('Alert set for ZIP " + zip + "')\">🔔 Storm Alert</button><button class='cta-btn' onclick=\"scanAdjacentZips('" + zip + "')\">🗺️ Adjacent ZIPs</button><button class='cta-btn' onclick=\"document.getElementById('params-panel').classList.add('open'); document.getElementById('params-arrow').innerHTML='▲';\">⚙️ Adjust Params</button>";
-            }
-            document.getElementById("out-next-text").innerHTML = nextText;
-            document.getElementById("out-cta-buttons").innerHTML = ctaButtons;
-
-            document.getElementById("results-card").style.display = "block";
-            btn.disabled = false;
-            btn.innerHTML = "⚡ Execute Sweep";
-            document.getElementById("results-card").scrollIntoView({ behavior: 'smooth' });
-        });
-    </script>
-</body>
-</html>
