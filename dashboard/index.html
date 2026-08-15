@@ -91,19 +91,36 @@
 </head>
 <body>
 
-    <!-- 🔒 STAGE 1: UN-BYPASSABLE OPERATIONAL PORTAL COVER -->
+        <!-- 🔒 STAGE 1: UN-BYPASSABLE OPERATIONAL PORTAL COVER (CORRECTED LAYOUT) -->
     <div id="auth-overlay">
+        <!-- 🔑 Step A: Password Form Ingestion -->
         <div class="auth-card" id="step-password-box">
             <h2>Corporate Authorization</h2>
             <p class="auth-lead">Input core operational access keys.</p>
-            <div class="form-group"><label>Corporate Email</label><input type="email" id="auth-email" value="operations@vanguard.com"></div>
-            <div class="form-group"><label>Security Key</label><input type="password" id="auth-password" value="vanguard2026"></div>
-            <button type="button" class="btn-primary" style="margin-top:20px;" id="btn-login-pass">Verify Password</button>
+            <div class="form-group">
+                <label>Corporate Email</label>
+                <input type="email" id="auth-email" value="operations@vanguard.com">
+            </div>
+            <div class="form-group">
+                <label>Security Key</label>
+                <input type="password" id="auth-password" value="vanguard2026">
+            </div>
+            <button type="button" class="btn-primary" style="margin-top:20px;" id="btn-login-pass">Verify Password Key</button>
         </div>
+
+        <!-- 📟 Step B: Two-Factor Validation Container -->
         <div class="auth-card" id="step-twofactor-box" style="display:none;">
             <h2>Two-Factor Validation</h2>
             <p class="auth-lead">Demo Unlock Token: 481516</p>
-            <div class="form-group"><label>Token</label><input type="text" id="auth-2fa-token" maxlength="6" style="text-align:center; font-size:18px;"></div>
+            <div class="form-group">
+                <label>Token Verification Security Code</label>
+                <input type="text" id="auth-2fa-token" maxlength="6" style="text-align:center; font-size:18px; font-family:'IBM Plex Mono', monospace; letter-spacing: 0.15em;" value="481516">
+            </div>
+            <!-- FIXED: Placed safely within the wrapper card component block boundary -->
+            <button type="button" class="btn-primary" style="margin-top:20px;" id="btn-login-2fa">Authorize Session Node</button>
+        </div>
+    </div>
+
 
                 <!-- LIVE REAL TIME LOGGING CALCULATION RESULT OUTPUT SCREEN -->
                 <div id="results-card" class="card" style="display:none; border-top:4px solid var(--cyber-blue);">
