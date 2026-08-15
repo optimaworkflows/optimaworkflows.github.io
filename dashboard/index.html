@@ -12,24 +12,24 @@
             --bg-deep: #05080f;
             --bg-card: linear-gradient(145deg, #0b101b, #070b13);
             --border-hairline: #1c2536;
-            --text-primary: #f4f7fb;
-            --text-muted: #94a3b8;
-            --text-detail: #64748b;
+            --text-primary: #ffffff;
+            --text-muted: #b0bec5;
+            --text-detail: #78909c;
             --cyber-green: #00ffa3;
             --cyber-amber: #ffb800;
-            --cyber-red: #ff3b3b;
-            --cyber-blue: #38bdf8;
+            --cyber-red: #ff5252;
+            --cyber-blue: #40c4ff;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background-color: var(--bg-deep); color: var(--text-primary); font-family: 'Inter', sans-serif; display: flex; height: 100vh; overflow: hidden; font-size: 14px; }
+        body { background-color: var(--bg-deep); color: var(--text-primary); font-family: 'Inter', sans-serif; display: flex; height: 100vh; overflow: hidden; font-size: 15px; }
         .mono { font-family: 'IBM Plex Mono', monospace; }
 
         #auth-overlay { position: fixed; inset: 0; background: var(--bg-deep); z-index: 9999; display: flex; align-items: center; justify-content: center; padding: 20px; }
-        .auth-card { background: var(--bg-card); border: 1px solid var(--border-hairline); width: 100%; max-width: 420px; padding: 40px; border-radius: 16px; }
+        .auth-card { background: var(--bg-card); border: 1px solid var(--border-hairline); width: 100%; max-width: 420px; padding: 40px; border-radius: 16px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.8); }
         .auth-card h2 { font-size: 22px; font-weight: 800; text-align: center; margin-bottom: 6px; }
         .auth-lead { font-size: 14px; color: var(--text-muted); margin: 10px 0 28px; text-align: center; }
 
-        .sidebar { width: 250px; background: #070a12; border-right: 1px solid var(--border-hairline); display: flex; flex-direction: column; justify-content: space-between; padding: 20px 14px; }
+        .sidebar { width: 240px; background: #070a12; border-right: 1px solid var(--border-hairline); display: flex; flex-direction: column; justify-content: space-between; padding: 20px 14px; }
         .logo { font-weight: 900; font-size: 13px; letter-spacing: 0.06em; color: #fff; display: flex; align-items: center; gap: 8px; text-transform: uppercase; margin-bottom: 24px; }
         .logo-icon { display:flex; align-items:center; justify-content:center; height: 24px; width: 24px; background: var(--cyber-green); color: #05080f; border-radius: 5px; font-size: 13px; font-weight: 900; }
         .section-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 700; text-transform: uppercase; color: var(--text-detail); letter-spacing: 0.1em; margin: 16px 0 6px 6px; }
@@ -48,41 +48,46 @@
         .dashboard-tab { display: none; }
         .dashboard-tab.active { display: block; }
 
-        table { width: 100%; border-collapse: collapse; font-size: 13px; }
-        th { font-size: 11px; text-transform: uppercase; color: var(--text-detail); padding: 12px 10px; border-bottom: 1px solid var(--border-hairline); text-align: left; letter-spacing: 0.05em; }
-        td { padding: 14px 10px; border-bottom: 1px solid #111827; font-family: 'IBM Plex Mono', monospace; font-size: 13px; line-height: 1.5; }
+        table { width: 100%; border-collapse: collapse; font-size: 14px; }
+        th { font-size: 11px; text-transform: uppercase; color: #cfd8dc; padding: 12px 10px; border-bottom: 2px solid var(--border-hairline); text-align: left; letter-spacing: 0.05em; background: rgba(255,255,255,0.02); }
+        td { padding: 14px 10px; border-bottom: 1px solid #111827; font-family: 'IBM Plex Mono', monospace; font-size: 13.5px; line-height: 1.6; vertical-align: top; }
         .badge-status { padding: 6px 14px; border-radius: 5px; font-size: 12px; font-weight: 800; font-family: 'IBM Plex Mono', monospace; text-transform: uppercase; letter-spacing: 0.05em; }
-        .bg-green { background: rgba(0, 255, 163, 0.1); color: var(--cyber-green); }
-        .bg-amber { background: rgba(255, 184, 0, 0.1); color: var(--cyber-amber); }
-        .bg-red { background: rgba(255, 59, 59, 0.1); color: var(--cyber-red); }
+        .bg-green { background: rgba(0, 255, 163, 0.15); color: var(--cyber-green); border: 1px solid rgba(0,255,163,0.4); }
+        .bg-amber { background: rgba(255, 184, 0, 0.15); color: var(--cyber-amber); border: 1px solid rgba(255,184,0,0.4); }
+        .bg-red { background: rgba(255, 82, 82, 0.15); color: var(--cyber-red); border: 1px solid rgba(255,82,82,0.4); }
 
-        .btn-primary { border: 1px solid rgba(0, 255, 163, 0.3); color: var(--cyber-green); padding: 14px 20px; border-radius: 8px; font-weight: 800; cursor: pointer; text-transform: uppercase; background: rgba(0, 255, 163, 0.03); font-size: 13px; width: 100%; letter-spacing: 0.04em; transition: all 0.2s; }
-        .btn-primary:hover { background: var(--cyber-green); color: #05080f; }
+        .btn-primary { border: 1px solid rgba(0, 255, 163, 0.4); color: #05080f; padding: 14px 20px; border-radius: 8px; font-weight: 800; cursor: pointer; text-transform: uppercase; background: var(--cyber-green); font-size: 13px; width: 100%; letter-spacing: 0.04em; transition: all 0.2s; }
+        .btn-primary:hover { background: #00cc82; box-shadow: 0 0 20px rgba(0,255,163,0.3); }
         .btn-primary:disabled { opacity: 0.5; cursor: wait; }
         .btn-secondary { border: 1px solid var(--border-hairline); color: var(--text-muted); padding: 10px 16px; border-radius: 6px; font-weight: 700; cursor: pointer; background: transparent; font-size: 12px; }
+        .btn-secondary:hover { color: #fff; border-color: #fff; }
 
         .form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
         .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
-        label { font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-detail); }
-        input, select { width: 100%; background-color: #03060c; border: 1px solid var(--border-hairline); border-radius: 8px; padding: 12px 14px; color: #fff; font-size: 14px; font-family: 'IBM Plex Mono', monospace; outline: none; }
-        input:focus, select:focus { border-color: var(--cyber-green); }
+        label { font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #b0bec5; }
+        input, select { width: 100%; background-color: #03060c; border: 1px solid #2a3a55; border-radius: 8px; padding: 12px 14px; color: #fff; font-size: 14px; font-family: 'IBM Plex Mono', monospace; outline: none; }
+        input:focus, select:focus { border-color: var(--cyber-green); box-shadow: 0 0 0 3px rgba(0,255,163,0.1); }
 
-        .recommendation-box { background: rgba(0, 255, 163, 0.04); border: 1px solid rgba(0, 255, 163, 0.3); border-radius: 10px; padding: 24px; margin-bottom: 24px; }
-        .recommendation-text { font-size: 15px; color: var(--text-primary); line-height: 1.8; font-weight: 600; }
-        .warning-box { background: rgba(255, 59, 59, 0.04); border: 1px solid rgba(255, 59, 59, 0.3); border-radius: 10px; padding: 24px; margin-bottom: 24px; }
-        .warning-text { font-size: 15px; color: var(--cyber-red); line-height: 1.8; font-weight: 600; }
+        .recommendation-box { background: rgba(0, 255, 163, 0.05); border: 1px solid rgba(0, 255, 163, 0.3); border-radius: 10px; padding: 24px; margin-bottom: 24px; }
+        .recommendation-text { font-size: 16px; color: #e8f5e9; line-height: 1.8; font-weight: 600; }
+        .warning-box { background: rgba(255, 82, 82, 0.05); border: 1px solid rgba(255, 82, 82, 0.3); border-radius: 10px; padding: 24px; margin-bottom: 24px; }
+        .warning-text { font-size: 16px; color: #ffcdd2; line-height: 1.8; font-weight: 600; }
 
-        .params-toggle { display: flex; justify-content: space-between; align-items: center; margin: 20px 0 12px; cursor: pointer; padding: 12px; border: 1px solid var(--border-hairline); border-radius: 8px; }
-        .params-toggle:hover { border-color: var(--text-detail); }
+        .params-toggle { display: flex; justify-content: space-between; align-items: center; margin: 20px 0 12px; cursor: pointer; padding: 14px; border: 1px dashed #2a3a55; border-radius: 8px; background: rgba(255,255,255,0.02); }
+        .params-toggle:hover { border-color: var(--cyber-amber); }
+        .params-note { font-size: 12px; color: var(--cyber-amber); margin-top: 4px; font-style: italic; }
         .params-panel { display: none; border-top: 1px solid var(--border-hairline); padding-top: 20px; margin-bottom: 16px; }
         .params-panel.open { display: block; }
 
-        .factor-explanation { font-size: 12px; color: var(--text-muted); margin-top: 4px; line-height: 1.5; }
-        .financial-line { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #111827; }
+        .factor-explanation { font-size: 12.5px; color: #90a4ae; margin-top: 4px; line-height: 1.5; font-style: italic; }
+        .financial-line { display: flex; justify-content: space-between; padding: 14px 0; border-bottom: 1px solid #1a2332; }
         .financial-line:last-child { border-bottom: none; }
-        .financial-label { font-size: 13px; color: var(--text-muted); }
-        .financial-value { font-family: 'IBM Plex Mono', monospace; font-size: 15px; font-weight: 700; }
-        .financial-detail { font-size: 11px; color: var(--text-detail); margin-top: 4px; }
+        .financial-label { font-size: 14px; color: #cfd8dc; font-weight: 600; }
+        .financial-value { font-family: 'IBM Plex Mono', monospace; font-size: 16px; font-weight: 700; }
+        .financial-detail { font-size: 12px; color: #78909c; margin-top: 4px; line-height: 1.5; }
+
+        .next-steps-box { background: rgba(64, 196, 255, 0.04); border: 1px solid rgba(64, 196, 255, 0.3); border-radius: 10px; padding: 24px; margin-bottom: 24px; }
+        .next-steps-text { font-size: 15px; color: #bbdefb; line-height: 1.8; }
     </style>
 </head>
 <body>
@@ -131,10 +136,11 @@
 
             <section id="view-cat-intel" class="dashboard-tab">
                 <h1>Cat Intelligence Triage Terminal</h1>
-                <p class="lead">Deployment intelligence based on operational parameters. Adjust to match your operation. All calculations use industry averages unless overridden.</p>
+                <p class="lead">Deployment intelligence based on operational parameters. All calculations use industry averages unless you override them below.</p>
 
                 <div class="card">
                     <form id="triage-form">
+                        <h3 class="section-label" style="margin-top:0; font-size:12px; color:#cfd8dc;">Storm Parameters</h3>
                         <div class="form-row">
                             <div class="form-group"><label>Target ZIP</label><input type="text" id="frm-zip" placeholder="e.g., 75062" required></div>
                             <div class="form-group"><label>Intent</label><select id="frm-intent" required><option value="">Select...</option><option value="MAX_CASH">Maximum Gross Cash</option><option value="MAX_ROI">Maximum Net ROI</option></select></div>
@@ -146,13 +152,16 @@
                         <div class="form-group"><label>AOB Legal</label><select id="frm-legal" required><option value="">Select...</option><option value="ATTORNEY_MANDATORY">Attorney Mandatory</option><option value="DIRECT_AOB_ALLOWED">Direct Billing</option></select></div>
 
                         <div class="params-toggle" onclick="toggleParams()">
-                            <span style="font-weight:700; font-size:13px;">⚙️ Operational Parameters</span>
-                            <span id="params-arrow" style="color:var(--text-muted); font-size:14px;">▼</span>
+                            <div>
+                                <span style="font-weight:700; font-size:14px; color:#fff;">⚙️ Operational Parameters</span>
+                                <div class="params-note">EDITABLE — Currently set to Industry Averages. Click to adjust to your operation.</div>
+                            </div>
+                            <span id="params-arrow" style="color:var(--cyber-amber); font-size:16px;">▼</span>
                         </div>
 
                         <div class="params-panel" id="params-panel">
                             <div class="form-row">
-                                <div class="form-group"><label>Crew Size (persons)</label><input type="number" id="p-crew" value="4"></div>
+                                <div class="form-group"><label>Crew Size</label><input type="number" id="p-crew" value="4"></div>
                                 <div class="form-group"><label>Labor Rate ($/hr)</label><input type="number" id="p-labor" value="35"></div>
                             </div>
                             <div class="form-row">
@@ -161,14 +170,14 @@
                             </div>
                             <div class="form-row">
                                 <div class="form-group"><label>Crane ($/week)</label><input type="number" id="p-crane" value="8000"></div>
-                                <div class="form-group"><label>Housing ($/night/person)</label><input type="number" id="p-housing" value="100"></div>
+                                <div class="form-group"><label>Housing ($/night)</label><input type="number" id="p-housing" value="100"></div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group"><label>Mobilization ($/crew)</label><input type="number" id="p-mob" value="15000"></div>
                                 <div class="form-group"><label>Min Margin %</label><input type="number" id="p-margin" value="30"></div>
                             </div>
                             <div class="form-row">
-                                <div class="form-group"><label>Min Roofs for Deploy</label><input type="number" id="p-minroofs" value="4"></div>
+                                <div class="form-group"><label>Min Roofs</label><input type="number" id="p-minroofs" value="4"></div>
                                 <div class="form-group"><label>Drone Cost ($/roof)</label><input type="number" id="p-drone" value="2500"></div>
                             </div>
                             <button type="button" class="btn-secondary" onclick="resetParams()" style="margin-top:8px;">Reset to Industry Averages</button>
@@ -181,7 +190,7 @@
                 <div id="results-card" class="card" style="display:none; border-top:4px solid var(--cyber-blue);">
                     <div style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:16px; border-bottom:1px solid var(--border-hairline); padding-bottom:20px; margin-bottom:24px;">
                         <div><div class="section-label" style="margin-top:0;">Verdict</div><span id="out-verdict" class="badge-status" style="font-size:16px;"></span></div>
-                        <div style="text-align:right;"><div class="section-label" style="margin-top:0;">Index Score</div><span id="out-score" style="font-family:'IBM Plex Mono', monospace; font-size:36px; font-weight:900;">—</span></div>
+                        <div style="text-align:right;"><div class="section-label" style="margin-top:0;">Index Score</div><span id="out-score" style="font-family:'IBM Plex Mono', monospace; font-size:36px; font-weight:900; color:#fff;">—</span></div>
                     </div>
 
                     <div id="out-recommendation" class="recommendation-box" style="display:none;">
@@ -193,17 +202,23 @@
                         <p id="out-warn-text" class="warning-text"></p>
                     </div>
 
-                    <h3 class="section-label" style="margin-top:0; font-size:12px;">12-Factor Matrix — With Explanations</h3>
+                    <h3 class="section-label" style="margin-top:0; font-size:12px; color:#cfd8dc;">12-Factor Matrix — Explained</h3>
                     <div style="overflow-x:auto; margin-bottom:24px;"><table id="out-matrix"></table></div>
 
-                    <h3 class="section-label" style="font-size:12px;">Financial Breakdown — How We Got These Numbers</h3>
+                    <h3 class="section-label" style="font-size:12px; color:#cfd8dc;">Financial Breakdown — How We Got These Numbers</h3>
                     <div id="out-financials" style="background:#03060c; border:1px solid var(--border-hairline); border-radius:10px; padding:24px; margin-bottom:24px;"></div>
 
-                    <h3 class="section-label" style="font-size:12px;">Kill Switch Protocol — Triggered By These Factors</h3>
+                    <h3 class="section-label" style="font-size:12px; color:#cfd8dc;">Kill Switch Protocol — Triggered By These Factors</h3>
                     <div id="out-exit" style="background:rgba(255,184,0,0.05); border:1px dashed rgba(255,184,0,0.3); padding:20px; border-radius:10px; color:var(--cyber-amber); font-family:'IBM Plex Mono', monospace; font-size:14px; line-height:1.7; margin-bottom:24px;"></div>
 
-                    <h3 class="section-label" style="font-size:12px;">Drone Verification Protocol</h3>
-                    <div id="out-drone" style="background:rgba(56,189,248,0.05); border:1px solid rgba(56,189,248,0.3); padding:20px; border-radius:10px; color:var(--cyber-blue); font-family:'IBM Plex Mono', monospace; font-size:14px; line-height:1.7;"></div>
+                    <h3 class="section-label" style="font-size:12px; color:#cfd8dc;">Drone Verification Protocol</h3>
+                    <div id="out-drone" style="background:rgba(64,196,255,0.05); border:1px solid rgba(64,196,255,0.3); padding:20px; border-radius:10px; color:#bbdefb; font-family:'IBM Plex Mono', monospace; font-size:14px; line-height:1.7; margin-bottom:12px;"></div>
+                    <button type="button" id="btn-drone-cta" class="btn-primary" style="display:none; margin-bottom:24px;" onclick="requestDroneVerification()">📡 Request Drone Verification — $2,500/roof</button>
+
+                    <h3 class="section-label" style="font-size:12px; color:#cfd8dc;">Next Steps — Your Action Plan</h3>
+                    <div id="out-next-steps" class="next-steps-box">
+                        <p id="out-next-text" class="next-steps-text"></p>
+                    </div>
                 </div>
             </section>
 
@@ -215,6 +230,8 @@
     </div>
 
     <script>
+        var currentTriageData = {};
+
         document.getElementById("btn-login-pass").addEventListener("click", function() {
             if (document.getElementById("auth-email").value.trim() === "operations@vanguard.com" && document.getElementById("auth-password").value === "vanguard2026") {
                 document.getElementById("step-password-box").style.display = "none";
@@ -257,6 +274,15 @@
             document.getElementById("p-drone").value = 2500;
         }
 
+        function requestDroneVerification() {
+            var d = currentTriageData;
+            if (!d || !d.zip) return;
+            var subject = encodeURIComponent("Drone Verification Request - ZIP " + d.zip + " - " + d.city + " " + d.state);
+            var body = encodeURIComponent("Client: Vanguard Restoration Corp\nZIP: " + d.zip + "\nCity: " + d.city + ", " + d.state + "\nRoofs to Scan: " + d.droneRoofs + "\nCost: $" + (d.droneRoofs * 2500).toLocaleString() + "\n\nPlease dispatch drone pilot.");
+            window.location.href = "mailto:ops@optimaworkflows.com?subject=" + subject + "&body=" + body;
+            alert("Drone Verification request prepared. Sending email to our dispatch team.\n\nZIP: " + d.zip + "\nRoofs: " + d.droneRoofs + "\nCost: $" + (d.droneRoofs * 2500).toLocaleString());
+        }
+
         document.getElementById("triage-form").addEventListener("submit", async function(event) {
             event.preventDefault();
             var btn = document.getElementById("btn-triage");
@@ -282,7 +308,6 @@
                 droneCost: parseInt(document.getElementById("p-drone").value) || 2500
             };
 
-            // GEOCODING
             var lat = 32.85, lon = -96.97, city = "Unknown", state = "TX";
             try {
                 var geoRes = await fetch("https://api.zippopotam.us/us/" + zip);
@@ -295,11 +320,10 @@
                 }
             } catch(e1) {}
 
-            // CENSUS
-            var medianYear = 2005, envelopeScore = 80, totalPop = 0, totalUnits = 0;
+            var medianYear = 2005, envelopeScore = 80, totalPop = 0;
             try {
                 var censusKey = "adc98c57ae5ba855e42fbabbdb597d0a321e7269";
-                var censusRes = await fetch("https://api.census.gov/data/2020/acs/acs5?get=B25035_001E,B01003_001E,B25002_001E&for=zip%20code%20tabulation%20area:" + zip + "&key=" + censusKey);
+                var censusRes = await fetch("https://api.census.gov/data/2020/acs/acs5?get=B25035_001E,B01003_001E&for=zip%20code%20tabulation%20area:" + zip + "&key=" + censusKey);
                 var censusData = await censusRes.json();
                 if (censusData && censusData.length > 1 && censusData[1][0]) {
                     medianYear = parseInt(censusData[1][0]);
@@ -310,21 +334,20 @@
                     else if (age >= 5) envelopeScore = 35;
                     else envelopeScore = 20;
                     totalPop = parseInt(censusData[1][1]) || 0;
-                    totalUnits = parseInt(censusData[1][2]) || 0;
                 }
             } catch(e2) {}
 
-            // DENSITY FIX: Use total population, not per-sqmi
-            var densityScore = 30;
+            // CORRECTED DENSITY MAPPING
+            var densityScore = 20;
             var estimatedRoofs = 1;
-            if (totalPop > 100000) { densityScore = 95; estimatedRoofs = 20; }
-            else if (totalPop > 50000) { densityScore = 85; estimatedRoofs = 15; }
-            else if (totalPop > 25000) { densityScore = 75; estimatedRoofs = 10; }
-            else if (totalPop > 10000) { densityScore = 60; estimatedRoofs = 6; }
-            else if (totalPop > 5000) { densityScore = 45; estimatedRoofs = 3; }
-            else { densityScore = 25; estimatedRoofs = 1; }
+            if (totalPop > 200000) { densityScore = 95; estimatedRoofs = 25; }
+            else if (totalPop > 100000) { densityScore = 90; estimatedRoofs = 20; }
+            else if (totalPop > 50000) { densityScore = 80; estimatedRoofs = 15; }
+            else if (totalPop > 25000) { densityScore = 70; estimatedRoofs = 10; }
+            else if (totalPop > 10000) { densityScore = 55; estimatedRoofs = 6; }
+            else if (totalPop > 5000) { densityScore = 40; estimatedRoofs = 3; }
+            else { densityScore = 20; estimatedRoofs = 1; }
 
-            // RAIN
             var actualRain = rainInput;
             var rainSource = "User Input";
             if (rainInput === 0) {
@@ -348,7 +371,6 @@
             else if (actualRain >= 0.2) rainScore = 30;
             else rainScore = 15;
 
-            // REGIONAL
             var hailSize = "1.5\"", hailScore = 75, windSpeed = 45, stormCount = 3;
             var competitorScore = 50, permitScore = 50, laborScore = 50, materialScore = 50, rcvScore = 55, creditScore = 55;
             if (state === "TX") { hailSize = "2.0\""; windSpeed = 60; stormCount = 8; hailScore = 90; competitorScore = 65; permitScore = 55; laborScore = 60; materialScore = 65; rcvScore = 60; creditScore = 65; }
@@ -358,7 +380,6 @@
             else if (state === "NC") { hailSize = "1.25\""; windSpeed = 45; stormCount = 5; hailScore = 65; competitorScore = 55; permitScore = 50; laborScore = 55; materialScore = 60; rcvScore = 55; creditScore = 55; }
             else if (state === "LA") { hailSize = "1.0\""; windSpeed = 80; stormCount = 11; hailScore = 55; competitorScore = 70; permitScore = 40; laborScore = 45; materialScore = 50; rcvScore = 40; creditScore = 45; }
 
-            // SCORING
             var techScore = (tech === "PRO_TECH") ? 95 : 40;
             var legalScore = (legal === "DIRECT_AOB_ALLOWED") ? 90 : 10;
             var wHail = hailScore * 0.15, wAge = envelopeScore * 0.10, wRain = rainScore * 0.15, wLegal = legalScore * 0.15, wTech = techScore * 0.10;
@@ -366,7 +387,6 @@
             var wMaterial = materialScore * 0.05, wRCV = rcvScore * 0.05, wPermit = permitScore * 0.05;
             var finalScore = Math.round(wHail + wAge + wRain + wLegal + wTech + wCompetitor + wDensity + wCredit + wPM + wMaterial + wRCV + wPermit);
 
-            // FINANCIALS
             var avgContract = (intent === "MAX_ROI") ? 320000 : 250000;
             var grossVol = estimatedRoofs * avgContract;
             var weeksTotal = estimatedRoofs * 4;
@@ -380,7 +400,6 @@
             var netYield = grossVol - totalCost;
             var marginPct = (netYield / grossVol) * 100;
 
-            // VERDICT
             var verdict, badgeClass;
             if (finalScore >= 60 && actualRain >= 0.5 && marginPct >= OPS.minMargin && estimatedRoofs >= OPS.minRoofs) {
                 verdict = "GREEN_LIGHT_LAUNCH_STRIKE_CREW"; badgeClass = "bg-green";
@@ -392,12 +411,12 @@
 
             function fmt(v) { return (v >= 1000000) ? "$" + (v/1000000).toFixed(1) + "M" : "$" + Math.round(v/1000) + "K"; }
 
-            // RENDER
+            currentTriageData = { zip: zip, city: city, state: state, estimatedRoofs: estimatedRoofs, droneRoofs: Math.min(5, estimatedRoofs) };
+
             document.getElementById("out-verdict").innerHTML = verdict;
             document.getElementById("out-verdict").className = "badge-status " + badgeClass;
             document.getElementById("out-score").innerHTML = finalScore + "/100";
 
-            // RECOMMENDATION
             var recBox = document.getElementById("out-recommendation");
             var warnBox = document.getElementById("out-warning");
             var recText = document.getElementById("out-rec-text");
@@ -414,40 +433,38 @@
                 recText.innerHTML = "<strong>DEPLOY:</strong> " + Math.max(1, Math.round(estimatedRoofs / 2)) + " crews recommended for " + city + ", " + state + ". Estimated " + estimatedRoofs + " commercial roofs. Projected net " + fmt(netYield) + " at " + marginPct.toFixed(0) + "% margin.";
             } else {
                 recBox.style.display = "none"; warnBox.style.display = "block";
-                if (verdict === "RED_LIGHT_HARD_ABORT") {
-                    warnText.innerHTML = "<strong>DO NOT DEPLOY — Reasons:</strong><br>" + reasons.map(function(x){ return "• " + x; }).join("<br>");
-                } else {
-                    warnText.innerHTML = "<strong>RECON ONLY — Reasons:</strong><br>" + reasons.map(function(x){ return "• " + x; }).join("<br>");
-                }
+                var label = (verdict === "RED_LIGHT_HARD_ABORT") ? "DO NOT DEPLOY" : "RECON ONLY";
+                warnText.innerHTML = "<strong>" + label + " — Reasons:</strong><br>" + reasons.map(function(x){ return "• " + x; }).join("<br>");
             }
 
-            // MATRIX WITH EXPLANATIONS
-            document.getElementById("out-matrix").innerHTML = 
-                "<tr><td><strong>F01: Hail Kinetic</strong><br><span class='factor-explanation'>" + hailSize + " hail. " + (hailScore >= 70 ? "Above 1.5\" threshold — commercial membranes will fracture." : "Below 1.5\" threshold — drone verification required.") + "</span></td><td>" + hailScore + "</td><td>15%</td><td>" + wHail.toFixed(2) + "</td></tr>" +
-                "<tr><td><strong>F02: Envelope Age</strong><br><span class='factor-explanation'>Median build " + medianYear + " (" + (2026-medianYear) + " yrs). " + ((2026-medianYear) >= 15 ? "Brittle — full replacement likely." : "Moderate — repair possible.") + "</span></td><td>" + envelopeScore + "</td><td>10%</td><td>" + wAge.toFixed(2) + "</td></tr>" +
-                "<tr><td><strong>F03: Rain Saturation</strong><br><span class='factor-explanation'>" + actualRain.toFixed(2) + "\" (" + rainSource + "). " + (actualRain >= 0.5 ? "Interior damage confirmed — adjusters will approve." : "DRY — adjusters will deny as cosmetic.") + "</span></td><td>" + rainScore + "</td><td>15%</td><td>" + wRain.toFixed(2) + "</td></tr>" +
-                "<tr><td><strong>F04: Legal Friction</strong><br><span class='factor-explanation'>" + (legal === "ATTORNEY_MANDATORY" ? "Attorney required — cycle time +45 days." : "Direct billing — fast cash conversion.") + "</span></td><td>" + legalScore + "</td><td>15%</td><td>" + wLegal.toFixed(2) + "</td></tr>" +
-                "<tr><td><strong>F05: Competitor</strong><br><span class='factor-explanation'>" + state + " market. " + (competitorScore >= 70 ? "High saturation — price wars likely." : competitorScore >= 50 ? "Moderate — first-mover advantage possible." : "Low — open field.") + "</span></td><td>" + competitorScore + "</td><td>10%</td><td>" + wCompetitor.toFixed(2) + "</td></tr>" +
-                "<tr><td><strong>F06: Density</strong><br><span class='factor-explanation'>Total pop " + totalPop.toLocaleString() + " → " + estimatedRoofs + " estimated commercial roofs. " + (estimatedRoofs >= OPS.minRoofs ? "Sufficient for deployment." : "Below your " + OPS.minRoofs + " roof minimum.") + "</span></td><td>" + densityScore + "</td><td>10%</td><td>" + wDensity.toFixed(2) + "</td></tr>" +
-                "<tr><td><strong>F07: Tech Stack</strong><br><span class='factor-explanation'>" + (tech === "PRO_TECH" ? "Drone scans accelerate approvals by 30%." : "Manual scopes face higher pushback.") + "</span></td><td>" + techScore + "</td><td>10%</td><td>" + wTech.toFixed(2) + "</td></tr>" +
-                "<tr><td><strong>F08: Credit</strong><br><span class='factor-explanation'>" + state + " capital access. Affects your ability to float 90-day insurance cycles.</span></td><td>" + creditScore + "</td><td>5%</td><td>" + wCredit.toFixed(2) + "</td></tr>" +
-                "<tr><td><strong>F09: PM Roster</strong><br><span class='factor-explanation'>" + state + " labor pool. " + (laborScore >= 55 ? "Adequate PMs available." : "Labor tight — expect premium rates.") + "</span></td><td>" + laborScore + "</td><td>5%</td><td>" + wPM.toFixed(2) + "</td></tr>" +
-                "<tr><td><strong>F10: Material</strong><br><span class='factor-explanation'>" + state + " supply. " + (materialScore >= 55 ? "Materials available." : "Supply strained — pre-order required.") + "</span></td><td>" + materialScore + "</td><td>5%</td><td>" + wMaterial.toFixed(2) + "</td></tr>" +
-                "<tr><td><strong>F11: RCV Ratio</strong><br><span class='factor-explanation'>" + state + " carrier mix. " + (rcvScore >= 55 ? "RCV-dominant — full replacement approved." : "ACV-heavy — property owners will resist.") + "</span></td><td>" + rcvScore + "</td><td>5%</td><td>" + wRCV.toFixed(2) + "</td></tr>" +
-                "<tr><td><strong>F12: Permit</strong><br><span class='factor-explanation'>" + city + " municipal. " + (permitScore >= 55 ? "Permits process normally." : "Permit delays likely — factor into cash flow.") + "</span></td><td>" + permitScore + "</td><td>5%</td><td>" + wPermit.toFixed(2) + "</td></tr>";
+            // MATRIX WITH HEADERS AND EXPLANATIONS
+            var matrixHtml = "<tr><th>Factor</th><th>Raw Score</th><th>Weight</th><th>Weighted</th></tr>";
+            matrixHtml += "<tr><td><strong>F01: Hail Kinetic</strong><br><span class='factor-explanation'>" + hailSize + " hail. " + (hailScore >= 70 ? "Above 1.5\" threshold — commercial membranes will fracture." : "Below 1.5\" threshold — drone verification required.") + "</span></td><td>" + hailScore + "</td><td>15%</td><td>" + wHail.toFixed(2) + "</td></tr>";
+            matrixHtml += "<tr><td><strong>F02: Envelope Age</strong><br><span class='factor-explanation'>Median build " + medianYear + " (" + (2026-medianYear) + " yrs). " + ((2026-medianYear) >= 15 ? "Brittle — full replacement likely." : "Moderate — repair possible.") + "</span></td><td>" + envelopeScore + "</td><td>10%</td><td>" + wAge.toFixed(2) + "</td></tr>";
+            matrixHtml += "<tr><td><strong>F03: Rain Saturation</strong><br><span class='factor-explanation'>" + actualRain.toFixed(2) + "\" (" + rainSource + "). " + (actualRain >= 0.5 ? "Interior damage confirmed." : "DRY — adjusters will deny as cosmetic.") + "</span></td><td>" + rainScore + "</td><td>15%</td><td>" + wRain.toFixed(2) + "</td></tr>";
+            matrixHtml += "<tr><td><strong>F04: Legal Friction</strong><br><span class='factor-explanation'>" + (legal === "ATTORNEY_MANDATORY" ? "Attorney required — cycle time +45 days." : "Direct billing — fast cash conversion.") + "</span></td><td>" + legalScore + "</td><td>15%</td><td>" + wLegal.toFixed(2) + "</td></tr>";
+            matrixHtml += "<tr><td><strong>F05: Competitor</strong><br><span class='factor-explanation'>" + state + " market. " + (competitorScore >= 70 ? "High saturation — price wars likely." : competitorScore >= 50 ? "Moderate — first-mover advantage possible." : "Low — open field.") + "</span></td><td>" + competitorScore + "</td><td>10%</td><td>" + wCompetitor.toFixed(2) + "</td></tr>";
+            matrixHtml += "<tr><td><strong>F06: Density</strong><br><span class='factor-explanation'>Total pop " + totalPop.toLocaleString() + " → " + estimatedRoofs + " est. commercial roofs. " + (estimatedRoofs >= OPS.minRoofs ? "Sufficient for deployment." : "Below your " + OPS.minRoofs + " roof minimum.") + "</span></td><td>" + densityScore + "</td><td>10%</td><td>" + wDensity.toFixed(2) + "</td></tr>";
+            matrixHtml += "<tr><td><strong>F07: Tech Stack</strong><br><span class='factor-explanation'>" + (tech === "PRO_TECH" ? "Drone scans accelerate approvals by 30%." : "Manual scopes face higher pushback.") + "</span></td><td>" + techScore + "</td><td>10%</td><td>" + wTech.toFixed(2) + "</td></tr>";
+            matrixHtml += "<tr><td><strong>F08: Credit</strong><br><span class='factor-explanation'>" + state + " capital access. Affects ability to float 90-day insurance cycles.</span></td><td>" + creditScore + "</td><td>5%</td><td>" + wCredit.toFixed(2) + "</td></tr>";
+            matrixHtml += "<tr><td><strong>F09: PM Roster</strong><br><span class='factor-explanation'>" + state + " labor pool. " + (laborScore >= 55 ? "Adequate PMs." : "Labor tight — premium rates.") + "</span></td><td>" + laborScore + "</td><td>5%</td><td>" + wPM.toFixed(2) + "</td></tr>";
+            matrixHtml += "<tr><td><strong>F10: Material</strong><br><span class='factor-explanation'>" + state + " supply. " + (materialScore >= 55 ? "Available." : "Strained — pre-order.") + "</span></td><td>" + materialScore + "</td><td>5%</td><td>" + wMaterial.toFixed(2) + "</td></tr>";
+            matrixHtml += "<tr><td><strong>F11: RCV Ratio</strong><br><span class='factor-explanation'>" + state + " carrier mix. " + (rcvScore >= 55 ? "RCV-dominant — replacement approved." : "ACV-heavy — owners resist.") + "</span></td><td>" + rcvScore + "</td><td>5%</td><td>" + wRCV.toFixed(2) + "</td></tr>";
+            matrixHtml += "<tr><td><strong>F12: Permit</strong><br><span class='factor-explanation'>" + city + " municipal. " + (permitScore >= 55 ? "Permits process normally." : "Delays likely — factor into cash flow.") + "</span></td><td>" + permitScore + "</td><td>5%</td><td>" + wPermit.toFixed(2) + "</td></tr>";
+            document.getElementById("out-matrix").innerHTML = matrixHtml;
 
-            // FINANCIALS WITH EXPLANATIONS
+            // FINANCIALS
             document.getElementById("out-financials").innerHTML = 
                 "<div class='financial-line'><div><div class='financial-label'>Gross Volume</div><div class='financial-detail'>" + estimatedRoofs + " roof" + (estimatedRoofs > 1 ? "s" : "") + " × $" + (avgContract/1000).toFixed(0) + "K avg contract</div></div><div class='financial-value' style='color:#fff;'>" + fmt(grossVol) + "</div></div>" +
-                "<div class='financial-line'><div><div class='financial-label'>Labor Cost</div><div class='financial-detail'>" + OPS.crewSize + " crew × $" + OPS.laborRate + "/hr × 40 hrs × " + weeksTotal + " weeks</div></div><div class='financial-value' style='color:var(--cyber-red);'>" + fmt(laborCost) + "</div></div>" +
-                "<div class='financial-line'><div><div class='financial-label'>Material Cost</div><div class='financial-detail'>" + estimatedRoofs + " roof" + (estimatedRoofs > 1 ? "s" : "") + " × " + OPS.roofSize.toLocaleString() + " sqft × $" + OPS.materialCost + "/sqft</div></div><div class='financial-value' style='color:var(--cyber-red);'>" + fmt(materialCost) + "</div></div>" +
-                "<div class='financial-line'><div><div class='financial-label'>Equipment + Housing + Mob</div><div class='financial-detail'>Crane $" + OPS.craneCost + "/wk × " + weeksTotal + " wks + Housing + Mobilization" + (droneCost > 0 ? " + Drone $" + OPS.droneCost + "/roof" : "") + "</div></div><div class='financial-value' style='color:var(--cyber-red);'>" + fmt(craneCost + housingCost + mobCost + droneCost) + "</div></div>" +
-                "<div class='financial-line'><div><div class='financial-label'>Net Yield</div><div class='financial-detail'>" + marginPct.toFixed(0) + "% margin (Your threshold: " + OPS.minMargin + "%)</div></div><div class='financial-value' style='color:var(--cyber-green); font-size:22px;'>" + fmt(netYield) + "</div></div>";
+                "<div class='financial-line'><div><div class='financial-label'>Labor Cost</div><div class='financial-detail'>" + OPS.crewSize + " crew × $" + OPS.laborRate + "/hr × 40 hrs × " + weeksTotal + " wks</div></div><div class='financial-value' style='color:#ff8a80;'>" + fmt(laborCost) + "</div></div>" +
+                "<div class='financial-line'><div><div class='financial-label'>Material Cost</div><div class='financial-detail'>" + estimatedRoofs + " × " + OPS.roofSize.toLocaleString() + " sqft × $" + OPS.materialCost + "/sqft</div></div><div class='financial-value' style='color:#ff8a80;'>" + fmt(materialCost) + "</div></div>" +
+                "<div class='financial-line'><div><div class='financial-label'>Equipment + Housing + Mob</div><div class='financial-detail'>Crane $" + OPS.craneCost + "/wk × " + weeksTotal + " wks + Housing + Mob" + (droneCost > 0 ? " + Drone" : "") + "</div></div><div class='financial-value' style='color:#ff8a80;'>" + fmt(craneCost + housingCost + mobCost + droneCost) + "</div></div>" +
+                "<div class='financial-line'><div><div class='financial-label'>Net Yield</div><div class='financial-detail'>" + marginPct.toFixed(0) + "% margin (Your threshold: " + OPS.minMargin + "%)</div></div><div class='financial-value' style='color:#00ffa3; font-size:24px;'>" + fmt(netYield) + "</div></div>";
 
             // KILL SWITCH
             var killText = "";
             if (verdict === "RED_LIGHT_HARD_ABORT") {
-                killText = "TRIGGER: " + reasons.join(" AND ") + ".<br><br>ACTION: Do not deploy. If already mobilized, withdraw by Day 3. Redirect to nearest corridor with population > 50,000 or verified storm damage.";
+                killText = "TRIGGER: " + reasons.join(" AND ") + ".<br><br>ACTION: Do not deploy. If already mobilized, withdraw by Day 3. Redirect to nearest corridor with population > 50,000.";
             } else if (verdict === "YELLOW_LIGHT_LEAN_RECON_ONLY") {
                 killText = "TRIGGER: " + reasons.join(" AND ") + ".<br><br>ACTION: Deploy 1 recon crew only. If " + Math.round(OPS.minRoofs / 2) + " contracts not signed within 5 days, withdraw.";
             } else {
@@ -457,16 +474,31 @@
 
             // DRONE
             var droneText = "";
+            var showDroneCTA = false;
             if (tech === "PRO_TECH") {
                 if (hailScore < 70 || actualRain < 0.5) {
-                    droneText = "REQUIRED: Hail " + hailSize + " + Rain " + actualRain.toFixed(2) + "\" = high denial risk.<br><br>Deploy drone scans on " + Math.min(5, estimatedRoofs) + " roofs before full mobilization. Cost: " + fmt(Math.min(5, estimatedRoofs) * OPS.droneCost) + ".<br><br>If scans show no interior water damage, downgrade to recon only.";
+                    droneText = "REQUIRED: Hail " + hailSize + " + Rain " + actualRain.toFixed(2) + "\" = high denial risk.<br><br>Deploy drone scans on " + Math.min(5, estimatedRoofs) + " roof" + (Math.min(5, estimatedRoofs) > 1 ? "s" : "") + " before full mobilization. Cost: $" + (Math.min(5, estimatedRoofs) * OPS.droneCost).toLocaleString() + ".<br><br>If scans show no interior water damage, downgrade to recon only.";
+                    showDroneCTA = true;
                 } else {
                     droneText = "RECOMMENDED: Conditions support deployment. Drone scans on all " + estimatedRoofs + " roofs will accelerate adjuster approvals by 30%.";
+                    showDroneCTA = true;
                 }
             } else {
                 droneText = "MANUAL MODE: No drone capability. Manual inspections take 2-3 days per roof. Consider drone investment for faster cycle time.";
             }
             document.getElementById("out-drone").innerHTML = droneText;
+            document.getElementById("btn-drone-cta").style.display = showDroneCTA ? "block" : "none";
+
+            // NEXT STEPS
+            var nextText = "";
+            if (verdict === "GREEN_LIGHT_LAUNCH_STRIKE_CREW") {
+                nextText = "<strong>1.</strong> Request Drone Verification (above)<br><strong>2.</strong> Pre-order materials: " + (estimatedRoofs * OPS.roofSize).toLocaleString() + " sqft TPO/EPDM<br><strong>3.</strong> Schedule " + Math.max(1, Math.round(estimatedRoofs / 2)) + " crews for 72-hour arrival<br><strong>4.</strong> Set Day 3, Day 5, Day 7 kill switch checkpoints";
+            } else if (verdict === "YELLOW_LIGHT_LEAN_RECON_ONLY") {
+                nextText = "<strong>1.</strong> Deploy 1 recon crew to " + city + "<br><strong>2.</strong> Run drone scans on top 3 roofs<br><strong>3.</strong> Day 5 checkpoint: " + Math.round(OPS.minRoofs / 2) + " contracts or withdraw<br><strong>4.</strong> Re-run Triage with field data";
+            } else {
+                nextText = "<strong>1.</strong> Save this report (document decline rationale)<br><strong>2.</strong> Set NOAA alert for next hail event<br><strong>3.</strong> Check adjacent ZIPs with higher density<br><strong>4.</strong> Review operational parameters — adjust if needed";
+            }
+            document.getElementById("out-next-text").innerHTML = nextText;
 
             document.getElementById("results-card").style.display = "block";
             btn.disabled = false;
