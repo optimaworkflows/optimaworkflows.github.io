@@ -50,8 +50,9 @@
         .form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; width: 100%; }
         .form-group { display: flex; flex-direction: column; gap: 5px; margin-bottom: 12px; width: 100%; }
         label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: #b0bec5; }
-        input, select { width: 100%; background-color: #03060c; border: 1px solid #2a3a55; border-radius: 7px; padding: 12px 14px; color: #fff; font-size: 13px; font-family: 'IBM Plex Mono', monospace; outline: none; }
-        input:focus, select:focus { border-color: var(--cyber-green); }
+        input, select, textarea { width: 100%; background-color: #03060c; border: 1px solid #2a3a55; border-radius: 7px; padding: 12px 14px; color: #fff; font-size: 13px; font-family: 'IBM Plex Mono', monospace; outline: none; }
+        textarea { min-height: 80px; resize: vertical; }
+        input:focus, select:focus, textarea:focus { border-color: var(--cyber-green); }
 
         table { width: 100%; border-collapse: collapse; font-size: 13px; }
         th { font-size: 10px; text-transform: uppercase; color: #cfd8dc; padding: 10px 8px; border-bottom: 2px solid var(--border-hairline); text-align: left; letter-spacing: 0.05em; background: rgba(255,255,255,0.02); }
@@ -71,6 +72,7 @@
         .link-btn:hover { background: rgba(255, 184, 0, 0.12); border-color: #ffb800; }
         .outcome-btn { border: 1px solid rgba(0, 255, 163, 0.4); color: var(--cyber-green); padding: 10px 14px; border-radius: 7px; font-weight: 700; cursor: pointer; background: rgba(0, 255, 163, 0.05); font-size: 12px; flex: 1; text-align: center; transition: all 0.2s; }
         .outcome-btn:hover { background: rgba(0, 255, 163, 0.12); border-color: var(--cyber-green); }
+        .outcome-btn.selected { background: rgba(0, 255, 163, 0.2); border-color: var(--cyber-green); color: var(--cyber-green); }
         .cta-row { display: flex; gap: 8px; flex-wrap: wrap; width: 100%; }
         .cta-row > * { min-width: 120px; }
 
@@ -91,6 +93,7 @@
         .next-steps-box { background: rgba(64, 196, 255, 0.04); border: 1px solid rgba(64, 196, 255, 0.3); border-radius: 9px; padding: 20px; margin-bottom: 20px; width: 100%; }
         .next-steps-text { font-size: 14px; color: #bbdefb; line-height: 1.7; margin-bottom: 10px; }
         .outcome-box { background: rgba(0, 255, 163, 0.03); border: 1px dashed rgba(0, 255, 163, 0.3); border-radius: 9px; padding: 20px; margin-bottom: 20px; width: 100%; }
+        .question-box { background: rgba(64, 196, 255, 0.03); border: 1px dashed rgba(64, 196, 255, 0.3); border-radius: 9px; padding: 20px; margin-bottom: 20px; width: 100%; }
         .disclaimer-box { background: rgba(255, 184, 0, 0.03); border: 1px solid rgba(255, 184, 0, 0.2); border-radius: 9px; padding: 16px 20px; margin-bottom: 20px; width: 100%; font-size: 12px; color: var(--text-muted); line-height: 1.6; font-style: italic; }
     </style>
 </head>
@@ -211,9 +214,11 @@
                     <h3 class="section-label" style="font-size:11px; color:#cfd8dc;">Kill Switch Protocol — Specific Triggers</h3>
                     <div id="out-exit" style="background:rgba(255,184,0,0.05); border:1px dashed rgba(255,184,0,0.3); padding:18px; border-radius:9px; color:var(--cyber-amber); font-family:'IBM Plex Mono', monospace; font-size:13px; line-height:1.7; margin-bottom:20px; width:100%;"></div>
 
-                    <h3 class="section-label" style="font-size:11px; color:#cfd8dc;">Inspection Protocol</h3>
-                    <div id="out-drone" style="background:rgba(64,196,255,0.05); border:1px solid rgba(64,196,255,0.3); padding:18px; border-radius:9px; color:#bbdefb; font-family:'IBM Plex Mono', monospace; font-size:13px; line-height:1.7; margin-bottom:10px; width:100%;"></div>
-                    <button type="button" id="btn-drone-cta" class="btn-primary" style="display:none; margin-bottom:20px;" onclick="requestDroneVerification()">📡 Request Drone Verification — $2,500/roof</button>
+                    <div id="drone-section" style="display:none; width:100%;">
+                        <h3 class="section-label" style="font-size:11px; color:#cfd8dc;">Inspection Protocol</h3>
+                        <div id="out-drone" style="background:rgba(64,196,255,0.05); border:1px solid rgba(64,196,255,0.3); padding:18px; border-radius:9px; color:#bbdefb; font-family:'IBM Plex Mono', monospace; font-size:13px; line-height:1.7; margin-bottom:10px; width:100%;"></div>
+                        <button type="button" id="btn-drone-cta" class="btn-primary" style="display:none; margin-bottom:20px;" onclick="requestDroneVerification()">📡 Request Drone Verification — $2,500/roof</button>
+                    </div>
 
                     <h3 class="section-label" style="font-size:11px; color:#cfd8dc;">Next Steps — Your Action Plan</h3>
                     <div class="next-steps-box" style="width:100%;">
@@ -223,12 +228,26 @@
 
                     <h3 class="section-label" style="font-size:11px; color:#cfd8dc;">📊 Deployment Outcome Tracker — Help Us Learn</h3>
                     <div class="outcome-box" style="width:100%;">
-                        <p style="font-size:13px; color:var(--text-muted); margin-bottom:12px;">How did this deployment perform? Your feedback improves future recommendations.</p>
-                        <div class="cta-row">
-                            <button class="outcome-btn" onclick="submitOutcome('SUCCESS')">✅ Success — Met projections</button>
-                            <button class="outcome-btn" onclick="submitOutcome('PARTIAL')">⚠️ Partial — Below projections</button>
-                            <button class="outcome-btn" onclick="submitOutcome('FAILURE')">❌ Failure — Lost money</button>
+                        <p style="font-size:13px; color:var(--text-muted); margin-bottom:12px;">How did this deployment perform? Your detailed feedback improves future recommendations.</p>
+                        <div class="cta-row" style="margin-bottom:12px;">
+                            <button class="outcome-btn" id="outcome-success" onclick="selectOutcome('SUCCESS', this)">✅ Success</button>
+                            <button class="outcome-btn" id="outcome-partial" onclick="selectOutcome('PARTIAL', this)">⚠️ Partial</button>
+                            <button class="outcome-btn" id="outcome-failure" onclick="selectOutcome('FAILURE', this)">❌ Failure</button>
                         </div>
+                        <div class="form-group">
+                            <label>What went well? What didn't? How could the recommendation have been better?</label>
+                            <textarea id="outcome-feedback" placeholder="Share your experience. This helps us improve future recommendations..."></textarea>
+                        </div>
+                        <button class="btn-primary" onclick="submitOutcomeFeedback()">Submit Feedback</button>
+                    </div>
+
+                    <h3 class="section-label" style="font-size:11px; color:#cfd8dc;">💬 Active Deployment Question Desk</h3>
+                    <div class="question-box" style="width:100%;">
+                        <p style="font-size:13px; color:var(--text-muted); margin-bottom:12px;">Have questions about this deployment? Our intelligence desk will respond within 24 hours.</p>
+                        <div class="form-group">
+                            <textarea id="deployment-question" placeholder="Ask anything about this deployment — adjuster strategy, competitor movements, material timing, cash flow..."></textarea>
+                        </div>
+                        <button class="btn-primary" onclick="submitQuestion()">Send Question to Intelligence Desk</button>
                     </div>
 
                     <div class="disclaimer-box">
@@ -247,8 +266,8 @@
     <script>
         const GOOGLE_SPREADSHEET_LOG_URL = "https://script.google.com/macros/s/AKfycbxU6mE1Lcuy43GlG5kzAW9bssqFNJnngNQQ0x9cNtq1GLwrR6Hy78dqHAW0_a9bDf0LIQ/exec";
         const FRED_API_KEY = "aefa10f5ba04b679653f16ecace750b5";
-        const BLS_API_KEY = "";
         var currentTriageData = {};
+        var selectedOutcome = null;
         var learningHistory = [];
 
         function getCachedData(key, maxAgeMinutes) { try { var c = localStorage.getItem("optima_" + key); if (c) { var p = JSON.parse(c); if ((Date.now() - p.timestamp) / 60000 < maxAgeMinutes) return p.data; } } catch(e) {} return null; }
@@ -258,20 +277,41 @@
         function adjustScoreFromHistory(score, zip, state) { var similar = learningHistory.filter(function(h) { return h.state === state || h.zip === zip; }); if (similar.length === 0) return score; var adj = 0; for (var i = 0; i < similar.length; i++) { if (similar[i].outcome === "SUCCESS") adj += 2; else if (similar[i].outcome === "FAILURE") adj -= 3; } adj = adj / similar.length; return Math.max(10, Math.min(100, score + Math.round(adj))); }
         loadLearningHistory();
 
-        function submitOutcome(outcome) {
+        function selectOutcome(outcome, btn) {
+            selectedOutcome = outcome;
+            document.querySelectorAll(".outcome-btn").forEach(function(b) { b.classList.remove("selected"); });
+            btn.classList.add("selected");
+        }
+
+        function submitOutcomeFeedback() {
             var d = currentTriageData;
-            if (!d || !d.zip) return;
-            var entry = { zip: d.zip, city: d.city, state: d.state, outcome: outcome, date: new Date().toISOString() };
+            if (!d || !d.zip) { alert("Run a Triage first."); return; }
+            if (!selectedOutcome) { alert("Please select an outcome: Success, Partial, or Failure."); return; }
+            var feedback = document.getElementById("outcome-feedback").value.trim();
+            var entry = { zip: d.zip, city: d.city, state: d.state, outcome: selectedOutcome, feedback: feedback, date: new Date().toISOString() };
             saveLearningEntry(entry);
-            var outcomeLabel = (outcome === "SUCCESS") ? "Success" : (outcome === "PARTIAL") ? "Partial" : "Failure";
-            alert("Outcome recorded: " + outcomeLabel + "\nZIP: " + d.zip + "\n\nThank you. Your feedback will improve future recommendations.");
-            var logPayload = { zip: d.zip, city: d.city, state: d.state, outcome: outcome, type: "outcome" };
+            var logPayload = { type: "outcome", zip: d.zip, city: d.city, state: d.state, outcome: selectedOutcome, feedback: feedback };
             fetch(GOOGLE_SPREADSHEET_LOG_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify(logPayload) }).catch(function(){});
+            alert("Thank you. Your feedback has been recorded and will improve future recommendations.");
+            document.getElementById("outcome-feedback").value = "";
+            selectedOutcome = null;
+            document.querySelectorAll(".outcome-btn").forEach(function(b) { b.classList.remove("selected"); });
+        }
+
+        function submitQuestion() {
+            var d = currentTriageData;
+            if (!d || !d.zip) { alert("Run a Triage first."); return; }
+            var question = document.getElementById("deployment-question").value.trim();
+            if (!question) { alert("Please enter your question."); return; }
+            var logPayload = { type: "question", zip: d.zip, city: d.city, state: d.state, question: question, date: new Date().toISOString() };
+            fetch(GOOGLE_SPREADSHEET_LOG_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify(logPayload) }).catch(function(){});
+            alert("Question sent to Intelligence Desk. Response within 24 hours.");
+            document.getElementById("deployment-question").value = "";
         }
 
         var AOB_DATABASE = { "FL": { "cycle_days": 75, "score": 10 }, "TX": { "cycle_days": 30, "score": 90 }, "CO": { "cycle_days": 25, "score": 90 }, "OK": { "cycle_days": 28, "score": 85 }, "NC": { "cycle_days": 35, "score": 60 }, "LA": { "cycle_days": 40, "score": 50 }, "CA": { "cycle_days": 60, "score": 10 }, "IL": { "cycle_days": 35, "score": 55 } };
         var STATE_FIPS = { "TX": "48", "FL": "12", "CO": "08", "OK": "40", "NC": "37", "LA": "22", "CA": "06", "IL": "17" };
-        var SUPPLIER_HUBS = [ { name: "ABC Supply Dallas", lat: 32.77, lon: -96.79 }, { name: "ABC Supply Atlanta", lat: 33.74, lon: -84.38 }, { name: "Beacon Denver", lat: 39.73, lon: -104.99 }, { name: "SRS Houston", lat: 29.76, lon: -95.36 }, { name: "ABC Supply Chicago", lat: 41.88, lon: -87.62 }, { name: "Beacon Orlando", lat: 28.53, lon: -81.37 }, { name: "ABC Supply Phoenix", lat: 33.44, lon: -112.07 }, { name: "Beacon Charlotte", lat: 35.22, lon: -80.84 } ];
+        var SUPPLIER_HUBS = [ { name: "ABC Supply Dallas", lat: 32.77, lon: -96.79 }, { name: "ABC Supply Atlanta", lat: 33.74, lon: -84.38 }, { name: "Beacon Denver", lat: 39.73, lon: -104.99 }, { name: "SRS Houston", lat: 29.76, lon: -95.36 }, { name: "ABC Supply Chicago", lat: 41.88, lon: -87.62 }, { name: "Beacon Orlando", lat: 28.53, lon: -81.37 } ];
         var PERMIT_DATABASE = { "Dallas": { "avg_days": 12, "score": 60 }, "Houston": { "avg_days": 10, "score": 65 }, "Miami": { "avg_days": 21, "score": 30 }, "Denver": { "avg_days": 8, "score": 80 }, "Austin": { "avg_days": 14, "score": 55 }, "Orlando": { "avg_days": 18, "score": 35 }, "Tampa": { "avg_days": 16, "score": 40 }, "Charlotte": { "avg_days": 12, "score": 60 } };
         var RCV_DATABASE = { "TX": 72, "CO": 68, "FL": 38, "OK": 65, "NC": 55, "LA": 42, "CA": 58, "IL": 60 };
 
@@ -295,8 +335,8 @@
         function downloadReport() { var d = currentTriageData; if (!d || !d.zip) { alert("Run a Triage first."); return; } var content = "OPTIMA REPORT\nZIP: " + d.zip + "\nVerdict: " + document.getElementById("out-verdict").innerHTML + "\nScore: " + document.getElementById("out-score").innerHTML; var blob = new Blob([content], { type: 'text/plain' }); var url = URL.createObjectURL(blob); var a = document.createElement('a'); a.href = url; a.download = 'Optima_' + d.zip + '.txt'; a.click(); URL.revokeObjectURL(url); }
         function resetForNewZone() { document.getElementById("frm-zip").value=""; document.getElementById("frm-intent").value=""; document.getElementById("frm-tech").value=""; document.getElementById("frm-rain").value=0; document.getElementById("results-card").style.display="none"; document.getElementById("triage-form").scrollIntoView({behavior:'smooth'}); }
 
-        async function fetchNOAA(zip) { var ck = "noaa_" + zip; var cached = getCachedData(ck, 1440); if (cached) return cached; var r = { hailScore: 75, hailSize: "1.50\"", windSpeed: 45, stormCount: 3 }; try { var today = new Date(); var endD = today.toISOString().slice(0,10); var startD = new Date(today.getTime()-365*86400000).toISOString().slice(0,10); var res = await fetch("https://www.ncdc.noaa.gov/stormevents/api/events?startDate=" + startD + "&endDate=" + endD + "&zipcode=" + zip); var data = await res.json(); if (data && data.events && data.events.length > 0) { r.stormCount = data.events.length; var maxH = 0, maxW = 0; for (var i=0;i<data.events.length;i++){ var ev=data.events[i]; if(ev.event_type==="Hail"&&ev.magnitude){var h=parseFloat(ev.magnitude); if(h>maxH)maxH=h;} if((ev.event_type==="Thunderstorm Wind"||ev.event_type==="High Wind")&&ev.magnitude){var w=parseFloat(ev.magnitude); if(w>maxW)maxW=w;} } if(maxH>0){r.hailSize=maxH+"\""; if(maxH>=2)r.hailScore=95; else if(maxH>=1.5)r.hailScore=85; else if(maxH>=1)r.hailScore=60; else r.hailScore=35;} if(maxW>0)r.windSpeed=maxW; } } catch(e) {} setCachedData(ck, r); return r; }
-        async function fetchBLS(state) { var ck = "bls_" + state; var cached = getCachedData(ck, 1440); if (cached) return cached; var r = { score: 55, unemployment: null }; var fips = STATE_FIPS[state]; if (!fips) return r; try { var payload = { "seriesid": ["LAUCN"+fips+"0000000003"] }; if (BLS_API_KEY) payload.registrationKey = BLS_API_KEY; var res = await fetch("https://api.bls.gov/publicAPI/v1/timeseries/data/", { method: "POST", headers: {"Content-Type":"application/json"}, body: JSON.stringify(payload) }); var data = await res.json(); if (data && data.Results && data.Results.series && data.Results.series.length > 0) { var series = data.Results.series[0]; if (series.data && series.data.length > 0) { r.unemployment = parseFloat(series.data[0].value); if (r.unemployment < 3) r.score = 35; else if (r.unemployment < 5) r.score = 55; else if (r.unemployment < 7) r.score = 70; else r.score = 85; } } } catch(e) {} setCachedData(ck, r); return r; }
+        async function fetchNOAA(zip) { var r = { hailScore: 75, hailSize: "1.50\"", windSpeed: 45, stormCount: 3 }; try { var today = new Date(); var endD = today.toISOString().slice(0,10); var startD = new Date(today.getTime()-365*86400000).toISOString().slice(0,10); var res = await fetch("https://www.ncdc.noaa.gov/stormevents/api/events?startDate=" + startD + "&endDate=" + endD + "&zipcode=" + zip); var data = await res.json(); if (data && data.events && data.events.length > 0) { r.stormCount = data.events.length; var maxH = 0, maxW = 0; for (var i=0;i<data.events.length;i++){ var ev=data.events[i]; if(ev.event_type==="Hail"&&ev.magnitude){var h=parseFloat(ev.magnitude); if(h>maxH)maxH=h;} if((ev.event_type==="Thunderstorm Wind"||ev.event_type==="High Wind")&&ev.magnitude){var w=parseFloat(ev.magnitude); if(w>maxW)maxW=w;} } if(maxH>0){r.hailSize=maxH+"\""; if(maxH>=2)r.hailScore=95; else if(maxH>=1.5)r.hailScore=85; else if(maxH>=1)r.hailScore=60; else r.hailScore=35;} if(maxW>0)r.windSpeed=maxW; } } catch(e) {} return r; }
+        async function fetchBLS(state) { var r = { score: 55, unemployment: null }; var fips = STATE_FIPS[state]; if (!fips) return r; try { var payload = { "seriesid": ["LAUCN"+fips+"0000000003"] }; var res = await fetch("https://api.bls.gov/publicAPI/v1/timeseries/data/", { method: "POST", headers: {"Content-Type":"application/json"}, body: JSON.stringify(payload) }); var data = await res.json(); if (data && data.Results && data.Results.series && data.Results.series.length > 0) { var series = data.Results.series[0]; if (series.data && series.data.length > 0) { r.unemployment = parseFloat(series.data[0].value); if (r.unemployment < 3) r.score = 35; else if (r.unemployment < 5) r.score = 55; else if (r.unemployment < 7) r.score = 70; else r.score = 85; } } } catch(e) {} return r; }
         function getMaterial(lat, lon) { var minDist = 9999, hub = ""; for (var i=0;i<SUPPLIER_HUBS.length;i++){ var h=SUPPLIER_HUBS[i]; var dist=Math.sqrt(Math.pow(lat-h.lat,2)+Math.pow(lon-h.lon,2))*69; if(dist<minDist){minDist=dist;hub=h.name;} } var score; if(minDist<=25)score=95; else if(minDist<=50)score=85; else if(minDist<=100)score=70; else if(minDist<=200)score=50; else score=30; return {score:score, hub:hub, distance:minDist}; }
 
         document.getElementById("triage-form").addEventListener("submit", async function(event) {
@@ -332,7 +372,6 @@
 
             var f04_legalScore = 55, f04_cycleDays = 35;
             if (AOB_DATABASE[state]) { f04_legalScore = AOB_DATABASE[state].score; f04_cycleDays = AOB_DATABASE[state].cycle_days; }
-
             var f11_rcvScore = RCV_DATABASE[state] || 55;
             var f12_permitScore = 55, f12_avgDays = 14;
             if (PERMIT_DATABASE[city]) { f12_permitScore = PERMIT_DATABASE[city].score; f12_avgDays = PERMIT_DATABASE[city].avg_days; }
@@ -407,14 +446,29 @@
             var killText = (verdict === "RED_LIGHT_HARD_ABORT") ? "<strong>TRIGGER:</strong> " + reasons.join(" AND ") + ".<br><br><strong>ACTION:</strong> Do not deploy. Withdraw by Day 3 if mobilized." : (verdict === "YELLOW_LIGHT_LEAN_RECON_ONLY") ? "<strong>TRIGGER:</strong> " + reasons.join(" AND ") + ".<br><br><strong>ACTION:</strong> 1 recon crew. " + Math.round(OPS.minRoofs / 2) + " contracts in 5 days or withdraw." : "<strong>Day 7:</strong> Canopy > 45 trucks → pivot.<br><strong>Day 10:</strong> Permits > " + (f12_avgDays + 5) + " days → shift to unincorporated.<br><strong>Day 21:</strong> Contract velocity < 60% → reduce crews by half.";
             document.getElementById("out-exit").innerHTML = killText;
 
-            var droneText = (tech === "PRO_TECH") ? "✅ In-house drones. Scan all " + estimatedRoofs + " roofs before full mobilization." : "⚠️ No drone. We offer verification at $" + OPS.droneCost + "/roof.";
-            document.getElementById("out-drone").innerHTML = droneText;
-            document.getElementById("btn-drone-cta").style.display = (tech === "PRO_TECH") ? "none" : "block";
+            // DRONE SECTION — Only show for YELLOW (Recon) or GREEN with Manual tech
+            var droneSection = document.getElementById("drone-section");
+            if (verdict === "RED_LIGHT_HARD_ABORT") {
+                droneSection.style.display = "none";
+            } else if (verdict === "YELLOW_LIGHT_LEAN_RECON_ONLY") {
+                droneSection.style.display = "block";
+                document.getElementById("out-drone").innerHTML = "⚠️ Recon mode. Drone verification helps confirm whether to upgrade to Green or walk away.";
+                document.getElementById("btn-drone-cta").style.display = "block";
+            } else {
+                droneSection.style.display = "block";
+                if (tech === "PRO_TECH") {
+                    document.getElementById("out-drone").innerHTML = "✅ In-house drones. Scan all " + estimatedRoofs + " roofs before full mobilization.";
+                    document.getElementById("btn-drone-cta").style.display = "none";
+                } else {
+                    document.getElementById("out-drone").innerHTML = "⚠️ No drone. We offer verification at $" + OPS.droneCost + "/roof.";
+                    document.getElementById("btn-drone-cta").style.display = "block";
+                }
+            }
 
             var ctaButtons = "";
-            if (verdict === "GREEN_LIGHT_LAUNCH_STRIKE_CREW") { ctaButtons = "<button class='cta-btn' onclick=\"alert('ABC Supply: (800) 555-0123')\">📦 Pre-Order</button><button class='cta-btn' onclick=\"alert('Crews confirmed')\">🚛 Schedule</button><button class='link-btn' onclick='downloadReport()'>📄 Download</button><button class='link-btn' onclick='resetForNewZone()'>🔄 Check Another ZIP</button>"; }
-            else if (verdict === "YELLOW_LIGHT_LEAN_RECON_ONLY") { ctaButtons = "<button class='cta-btn' onclick=\"alert('Recon confirmed')\">🚛 Deploy Recon</button><button class='cta-btn' onclick=\"alert('Checkpoint set')\">⏰ Day 5</button><button class='link-btn' onclick='downloadReport()'>📄 Download</button><button class='link-btn' onclick='resetForNewZone()'>🔄 Check Another ZIP</button>"; }
-            else { ctaButtons = "<button class='cta-btn' onclick=\"alert('Alert set')\">🔔 Alert</button><button class='cta-btn' onclick=\"alert('Adjacent ZIPs')\">🗺️ Adjacent</button><button class='link-btn' onclick='downloadReport()'>📄 Download</button><button class='link-btn' onclick='resetForNewZone()'>🔄 Check Another ZIP</button>"; }
+            if (verdict === "GREEN_LIGHT_LAUNCH_STRIKE_CREW") { ctaButtons = "<button class='cta-btn' onclick=\"alert('ABC Supply: (800) 555-0123')\">📦 Pre-Order Materials</button><button class='cta-btn' onclick=\"alert('Crews confirmed')\">🚛 Schedule Crews</button><button class='link-btn' onclick='downloadReport()'>📄 Download Report</button><button class='link-btn' onclick='resetForNewZone()'>🔄 Check Another ZIP</button>"; }
+            else if (verdict === "YELLOW_LIGHT_LEAN_RECON_ONLY") { ctaButtons = "<button class='cta-btn' onclick=\"alert('Recon confirmed')\">🚛 Deploy Recon Crew</button><button class='cta-btn' onclick=\"alert('Day 5 checkpoint set')\">⏰ Set Day 5 Checkpoint</button><button class='link-btn' onclick='downloadReport()'>📄 Download Report</button><button class='link-btn' onclick='resetForNewZone()'>🔄 Check Another ZIP</button>"; }
+            else { ctaButtons = "<button class='cta-btn' onclick=\"alert('Storm alert set for ZIP " + zip + "')\">🔔 Set Storm Alert for This ZIP</button><button class='cta-btn' onclick=\"alert('Adjacent ZIPs: " + (parseInt(zip)+1) + ", " + (parseInt(zip)-1) + ", " + (parseInt(zip)+10) + "')\">🗺️ Scan Adjacent ZIPs</button><button class='link-btn' onclick='downloadReport()'>📄 Download Report</button><button class='link-btn' onclick='resetForNewZone()'>🔄 Check Another ZIP</button>"; }
             document.getElementById("out-next-text").innerHTML = "<strong>Action Plan for " + city + ", " + state + ":</strong>";
             document.getElementById("out-cta-buttons").innerHTML = ctaButtons;
 
