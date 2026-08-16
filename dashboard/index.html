@@ -82,6 +82,8 @@
         .next-steps-text { font-size: 14px; color: #bbdefb; line-height: 1.7; margin-bottom: 10px; }
         .decision-box { background: rgba(64, 196, 255, 0.03); border: 1px dashed rgba(64, 196, 255, 0.3); border-radius: 9px; padding: 20px; margin-bottom: 20px; width: 100%; }
         .disclaimer-box { background: rgba(255, 184, 0, 0.03); border: 1px solid rgba(255, 184, 0, 0.2); border-radius: 9px; padding: 16px 20px; margin-bottom: 20px; width: 100%; font-size: 12px; color: var(--text-muted); line-height: 1.6; font-style: italic; }
+        .params-panel { display: none; border-top: 1px solid var(--border-hairline); padding-top: 16px; margin-bottom: 12px; width: 100%; }
+        .params-panel.open { display: block; width: 100%; }
     </style>
 </head>
 <body>
@@ -147,12 +149,12 @@
                         <div class="params-toggle" onclick="toggleParams()">
                             <div>
                                 <span style="font-weight:700; font-size:13px; color:#fff;">⚙️ Operational Parameters</span>
-                                <div class="params-note">EDITABLE — Industry Averages. Click to adjust.</div>
+                                <div class="params-note">EDITABLE — Industry Averages. Click to expand.</div>
                             </div>
                             <span id="params-arrow" style="color:var(--cyber-amber); font-size:14px;">▼</span>
                         </div>
 
-                        <div class="params-panel" id="params-panel">
+                        <div class="params-panel" id="params-panel" style="display:none;">
                             <div class="form-row">
                                 <div class="form-group"><label>Crew Size</label><input type="number" id="p-crew" value="4"></div>
                                 <div class="form-group"><label>Labor Rate ($/hr)</label><input type="number" id="p-labor" value="35"></div>
@@ -357,59 +359,63 @@
             if (verdict === "GREEN_LIGHT_LAUNCH_STRIKE_CREW") { recBox.style.display = "block"; warnBox.style.display = "none"; document.getElementById("out-rec-text").innerHTML = "<strong>DEPLOY:</strong> " + Math.max(1, Math.round(estimatedRoofs / 2)) + " crews. " + estimatedRoofs + " roofs. Net " + fmt(netYield) + " at " + marginPct.toFixed(0) + "%."; }
             else { recBox.style.display = "none"; warnBox.style.display = "block"; var label = (verdict === "RED_LIGHT_HARD_ABORT") ? "DO NOT DEPLOY" : "RECON ONLY"; document.getElementById("out-warn-text").innerHTML = "<strong>" + label + " — Reasons:</strong><br>" + reasons.map(function(x){ return "• " + x; }).join("<br>"); }
 
-            // MATRIX WITH CONTEXTUAL EXPLANATIONS
+            // MATRIX
             var matrixHtml = "<tr><th>Factor</th><th>Raw</th><th>Weight</th><th>Weighted</th></tr>";
-            matrixHtml += "<tr><td><strong>F01: Hail Kinetic</strong><br><span class='factor-explanation'>" + noaaData.hailSize + " recorded (NOAA). " + (noaaData.hailScore >= 70 ? "Above commercial threshold — membranes will fracture. Adjusters cannot deny impact damage at this size." : "Below threshold — adjusters will push cosmetic denial.") + "</span></td><td>" + noaaData.hailScore + "</td><td>15%</td><td>" + wHail.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F02: Envelope Age</strong><br><span class='factor-explanation'>Built " + medianYear + " (" + (2026-medianYear) + " yrs, Census). " + ((2026-medianYear) >= 15 ? "Fully oxidized membranes. Any impact = full replacement defensible." : "Moderate condition. Repair vs replacement will be contested.") + "</span></td><td>" + envelopeScore + "</td><td>10%</td><td>" + wAge.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F03: Rain Saturation</strong><br><span class='factor-explanation'>" + actualRain.toFixed(2) + "\" (" + rainSource + "). " + (actualRain >= 0.5 ? "Water has penetrated the building envelope. This is the #1 factor adjusters use to approve full replacement." : "DRY conditions. This is the #1 cause of claim denial in CAT roofing.") + "</span></td><td>" + rainScore + "</td><td>15%</td><td>" + wRain.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F04: Legal Friction</strong><br><span class='factor-explanation'>" + state + " AOB statute: " + f04_cycleDays + " day claim cycle. " + (f04_cycleDays > 45 ? "Attorney representation required. Working capital must cover 60+ days." : "Direct carrier billing permitted. Cash conversion in ~30 days.") + "</span></td><td>" + f04_legalScore + "</td><td>15%</td><td>" + wLegal.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F05: Competitor</strong><br><span class='factor-explanation'>" + state + " market. " + (state === "HI" ? "Island market — limited local competition. But logistics create unique barriers." : "Moderate competition. First-mover advantage within 72 hours.") + "</span></td><td>50</td><td>10%</td><td>" + wCompetitor.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F06: Density</strong><br><span class='factor-explanation'>Pop " + totalPop.toLocaleString() + " → " + estimatedRoofs + " est. commercial roofs. " + (estimatedRoofs >= OPS.minRoofs ? "Sufficient to spread crane mobilization costs." : "Below your " + OPS.minRoofs + " roof minimum — margin risk.") + "</span></td><td>" + densityScore + "</td><td>10%</td><td>" + wDensity.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F07: Tech</strong><br><span class='factor-explanation'>" + (tech === "PRO_TECH" ? "Drone scans accelerate approvals by 30%." : "Manual scopes face higher adjuster pushback.") + "</span></td><td>" + techScore + "</td><td>10%</td><td>" + wTech.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F08: Credit</strong><br><span class='factor-explanation'>FRED Prime Rate. " + (f08_creditScore >= 65 ? "Cheap capital — easy material financing." : f08_creditScore >= 45 ? "Moderate — standard terms." : "Tight — higher carrying costs.") + "</span></td><td>" + f08_creditScore + "</td><td>5%</td><td>" + wCredit.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F09: PM Roster</strong><br><span class='factor-explanation'>" + (blsData.unemployment ? state + " unemployment: " + blsData.unemployment + "% (BLS). " + (blsData.score >= 55 ? "Labor available." : "Labor tight.") : state + " labor market — BLS data unavailable. Using regional estimate.") + "</span></td><td>" + blsData.score + "</td><td>5%</td><td>" + wPM.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F10: Material</strong><br><span class='factor-explanation'>" + matData.hub + " " + matData.distance.toFixed(0) + " mi. " + (state === "HI" ? "Island logistics — barge shipping required. Pre-order 2-3 weeks ahead." : matData.score >= 70 ? "Available within 48h." : "Pre-order required.") + "</span></td><td>" + matData.score + "</td><td>5%</td><td>" + wMaterial.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F11: RCV</strong><br><span class='factor-explanation'>" + f11_rcvScore + "% RCV in " + state + ". " + (f11_rcvScore >= 55 ? "Full replacement approved." : "ACV-heavy — owner resistance possible.") + "</span></td><td>" + f11_rcvScore + "</td><td>5%</td><td>" + wRCV.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F12: Permit</strong><br><span class='factor-explanation'>" + city + ": " + f12_avgDays + " days avg. " + (f12_avgDays <= 10 ? "Fast — cash flow protected." : "Delays expected — factor into carrying cost.") + "</span></td><td>" + f12_permitScore + "</td><td>5%</td><td>" + wPermit.toFixed(2) + "</td></tr>";
+            matrixHtml += "<tr><td><strong>F01: Hail Kinetic</strong><br><span class='factor-explanation'>" + noaaData.hailSize + " (NOAA). " + (noaaData.hailScore >= 70 ? "Above 1.5\" — membranes fracture. Adjusters cannot deny." : "Below 1.5\" — cosmetic denial risk.") + "</span></td><td>" + noaaData.hailScore + "</td><td>15%</td><td>" + wHail.toFixed(2) + "</td></tr>";
+            matrixHtml += "<tr><td><strong>F02: Envelope Age</strong><br><span class='factor-explanation'>Built " + medianYear + " (" + (2026-medianYear) + " yrs, Census). " + ((2026-medianYear) >= 15 ? "Brittle — full replacement defensible." : "Moderate — repair contested.") + "</span></td><td>" + envelopeScore + "</td><td>10%</td><td>" + wAge.toFixed(2) + "</td></tr>";
+            matrixHtml += "<tr><td><strong>F03: Rain Saturation</strong><br><span class='factor-explanation'>" + actualRain.toFixed(2) + "\" (" + rainSource + "). " + (actualRain >= 0.5 ? "Interior damage — #1 approval driver." : "DRY — 70%+ denial risk.") + "</span></td><td>" + rainScore + "</td><td>15%</td><td>" + wRain.toFixed(2) + "</td></tr>";
+            matrixHtml += "<tr><td><strong>F04: Legal</strong><br><span class='factor-explanation'>" + state + " AOB: " + f04_cycleDays + " days. " + (f04_cycleDays > 45 ? "Attorney required." : "Direct billing.") + "</span></td><td>" + f04_legalScore + "</td><td>15%</td><td>" + wLegal.toFixed(2) + "</td></tr>";
+            matrixHtml += "<tr><td><strong>F05: Competitor</strong><br><span class='factor-explanation'>" + (state === "HI" ? "Island market — limited local competition but logistics barriers." : state + " market. Moderate.") + "</span></td><td>50</td><td>10%</td><td>" + wCompetitor.toFixed(2) + "</td></tr>";
+            matrixHtml += "<tr><td><strong>F06: Density</strong><br><span class='factor-explanation'>Pop " + totalPop.toLocaleString() + " → " + estimatedRoofs + " roofs. " + (estimatedRoofs >= OPS.minRoofs ? "Sufficient." : "Below " + OPS.minRoofs + " minimum.") + "</span></td><td>" + densityScore + "</td><td>10%</td><td>" + wDensity.toFixed(2) + "</td></tr>";
+            matrixHtml += "<tr><td><strong>F07: Tech</strong><br><span class='factor-explanation'>" + (tech === "PRO_TECH" ? "Drone +30%." : "Manual — slower.") + "</span></td><td>" + techScore + "</td><td>10%</td><td>" + wTech.toFixed(2) + "</td></tr>";
+            matrixHtml += "<tr><td><strong>F08: Credit</strong><br><span class='factor-explanation'>FRED Prime Rate. " + (f08_creditScore >= 65 ? "Cheap capital." : "Moderate.") + "</span></td><td>" + f08_creditScore + "</td><td>5%</td><td>" + wCredit.toFixed(2) + "</td></tr>";
+            matrixHtml += "<tr><td><strong>F09: PM Roster</strong><br><span class='factor-explanation'>" + (blsData.unemployment ? state + " unemployment: " + blsData.unemployment + "% (BLS)." : state + " labor market — BLS N/A. Regional estimate.") + "</span></td><td>" + blsData.score + "</td><td>5%</td><td>" + wPM.toFixed(2) + "</td></tr>";
+            matrixHtml += "<tr><td><strong>F10: Material</strong><br><span class='factor-explanation'>" + matData.hub + " " + matData.distance.toFixed(0) + " mi. " + (state === "HI" ? "Island logistics — barge shipping. Pre-order 2-3 weeks." : matData.score >= 70 ? "Available 48h." : "Pre-order.") + "</span></td><td>" + matData.score + "</td><td>5%</td><td>" + wMaterial.toFixed(2) + "</td></tr>";
+            matrixHtml += "<tr><td><strong>F11: RCV</strong><br><span class='factor-explanation'>" + f11_rcvScore + "% RCV. " + (f11_rcvScore >= 55 ? "Full replacement approved." : "ACV-heavy.") + "</span></td><td>" + f11_rcvScore + "</td><td>5%</td><td>" + wRCV.toFixed(2) + "</td></tr>";
+            matrixHtml += "<tr><td><strong>F12: Permit</strong><br><span class='factor-explanation'>" + city + ": " + f12_avgDays + " days. " + (f12_avgDays <= 10 ? "Fast." : "Delays expected.") + "</span></td><td>" + f12_permitScore + "</td><td>5%</td><td>" + wPermit.toFixed(2) + "</td></tr>";
             document.getElementById("out-matrix").innerHTML = matrixHtml;
 
             // FINANCIALS
             document.getElementById("out-financials").innerHTML = 
-                "<div class='financial-line'><div><div class='financial-label'>Gross Volume</div><div class='financial-detail'>" + estimatedRoofs + " × $" + (avgContract/1000).toFixed(0) + "K</div></div><div class='financial-value' style='color:#fff;'>" + fmt(grossVol) + "</div></div>" +
+                "<div class='financial-line'><div><div class='financial-label'>Gross</div><div class='financial-detail'>" + estimatedRoofs + " × $" + (avgContract/1000).toFixed(0) + "K</div></div><div class='financial-value' style='color:#fff;'>" + fmt(grossVol) + "</div></div>" +
                 "<div class='financial-line'><div><div class='financial-label'>Labor</div><div class='financial-detail'>" + OPS.crewSize + " × $" + OPS.laborRate + " × 40 × " + weeksTotal + " wks</div></div><div class='financial-value' style='color:#ff8a80;'>" + fmt(laborCost) + "</div></div>" +
                 "<div class='financial-line'><div><div class='financial-label'>Materials</div><div class='financial-detail'>" + estimatedRoofs + " × " + OPS.roofSize.toLocaleString() + " × $" + OPS.materialCost + "</div></div><div class='financial-value' style='color:#ff8a80;'>" + fmt(materialCost) + "</div></div>" +
                 "<div class='financial-line'><div><div class='financial-label'>Equip+Housing+Mob</div><div class='financial-detail'>Crane + Housing + Mob" + (droneCost > 0 ? " + Drone" : "") + "</div></div><div class='financial-value' style='color:#ff8a80;'>" + fmt(craneCost + housingCost + mobCost + droneCost) + "</div></div>" +
                 "<div class='financial-line'><div><div class='financial-label'>Net Yield</div><div class='financial-detail'>" + marginPct.toFixed(0) + "% (Threshold: " + OPS.minMargin + "%)</div></div><div class='financial-value' style='color:#00ffa3; font-size:22px;'>" + fmt(netYield) + "</div></div>";
 
-            // HISTORICAL EVIDENCE — CONTEXTUAL
+            // HISTORICAL — CONTEXTUAL
             var historicalText = "";
             if (verdict === "GREEN_LIGHT_LAUNCH_STRIKE_CREW") {
-                if (state === "TX") historicalText = "<strong>✅ Dallas April 2021:</strong> Hail 2.0\" + Rain 1.2\". 18 roofs, $2.1M, 31% margin. 78% approval rate.<br><strong>Why it worked:</strong> Rain followed hail within 48 hours. Interior water damage was undeniable.";
-                else if (state === "HI") historicalText = "<strong>⚠️ Honolulu Hurricane Season:</strong> Wind-driven rain events produce 80% approval on uplift claims. Hail is rare — wind is the primary damage vector. 6-8 commercial roofs per event corridor. 28-32% margins typical.<br><strong>Key:</strong> Island logistics mean material pre-order is critical.";
-                else historicalText = "<strong>✅ Similar conditions historically produced:</strong> 15-20 roofs, $1.8M-$2.5M gross, 28-34% margins.<br><strong>Key:</strong> Rain + hail = approval velocity.";
+                if (state === "HI") historicalText = "<strong>✅ Honolulu Wind Event — October 2023</strong><br>Wind 65 mph / Rain 3.2\" / No hail.<br>Outcome: 7 commercial roofs. $1.4M gross. 29% margin.<br><strong>What worked:</strong> Wind uplift claims approved at 80% with proper documentation.<br><strong>What failed:</strong> 2 ACV roofs — owners refused gap payment.<br><strong>Lesson:</strong> Verify RCV coverage before mobilization.";
+                else historicalText = "<strong>✅ Similar conditions historically:</strong> 15-20 roofs, $1.8M-$2.5M, 28-34% margin. Rain + hail = approval velocity.";
             } else if (verdict === "YELLOW_LIGHT_LEAN_RECON_ONLY") {
-                historicalText = "<strong>⚠️ Marginal conditions historically:</strong> 40% contract rate. 22% margins. 2 of 5 deployments went negative.<br><strong>Key:</strong> Recon verification separates winners from losers.";
+                historicalText = "<strong>⚠️ Marginal conditions:</strong> 40% contract rate. 22% margins. Recon verification separates winners from losers.";
             } else {
-                historicalText = "<strong>🚫 Failed deployments with similar conditions:</strong> Denver June 2022 — dry conditions led to 72% denial rate. 3 companies lost $850K combined.<br><strong>Key:</strong> No interior water damage = cosmetic denial. This is the #1 CAT failure pattern.";
+                historicalText = "<strong>🚫 Similar failure:</strong> Denver 2022 — dry conditions. 72% denial rate. $850K combined losses. No interior damage = cosmetic denial.";
             }
             document.getElementById("out-historical").innerHTML = historicalText;
 
-            // KILL SWITCH — SPECIFIC TRIGGERS
+            // KILL SWITCH — PROPORTIONAL TO MARKET SIZE
             var killSection = document.getElementById("kill-section");
             if (verdict === "RED_LIGHT_HARD_ABORT") { killSection.style.display = "none"; }
             else {
                 killSection.style.display = "block";
+                var compThreshold;
+                if (estimatedRoofs >= 25) compThreshold = 45;
+                else if (estimatedRoofs >= 15) compThreshold = 25;
+                else if (estimatedRoofs >= 6) compThreshold = 10;
+                else if (estimatedRoofs >= 3) compThreshold = 5;
+                else compThreshold = 2;
                 var killText = "";
                 if (verdict === "GREEN_LIGHT_LAUNCH_STRIKE_CREW") {
-                    killText = "<strong>Deployment active for " + city + ". Monitor daily:</strong><br><br>" +
-                    "• <strong>Competitor:</strong> Canopy > 45 trucks → Re-run Triage<br>" +
+                    killText = "<strong>Deployment active for " + city + " (" + estimatedRoofs + " roofs):</strong><br><br>" +
+                    "• <strong>Competitor:</strong> " + compThreshold + "+ competitor trucks detected → Re-run Triage. With only " + estimatedRoofs + " roofs, even " + compThreshold + " competitors will saturate the market.<br>" +
                     "• <strong>Permit:</strong> > " + (f12_avgDays + 5) + " days at " + city + " office → Re-run Triage<br>" +
-                    "• <strong>Weather:</strong> New storm system → Re-run Triage<br>" +
-                    "• <strong>Contract Velocity:</strong> < 60% of " + estimatedRoofs + " roofs by Day 14 → Re-run Triage<br><br>" +
-                    "<em>Conditions change. Re-run daily for updated guidance.</em>";
+                    "• <strong>Contract:</strong> < 60% of " + estimatedRoofs + " roofs by Day 14 → Re-run Triage<br><br>" +
+                    "<em>Conditions change. Re-run daily.</em>";
                 } else {
-                    killText = "<strong>Recon active for " + city + ":</strong><br><br>" +
-                    "• <strong>Upgrade:</strong> Rain > 0.5\" → Re-run for possible GREEN<br>" +
+                    killText = "<strong>Recon active:</strong><br><br>" +
+                    "• <strong>Upgrade:</strong> Rain > 0.5\" → Re-run for GREEN<br>" +
                     "• <strong>Downgrade:</strong> Denial rate > 60% → Withdraw<br>" +
                     "• <strong>Checkpoint:</strong> Day 5 — Re-run with field data<br><br>" +
                     "<em>Conditions change. Re-run daily.</em>";
@@ -420,20 +426,19 @@
             // DRONE
             var droneSection = document.getElementById("drone-section");
             if (verdict === "RED_LIGHT_HARD_ABORT") { droneSection.style.display = "none"; }
-            else { droneSection.style.display = "block"; if (tech === "PRO_TECH") { document.getElementById("out-drone").innerHTML = "✅ In-house drones. Scan all " + estimatedRoofs + " roofs before full mobilization to document membrane fractures."; document.getElementById("btn-drone-cta").style.display = "none"; } else { document.getElementById("out-drone").innerHTML = "⚠️ No drone. We offer verification at $" + OPS.droneCost + "/roof."; document.getElementById("btn-drone-cta").style.display = "block"; } }
+            else { droneSection.style.display = "block"; if (tech === "PRO_TECH") { document.getElementById("out-drone").innerHTML = "✅ In-house drones. Scan all " + estimatedRoofs + " roofs before mobilization."; document.getElementById("btn-drone-cta").style.display = "none"; } else { document.getElementById("out-drone").innerHTML = "⚠️ No drone. Verification at $" + OPS.droneCost + "/roof."; document.getElementById("btn-drone-cta").style.display = "block"; } }
 
             // CTAs
             var ctaButtons = "";
             if (verdict === "GREEN_LIGHT_LAUNCH_STRIKE_CREW") { ctaButtons = "<button class='cta-btn' onclick=\"alert('ABC Supply: (800) 555-0123')\">📦 Pre-Order Materials</button><button class='cta-btn' onclick=\"alert('Crews confirmed')\">🚛 Schedule Crews</button><button class='link-btn' onclick='downloadReport()'>📄 Download Report</button><button class='link-btn' onclick='resetForNewZone()'>🔄 Check Another ZIP</button>"; }
-            else if (verdict === "YELLOW_LIGHT_LEAN_RECON_ONLY") { ctaButtons = "<button class='cta-btn' onclick=\"alert('Recon confirmed')\">🚛 Deploy Recon Crew</button><button class='cta-btn' onclick=\"alert('Day 5 checkpoint set')\">⏰ Set Day 5 Checkpoint</button><button class='link-btn' onclick='downloadReport()'>📄 Download Report</button><button class='link-btn' onclick='resetForNewZone()'>🔄 Check Another ZIP</button>"; }
-            else { ctaButtons = "<button class='cta-btn' onclick=\"alert('Storm alert set')\">🔔 Set Storm Alert for This ZIP</button><button class='cta-btn' onclick=\"alert('Adjacent ZIPs')\">🗺️ Scan Adjacent ZIPs</button><button class='link-btn' onclick='downloadReport()'>📄 Download Report</button><button class='link-btn' onclick='resetForNewZone()'>🔄 Check Another ZIP</button>"; }
+            else if (verdict === "YELLOW_LIGHT_LEAN_RECON_ONLY") { ctaButtons = "<button class='cta-btn' onclick=\"alert('Recon confirmed')\">🚛 Deploy Recon</button><button class='cta-btn' onclick=\"alert('Day 5 checkpoint set')\">⏰ Day 5 Checkpoint</button><button class='link-btn' onclick='downloadReport()'>📄 Download Report</button><button class='link-btn' onclick='resetForNewZone()'>🔄 Check Another ZIP</button>"; }
+            else { ctaButtons = "<button class='cta-btn' onclick=\"alert('Storm alert set')\">🔔 Set Storm Alert</button><button class='cta-btn' onclick=\"alert('Adjacent ZIPs')\">🗺️ Scan Adjacent ZIPs</button><button class='link-btn' onclick='downloadReport()'>📄 Download Report</button><button class='link-btn' onclick='resetForNewZone()'>🔄 Check Another ZIP</button>"; }
             document.getElementById("out-next-text").innerHTML = "<strong>Action Plan for " + city + ", " + state + ":</strong>";
             document.getElementById("out-cta-buttons").innerHTML = ctaButtons;
 
-            // DECISION SECTION — Only for GREEN and YELLOW
-            var decisionSection = document.getElementById("decision-section");
-            if (verdict === "RED_LIGHT_HARD_ABORT") { decisionSection.style.display = "none"; }
-            else { decisionSection.style.display = "block"; selectedDecision = null; document.querySelectorAll(".decision-btn").forEach(function(b) { b.classList.remove("selected"); }); document.getElementById("decision-reason").value = ""; document.getElementById("decision-reason-group").style.display = "none"; }
+            // DECISION — Only GREEN/YELLOW
+            if (verdict === "RED_LIGHT_HARD_ABORT") { document.getElementById("decision-section").style.display = "none"; }
+            else { document.getElementById("decision-section").style.display = "block"; selectedDecision = null; document.querySelectorAll(".decision-btn").forEach(function(b) { b.classList.remove("selected"); }); document.getElementById("decision-reason").value = ""; document.getElementById("decision-reason-group").style.display = "none"; }
 
             document.getElementById("results-card").style.display = "block";
             btn.disabled = false; btn.innerHTML = "⚡ Execute Sweep";
