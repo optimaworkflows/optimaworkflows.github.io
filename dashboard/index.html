@@ -70,6 +70,9 @@
         .cta-btn:hover { background: rgba(64, 196, 255, 0.15); border-color: #40c4ff; }
         .link-btn { border: 1px solid rgba(255, 184, 0, 0.4); color: #ffe0b2; padding: 10px 14px; border-radius: 7px; font-weight: 700; cursor: pointer; background: rgba(255, 184, 0, 0.06); font-size: 12px; flex: 1; text-align: center; transition: all 0.2s; }
         .link-btn:hover { background: rgba(255, 184, 0, 0.12); border-color: #ffb800; }
+        .decision-btn { border: 1px solid rgba(0, 255, 163, 0.4); color: var(--cyber-green); padding: 10px 14px; border-radius: 7px; font-weight: 700; cursor: pointer; background: rgba(0, 255, 163, 0.05); font-size: 12px; flex: 1; text-align: center; transition: all 0.2s; }
+        .decision-btn:hover { background: rgba(0, 255, 163, 0.12); border-color: var(--cyber-green); }
+        .decision-btn.selected { background: rgba(0, 255, 163, 0.2); border-color: var(--cyber-green); color: var(--cyber-green); }
         .outcome-btn { border: 1px solid rgba(0, 255, 163, 0.4); color: var(--cyber-green); padding: 10px 14px; border-radius: 7px; font-weight: 700; cursor: pointer; background: rgba(0, 255, 163, 0.05); font-size: 12px; flex: 1; text-align: center; transition: all 0.2s; }
         .outcome-btn:hover { background: rgba(0, 255, 163, 0.12); border-color: var(--cyber-green); }
         .outcome-btn.selected { background: rgba(0, 255, 163, 0.2); border-color: var(--cyber-green); color: var(--cyber-green); }
@@ -92,8 +95,9 @@
         .financial-detail { font-size: 11px; color: #78909c; margin-top: 3px; line-height: 1.4; }
         .next-steps-box { background: rgba(64, 196, 255, 0.04); border: 1px solid rgba(64, 196, 255, 0.3); border-radius: 9px; padding: 20px; margin-bottom: 20px; width: 100%; }
         .next-steps-text { font-size: 14px; color: #bbdefb; line-height: 1.7; margin-bottom: 10px; }
+        .decision-box { background: rgba(64, 196, 255, 0.03); border: 1px dashed rgba(64, 196, 255, 0.3); border-radius: 9px; padding: 20px; margin-bottom: 20px; width: 100%; }
         .outcome-box { background: rgba(0, 255, 163, 0.03); border: 1px dashed rgba(0, 255, 163, 0.3); border-radius: 9px; padding: 20px; margin-bottom: 20px; width: 100%; }
-        .question-box { background: rgba(64, 196, 255, 0.03); border: 1px dashed rgba(64, 196, 255, 0.3); border-radius: 9px; padding: 20px; margin-bottom: 20px; width: 100%; }
+        .clarification-box { background: rgba(64, 196, 255, 0.03); border: 1px dashed rgba(64, 196, 255, 0.3); border-radius: 9px; padding: 20px; margin-bottom: 20px; width: 100%; }
         .disclaimer-box { background: rgba(255, 184, 0, 0.03); border: 1px solid rgba(255, 184, 0, 0.2); border-radius: 9px; padding: 16px 20px; margin-bottom: 20px; width: 100%; font-size: 12px; color: var(--text-muted); line-height: 1.6; font-style: italic; }
     </style>
 </head>
@@ -211,8 +215,10 @@
                     <h3 class="section-label" style="font-size:11px; color:#cfd8dc;">Historical Evidence — What Happened Last Time</h3>
                     <div id="out-historical" style="background:rgba(255,184,0,0.03); border:1px solid rgba(255,184,0,0.2); border-radius:9px; padding:18px; margin-bottom:20px; font-size:13px; line-height:1.7; color:#ffe0b2; width:100%;"></div>
 
-                    <h3 class="section-label" style="font-size:11px; color:#cfd8dc;">Kill Switch Protocol — Specific Triggers</h3>
-                    <div id="out-exit" style="background:rgba(255,184,0,0.05); border:1px dashed rgba(255,184,0,0.3); padding:18px; border-radius:9px; color:var(--cyber-amber); font-family:'IBM Plex Mono', monospace; font-size:13px; line-height:1.7; margin-bottom:20px; width:100%;"></div>
+                    <div id="kill-section" style="display:none; width:100%;">
+                        <h3 class="section-label" style="font-size:11px; color:#cfd8dc;">Kill Switch Protocol — Dynamic Triggers</h3>
+                        <div id="out-exit" style="background:rgba(255,184,0,0.05); border:1px dashed rgba(255,184,0,0.3); padding:18px; border-radius:9px; color:var(--cyber-amber); font-family:'IBM Plex Mono', monospace; font-size:13px; line-height:1.7; margin-bottom:20px; width:100%;"></div>
+                    </div>
 
                     <div id="drone-section" style="display:none; width:100%;">
                         <h3 class="section-label" style="font-size:11px; color:#cfd8dc;">Inspection Protocol</h3>
@@ -226,37 +232,57 @@
                         <div class="cta-row" id="out-cta-buttons"></div>
                     </div>
 
-                    <h3 class="section-label" style="font-size:11px; color:#cfd8dc;">📊 Deployment Outcome Tracker — Help Us Learn</h3>
-                    <div class="outcome-box" style="width:100%;">
-                        <p style="font-size:13px; color:var(--text-muted); margin-bottom:12px;">How did this deployment perform? Your detailed feedback improves future recommendations.</p>
-                        <div class="cta-row" style="margin-bottom:12px;">
-                            <button class="outcome-btn" id="outcome-success" onclick="selectOutcome('SUCCESS', this)">✅ Success</button>
-                            <button class="outcome-btn" id="outcome-partial" onclick="selectOutcome('PARTIAL', this)">⚠️ Partial</button>
-                            <button class="outcome-btn" id="outcome-failure" onclick="selectOutcome('FAILURE', this)">❌ Failure</button>
+                    <div id="decision-section" style="display:none; width:100%;">
+                        <h3 class="section-label" style="font-size:11px; color:#cfd8dc;">📋 Deployment Decision — Your Call</h3>
+                        <div class="decision-box" style="width:100%;">
+                            <p style="font-size:13px; color:var(--text-muted); margin-bottom:12px;">Will you proceed with this recommendation?</p>
+                            <div class="cta-row" style="margin-bottom:12px;">
+                                <button class="decision-btn" id="decide-yes" onclick="selectDecision('YES', this)">✅ Yes — Deploying as recommended</button>
+                                <button class="decision-btn" id="decide-no" onclick="selectDecision('NO', this)">❌ No — Not deploying</button>
+                            </div>
+                            <div class="form-group" id="decision-reason-group" style="display:none;">
+                                <label>Why not? (This helps us improve our recommendations)</label>
+                                <textarea id="decision-reason" placeholder="e.g., Crews unavailable this week, line of credit tied up, corporate policy..."></textarea>
+                            </div>
+                            <button class="btn-primary" onclick="submitDecision()">Submit Decision</button>
                         </div>
-                        <div class="form-group">
-                            <label>What went well? What didn't? How could the recommendation have been better?</label>
-                            <textarea id="outcome-feedback" placeholder="Share your experience. This helps us improve future recommendations..."></textarea>
-                        </div>
-                        <button class="btn-primary" onclick="submitOutcomeFeedback()">Submit Feedback</button>
                     </div>
 
-                    <h3 class="section-label" style="font-size:11px; color:#cfd8dc;">💬 Active Deployment Question Desk</h3>
-                    <div class="question-box" style="width:100%;">
-                        <p style="font-size:13px; color:var(--text-muted); margin-bottom:12px;">Have questions about this deployment? Our intelligence desk will respond within 24 hours.</p>
-                        <div class="form-group">
-                            <textarea id="deployment-question" placeholder="Ask anything about this deployment — adjuster strategy, competitor movements, material timing, cash flow..."></textarea>
+                    <div id="clarification-section" style="display:none; width:100%;">
+                        <h3 class="section-label" style="font-size:11px; color:#cfd8dc;">📋 Active Deployment Question Desk</h3>
+                        <div class="clarification-box" style="width:100%;">
+                            <p style="font-size:13px; color:var(--text-muted); margin-bottom:12px;">Deployment is active. Have questions? We'll respond within 24 hours.</p>
+                            <div class="form-group">
+                                <textarea id="clarification-question" placeholder="Ask about adjuster strategy, competitor movements, material timing..."></textarea>
+                            </div>
+                            <button class="btn-primary" onclick="submitClarification()">Send Question</button>
                         </div>
-                        <button class="btn-primary" onclick="submitQuestion()">Send Question to Intelligence Desk</button>
+                    </div>
+
+                    <div id="outcome-section" style="display:none; width:100%;">
+                        <h3 class="section-label" style="font-size:11px; color:#cfd8dc;">📊 Deployment Outcome Tracker</h3>
+                        <div class="outcome-box" style="width:100%;">
+                            <p style="font-size:13px; color:var(--text-muted); margin-bottom:12px;">How did this deployment perform? Your feedback improves future recommendations.</p>
+                            <div class="cta-row" style="margin-bottom:12px;">
+                                <button class="outcome-btn" onclick="selectOutcome('SUCCESS', this)">✅ Success</button>
+                                <button class="outcome-btn" onclick="selectOutcome('PARTIAL', this)">⚠️ Partial</button>
+                                <button class="outcome-btn" onclick="selectOutcome('FAILURE', this)">❌ Failure</button>
+                            </div>
+                            <div class="form-group">
+                                <label>What went well? What didn't?</label>
+                                <textarea id="outcome-feedback" placeholder="Share your experience..."></textarea>
+                            </div>
+                            <button class="btn-primary" onclick="submitOutcomeFeedback()">Submit Feedback</button>
+                        </div>
                     </div>
 
                     <div class="disclaimer-box">
-                        <strong>⚖️ Disclaimer:</strong> This analysis is generated from live data sources and historical patterns. It is provided as a decision-support tool only. The final deployment decision rests solely with <strong>Vanguard Restoration Corp</strong> and is final. Optima Workflows is not liable for deployment outcomes.
+                        <strong>⚖️ Disclaimer:</strong> This analysis is generated from live data sources and historical patterns. It is provided as a decision-support tool only. The final deployment decision rests solely with <strong>Vanguard Restoration Corp</strong> and is final. Optima Workflows is a flat-fee consulting firm and is <strong>not a public adjuster</strong>. We do not charge a percentage of claim value or negotiate with insurance carriers. Optima Workflows is not liable for deployment outcomes.
                     </div>
                 </div>
             </section>
 
-            <section id="view-storm-audit" class="dashboard-tab"><h1>Storm Audit</h1><p class="lead">Coming soon.</p></section>
+            <section id="view-storm-audit" class="dashboard-tab"><h1>Storm Audit</h1><p class="lead">Flat-fee code audit. Not % based. Coming soon.</p></section>
             <section id="view-vendor-audit" class="dashboard-tab"><h1>Vendor Audit</h1><p class="lead">Coming soon.</p></section>
             <section id="view-freight-audit" class="dashboard-tab"><h1>Freight Audit</h1><p class="lead">Coming soon.</p></section>
             <section id="view-chargeback" class="dashboard-tab"><h1>Chargebacks</h1><p class="lead">Coming soon.</p></section>
@@ -267,47 +293,48 @@
         const GOOGLE_SPREADSHEET_LOG_URL = "https://script.google.com/macros/s/AKfycbxU6mE1Lcuy43GlG5kzAW9bssqFNJnngNQQ0x9cNtq1GLwrR6Hy78dqHAW0_a9bDf0LIQ/exec";
         const FRED_API_KEY = "aefa10f5ba04b679653f16ecace750b5";
         var currentTriageData = {};
+        var selectedDecision = null;
         var selectedOutcome = null;
+        var deploymentState = { status: "NONE", startDate: null };
         var learningHistory = [];
 
         function getCachedData(key, maxAgeMinutes) { try { var c = localStorage.getItem("optima_" + key); if (c) { var p = JSON.parse(c); if ((Date.now() - p.timestamp) / 60000 < maxAgeMinutes) return p.data; } } catch(e) {} return null; }
         function setCachedData(key, data) { try { localStorage.setItem("optima_" + key, JSON.stringify({ timestamp: Date.now(), data: data })); } catch(e) {} }
         function loadLearningHistory() { try { var s = localStorage.getItem("optima_learning"); if (s) learningHistory = JSON.parse(s); } catch(e) { learningHistory = []; } }
         function saveLearningEntry(entry) { learningHistory.push(entry); if (learningHistory.length > 100) learningHistory.shift(); try { localStorage.setItem("optima_learning", JSON.stringify(learningHistory)); } catch(e) {} }
+        function loadDeploymentState() { try { var s = localStorage.getItem("optima_deployment"); if (s) deploymentState = JSON.parse(s); } catch(e) {} }
+        function saveDeploymentState() { try { localStorage.setItem("optima_deployment", JSON.stringify(deploymentState)); } catch(e) {} }
         function adjustScoreFromHistory(score, zip, state) { var similar = learningHistory.filter(function(h) { return h.state === state || h.zip === zip; }); if (similar.length === 0) return score; var adj = 0; for (var i = 0; i < similar.length; i++) { if (similar[i].outcome === "SUCCESS") adj += 2; else if (similar[i].outcome === "FAILURE") adj -= 3; } adj = adj / similar.length; return Math.max(10, Math.min(100, score + Math.round(adj))); }
         loadLearningHistory();
+        loadDeploymentState();
 
-        function selectOutcome(outcome, btn) {
-            selectedOutcome = outcome;
-            document.querySelectorAll(".outcome-btn").forEach(function(b) { b.classList.remove("selected"); });
-            btn.classList.add("selected");
-        }
-
-        function submitOutcomeFeedback() {
-            var d = currentTriageData;
-            if (!d || !d.zip) { alert("Run a Triage first."); return; }
-            if (!selectedOutcome) { alert("Please select an outcome: Success, Partial, or Failure."); return; }
-            var feedback = document.getElementById("outcome-feedback").value.trim();
-            var entry = { zip: d.zip, city: d.city, state: d.state, outcome: selectedOutcome, feedback: feedback, date: new Date().toISOString() };
-            saveLearningEntry(entry);
-            var logPayload = { type: "outcome", zip: d.zip, city: d.city, state: d.state, outcome: selectedOutcome, feedback: feedback };
+        function selectDecision(decision, btn) { selectedDecision = decision; document.querySelectorAll(".decision-btn").forEach(function(b) { b.classList.remove("selected"); }); btn.classList.add("selected"); if (decision === "NO") { document.getElementById("decision-reason-group").style.display = "block"; } else { document.getElementById("decision-reason-group").style.display = "none"; } }
+        function submitDecision() {
+            var d = currentTriageData; if (!d || !d.zip) { alert("Run a Triage first."); return; }
+            if (!selectedDecision) { alert("Please select Yes or No."); return; }
+            var reason = document.getElementById("decision-reason").value.trim();
+            if (selectedDecision === "YES") {
+                deploymentState = { status: "ACTIVE", startDate: new Date().toISOString(), zip: d.zip, city: d.city, state: d.state, decisionReason: "" };
+                saveDeploymentState();
+                document.getElementById("clarification-section").style.display = "block";
+                document.getElementById("outcome-section").style.display = "none";
+                document.getElementById("decision-section").style.display = "none";
+                alert("Deployment recorded. Question Desk is now active.");
+            } else {
+                deploymentState = { status: "DECLINED", startDate: null, zip: d.zip, city: d.city, state: d.state, decisionReason: reason };
+                saveDeploymentState();
+                document.getElementById("clarification-section").style.display = "none";
+                document.getElementById("outcome-section").style.display = "none";
+                document.getElementById("decision-section").style.display = "none";
+                alert("Decision recorded. Thank you for your feedback.");
+            }
+            var logPayload = { type: "decision", zip: d.zip, city: d.city, state: d.state, decision: selectedDecision, reason: reason };
             fetch(GOOGLE_SPREADSHEET_LOG_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify(logPayload) }).catch(function(){});
-            alert("Thank you. Your feedback has been recorded and will improve future recommendations.");
-            document.getElementById("outcome-feedback").value = "";
-            selectedOutcome = null;
-            document.querySelectorAll(".outcome-btn").forEach(function(b) { b.classList.remove("selected"); });
         }
 
-        function submitQuestion() {
-            var d = currentTriageData;
-            if (!d || !d.zip) { alert("Run a Triage first."); return; }
-            var question = document.getElementById("deployment-question").value.trim();
-            if (!question) { alert("Please enter your question."); return; }
-            var logPayload = { type: "question", zip: d.zip, city: d.city, state: d.state, question: question, date: new Date().toISOString() };
-            fetch(GOOGLE_SPREADSHEET_LOG_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify(logPayload) }).catch(function(){});
-            alert("Question sent to Intelligence Desk. Response within 24 hours.");
-            document.getElementById("deployment-question").value = "";
-        }
+        function selectOutcome(outcome, btn) { selectedOutcome = outcome; document.querySelectorAll(".outcome-btn").forEach(function(b) { b.classList.remove("selected"); }); btn.classList.add("selected"); }
+        function submitOutcomeFeedback() { var d = currentTriageData; if (!d || !d.zip) { alert("Run a Triage first."); return; } if (!selectedOutcome) { alert("Please select an outcome."); return; } var feedback = document.getElementById("outcome-feedback").value.trim(); var entry = { zip: d.zip, city: d.city, state: d.state, outcome: selectedOutcome, feedback: feedback, date: new Date().toISOString() }; saveLearningEntry(entry); var logPayload = { type: "outcome", zip: d.zip, city: d.city, state: d.state, outcome: selectedOutcome, feedback: feedback }; fetch(GOOGLE_SPREADSHEET_LOG_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify(logPayload) }).catch(function(){}); alert("Feedback recorded."); document.getElementById("outcome-feedback").value = ""; selectedOutcome = null; document.querySelectorAll(".outcome-btn").forEach(function(b) { b.classList.remove("selected"); }); }
+        function submitClarification() { var d = currentTriageData; if (!d || !d.zip) { alert("Run a Triage first."); return; } var q = document.getElementById("clarification-question").value.trim(); if (!q) { alert("Please enter your question."); return; } var logPayload = { type: "clarification", zip: d.zip, city: d.city, state: d.state, question: q }; fetch(GOOGLE_SPREADSHEET_LOG_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify(logPayload) }).catch(function(){}); alert("Question sent. Response within 24 hours."); document.getElementById("clarification-question").value = ""; }
 
         var AOB_DATABASE = { "FL": { "cycle_days": 75, "score": 10 }, "TX": { "cycle_days": 30, "score": 90 }, "CO": { "cycle_days": 25, "score": 90 }, "OK": { "cycle_days": 28, "score": 85 }, "NC": { "cycle_days": 35, "score": 60 }, "LA": { "cycle_days": 40, "score": 50 }, "CA": { "cycle_days": 60, "score": 10 }, "IL": { "cycle_days": 35, "score": 55 } };
         var STATE_FIPS = { "TX": "48", "FL": "12", "CO": "08", "OK": "40", "NC": "37", "LA": "22", "CA": "06", "IL": "17" };
@@ -315,19 +342,8 @@
         var PERMIT_DATABASE = { "Dallas": { "avg_days": 12, "score": 60 }, "Houston": { "avg_days": 10, "score": 65 }, "Miami": { "avg_days": 21, "score": 30 }, "Denver": { "avg_days": 8, "score": 80 }, "Austin": { "avg_days": 14, "score": 55 }, "Orlando": { "avg_days": 18, "score": 35 }, "Tampa": { "avg_days": 16, "score": 40 }, "Charlotte": { "avg_days": 12, "score": 60 } };
         var RCV_DATABASE = { "TX": 72, "CO": 68, "FL": 38, "OK": 65, "NC": 55, "LA": 42, "CA": 58, "IL": 60 };
 
-        document.getElementById("btn-login-pass").addEventListener("click", function() {
-            if (document.getElementById("auth-email").value.trim() === "operations@vanguard.com" && document.getElementById("auth-password").value === "vanguard2026") {
-                document.getElementById("step-password-box").style.display = "none";
-                document.getElementById("step-twofactor-box").style.display = "block";
-            } else { alert("Invalid credentials"); }
-        });
-        document.getElementById("btn-login-2fa").addEventListener("click", function() {
-            if (document.getElementById("auth-2fa-token").value.trim() === "481516") {
-                document.getElementById("auth-overlay").style.display = "none";
-                document.getElementById("dashboard-wrapper").style.display = "flex";
-            } else { alert("Invalid token"); }
-        });
-
+        document.getElementById("btn-login-pass").addEventListener("click", function() { if (document.getElementById("auth-email").value.trim() === "operations@vanguard.com" && document.getElementById("auth-password").value === "vanguard2026") { document.getElementById("step-password-box").style.display = "none"; document.getElementById("step-twofactor-box").style.display = "block"; } else { alert("Invalid credentials"); } });
+        document.getElementById("btn-login-2fa").addEventListener("click", function() { if (document.getElementById("auth-2fa-token").value.trim() === "481516") { document.getElementById("auth-overlay").style.display = "none"; document.getElementById("dashboard-wrapper").style.display = "flex"; } else { alert("Invalid token"); } });
         function switchTab(tabId, navElement) { var tabs = document.querySelectorAll(".dashboard-tab"); for (var i = 0; i < tabs.length; i++) tabs[i].classList.remove("active"); var navs = document.querySelectorAll(".nav-item"); for (var j = 0; j < navs.length; j++) navs[j].classList.remove("active"); document.getElementById(tabId).classList.add("active"); if (navElement) navElement.classList.add("active"); }
         function toggleParams() { var p = document.getElementById("params-panel"); var a = document.getElementById("params-arrow"); if (p.classList.contains("open")) { p.classList.remove("open"); a.innerHTML = "▼"; } else { p.classList.add("open"); a.innerHTML = "▲"; } }
         function resetParams() { document.getElementById("p-crew").value=4; document.getElementById("p-labor").value=35; document.getElementById("p-roofsize").value=20000; document.getElementById("p-material").value=6; document.getElementById("p-crane").value=8000; document.getElementById("p-housing").value=100; document.getElementById("p-mob").value=15000; document.getElementById("p-margin").value=30; document.getElementById("p-minroofs").value=4; document.getElementById("p-drone").value=2500; }
@@ -342,12 +358,10 @@
         document.getElementById("triage-form").addEventListener("submit", async function(event) {
             event.preventDefault();
             var btn = document.getElementById("btn-triage"); btn.disabled = true; btn.innerHTML = "Fetching Live Data...";
-
             var zip = document.getElementById("frm-zip").value.trim();
             var intent = document.getElementById("frm-intent").value;
             var tech = document.getElementById("frm-tech").value;
             var rainInput = parseFloat(document.getElementById("frm-rain").value);
-
             var OPS = { crewSize: parseInt(document.getElementById("p-crew").value)||4, laborRate: parseInt(document.getElementById("p-labor").value)||35, roofSize: parseInt(document.getElementById("p-roofsize").value)||20000, materialCost: parseFloat(document.getElementById("p-material").value)||6, craneCost: parseInt(document.getElementById("p-crane").value)||8000, housingCost: parseInt(document.getElementById("p-housing").value)||100, mobCost: parseInt(document.getElementById("p-mob").value)||15000, minMargin: parseInt(document.getElementById("p-margin").value)||30, minRoofs: parseInt(document.getElementById("p-minroofs").value)||4, droneCost: parseInt(document.getElementById("p-drone").value)||2500 };
 
             var lat=32.85, lon=-96.97, city="Unknown", state="TX";
@@ -419,22 +433,22 @@
             else { recBox.style.display = "none"; warnBox.style.display = "block"; var label = (verdict === "RED_LIGHT_HARD_ABORT") ? "DO NOT DEPLOY" : "RECON ONLY"; document.getElementById("out-warn-text").innerHTML = "<strong>" + label + " — Reasons:</strong><br>" + reasons.map(function(x){ return "• " + x; }).join("<br>"); }
 
             var matrixHtml = "<tr><th>Factor</th><th>Raw</th><th>Weight</th><th>Weighted</th></tr>";
-            matrixHtml += "<tr><td><strong>F01: Hail Kinetic</strong><br><span class='factor-explanation'>" + noaaData.hailSize + " recorded. " + (noaaData.hailScore >= 70 ? "Above 1.5\" threshold — membranes fracture. Adjusters cannot deny." : "Below threshold — cosmetic denial risk.") + "</span></td><td>" + noaaData.hailScore + "</td><td>15%</td><td>" + wHail.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F02: Envelope Age</strong><br><span class='factor-explanation'>Built " + medianYear + " (" + (2026-medianYear) + " yrs). " + ((2026-medianYear) >= 15 ? "Brittle — full replacement defensible." : "Moderate — repair vs replacement debated.") + "</span></td><td>" + envelopeScore + "</td><td>10%</td><td>" + wAge.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F03: Rain Saturation</strong><br><span class='factor-explanation'>" + actualRain.toFixed(2) + "\" (" + rainSource + "). " + (actualRain >= 0.5 ? "Interior damage — #1 approval driver." : "DRY — 70%+ denial risk.") + "</span></td><td>" + rainScore + "</td><td>15%</td><td>" + wRain.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F04: Legal Friction</strong><br><span class='factor-explanation'>" + state + " AOB: " + f04_cycleDays + " day cycle. " + (f04_cycleDays > 45 ? "Attorney required — 60+ day float." : "Direct billing — 30 day cash.") + "</span></td><td>" + f04_legalScore + "</td><td>15%</td><td>" + wLegal.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F05: Competitor</strong><br><span class='factor-explanation'>" + state + " market. Moderate — first-mover advantage within 72 hours.</span></td><td>50</td><td>10%</td><td>" + wCompetitor.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F06: Density</strong><br><span class='factor-explanation'>Pop " + totalPop.toLocaleString() + " → " + estimatedRoofs + " roofs. " + (estimatedRoofs >= OPS.minRoofs ? "Sufficient — crane costs spread." : "Below " + OPS.minRoofs + " minimum — margin risk.") + "</span></td><td>" + densityScore + "</td><td>10%</td><td>" + wDensity.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F07: Tech Stack</strong><br><span class='factor-explanation'>" + (tech === "PRO_TECH" ? "Drone +30% approval speed." : "Manual — slower, higher pushback.") + "</span></td><td>" + techScore + "</td><td>10%</td><td>" + wTech.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F08: Credit</strong><br><span class='factor-explanation'>FRED Prime Rate. " + (f08_creditScore >= 65 ? "Cheap capital." : f08_creditScore >= 45 ? "Moderate." : "Tight — higher carrying costs.") + "</span></td><td>" + f08_creditScore + "</td><td>5%</td><td>" + wCredit.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F09: PM Roster</strong><br><span class='factor-explanation'>BLS " + state + ": " + (blsData.unemployment ? blsData.unemployment + "% unemployment" : "N/A") + ". " + (blsData.score >= 55 ? "Labor available." : "Labor tight.") + "</span></td><td>" + blsData.score + "</td><td>5%</td><td>" + wPM.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F10: Material</strong><br><span class='factor-explanation'>" + matData.hub + " " + matData.distance.toFixed(0) + " mi. " + (matData.score >= 70 ? "Available within 48h." : "Pre-order required.") + "</span></td><td>" + matData.score + "</td><td>5%</td><td>" + wMaterial.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F11: RCV Ratio</strong><br><span class='factor-explanation'>" + f11_rcvScore + "% RCV. " + (f11_rcvScore >= 55 ? "Full replacement approved." : "ACV-heavy — owner resistance.") + "</span></td><td>" + f11_rcvScore + "</td><td>5%</td><td>" + wRCV.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F12: Permit</strong><br><span class='factor-explanation'>" + city + ": " + f12_avgDays + " days. " + (f12_avgDays <= 10 ? "Fast approval." : "Delays expected — factor into cash flow.") + "</span></td><td>" + f12_permitScore + "</td><td>5%</td><td>" + wPermit.toFixed(2) + "</td></tr>";
+            matrixHtml += "<tr><td><strong>F01: Hail Kinetic</strong><br><span class='factor-explanation'>" + noaaData.hailSize + " recorded. " + (noaaData.hailScore >= 70 ? "Above 1.5\" threshold — membranes fracture." : "Below threshold — cosmetic denial risk.") + "</span></td><td>" + noaaData.hailScore + "</td><td>15%</td><td>" + wHail.toFixed(2) + "</td></tr>";
+            matrixHtml += "<tr><td><strong>F02: Envelope Age</strong><br><span class='factor-explanation'>Built " + medianYear + " (" + (2026-medianYear) + " yrs). " + ((2026-medianYear) >= 15 ? "Brittle — replacement defensible." : "Moderate — repair debated.") + "</span></td><td>" + envelopeScore + "</td><td>10%</td><td>" + wAge.toFixed(2) + "</td></tr>";
+            matrixHtml += "<tr><td><strong>F03: Rain Saturation</strong><br><span class='factor-explanation'>" + actualRain.toFixed(2) + "\" (" + rainSource + "). " + (actualRain >= 0.5 ? "Interior damage — approval driver." : "DRY — 70%+ denial risk.") + "</span></td><td>" + rainScore + "</td><td>15%</td><td>" + wRain.toFixed(2) + "</td></tr>";
+            matrixHtml += "<tr><td><strong>F04: Legal Friction</strong><br><span class='factor-explanation'>" + state + " AOB: " + f04_cycleDays + " days. " + (f04_cycleDays > 45 ? "Attorney required." : "Direct billing.") + "</span></td><td>" + f04_legalScore + "</td><td>15%</td><td>" + wLegal.toFixed(2) + "</td></tr>";
+            matrixHtml += "<tr><td><strong>F05: Competitor</strong><br><span class='factor-explanation'>" + state + " market. Moderate.</span></td><td>50</td><td>10%</td><td>" + wCompetitor.toFixed(2) + "</td></tr>";
+            matrixHtml += "<tr><td><strong>F06: Density</strong><br><span class='factor-explanation'>Pop " + totalPop.toLocaleString() + " → " + estimatedRoofs + " roofs.</span></td><td>" + densityScore + "</td><td>10%</td><td>" + wDensity.toFixed(2) + "</td></tr>";
+            matrixHtml += "<tr><td><strong>F07: Tech</strong><br><span class='factor-explanation'>" + (tech === "PRO_TECH" ? "Drone +30%." : "Manual.") + "</span></td><td>" + techScore + "</td><td>10%</td><td>" + wTech.toFixed(2) + "</td></tr>";
+            matrixHtml += "<tr><td><strong>F08: Credit</strong><br><span class='factor-explanation'>FRED Prime Rate.</span></td><td>" + f08_creditScore + "</td><td>5%</td><td>" + wCredit.toFixed(2) + "</td></tr>";
+            matrixHtml += "<tr><td><strong>F09: PM Roster</strong><br><span class='factor-explanation'>BLS " + state + ": " + (blsData.unemployment ? blsData.unemployment + "%" : "N/A") + "</span></td><td>" + blsData.score + "</td><td>5%</td><td>" + wPM.toFixed(2) + "</td></tr>";
+            matrixHtml += "<tr><td><strong>F10: Material</strong><br><span class='factor-explanation'>" + matData.hub + " " + matData.distance.toFixed(0) + " mi.</span></td><td>" + matData.score + "</td><td>5%</td><td>" + wMaterial.toFixed(2) + "</td></tr>";
+            matrixHtml += "<tr><td><strong>F11: RCV</strong><br><span class='factor-explanation'>" + f11_rcvScore + "% RCV.</span></td><td>" + f11_rcvScore + "</td><td>5%</td><td>" + wRCV.toFixed(2) + "</td></tr>";
+            matrixHtml += "<tr><td><strong>F12: Permit</strong><br><span class='factor-explanation'>" + city + ": " + f12_avgDays + " days.</span></td><td>" + f12_permitScore + "</td><td>5%</td><td>" + wPermit.toFixed(2) + "</td></tr>";
             document.getElementById("out-matrix").innerHTML = matrixHtml;
 
             document.getElementById("out-financials").innerHTML = 
-                "<div class='financial-line'><div><div class='financial-label'>Gross Volume</div><div class='financial-detail'>" + estimatedRoofs + " × $" + (avgContract/1000).toFixed(0) + "K avg</div></div><div class='financial-value' style='color:#fff;'>" + fmt(grossVol) + "</div></div>" +
+                "<div class='financial-line'><div><div class='financial-label'>Gross Volume</div><div class='financial-detail'>" + estimatedRoofs + " × $" + (avgContract/1000).toFixed(0) + "K</div></div><div class='financial-value' style='color:#fff;'>" + fmt(grossVol) + "</div></div>" +
                 "<div class='financial-line'><div><div class='financial-label'>Labor Cost</div><div class='financial-detail'>" + OPS.crewSize + " × $" + OPS.laborRate + " × 40 × " + weeksTotal + " wks</div></div><div class='financial-value' style='color:#ff8a80;'>" + fmt(laborCost) + "</div></div>" +
                 "<div class='financial-line'><div><div class='financial-label'>Material Cost</div><div class='financial-detail'>" + estimatedRoofs + " × " + OPS.roofSize.toLocaleString() + " × $" + OPS.materialCost + "</div></div><div class='financial-value' style='color:#ff8a80;'>" + fmt(materialCost) + "</div></div>" +
                 "<div class='financial-line'><div><div class='financial-label'>Equip+Housing+Mob</div><div class='financial-detail'>Crane + Housing + Mob" + (droneCost > 0 ? " + Drone" : "") + "</div></div><div class='financial-value' style='color:#ff8a80;'>" + fmt(craneCost + housingCost + mobCost + droneCost) + "</div></div>" +
@@ -443,34 +457,37 @@
             var historicalText = (state === "TX") ? "📊 Dallas/Fort Worth April 2021: 18 roofs, $2.1M, 31%. Rain after hail = 78% approval." : (state === "CO") ? "📊 Denver June 2022: 22 roofs, $2.8M, 34%." : "📊 " + state + ": " + noaaData.stormCount + " events/yr.";
             document.getElementById("out-historical").innerHTML = historicalText;
 
-            var killText = (verdict === "RED_LIGHT_HARD_ABORT") ? "<strong>TRIGGER:</strong> " + reasons.join(" AND ") + ".<br><br><strong>ACTION:</strong> Do not deploy. Withdraw by Day 3 if mobilized." : (verdict === "YELLOW_LIGHT_LEAN_RECON_ONLY") ? "<strong>TRIGGER:</strong> " + reasons.join(" AND ") + ".<br><br><strong>ACTION:</strong> 1 recon crew. " + Math.round(OPS.minRoofs / 2) + " contracts in 5 days or withdraw." : "<strong>Day 7:</strong> Canopy > 45 trucks → pivot.<br><strong>Day 10:</strong> Permits > " + (f12_avgDays + 5) + " days → shift to unincorporated.<br><strong>Day 21:</strong> Contract velocity < 60% → reduce crews by half.";
-            document.getElementById("out-exit").innerHTML = killText;
+            var killSection = document.getElementById("kill-section");
+            if (verdict === "RED_LIGHT_HARD_ABORT") { killSection.style.display = "none"; }
+            else { killSection.style.display = "block"; var killText = (verdict === "YELLOW_LIGHT_LEAN_RECON_ONLY") ? "<strong>Recon is active.</strong><br><br>• Upgrade Trigger: Rain > 0.5\" → Re-run Triage<br>• Downgrade Trigger: Denial rate > 60% → Withdraw<br>• Checkpoint: Day 5 — Re-run Triage with field data<br><br><em>Conditions change daily. Re-run Triage for updated guidance.</em>" : "<strong>Deployment is active.</strong><br><br>• Competitor: Canopy > 45 trucks → Re-run Triage<br>• Permit: > " + (f12_avgDays + 5) + " days → Re-run Triage<br>• Weather: New storm → Re-run Triage<br>• Contract: Velocity < 60% → Re-run Triage<br><br><em>Conditions change daily. Re-run Triage every morning.</em>"; document.getElementById("out-exit").innerHTML = killText; }
 
-            // DRONE SECTION — Only show for YELLOW (Recon) or GREEN with Manual tech
             var droneSection = document.getElementById("drone-section");
-            if (verdict === "RED_LIGHT_HARD_ABORT") {
-                droneSection.style.display = "none";
-            } else if (verdict === "YELLOW_LIGHT_LEAN_RECON_ONLY") {
-                droneSection.style.display = "block";
-                document.getElementById("out-drone").innerHTML = "⚠️ Recon mode. Drone verification helps confirm whether to upgrade to Green or walk away.";
-                document.getElementById("btn-drone-cta").style.display = "block";
-            } else {
-                droneSection.style.display = "block";
-                if (tech === "PRO_TECH") {
-                    document.getElementById("out-drone").innerHTML = "✅ In-house drones. Scan all " + estimatedRoofs + " roofs before full mobilization.";
-                    document.getElementById("btn-drone-cta").style.display = "none";
-                } else {
-                    document.getElementById("out-drone").innerHTML = "⚠️ No drone. We offer verification at $" + OPS.droneCost + "/roof.";
-                    document.getElementById("btn-drone-cta").style.display = "block";
-                }
-            }
+            if (verdict === "RED_LIGHT_HARD_ABORT") { droneSection.style.display = "none"; }
+            else if (verdict === "YELLOW_LIGHT_LEAN_RECON_ONLY") { droneSection.style.display = "block"; document.getElementById("out-drone").innerHTML = "⚠️ Recon mode. Drone verification helps upgrade to Green."; document.getElementById("btn-drone-cta").style.display = "block"; }
+            else { droneSection.style.display = "block"; if (tech === "PRO_TECH") { document.getElementById("out-drone").innerHTML = "✅ In-house drones. Scan all roofs."; document.getElementById("btn-drone-cta").style.display = "none"; } else { document.getElementById("out-drone").innerHTML = "⚠️ No drone. We offer verification at $" + OPS.droneCost + "/roof."; document.getElementById("btn-drone-cta").style.display = "block"; } }
 
             var ctaButtons = "";
             if (verdict === "GREEN_LIGHT_LAUNCH_STRIKE_CREW") { ctaButtons = "<button class='cta-btn' onclick=\"alert('ABC Supply: (800) 555-0123')\">📦 Pre-Order Materials</button><button class='cta-btn' onclick=\"alert('Crews confirmed')\">🚛 Schedule Crews</button><button class='link-btn' onclick='downloadReport()'>📄 Download Report</button><button class='link-btn' onclick='resetForNewZone()'>🔄 Check Another ZIP</button>"; }
             else if (verdict === "YELLOW_LIGHT_LEAN_RECON_ONLY") { ctaButtons = "<button class='cta-btn' onclick=\"alert('Recon confirmed')\">🚛 Deploy Recon Crew</button><button class='cta-btn' onclick=\"alert('Day 5 checkpoint set')\">⏰ Set Day 5 Checkpoint</button><button class='link-btn' onclick='downloadReport()'>📄 Download Report</button><button class='link-btn' onclick='resetForNewZone()'>🔄 Check Another ZIP</button>"; }
-            else { ctaButtons = "<button class='cta-btn' onclick=\"alert('Storm alert set for ZIP " + zip + "')\">🔔 Set Storm Alert for This ZIP</button><button class='cta-btn' onclick=\"alert('Adjacent ZIPs: " + (parseInt(zip)+1) + ", " + (parseInt(zip)-1) + ", " + (parseInt(zip)+10) + "')\">🗺️ Scan Adjacent ZIPs</button><button class='link-btn' onclick='downloadReport()'>📄 Download Report</button><button class='link-btn' onclick='resetForNewZone()'>🔄 Check Another ZIP</button>"; }
+            else { ctaButtons = "<button class='cta-btn' onclick=\"alert('Storm alert set')\">🔔 Set Storm Alert for This ZIP</button><button class='cta-btn' onclick=\"alert('Adjacent ZIPs')\">🗺️ Scan Adjacent ZIPs</button><button class='link-btn' onclick='downloadReport()'>📄 Download Report</button><button class='link-btn' onclick='resetForNewZone()'>🔄 Check Another ZIP</button>"; }
             document.getElementById("out-next-text").innerHTML = "<strong>Action Plan for " + city + ", " + state + ":</strong>";
             document.getElementById("out-cta-buttons").innerHTML = ctaButtons;
+
+            // Show Decision Section for all verdicts
+            document.getElementById("decision-section").style.display = "block";
+            selectedDecision = null;
+            document.querySelectorAll(".decision-btn").forEach(function(b) { b.classList.remove("selected"); });
+            document.getElementById("decision-reason").value = "";
+            document.getElementById("decision-reason-group").style.display = "none";
+
+            // Hide Clarification and Outcome initially
+            document.getElementById("clarification-section").style.display = "none";
+            document.getElementById("outcome-section").style.display = "none";
+
+            // If deployment is already active from previous run, show clarification
+            if (deploymentState.status === "ACTIVE" && deploymentState.zip === zip) {
+                document.getElementById("clarification-section").style.display = "block";
+            }
 
             document.getElementById("results-card").style.display = "block";
             btn.disabled = false; btn.innerHTML = "⚡ Execute Sweep";
