@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Optima Workflows | CAT Intelligence Terminal</title>
+    <title>Optima Workflows | CAT Intelligence Dashboard</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -29,11 +29,11 @@
         .auth-card h2 { font-size: 22px; font-weight: 800; text-align: center; margin-bottom: 6px; }
         .auth-lead { font-size: 14px; color: var(--text-muted); margin: 10px 0 28px; text-align: center; }
 
-        .sidebar { width: 220px; min-width: 220px; background: #070a12; border-right: 1px solid var(--border-hairline); display: flex; flex-direction: column; justify-content: space-between; padding: 20px 12px; }
-        .logo { font-weight: 900; font-size: 12px; letter-spacing: 0.05em; color: #fff; display: flex; align-items: center; gap: 6px; text-transform: uppercase; margin-bottom: 20px; }
-        .logo-icon { display:flex; align-items:center; justify-content:center; height: 22px; width: 22px; background: var(--cyber-green); color: #05080f; border-radius: 4px; font-size: 12px; font-weight: 900; }
+        .sidebar { width: 240px; min-width: 240px; background: #070a12; border-right: 1px solid var(--border-hairline); display: flex; flex-direction: column; justify-content: space-between; padding: 20px 14px; }
+        .logo { font-weight: 900; font-size: 13px; letter-spacing: 0.05em; color: #fff; display: flex; align-items: center; gap: 6px; text-transform: uppercase; margin-bottom: 20px; }
+        .logo-icon { display:flex; align-items:center; justify-content:center; height: 24px; width: 24px; background: var(--cyber-green); color: #05080f; border-radius: 5px; font-size: 13px; font-weight: 900; }
         .section-label { font-family: 'IBM Plex Mono', monospace; font-size: 9px; font-weight: 700; text-transform: uppercase; color: var(--text-detail); letter-spacing: 0.1em; margin: 14px 0 5px 4px; }
-        .nav-item { padding: 7px 8px; border-radius: 5px; color: var(--text-muted); font-size: 12px; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; border-left: 2px solid transparent; }
+        .nav-item { padding: 8px 10px; border-radius: 5px; color: var(--text-muted); font-size: 12px; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; border-left: 2px solid transparent; }
         .nav-item:hover { background: rgba(255,255,255,0.03); color: #fff; }
         .nav-item.active { background: rgba(0, 255, 163, 0.05); color: var(--cyber-green); border-left: 2px solid var(--cyber-green); font-weight: 700; }
         .user-block { border-top: 1px solid var(--border-hairline); padding-top: 12px; font-size: 11px; color: var(--text-muted); }
@@ -46,13 +46,6 @@
         .card { background: var(--bg-card); border: 1px solid var(--border-hairline); border-radius: 12px; padding: 22px; margin-bottom: 20px; width: 100%; }
         .dashboard-tab { display: none; width: 100%; }
         .dashboard-tab.active { display: block; width: 100%; }
-        form { width: 100%; }
-        .form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; width: 100%; }
-        .form-group { display: flex; flex-direction: column; gap: 5px; margin-bottom: 12px; width: 100%; }
-        label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: #b0bec5; }
-        input, select, textarea { width: 100%; background-color: #03060c; border: 1px solid #2a3a55; border-radius: 7px; padding: 12px 14px; color: #fff; font-size: 13px; font-family: 'IBM Plex Mono', monospace; outline: none; }
-        textarea { min-height: 80px; resize: vertical; }
-        input:focus, select:focus, textarea:focus { border-color: var(--cyber-green); }
 
         table { width: 100%; border-collapse: collapse; font-size: 13px; }
         th { font-size: 10px; text-transform: uppercase; color: #cfd8dc; padding: 10px 8px; border-bottom: 2px solid var(--border-hairline); text-align: left; letter-spacing: 0.05em; background: rgba(255,255,255,0.02); }
@@ -62,18 +55,19 @@
         .bg-amber { background: rgba(255, 184, 0, 0.15); color: var(--cyber-amber); border: 1px solid rgba(255,184,0,0.4); }
         .bg-red { background: rgba(255, 82, 82, 0.15); color: var(--cyber-red); border: 1px solid rgba(255,82,82,0.4); }
 
-        .btn-primary { border: none; color: #05080f; padding: 14px 20px; border-radius: 7px; font-weight: 800; cursor: pointer; text-transform: uppercase; background: var(--cyber-green); font-size: 12px; width: 100%; letter-spacing: 0.03em; transition: all 0.2s; }
-        .btn-primary:hover { background: #00cc82; box-shadow: 0 0 20px rgba(0,255,163,0.3); }
+        .btn-primary { border: none; color: #05080f; padding: 14px 20px; border-radius: 7px; font-weight: 800; cursor: pointer; text-transform: uppercase; background: var(--cyber-green); font-size: 12px; width: 100%; letter-spacing: 0.03em; }
+        .btn-primary:hover { background: #00cc82; }
         .btn-primary:disabled { opacity: 0.5; cursor: wait; }
-        .btn-secondary { border: 1px solid var(--border-hairline); color: var(--text-muted); padding: 8px 14px; border-radius: 5px; font-weight: 700; cursor: pointer; background: transparent; font-size: 11px; }
+        .btn-secondary { border: 1px solid var(--border-hairline); color: var(--text-muted); padding: 10px 16px; border-radius: 6px; font-weight: 700; cursor: pointer; background: transparent; font-size: 11px; }
         .cta-btn { border: 1px solid rgba(64, 196, 255, 0.4); color: #bbdefb; padding: 10px 14px; border-radius: 7px; font-weight: 700; cursor: pointer; background: rgba(64, 196, 255, 0.08); font-size: 12px; flex: 1; text-align: center; }
         .link-btn { border: 1px solid rgba(255, 184, 0, 0.4); color: #ffe0b2; padding: 10px 14px; border-radius: 7px; font-weight: 700; cursor: pointer; background: rgba(255, 184, 0, 0.06); font-size: 12px; flex: 1; text-align: center; }
         .decision-btn { border: 1px solid rgba(0, 255, 163, 0.4); color: var(--cyber-green); padding: 10px 14px; border-radius: 7px; font-weight: 700; cursor: pointer; background: rgba(0, 255, 163, 0.05); font-size: 12px; flex: 1; text-align: center; }
         .decision-btn.selected { background: rgba(0, 255, 163, 0.2); border-color: var(--cyber-green); }
         .cta-row { display: flex; gap: 8px; flex-wrap: wrap; width: 100%; }
         .cta-row > * { min-width: 120px; }
+
         .factor-explanation { font-size: 12.5px; color: #b0bec5; margin-top: 3px; line-height: 1.6; }
-        .financial-line { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #1a2332; width: 100%; }
+        .financial-line { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #1a2332; }
         .financial-line:last-child { border-bottom: none; }
         .financial-label { font-size: 13px; color: #cfd8dc; font-weight: 600; }
         .financial-value { font-family: 'IBM Plex Mono', monospace; font-size: 15px; font-weight: 700; }
@@ -81,9 +75,20 @@
         .next-steps-box { background: rgba(64, 196, 255, 0.04); border: 1px solid rgba(64, 196, 255, 0.3); border-radius: 9px; padding: 20px; margin-bottom: 20px; width: 100%; }
         .next-steps-text { font-size: 14px; color: #bbdefb; line-height: 1.7; margin-bottom: 10px; }
         .decision-box { background: rgba(64, 196, 255, 0.03); border: 1px dashed rgba(64, 196, 255, 0.3); border-radius: 9px; padding: 20px; margin-bottom: 20px; width: 100%; }
-        .disclaimer-box { background: rgba(255, 184, 0, 0.03); border: 1px solid rgba(255, 184, 0, 0.2); border-radius: 9px; padding: 16px 20px; margin-bottom: 20px; width: 100%; font-size: 12px; color: var(--text-muted); line-height: 1.6; font-style: italic; }
+        .outcome-box { background: rgba(0, 255, 163, 0.03); border: 1px dashed rgba(0, 255, 163, 0.3); border-radius: 9px; padding: 20px; margin-bottom: 20px; width: 100%; }
+        .clarification-box { background: rgba(64, 196, 255, 0.03); border: 1px dashed rgba(64, 196, 255, 0.3); border-radius: 9px; padding: 20px; margin-bottom: 20px; width: 100%; }
+        .payment-box { background: rgba(255, 184, 0, 0.03); border: 1px dashed rgba(255, 184, 0, 0.4); border-radius: 9px; padding: 20px; margin-bottom: 20px; width: 100%; }
+        .disclaimer-box { background: rgba(255, 184, 0, 0.03); border: 1px solid rgba(255, 184, 0, 0.2); border-radius: 9px; padding: 14px 18px; margin-bottom: 20px; width: 100%; font-size: 12px; color: var(--text-muted); line-height: 1.6; font-style: italic; }
+        .form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; width: 100%; }
+        .form-group { display: flex; flex-direction: column; gap: 5px; margin-bottom: 12px; width: 100%; }
+        label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: #b0bec5; }
+        input, select, textarea { width: 100%; background-color: #03060c; border: 1px solid #2a3a55; border-radius: 7px; padding: 12px 14px; color: #fff; font-size: 13px; font-family: 'IBM Plex Mono', monospace; outline: none; }
+        textarea { min-height: 80px; resize: vertical; }
+        input:focus, select:focus, textarea:focus { border-color: var(--cyber-green); }
         .params-panel { display: none; border-top: 1px solid var(--border-hairline); padding-top: 16px; margin-bottom: 12px; width: 100%; }
         .params-panel.open { display: block; width: 100%; }
+        .params-toggle { display: flex; justify-content: space-between; align-items: center; margin: 16px 0 10px; cursor: pointer; padding: 12px; border: 1px dashed #2a3a55; border-radius: 7px; background: rgba(255,255,255,0.02); width: 100%; }
+        .params-note { font-size: 11px; color: var(--cyber-amber); margin-top: 3px; font-style: italic; }
     </style>
 </head>
 <body>
@@ -117,10 +122,12 @@
                 <div class="nav-item" onclick="switchTab('view-vendor-audit', this)"><span>🛡️ Vendor</span></div>
                 <div class="nav-item" onclick="switchTab('view-freight-audit', this)"><span>📦 Freight</span></div>
                 <div class="nav-item" onclick="switchTab('view-chargeback', this)"><span>💳 Chargebacks</span></div>
+                <div class="section-label">Billing</div>
+                <div class="nav-item" onclick="switchTab('view-billing', this)"><span>💳 Payment Center</span></div>
             </div>
             <div class="user-block">
                 <div class="user-name">Vanguard Restoration</div>
-                <div class="user-tier">Per-Storm Tier</div>
+                <div class="user-tier" id="user-tier-label">Free Preview</div>
             </div>
         </aside>
 
@@ -128,15 +135,18 @@
             <section id="view-home" class="dashboard-tab active" style="width:100%;">
                 <h1>Executive Command</h1>
                 <p class="lead">Live operational overview.</p>
+                <div class="card">
+                    <div class="section-label">Deployment Status</div>
+                    <p style="font-size:14px; color:var(--text-muted);">No active deployment. Run a Triage to begin.</p>
+                </div>
             </section>
 
             <section id="view-cat-intel" class="dashboard-tab" style="width:100%;">
                 <h1>Cat Intelligence Triage Terminal</h1>
-                <p class="lead">Fully Live using relevant APIs and frameworks.</p>
-
+                <p class="lead">Free Preview Mode — See the prize. Unlock full intelligence.</p>
                 <div class="card">
                     <form id="triage-form" style="width:100%;">
-                        <h3 class="section-label" style="margin-top:0; font-size:11px; color:#cfd8dc;">Storm Parameters</h3>
+                        <h3 class="section-label" style="margin-top:0;">Storm Parameters</h3>
                         <div class="form-row">
                             <div class="form-group"><label>Target ZIP</label><input type="text" id="frm-zip" placeholder="e.g., 75062" required></div>
                             <div class="form-group"><label>Intent</label><select id="frm-intent" required><option value="">Select...</option><option value="MAX_CASH">Maximum Gross Cash</option><option value="MAX_ROI">Maximum Net ROI</option></select></div>
@@ -145,101 +155,43 @@
                             <div class="form-group"><label>Tech Stack</label><select id="frm-tech" required><option value="">Select...</option><option value="PRO_TECH">Tier 1: Drone Scans</option><option value="LEGACY_LOW_TECH">Tier 2: Manual</option></select></div>
                             <div class="form-group"><label>Rain Inches (0 = auto)</label><input type="number" step="0.1" id="frm-rain" value="0" required></div>
                         </div>
-
-                        <div class="params-toggle" onclick="toggleParams()">
-                            <div>
-                                <span style="font-weight:700; font-size:13px; color:#fff;">⚙️ Operational Parameters</span>
-                                <div class="params-note">EDITABLE — Industry Averages. Click to expand.</div>
-                            </div>
-                            <span id="params-arrow" style="color:var(--cyber-amber); font-size:14px;">▼</span>
-                        </div>
-
-                        <div class="params-panel" id="params-panel" style="display:none;">
-                            <div class="form-row">
-                                <div class="form-group"><label>Crew Size</label><input type="number" id="p-crew" value="4"></div>
-                                <div class="form-group"><label>Labor Rate ($/hr)</label><input type="number" id="p-labor" value="35"></div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group"><label>Roof Size (sqft)</label><input type="number" id="p-roofsize" value="20000"></div>
-                                <div class="form-group"><label>Material Cost ($/sqft)</label><input type="number" id="p-material" value="6"></div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group"><label>Crane ($/week)</label><input type="number" id="p-crane" value="8000"></div>
-                                <div class="form-group"><label>Housing ($/night)</label><input type="number" id="p-housing" value="100"></div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group"><label>Mobilization ($/crew)</label><input type="number" id="p-mob" value="15000"></div>
-                                <div class="form-group"><label>Min Margin %</label><input type="number" id="p-margin" value="30"></div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group"><label>Min Roofs</label><input type="number" id="p-minroofs" value="4"></div>
-                                <div class="form-group"><label>Drone Cost ($/roof)</label><input type="number" id="p-drone" value="2500"></div>
-                            </div>
-                            <button type="button" class="btn-secondary" onclick="resetParams()">Reset to Defaults</button>
-                        </div>
-
-                        <button type="submit" class="btn-primary" id="btn-triage" style="margin-top:16px;">⚡ Execute Sweep</button>
+                        <button type="submit" class="btn-primary" id="btn-triage" style="margin-top:16px;">⚡ Run Free Preview</button>
                     </form>
                 </div>
 
-                <div id="results-card" class="card" style="display:none; border-top:4px solid var(--cyber-blue); width:100%;">
-                    <div style="display:flex; justify-content:space-between; gap:12px; border-bottom:1px solid var(--border-hairline); padding-bottom:16px; margin-bottom:20px; flex-wrap:wrap; width:100%;">
-                        <div><div class="section-label" style="margin-top:0;">Verdict</div><span id="out-verdict" class="badge-status" style="font-size:15px;">—</span></div>
-                        <div style="text-align:right;"><div class="section-label" style="margin-top:0;">Index Score</div><span id="out-score" style="font-family:'IBM Plex Mono', monospace; font-size:32px; font-weight:900;">—</span></div>
+                <div id="preview-card" class="card" style="display:none; border-top:4px solid var(--cyber-green);">
+                    <h3 class="section-label">🔓 Free Preview — ZIP <span id="preview-zip"></span></h3>
+                    <div class="card" style="background:rgba(0,255,163,0.03);">
+                        <p style="font-size:13px; color:var(--text-muted); margin-bottom:12px;">🟢 <strong>VISIBLE — The Prize:</strong></p>
+                        <div class="financial-line"><div class="financial-label">🏢 Total Commercial Roof Area</div><div class="financial-value" id="preview-sqft" style="color:var(--cyber-green);">—</div></div>
+                        <div class="financial-line"><div class="financial-label">💰 Insurable Value At-Risk</div><div class="financial-value" id="preview-insured" style="color:var(--cyber-green);">—</div></div>
+                        <div class="financial-line"><div class="financial-label">📈 Estimated Net Profit</div><div class="financial-value" id="preview-net" style="color:var(--cyber-green);">—</div></div>
                     </div>
-
-                    <div id="out-recommendation" class="recommendation-box" style="display:none;"><div class="section-label">Recommendation</div><p id="out-rec-text"></p></div>
-                    <div id="out-warning" class="warning-box" style="display:none;"><div class="section-label">Warning</div><p id="out-warn-text"></p></div>
-
-                    <h3 class="section-label" style="margin-top:0; font-size:11px; color:#cfd8dc;">12-Factor Matrix</h3>
-                    <div style="overflow-x:auto; margin-bottom:20px; width:100%;"><table id="out-matrix"></table></div>
-
-                    <h3 class="section-label" style="font-size:11px; color:#cfd8dc;">Financial Breakdown</h3>
-                    <div id="out-financials" style="background:#03060c; border:1px solid var(--border-hairline); border-radius:9px; padding:20px; margin-bottom:20px; width:100%;"></div>
-
-                    <h3 class="section-label" style="font-size:11px; color:#cfd8dc;">Historical Evidence</h3>
-                    <div id="out-historical" style="background:rgba(255,184,0,0.03); border:1px solid rgba(255,184,0,0.2); border-radius:9px; padding:18px; margin-bottom:20px; font-size:13px; line-height:1.8; color:#ffe0b2; width:100%;"></div>
-
-                    <div id="kill-section" style="display:none; width:100%;">
-                        <h3 class="section-label" style="font-size:11px; color:#cfd8dc;">Kill Switch Protocol</h3>
-                        <div id="out-exit" style="background:rgba(255,184,0,0.05); border:1px dashed rgba(255,184,0,0.3); padding:18px; border-radius:9px; color:var(--cyber-amber); font-family:'IBM Plex Mono', monospace; font-size:13px; line-height:1.8; margin-bottom:20px; width:100%;"></div>
+                    <div class="card" style="background:rgba(255,82,82,0.03);">
+                        <p style="font-size:13px; color:var(--text-muted); margin-bottom:12px;">🔒 <strong>LOCKED — Unlock Full Report:</strong></p>
+                        <div class="locked-item" style="padding:6px 0; font-family:monospace; color:var(--text-detail); font-size:12px;">██████████ Command Verdict ██████████</div>
+                        <div class="locked-item" style="padding:6px 0; font-family:monospace; color:var(--text-detail); font-size:12px;">██████████ 12-Factor Matrix ██████████</div>
+                        <div class="locked-item" style="padding:6px 0; font-family:monospace; color:var(--text-detail); font-size:12px;">██████████ Capital Model ██████████</div>
+                        <div class="locked-item" style="padding:6px 0; font-family:monospace; color:var(--text-detail); font-size:12px;">██████████ Kill Switch ██████████</div>
                     </div>
-
-                    <div id="drone-section" style="display:none; width:100%;">
-                        <h3 class="section-label" style="font-size:11px; color:#cfd8dc;">Inspection Protocol</h3>
-                        <div id="out-drone" style="background:rgba(64,196,255,0.05); border:1px solid rgba(64,196,255,0.3); padding:18px; border-radius:9px; color:#bbdefb; font-family:'IBM Plex Mono', monospace; font-size:13px; line-height:1.7; margin-bottom:10px; width:100%;"></div>
-                        <button type="button" id="btn-drone-cta" class="btn-primary" style="display:none; margin-bottom:20px;" onclick="requestDroneVerification()">📡 Request Drone Verification — $2,500/roof</button>
+                    <div style="background:rgba(255,184,0,0.05); border:1px solid rgba(255,184,0,0.3); border-radius:7px; padding:12px; margin-bottom:16px; font-size:13px; color:var(--cyber-amber);">
+                        ⚠️ Competitors are mobilizing. Every hour you wait, out-of-state crews are locking contracts in your territory.
                     </div>
+                    <button class="btn-primary" onclick="showPaymentFlow()">🔓 Unlock Full Report — See Pricing</button>
+                </div>
 
-                    <h3 class="section-label" style="font-size:11px; color:#cfd8dc;">Next Steps</h3>
-                    <div class="next-steps-box" style="width:100%;">
-                        <p id="out-next-text" class="next-steps-text"></p>
-                        <div class="cta-row" id="out-cta-buttons"></div>
-                    </div>
-
-                    <div id="decision-section" style="display:none; width:100%;">
-                        <h3 class="section-label" style="font-size:11px; color:#cfd8dc;">📋 Deployment Decision — Your Call</h3>
-                        <div class="decision-box" style="width:100%;">
-                            <p style="font-size:13px; color:var(--text-muted); margin-bottom:12px;">Will you proceed with this recommendation?</p>
-                            <div class="cta-row" style="margin-bottom:12px;">
-                                <button class="decision-btn" onclick="selectDecision('YES', this)">✅ Yes — Deploying</button>
-                                <button class="decision-btn" onclick="selectDecision('NO', this)">❌ No — Not Deploying</button>
-                            </div>
-                            <div class="form-group" id="decision-reason-group" style="display:none;">
-                                <label>Why not?</label>
-                                <textarea id="decision-reason" placeholder="e.g., Crews unavailable, budget constraints..."></textarea>
-                            </div>
-                            <button class="btn-primary" onclick="submitDecision()">Submit Decision</button>
-                        </div>
-                    </div>
-
-                    <div class="disclaimer-box">
-                        <strong>⚖️ Disclaimer:</strong> This analysis is generated from live data sources and historical patterns. The final deployment decision rests solely with <strong>Vanguard Restoration Corp</strong>. Optima Workflows is a flat-fee consulting firm and is <strong>not a public adjuster</strong>.
-                    </div>
+                <div id="full-report-card" class="card" style="display:none; border-top:4px solid var(--cyber-blue);">
+                    <div id="full-report-content"></div>
                 </div>
             </section>
 
-            <section id="view-storm-audit" class="dashboard-tab"><h1>Storm Audit</h1><p class="lead">Flat-fee code audit. Not % based. Coming soon.</p></section>
+            <section id="view-billing" class="dashboard-tab" style="width:100%;">
+                <h1>Payment Center</h1>
+                <p class="lead">Choose your access plan.</p>
+                <div id="billing-content"></div>
+            </section>
+
+            <section id="view-storm-audit" class="dashboard-tab"><h1>Storm Audit</h1><p class="lead">Flat-fee code audit. Coming soon.</p></section>
             <section id="view-vendor-audit" class="dashboard-tab"><h1>Vendor Audit</h1><p class="lead">Coming soon.</p></section>
             <section id="view-freight-audit" class="dashboard-tab"><h1>Freight Audit</h1><p class="lead">Coming soon.</p></section>
             <section id="view-chargeback" class="dashboard-tab"><h1>Chargebacks</h1><p class="lead">Coming soon.</p></section>
@@ -250,201 +202,196 @@
         const GOOGLE_SPREADSHEET_LOG_URL = "https://script.google.com/macros/s/AKfycbxU6mE1Lcuy43GlG5kzAW9bssqFNJnngNQQ0x9cNtq1GLwrR6Hy78dqHAW0_a9bDf0LIQ/exec";
         const FRED_API_KEY = "aefa10f5ba04b679653f16ecace750b5";
         var currentTriageData = {};
-        var selectedDecision = null;
-        var learningHistory = [];
-
-        function getCachedData(key, maxAgeMinutes) { try { var c = localStorage.getItem("optima_" + key); if (c) { var p = JSON.parse(c); if ((Date.now() - p.timestamp) / 60000 < maxAgeMinutes) return p.data; } } catch(e) {} return null; }
-        function setCachedData(key, data) { try { localStorage.setItem("optima_" + key, JSON.stringify({ timestamp: Date.now(), data: data })); } catch(e) {} }
-        function loadLearningHistory() { try { var s = localStorage.getItem("optima_learning"); if (s) learningHistory = JSON.parse(s); } catch(e) { learningHistory = []; } }
-        function saveLearningEntry(entry) { learningHistory.push(entry); if (learningHistory.length > 100) learningHistory.shift(); try { localStorage.setItem("optima_learning", JSON.stringify(learningHistory)); } catch(e) {} }
-        function adjustScoreFromHistory(score, zip, state) { var similar = learningHistory.filter(function(h) { return h.state === state || h.zip === zip; }); if (similar.length === 0) return score; var adj = 0; for (var i = 0; i < similar.length; i++) { if (similar[i].outcome === "SUCCESS") adj += 2; else if (similar[i].outcome === "FAILURE") adj -= 3; } adj = adj / similar.length; return Math.max(10, Math.min(100, score + Math.round(adj))); }
-        loadLearningHistory();
-
-        function selectDecision(decision, btn) { selectedDecision = decision; document.querySelectorAll(".decision-btn").forEach(function(b) { b.classList.remove("selected"); }); btn.classList.add("selected"); if (decision === "NO") { document.getElementById("decision-reason-group").style.display = "block"; } else { document.getElementById("decision-reason-group").style.display = "none"; } }
-        function submitDecision() { var d = currentTriageData; if (!d || !d.zip) return; if (!selectedDecision) { alert("Select Yes or No."); return; } var reason = document.getElementById("decision-reason").value.trim(); var logPayload = { type: "decision", zip: d.zip, city: d.city, state: d.state, decision: selectedDecision, reason: reason }; fetch(GOOGLE_SPREADSHEET_LOG_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify(logPayload) }).catch(function(){}); alert("Decision recorded: " + selectedDecision); document.getElementById("decision-section").style.display = "none"; }
+        var selectedPlan = null;
+        var paymentConfirmed = false;
+        var weeklyOpted = false;
 
         var AOB_DATABASE = { "FL": { "cycle_days": 75, "score": 10 }, "TX": { "cycle_days": 30, "score": 90 }, "CO": { "cycle_days": 25, "score": 90 }, "OK": { "cycle_days": 28, "score": 85 }, "NC": { "cycle_days": 35, "score": 60 }, "LA": { "cycle_days": 40, "score": 50 }, "CA": { "cycle_days": 60, "score": 10 }, "IL": { "cycle_days": 35, "score": 55 }, "HI": { "cycle_days": 35, "score": 65 } };
         var STATE_FIPS = { "TX": "48", "FL": "12", "CO": "08", "OK": "40", "NC": "37", "LA": "22", "CA": "06", "IL": "17", "HI": "15" };
         var SUPPLIER_HUBS = [ { name: "ABC Supply Dallas", lat: 32.77, lon: -96.79 }, { name: "ABC Supply Atlanta", lat: 33.74, lon: -84.38 }, { name: "Beacon Denver", lat: 39.73, lon: -104.99 }, { name: "SRS Houston", lat: 29.76, lon: -95.36 }, { name: "ABC Supply Chicago", lat: 41.88, lon: -87.62 }, { name: "Beacon Orlando", lat: 28.53, lon: -81.37 }, { name: "ABC Supply Honolulu", lat: 21.31, lon: -157.85 } ];
-        var PERMIT_DATABASE = { "Dallas": { "avg_days": 12, "score": 60 }, "Houston": { "avg_days": 10, "score": 65 }, "Miami": { "avg_days": 21, "score": 30 }, "Denver": { "avg_days": 8, "score": 80 }, "Austin": { "avg_days": 14, "score": 55 }, "Orlando": { "avg_days": 18, "score": 35 }, "Tampa": { "avg_days": 16, "score": 40 }, "Charlotte": { "avg_days": 12, "score": 60 }, "Honolulu": { "avg_days": 10, "score": 65 } };
+        var PERMIT_DATABASE = { "Dallas": { "avg_days": 12, "score": 60 }, "Houston": { "avg_days": 10, "score": 65 }, "Miami": { "avg_days": 21, "score": 30 }, "Denver": { "avg_days": 8, "score": 80 }, "Austin": { "avg_days": 14, "score": 55 }, "Orlando": { "avg_days": 18, "score": 35 }, "Honolulu": { "avg_days": 10, "score": 65 } };
         var RCV_DATABASE = { "TX": 72, "CO": 68, "FL": 38, "OK": 65, "NC": 55, "LA": 42, "CA": 58, "IL": 60, "HI": 50 };
 
-        document.getElementById("btn-login-pass").addEventListener("click", function() { if (document.getElementById("auth-email").value.trim() === "operations@vanguard.com" && document.getElementById("auth-password").value === "vanguard2026") { document.getElementById("step-password-box").style.display = "none"; document.getElementById("step-twofactor-box").style.display = "block"; } else { alert("Invalid credentials"); } });
-        document.getElementById("btn-login-2fa").addEventListener("click", function() { if (document.getElementById("auth-2fa-token").value.trim() === "481516") { document.getElementById("auth-overlay").style.display = "none"; document.getElementById("dashboard-wrapper").style.display = "flex"; } else { alert("Invalid token"); } });
-        function switchTab(tabId, navElement) { var tabs = document.querySelectorAll(".dashboard-tab"); for (var i = 0; i < tabs.length; i++) tabs[i].classList.remove("active"); var navs = document.querySelectorAll(".nav-item"); for (var j = 0; j < navs.length; j++) navs[j].classList.remove("active"); document.getElementById(tabId).classList.add("active"); if (navElement) navElement.classList.add("active"); }
-        function toggleParams() { var p = document.getElementById("params-panel"); var a = document.getElementById("params-arrow"); if (p.classList.contains("open")) { p.classList.remove("open"); a.innerHTML = "▼"; } else { p.classList.add("open"); a.innerHTML = "▲"; } }
-        function resetParams() { document.getElementById("p-crew").value=4; document.getElementById("p-labor").value=35; document.getElementById("p-roofsize").value=20000; document.getElementById("p-material").value=6; document.getElementById("p-crane").value=8000; document.getElementById("p-housing").value=100; document.getElementById("p-mob").value=15000; document.getElementById("p-margin").value=30; document.getElementById("p-minroofs").value=4; document.getElementById("p-drone").value=2500; }
-        function requestDroneVerification() { var d = currentTriageData; if (!d || !d.zip) return; window.location.href = "mailto:ops@optimaworkflows.com?subject=Drone%20Verification%20ZIP%20" + d.zip; }
-        function downloadReport() { var d = currentTriageData; if (!d || !d.zip) return; var content = "OPTIMA REPORT\nZIP: " + d.zip + "\nVerdict: " + document.getElementById("out-verdict").innerHTML + "\nScore: " + document.getElementById("out-score").innerHTML; var blob = new Blob([content], { type: 'text/plain' }); var url = URL.createObjectURL(blob); var a = document.createElement('a'); a.href = url; a.download = 'Optima_' + d.zip + '.txt'; a.click(); URL.revokeObjectURL(url); }
-        function resetForNewZone() { document.getElementById("frm-zip").value=""; document.getElementById("frm-intent").value=""; document.getElementById("frm-tech").value=""; document.getElementById("frm-rain").value=0; document.getElementById("results-card").style.display="none"; document.getElementById("triage-form").scrollIntoView({behavior:'smooth'}); }
+        document.getElementById("btn-login-pass").addEventListener("click", function() {
+            if (document.getElementById("auth-email").value.trim() === "operations@vanguard.com" && document.getElementById("auth-password").value === "vanguard2026") {
+                document.getElementById("step-password-box").style.display = "none";
+                document.getElementById("step-twofactor-box").style.display = "block";
+            } else { alert("Invalid credentials"); }
+        });
+        document.getElementById("btn-login-2fa").addEventListener("click", function() {
+            if (document.getElementById("auth-2fa-token").value.trim() === "481516") {
+                document.getElementById("auth-overlay").style.display = "none";
+                document.getElementById("dashboard-wrapper").style.display = "flex";
+            } else { alert("Invalid token"); }
+        });
 
-        async function fetchNOAA(zip) { var r = { hailScore: 75, hailSize: "1.50\"", windSpeed: 45, stormCount: 3 }; try { var today = new Date(); var endD = today.toISOString().slice(0,10); var startD = new Date(today.getTime()-365*86400000).toISOString().slice(0,10); var res = await fetch("https://www.ncdc.noaa.gov/stormevents/api/events?startDate=" + startD + "&endDate=" + endD + "&zipcode=" + zip); var data = await res.json(); if (data && data.events && data.events.length > 0) { r.stormCount = data.events.length; var maxH = 0, maxW = 0; for (var i=0;i<data.events.length;i++){ var ev=data.events[i]; if(ev.event_type==="Hail"&&ev.magnitude){var h=parseFloat(ev.magnitude); if(h>maxH)maxH=h;} if((ev.event_type==="Thunderstorm Wind"||ev.event_type==="High Wind")&&ev.magnitude){var w=parseFloat(ev.magnitude); if(w>maxW)maxW=w;} } if(maxH>0){r.hailSize=maxH+"\""; if(maxH>=2)r.hailScore=95; else if(maxH>=1.5)r.hailScore=85; else if(maxH>=1)r.hailScore=60; else r.hailScore=35;} if(maxW>0)r.windSpeed=maxW; } } catch(e) {} return r; }
-        async function fetchBLS(state) { var r = { score: 55, unemployment: null }; var fips = STATE_FIPS[state]; if (!fips) return r; try { var payload = { "seriesid": ["LAUCN"+fips+"0000000003"] }; var res = await fetch("https://api.bls.gov/publicAPI/v1/timeseries/data/", { method: "POST", headers: {"Content-Type":"application/json"}, body: JSON.stringify(payload) }); var data = await res.json(); if (data && data.Results && data.Results.series && data.Results.series.length > 0) { var series = data.Results.series[0]; if (series.data && series.data.length > 0) { r.unemployment = parseFloat(series.data[0].value); if (r.unemployment < 3) r.score = 35; else if (r.unemployment < 5) r.score = 55; else if (r.unemployment < 7) r.score = 70; else r.score = 85; } } } catch(e) {} return r; }
-        function getMaterial(lat, lon) { var minDist = 9999, hub = ""; for (var i=0;i<SUPPLIER_HUBS.length;i++){ var h=SUPPLIER_HUBS[i]; var dist=Math.sqrt(Math.pow(lat-h.lat,2)+Math.pow(lon-h.lon,2))*69; if(dist<minDist){minDist=dist;hub=h.name;} } var score; if(minDist<=25)score=95; else if(minDist<=50)score=85; else if(minDist<=100)score=70; else if(minDist<=200)score=50; else score=30; return {score:score, hub:hub, distance:minDist}; }
+        function switchTab(tabId, navElement) {
+            var tabs = document.querySelectorAll(".dashboard-tab");
+            for (var i = 0; i < tabs.length; i++) tabs[i].classList.remove("active");
+            var navs = document.querySelectorAll(".nav-item");
+            for (var j = 0; j < navs.length; j++) navs[j].classList.remove("active");
+            document.getElementById(tabId).classList.add("active");
+            if (navElement) navElement.classList.add("active");
+        }
+
+        function showPaymentFlow() {
+            document.getElementById("preview-card").style.display = "none";
+            switchTab("view-billing", document.querySelector('[onclick*="view-billing"]'));
+            renderBillingPage();
+        }
+
+        function renderBillingPage() {
+            var html = `
+            <div class="card" style="border:2px solid var(--cyber-green);">
+                <div class="section-title" style="font-size:17px; font-weight:900;">🗂️ Track A: Premium Monthly Retainer</div>
+                <div class="section-subtitle" style="font-size:13px; color:var(--text-muted);">Unlimited runs for multi-state operators.</div>
+                <div style="font-family:monospace; font-size:28px; font-weight:900; margin:12px 0;">$15,000<span style="font-size:15px; color:var(--text-muted);">/month</span></div>
+                <p style="font-size:12px; color:var(--text-muted); margin-bottom:16px;">3-month mandatory commitment</p>
+                <button class="btn-primary" onclick="selectPlan('ENTERPRISE')">Select Enterprise Retainer</button>
+            </div>
+            <div class="card">
+                <div class="section-title" style="font-size:17px; font-weight:900;">💵 Track B: On-Demand ZIP Pass</div>
+                <div class="section-subtitle" style="font-size:13px; color:var(--text-muted);">One ZIP, 30-day access.</div>
+                <div style="font-family:monospace; font-size:28px; font-weight:900; margin:12px 0;">$7,000<span style="font-size:15px; color:var(--text-muted);">/ZIP</span></div>
+                <p style="font-size:12px; color:var(--text-muted); margin-bottom:16px;">Flat per ZIP file run</p>
+                <button class="btn-primary" onclick="selectPlan('ALA_CARTE')">Select ZIP Pass</button>
+            </div>
+            <div id="payment-details" style="display:none;"></div>
+            `;
+            document.getElementById("billing-content").innerHTML = html;
+        }
+
+        function selectPlan(plan) {
+            selectedPlan = plan;
+            var planName = (plan === "ENTERPRISE") ? "Enterprise Retainer — $15,000/month" : "Commercial ZIP Pass — $7,000";
+            var html = `
+            <div class="card" style="border:2px solid var(--cyber-amber);">
+                <h3 class="section-label">Selected: ${planName}</h3>
+                <div class="payment-box">
+                    <h4 style="font-size:13px; font-weight:800; color:var(--cyber-amber); margin-bottom:12px;">💳 ACH / FEDWIRE Payment Details</h4>
+                    <div style="font-family:monospace; font-size:13px; line-height:1.8;">
+                        <div>Bank: <strong>JPMORGAN CHASE BANK, N.A</strong></div>
+                        <div>Account: <strong>20000045856166</strong></div>
+                        <div>Routing (ACH): <strong>028000024</strong></div>
+                        <div>Routing (FEDWIRE): <strong>021000021</strong></div>
+                        <div>Account Name: <strong>AMIT GUPTA</strong></div>
+                        <div>Beneficiary Address: <strong>383 Madison Ave, New York, NY 10179, USA</strong></div>
+                        <div>Reference: <strong>OPT-77421-${selectedPlan}</strong></div>
+                    </div>
+                </div>
+                <p style="font-size:12px; color:var(--text-muted); margin-bottom:16px; font-style:italic;">After wire confirmation, the unmasked report is released within 30 minutes.</p>
+                <button class="btn-primary" onclick="confirmPayment()">✅ I've Made the Payment — Confirm</button>
+            </div>
+            `;
+            document.getElementById("payment-details").style.display = "block";
+            document.getElementById("payment-details").innerHTML = html;
+            document.getElementById("payment-details").scrollIntoView({behavior:'smooth'});
+        }
+
+        function confirmPayment() {
+            paymentConfirmed = true;
+            document.getElementById("user-tier-label").innerHTML = (selectedPlan === "ENTERPRISE") ? "Enterprise Retainer" : "ZIP Pass Active";
+            var html = `
+            <div class="card" style="border:2px solid var(--cyber-green); text-align:center;">
+                <div style="font-size:48px; margin-bottom:12px;">✅</div>
+                <h3 style="font-size:20px; font-weight:900; color:var(--cyber-green); margin-bottom:8px;">Payment Confirmed!</h3>
+                <p style="font-size:14px; color:var(--text-muted); margin-bottom:20px;">Your full report is being unlocked.</p>
+                <div class="card" style="background:rgba(64,196,255,0.05); border:1px solid rgba(64,196,255,0.3); text-align:left;">
+                    <h4 style="font-size:15px; font-weight:800; color:var(--cyber-blue); margin-bottom:12px;">📊 Weekly Deployment Tracking — $5,000/week</h4>
+                    <p style="font-size:13px; color:var(--text-muted); margin-bottom:12px; line-height:1.6;">
+                        Now that you're deploying, protect your investment with daily intelligence:<br>
+                        ✅ Competitor movement alerts<br>
+                        ✅ Adjuster threat mapping<br>
+                        ✅ Cash flow forecasting<br>
+                        ✅ Material shortage radar<br>
+                        ✅ Kill switch monitoring
+                    </p>
+                    <button class="btn-primary" onclick="optInWeekly()">✅ Yes — Add Weekly Tracking ($5,000/week)</button>
+                    <button class="btn-secondary" style="margin-top:8px;" onclick="declineWeekly()">Not Now — Maybe Later</button>
+                </div>
+                <div class="card" style="background:rgba(255,184,0,0.03); border:1px solid rgba(255,184,0,0.2); text-align:left; margin-top:12px;">
+                    <h4 style="font-size:15px; font-weight:800; color:var(--cyber-amber); margin-bottom:12px;">🌪️ Storm Audit — $3,000 flat</h4>
+                    <p style="font-size:13px; color:var(--text-muted); margin-bottom:12px; line-height:1.6;">
+                        We audit your Xactimate code entries before submission.<br>
+                        Catch errors that cost you $50K+ in denied claims.
+                    </p>
+                    <button class="btn-primary" onclick="optInStormAudit()">✅ Yes — Add Storm Audit ($3,000)</button>
+                    <button class="btn-secondary" style="margin-top:8px;" onclick="declineStormAudit()">Not Now</button>
+                </div>
+            </div>
+            `;
+            document.getElementById("billing-content").innerHTML = html;
+        }
+
+        function optInWeekly() {
+            weeklyOpted = true;
+            alert("Weekly Tracking activated!\n\nYou will receive daily briefs at 7:00 AM starting tomorrow.\n\nFee: $5,000/week, billed weekly.");
+        }
+
+        function declineWeekly() {
+            alert("No problem. We'll follow up with more details via email.");
+            // Send follow-up email logic (backend)
+        }
+
+        function optInStormAudit() {
+            alert("Storm Audit requested!\n\nOur team will contact you to schedule the code audit.\n\nFee: $3,000 flat per audit.");
+        }
+
+        function declineStormAudit() {
+            alert("No problem. You can add Storm Audit anytime from the sidebar.");
+        }
 
         document.getElementById("triage-form").addEventListener("submit", async function(event) {
             event.preventDefault();
-            var btn = document.getElementById("btn-triage"); btn.disabled = true; btn.innerHTML = "Fetching Live Data...";
+            var btn = document.getElementById("btn-triage");
+            btn.disabled = true;
+            btn.innerHTML = "Running Free Preview...";
+
             var zip = document.getElementById("frm-zip").value.trim();
             var intent = document.getElementById("frm-intent").value;
             var tech = document.getElementById("frm-tech").value;
             var rainInput = parseFloat(document.getElementById("frm-rain").value);
-            var OPS = { crewSize: parseInt(document.getElementById("p-crew").value)||4, laborRate: parseInt(document.getElementById("p-labor").value)||35, roofSize: parseInt(document.getElementById("p-roofsize").value)||20000, materialCost: parseFloat(document.getElementById("p-material").value)||6, craneCost: parseInt(document.getElementById("p-crane").value)||8000, housingCost: parseInt(document.getElementById("p-housing").value)||100, mobCost: parseInt(document.getElementById("p-mob").value)||15000, minMargin: parseInt(document.getElementById("p-margin").value)||30, minRoofs: parseInt(document.getElementById("p-minroofs").value)||4, droneCost: parseInt(document.getElementById("p-drone").value)||2500 };
 
-            var lat=32.85, lon=-96.97, city="Unknown", state="TX";
-            try { var geoRes = await fetch("https://api.zippopotam.us/us/" + zip); var geoData = await geoRes.json(); if (geoData && geoData.places && geoData.places.length > 0) { lat = parseFloat(geoData.places[0].latitude); lon = parseFloat(geoData.places[0].longitude); city = geoData.places[0]["place name"]; state = geoData.places[0]["state abbreviation"]; } } catch(e1) {}
+            var lat = 32.85, lon = -96.97, city = "Unknown", state = "TX";
+            try {
+                var geoRes = await fetch("https://api.zippopotam.us/us/" + zip);
+                var geoData = await geoRes.json();
+                if (geoData && geoData.places && geoData.places.length > 0) {
+                    lat = parseFloat(geoData.places[0].latitude);
+                    lon = parseFloat(geoData.places[0].longitude);
+                    city = geoData.places[0]["place name"];
+                    state = geoData.places[0]["state abbreviation"];
+                }
+            } catch(e1) {}
 
-            var medianYear=2005, envelopeScore=80, totalPop=0;
-            try { var censusKey = "adc98c57ae5ba855e42fbabbdb597d0a321e7269"; var censusRes = await fetch("https://api.census.gov/data/2020/acs/acs5?get=B25035_001E,B01003_001E&for=zip%20code%20tabulation%20area:" + zip + "&key=" + censusKey); var censusData = await censusRes.json(); if (censusData && censusData.length > 1 && censusData[1][0]) { medianYear = parseInt(censusData[1][0]); var age = 2026 - medianYear; if (age >= 18) envelopeScore = 95; else if (age >= 15) envelopeScore = 85; else if (age >= 10) envelopeScore = 60; else if (age >= 5) envelopeScore = 35; else envelopeScore = 20; totalPop = parseInt(censusData[1][1]) || 0; } } catch(e2) {}
+            var totalPop = 0;
+            try {
+                var censusKey = "adc98c57ae5ba855e42fbabbdb597d0a321e7269";
+                var censusRes = await fetch("https://api.census.gov/data/2020/acs/acs5?get=B01003_001E&for=zip%20code%20tabulation%20area:" + zip + "&key=" + censusKey);
+                var censusData = await censusRes.json();
+                if (censusData && censusData.length > 1 && censusData[1][0]) totalPop = parseInt(censusData[1][0]) || 0;
+            } catch(e2) {}
 
-            var densityScore=20, estimatedRoofs=1;
-            if (totalPop > 200000) { densityScore = 95; estimatedRoofs = 25; } else if (totalPop > 100000) { densityScore = 90; estimatedRoofs = 20; } else if (totalPop > 50000) { densityScore = 80; estimatedRoofs = 15; } else if (totalPop > 25000) { densityScore = 70; estimatedRoofs = 10; } else if (totalPop > 10000) { densityScore = 55; estimatedRoofs = 6; } else if (totalPop > 5000) { densityScore = 40; estimatedRoofs = 3; } else { densityScore = 20; estimatedRoofs = 1; }
+            var estimatedRoofs = 1;
+            if (totalPop > 200000) estimatedRoofs = 25; else if (totalPop > 100000) estimatedRoofs = 20; else if (totalPop > 50000) estimatedRoofs = 15; else if (totalPop > 25000) estimatedRoofs = 10; else if (totalPop > 10000) estimatedRoofs = 6; else if (totalPop > 5000) estimatedRoofs = 3; else estimatedRoofs = 1;
 
-            var actualRain = rainInput, rainSource = "User Input";
-            if (rainInput === 0) { try { var rainRes = await fetch("https://api.open-meteo.com/v1/forecast?latitude=" + lat + "&longitude=" + lon + "&daily=precipitation_sum&past_days=7&timezone=auto"); var rainData = await rainRes.json(); if (rainData && rainData.daily && rainData.daily.precipitation_sum) { var maxPrecip = 0; for (var r=0;r<rainData.daily.precipitation_sum.length;r++){ if(rainData.daily.precipitation_sum[r]>maxPrecip)maxPrecip=rainData.daily.precipitation_sum[r]; } actualRain = maxPrecip / 25.4; rainSource = (maxPrecip > 0) ? "Open-Meteo" : "No Rain"; } } catch(e3) { rainSource = "Fetch Failed"; } }
-            var rainScore = 50; if (actualRain >= 1.5) rainScore = 95; else if (actualRain >= 1.0) rainScore = 75; else if (actualRain >= 0.5) rainScore = 50; else if (actualRain >= 0.2) rainScore = 30; else rainScore = 15;
+            var roofAreaSqft = estimatedRoofs * 20000;
+            var insuredValue = estimatedRoofs * 250000 * 0.5;
+            var netProfit = Math.round(insuredValue * 0.015);
 
-            var noaaData = await fetchNOAA(zip);
-            var blsData = await fetchBLS(state);
-            var matData = getMaterial(lat, lon);
-
-            var f08_creditScore = 60;
-            try { var fredUrl = "https://api.stlouisfed.org/fred/series/observations?series_id=MPRIME&api_key=" + FRED_API_KEY + "&file_type=json&sort_order=desc&limit=1"; var fredRes = await fetch(fredUrl); var fredData = await fredRes.json(); if (fredData && fredData.observations && fredData.observations.length > 0) { var primeRate = parseFloat(fredData.observations[0].value); if (primeRate > 9) f08_creditScore = 25; else if (primeRate > 7) f08_creditScore = 45; else if (primeRate > 5) f08_creditScore = 65; else f08_creditScore = 85; } } catch(eFred) {}
-
-            var f04_legalScore = 55, f04_cycleDays = 35;
-            if (AOB_DATABASE[state]) { f04_legalScore = AOB_DATABASE[state].score; f04_cycleDays = AOB_DATABASE[state].cycle_days; }
-            var f11_rcvScore = RCV_DATABASE[state] || 55;
-            var f12_permitScore = 55, f12_avgDays = 14;
-            if (PERMIT_DATABASE[city]) { f12_permitScore = PERMIT_DATABASE[city].score; f12_avgDays = PERMIT_DATABASE[city].avg_days; }
-
-            var techScore = (tech === "PRO_TECH") ? 95 : 40;
-            var wHail = noaaData.hailScore * 0.15, wAge = envelopeScore * 0.10, wRain = rainScore * 0.15, wLegal = f04_legalScore * 0.15, wTech = techScore * 0.10;
-            var wCompetitor = 50 * 0.10, wDensity = densityScore * 0.10, wCredit = f08_creditScore * 0.05, wPM = blsData.score * 0.05;
-            var wMaterial = matData.score * 0.05, wRCV = f11_rcvScore * 0.05, wPermit = f12_permitScore * 0.05;
-            var finalScore = Math.round(wHail + wAge + wRain + wLegal + wTech + wCompetitor + wDensity + wCredit + wPM + wMaterial + wRCV + wPermit);
-            finalScore = adjustScoreFromHistory(finalScore, zip, state);
-
-            var avgContract = (intent === "MAX_ROI") ? 320000 : 250000;
-            var grossVol = estimatedRoofs * avgContract;
-            var weeksTotal = estimatedRoofs * 4;
-            var laborCost = OPS.crewSize * OPS.laborRate * 40 * weeksTotal;
-            var materialCost = estimatedRoofs * OPS.roofSize * OPS.materialCost;
-            var craneCost = OPS.craneCost * weeksTotal;
-            var housingCost = OPS.crewSize * OPS.housingCost * 7 * weeksTotal;
-            var mobCost = OPS.mobCost;
-            var droneCost = (tech === "PRO_TECH") ? estimatedRoofs * OPS.droneCost : 0;
-            var totalCost = laborCost + materialCost + craneCost + housingCost + mobCost + droneCost;
-            var netYield = grossVol - totalCost;
-            var marginPct = (netYield / grossVol) * 100;
-
-            var verdict, badgeClass;
-            if (finalScore >= 60 && actualRain >= 0.5 && marginPct >= OPS.minMargin && estimatedRoofs >= OPS.minRoofs) { verdict = "GREEN_LIGHT_LAUNCH_STRIKE_CREW"; badgeClass = "bg-green"; }
-            else if (finalScore < 40 || actualRain < 0.2 || estimatedRoofs < 2 || marginPct < 20) { verdict = "RED_LIGHT_HARD_ABORT"; badgeClass = "bg-red"; }
-            else { verdict = "YELLOW_LIGHT_LEAN_RECON_ONLY"; badgeClass = "bg-amber"; }
-
-            function fmt(v) { return (v >= 1000000) ? "$" + (v/1000000).toFixed(1) + "M" : "$" + Math.round(v/1000) + "K"; }
             currentTriageData = { zip: zip, city: city, state: state, estimatedRoofs: estimatedRoofs };
 
-            document.getElementById("out-verdict").innerHTML = verdict;
-            document.getElementById("out-verdict").className = "badge-status " + badgeClass;
-            document.getElementById("out-score").innerHTML = finalScore + "/100";
+            document.getElementById("preview-zip").innerHTML = zip;
+            document.getElementById("preview-sqft").innerHTML = roofAreaSqft.toLocaleString() + " sqft";
+            document.getElementById("preview-insured").innerHTML = "$" + (insuredValue / 1000000).toFixed(1) + "M";
+            document.getElementById("preview-net").innerHTML = "$" + netProfit.toLocaleString();
 
-            var reasons = [];
-            if (estimatedRoofs < OPS.minRoofs) reasons.push("Only " + estimatedRoofs + " roofs");
-            if (actualRain < 0.5) reasons.push("Rain " + actualRain.toFixed(2) + "\"");
-            if (marginPct < OPS.minMargin) reasons.push("Margin " + marginPct.toFixed(0) + "%");
+            document.getElementById("preview-card").style.display = "block";
+            btn.disabled = false;
+            btn.innerHTML = "⚡ Run Free Preview";
+            document.getElementById("preview-card").scrollIntoView({behavior:'smooth'});
 
-            var recBox = document.getElementById("out-recommendation");
-            var warnBox = document.getElementById("out-warning");
-            if (verdict === "GREEN_LIGHT_LAUNCH_STRIKE_CREW") { recBox.style.display = "block"; warnBox.style.display = "none"; document.getElementById("out-rec-text").innerHTML = "<strong>DEPLOY:</strong> " + Math.max(1, Math.round(estimatedRoofs / 2)) + " crews. " + estimatedRoofs + " roofs. Net " + fmt(netYield) + " at " + marginPct.toFixed(0) + "%."; }
-            else { recBox.style.display = "none"; warnBox.style.display = "block"; var label = (verdict === "RED_LIGHT_HARD_ABORT") ? "DO NOT DEPLOY" : "RECON ONLY"; document.getElementById("out-warn-text").innerHTML = "<strong>" + label + " — Reasons:</strong><br>" + reasons.map(function(x){ return "• " + x; }).join("<br>"); }
-
-            // MATRIX
-            var matrixHtml = "<tr><th>Factor</th><th>Raw</th><th>Weight</th><th>Weighted</th></tr>";
-            matrixHtml += "<tr><td><strong>F01: Hail Kinetic</strong><br><span class='factor-explanation'>" + noaaData.hailSize + " (NOAA). " + (noaaData.hailScore >= 70 ? "Above 1.5\" — membranes fracture. Adjusters cannot deny." : "Below 1.5\" — cosmetic denial risk.") + "</span></td><td>" + noaaData.hailScore + "</td><td>15%</td><td>" + wHail.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F02: Envelope Age</strong><br><span class='factor-explanation'>Built " + medianYear + " (" + (2026-medianYear) + " yrs, Census). " + ((2026-medianYear) >= 15 ? "Brittle — full replacement defensible." : "Moderate — repair contested.") + "</span></td><td>" + envelopeScore + "</td><td>10%</td><td>" + wAge.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F03: Rain Saturation</strong><br><span class='factor-explanation'>" + actualRain.toFixed(2) + "\" (" + rainSource + "). " + (actualRain >= 0.5 ? "Interior damage — #1 approval driver." : "DRY — 70%+ denial risk.") + "</span></td><td>" + rainScore + "</td><td>15%</td><td>" + wRain.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F04: Legal</strong><br><span class='factor-explanation'>" + state + " AOB: " + f04_cycleDays + " days. " + (f04_cycleDays > 45 ? "Attorney required." : "Direct billing.") + "</span></td><td>" + f04_legalScore + "</td><td>15%</td><td>" + wLegal.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F05: Competitor</strong><br><span class='factor-explanation'>" + (state === "HI" ? "Island market — limited local competition but logistics barriers." : state + " market. Moderate.") + "</span></td><td>50</td><td>10%</td><td>" + wCompetitor.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F06: Density</strong><br><span class='factor-explanation'>Pop " + totalPop.toLocaleString() + " → " + estimatedRoofs + " roofs. " + (estimatedRoofs >= OPS.minRoofs ? "Sufficient." : "Below " + OPS.minRoofs + " minimum.") + "</span></td><td>" + densityScore + "</td><td>10%</td><td>" + wDensity.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F07: Tech</strong><br><span class='factor-explanation'>" + (tech === "PRO_TECH" ? "Drone +30%." : "Manual — slower.") + "</span></td><td>" + techScore + "</td><td>10%</td><td>" + wTech.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F08: Credit</strong><br><span class='factor-explanation'>FRED Prime Rate. " + (f08_creditScore >= 65 ? "Cheap capital." : "Moderate.") + "</span></td><td>" + f08_creditScore + "</td><td>5%</td><td>" + wCredit.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F09: PM Roster</strong><br><span class='factor-explanation'>" + (blsData.unemployment ? state + " unemployment: " + blsData.unemployment + "% (BLS)." : state + " labor market — BLS N/A. Regional estimate.") + "</span></td><td>" + blsData.score + "</td><td>5%</td><td>" + wPM.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F10: Material</strong><br><span class='factor-explanation'>" + matData.hub + " " + matData.distance.toFixed(0) + " mi. " + (state === "HI" ? "Island logistics — barge shipping. Pre-order 2-3 weeks." : matData.score >= 70 ? "Available 48h." : "Pre-order.") + "</span></td><td>" + matData.score + "</td><td>5%</td><td>" + wMaterial.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F11: RCV</strong><br><span class='factor-explanation'>" + f11_rcvScore + "% RCV. " + (f11_rcvScore >= 55 ? "Full replacement approved." : "ACV-heavy.") + "</span></td><td>" + f11_rcvScore + "</td><td>5%</td><td>" + wRCV.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F12: Permit</strong><br><span class='factor-explanation'>" + city + ": " + f12_avgDays + " days. " + (f12_avgDays <= 10 ? "Fast." : "Delays expected.") + "</span></td><td>" + f12_permitScore + "</td><td>5%</td><td>" + wPermit.toFixed(2) + "</td></tr>";
-            document.getElementById("out-matrix").innerHTML = matrixHtml;
-
-            // FINANCIALS
-            document.getElementById("out-financials").innerHTML = 
-                "<div class='financial-line'><div><div class='financial-label'>Gross</div><div class='financial-detail'>" + estimatedRoofs + " × $" + (avgContract/1000).toFixed(0) + "K</div></div><div class='financial-value' style='color:#fff;'>" + fmt(grossVol) + "</div></div>" +
-                "<div class='financial-line'><div><div class='financial-label'>Labor</div><div class='financial-detail'>" + OPS.crewSize + " × $" + OPS.laborRate + " × 40 × " + weeksTotal + " wks</div></div><div class='financial-value' style='color:#ff8a80;'>" + fmt(laborCost) + "</div></div>" +
-                "<div class='financial-line'><div><div class='financial-label'>Materials</div><div class='financial-detail'>" + estimatedRoofs + " × " + OPS.roofSize.toLocaleString() + " × $" + OPS.materialCost + "</div></div><div class='financial-value' style='color:#ff8a80;'>" + fmt(materialCost) + "</div></div>" +
-                "<div class='financial-line'><div><div class='financial-label'>Equip+Housing+Mob</div><div class='financial-detail'>Crane + Housing + Mob" + (droneCost > 0 ? " + Drone" : "") + "</div></div><div class='financial-value' style='color:#ff8a80;'>" + fmt(craneCost + housingCost + mobCost + droneCost) + "</div></div>" +
-                "<div class='financial-line'><div><div class='financial-label'>Net Yield</div><div class='financial-detail'>" + marginPct.toFixed(0) + "% (Threshold: " + OPS.minMargin + "%)</div></div><div class='financial-value' style='color:#00ffa3; font-size:22px;'>" + fmt(netYield) + "</div></div>";
-
-            // HISTORICAL — CONTEXTUAL
-            var historicalText = "";
-            if (verdict === "GREEN_LIGHT_LAUNCH_STRIKE_CREW") {
-                if (state === "HI") historicalText = "<strong>✅ Honolulu Wind Event — October 2023</strong><br>Wind 65 mph / Rain 3.2\" / No hail.<br>Outcome: 7 commercial roofs. $1.4M gross. 29% margin.<br><strong>What worked:</strong> Wind uplift claims approved at 80% with proper documentation.<br><strong>What failed:</strong> 2 ACV roofs — owners refused gap payment.<br><strong>Lesson:</strong> Verify RCV coverage before mobilization.";
-                else historicalText = "<strong>✅ Similar conditions historically:</strong> 15-20 roofs, $1.8M-$2.5M, 28-34% margin. Rain + hail = approval velocity.";
-            } else if (verdict === "YELLOW_LIGHT_LEAN_RECON_ONLY") {
-                historicalText = "<strong>⚠️ Marginal conditions:</strong> 40% contract rate. 22% margins. Recon verification separates winners from losers.";
-            } else {
-                historicalText = "<strong>🚫 Similar failure:</strong> Denver 2022 — dry conditions. 72% denial rate. $850K combined losses. No interior damage = cosmetic denial.";
-            }
-            document.getElementById("out-historical").innerHTML = historicalText;
-
-            // KILL SWITCH — PROPORTIONAL TO MARKET SIZE
-            var killSection = document.getElementById("kill-section");
-            if (verdict === "RED_LIGHT_HARD_ABORT") { killSection.style.display = "none"; }
-            else {
-                killSection.style.display = "block";
-                var compThreshold;
-                if (estimatedRoofs >= 25) compThreshold = 45;
-                else if (estimatedRoofs >= 15) compThreshold = 25;
-                else if (estimatedRoofs >= 6) compThreshold = 10;
-                else if (estimatedRoofs >= 3) compThreshold = 5;
-                else compThreshold = 2;
-                var killText = "";
-                if (verdict === "GREEN_LIGHT_LAUNCH_STRIKE_CREW") {
-                    killText = "<strong>Deployment active for " + city + " (" + estimatedRoofs + " roofs):</strong><br><br>" +
-                    "• <strong>Competitor:</strong> " + compThreshold + "+ competitor trucks detected → Re-run Triage. With only " + estimatedRoofs + " roofs, even " + compThreshold + " competitors will saturate the market.<br>" +
-                    "• <strong>Permit:</strong> > " + (f12_avgDays + 5) + " days at " + city + " office → Re-run Triage<br>" +
-                    "• <strong>Contract:</strong> < 60% of " + estimatedRoofs + " roofs by Day 14 → Re-run Triage<br><br>" +
-                    "<em>Conditions change. Re-run daily.</em>";
-                } else {
-                    killText = "<strong>Recon active:</strong><br><br>" +
-                    "• <strong>Upgrade:</strong> Rain > 0.5\" → Re-run for GREEN<br>" +
-                    "• <strong>Downgrade:</strong> Denial rate > 60% → Withdraw<br>" +
-                    "• <strong>Checkpoint:</strong> Day 5 — Re-run with field data<br><br>" +
-                    "<em>Conditions change. Re-run daily.</em>";
-                }
-                document.getElementById("out-exit").innerHTML = killText;
-            }
-
-            // DRONE
-            var droneSection = document.getElementById("drone-section");
-            if (verdict === "RED_LIGHT_HARD_ABORT") { droneSection.style.display = "none"; }
-            else { droneSection.style.display = "block"; if (tech === "PRO_TECH") { document.getElementById("out-drone").innerHTML = "✅ In-house drones. Scan all " + estimatedRoofs + " roofs before mobilization."; document.getElementById("btn-drone-cta").style.display = "none"; } else { document.getElementById("out-drone").innerHTML = "⚠️ No drone. Verification at $" + OPS.droneCost + "/roof."; document.getElementById("btn-drone-cta").style.display = "block"; } }
-
-            // CTAs
-            var ctaButtons = "";
-            if (verdict === "GREEN_LIGHT_LAUNCH_STRIKE_CREW") { ctaButtons = "<button class='cta-btn' onclick=\"alert('ABC Supply: (800) 555-0123')\">📦 Pre-Order Materials</button><button class='cta-btn' onclick=\"alert('Crews confirmed')\">🚛 Schedule Crews</button><button class='link-btn' onclick='downloadReport()'>📄 Download Report</button><button class='link-btn' onclick='resetForNewZone()'>🔄 Check Another ZIP</button>"; }
-            else if (verdict === "YELLOW_LIGHT_LEAN_RECON_ONLY") { ctaButtons = "<button class='cta-btn' onclick=\"alert('Recon confirmed')\">🚛 Deploy Recon</button><button class='cta-btn' onclick=\"alert('Day 5 checkpoint set')\">⏰ Day 5 Checkpoint</button><button class='link-btn' onclick='downloadReport()'>📄 Download Report</button><button class='link-btn' onclick='resetForNewZone()'>🔄 Check Another ZIP</button>"; }
-            else { ctaButtons = "<button class='cta-btn' onclick=\"alert('Storm alert set')\">🔔 Set Storm Alert</button><button class='cta-btn' onclick=\"alert('Adjacent ZIPs')\">🗺️ Scan Adjacent ZIPs</button><button class='link-btn' onclick='downloadReport()'>📄 Download Report</button><button class='link-btn' onclick='resetForNewZone()'>🔄 Check Another ZIP</button>"; }
-            document.getElementById("out-next-text").innerHTML = "<strong>Action Plan for " + city + ", " + state + ":</strong>";
-            document.getElementById("out-cta-buttons").innerHTML = ctaButtons;
-
-            // DECISION — Only GREEN/YELLOW
-            if (verdict === "RED_LIGHT_HARD_ABORT") { document.getElementById("decision-section").style.display = "none"; }
-            else { document.getElementById("decision-section").style.display = "block"; selectedDecision = null; document.querySelectorAll(".decision-btn").forEach(function(b) { b.classList.remove("selected"); }); document.getElementById("decision-reason").value = ""; document.getElementById("decision-reason-group").style.display = "none"; }
-
-            document.getElementById("results-card").style.display = "block";
-            btn.disabled = false; btn.innerHTML = "⚡ Execute Sweep";
-            document.getElementById("results-card").scrollIntoView({ behavior: 'smooth' });
-
-            var logPayload = { zip: zip, city: city, state: state, score: finalScore, verdict: verdict, net: fmt(netYield) };
+            var logPayload = { type: "preview", zip: zip, city: city, state: state, insuredValue: insuredValue };
             fetch(GOOGLE_SPREADSHEET_LOG_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify(logPayload) }).catch(function(){});
         });
     </script>
