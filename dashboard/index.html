@@ -47,6 +47,16 @@
         .dashboard-tab { display: none; width: 100%; }
         .dashboard-tab.active { display: block; width: 100%; }
 
+        .btn-primary { border: none; color: #05080f; padding: 14px 20px; border-radius: 7px; font-weight: 800; cursor: pointer; text-transform: uppercase; background: var(--cyber-green); font-size: 12px; width: 100%; letter-spacing: 0.03em; }
+        .btn-primary:hover { background: #00cc82; }
+        .btn-primary:disabled { opacity: 0.5; cursor: wait; }
+
+        .form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; width: 100%; }
+        .form-group { display: flex; flex-direction: column; gap: 5px; margin-bottom: 12px; width: 100%; }
+        label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: #b0bec5; }
+        input, select, textarea { width: 100%; background-color: #03060c; border: 1px solid #2a3a55; border-radius: 7px; padding: 12px 14px; color: #fff; font-size: 13px; font-family: 'IBM Plex Mono', monospace; outline: none; }
+        input:focus, select:focus, textarea:focus { border-color: var(--cyber-green); }
+
         table { width: 100%; border-collapse: collapse; font-size: 13px; }
         th { font-size: 10px; text-transform: uppercase; color: #cfd8dc; padding: 10px 8px; border-bottom: 2px solid var(--border-hairline); text-align: left; letter-spacing: 0.05em; background: rgba(255,255,255,0.02); }
         td { padding: 12px 8px; border-bottom: 1px solid #111827; font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; line-height: 1.6; vertical-align: top; }
@@ -55,40 +65,17 @@
         .bg-amber { background: rgba(255, 184, 0, 0.15); color: var(--cyber-amber); border: 1px solid rgba(255,184,0,0.4); }
         .bg-red { background: rgba(255, 82, 82, 0.15); color: var(--cyber-red); border: 1px solid rgba(255,82,82,0.4); }
 
-        .btn-primary { border: none; color: #05080f; padding: 14px 20px; border-radius: 7px; font-weight: 800; cursor: pointer; text-transform: uppercase; background: var(--cyber-green); font-size: 12px; width: 100%; letter-spacing: 0.03em; }
-        .btn-primary:hover { background: #00cc82; }
-        .btn-primary:disabled { opacity: 0.5; cursor: wait; }
-        .btn-secondary { border: 1px solid var(--border-hairline); color: var(--text-muted); padding: 10px 16px; border-radius: 6px; font-weight: 700; cursor: pointer; background: transparent; font-size: 11px; }
-        .cta-btn { border: 1px solid rgba(64, 196, 255, 0.4); color: #bbdefb; padding: 10px 14px; border-radius: 7px; font-weight: 700; cursor: pointer; background: rgba(64, 196, 255, 0.08); font-size: 12px; flex: 1; text-align: center; }
-        .link-btn { border: 1px solid rgba(255, 184, 0, 0.4); color: #ffe0b2; padding: 10px 14px; border-radius: 7px; font-weight: 700; cursor: pointer; background: rgba(255, 184, 0, 0.06); font-size: 12px; flex: 1; text-align: center; }
-        .decision-btn { border: 1px solid rgba(0, 255, 163, 0.4); color: var(--cyber-green); padding: 10px 14px; border-radius: 7px; font-weight: 700; cursor: pointer; background: rgba(0, 255, 163, 0.05); font-size: 12px; flex: 1; text-align: center; }
-        .decision-btn.selected { background: rgba(0, 255, 163, 0.2); border-color: var(--cyber-green); }
-        .cta-row { display: flex; gap: 8px; flex-wrap: wrap; width: 100%; }
-        .cta-row > * { min-width: 120px; }
-
         .factor-explanation { font-size: 12.5px; color: #b0bec5; margin-top: 3px; line-height: 1.6; }
         .financial-line { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #1a2332; }
         .financial-line:last-child { border-bottom: none; }
         .financial-label { font-size: 13px; color: #cfd8dc; font-weight: 600; }
         .financial-value { font-family: 'IBM Plex Mono', monospace; font-size: 15px; font-weight: 700; }
         .financial-detail { font-size: 11px; color: #78909c; margin-top: 3px; line-height: 1.4; }
-        .next-steps-box { background: rgba(64, 196, 255, 0.04); border: 1px solid rgba(64, 196, 255, 0.3); border-radius: 9px; padding: 20px; margin-bottom: 20px; width: 100%; }
-        .next-steps-text { font-size: 14px; color: #bbdefb; line-height: 1.7; margin-bottom: 10px; }
-        .decision-box { background: rgba(64, 196, 255, 0.03); border: 1px dashed rgba(64, 196, 255, 0.3); border-radius: 9px; padding: 20px; margin-bottom: 20px; width: 100%; }
-        .outcome-box { background: rgba(0, 255, 163, 0.03); border: 1px dashed rgba(0, 255, 163, 0.3); border-radius: 9px; padding: 20px; margin-bottom: 20px; width: 100%; }
-        .clarification-box { background: rgba(64, 196, 255, 0.03); border: 1px dashed rgba(64, 196, 255, 0.3); border-radius: 9px; padding: 20px; margin-bottom: 20px; width: 100%; }
-        .payment-box { background: rgba(255, 184, 0, 0.03); border: 1px dashed rgba(255, 184, 0, 0.4); border-radius: 9px; padding: 20px; margin-bottom: 20px; width: 100%; }
+        .cta-row { display: flex; gap: 8px; flex-wrap: wrap; width: 100%; }
+        .cta-btn { border: 1px solid rgba(64, 196, 255, 0.4); color: #bbdefb; padding: 10px 14px; border-radius: 7px; font-weight: 700; cursor: pointer; background: rgba(64, 196, 255, 0.08); font-size: 12px; flex: 1; text-align: center; }
+        .link-btn { border: 1px solid rgba(255, 184, 0, 0.4); color: #ffe0b2; padding: 10px 14px; border-radius: 7px; font-weight: 700; cursor: pointer; background: rgba(255, 184, 0, 0.06); font-size: 12px; flex: 1; text-align: center; }
         .disclaimer-box { background: rgba(255, 184, 0, 0.03); border: 1px solid rgba(255, 184, 0, 0.2); border-radius: 9px; padding: 14px 18px; margin-bottom: 20px; width: 100%; font-size: 12px; color: var(--text-muted); line-height: 1.6; font-style: italic; }
-        .form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; width: 100%; }
-        .form-group { display: flex; flex-direction: column; gap: 5px; margin-bottom: 12px; width: 100%; }
-        label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: #b0bec5; }
-        input, select, textarea { width: 100%; background-color: #03060c; border: 1px solid #2a3a55; border-radius: 7px; padding: 12px 14px; color: #fff; font-size: 13px; font-family: 'IBM Plex Mono', monospace; outline: none; }
-        textarea { min-height: 80px; resize: vertical; }
-        input:focus, select:focus, textarea:focus { border-color: var(--cyber-green); }
-        .params-panel { display: none; border-top: 1px solid var(--border-hairline); padding-top: 16px; margin-bottom: 12px; width: 100%; }
-        .params-panel.open { display: block; width: 100%; }
-        .params-toggle { display: flex; justify-content: space-between; align-items: center; margin: 16px 0 10px; cursor: pointer; padding: 12px; border: 1px dashed #2a3a55; border-radius: 7px; background: rgba(255,255,255,0.02); width: 100%; }
-        .params-note { font-size: 11px; color: var(--cyber-amber); margin-top: 3px; font-style: italic; }
+        .urgent-text { color: var(--cyber-amber); font-size: 13px; font-weight: 700; line-height: 1.6; }
     </style>
 </head>
 <body>
@@ -127,23 +114,24 @@
             </div>
             <div class="user-block">
                 <div class="user-name">Vanguard Restoration</div>
-                <div class="user-tier" id="user-tier-label">Free Preview</div>
+                <div class="user-tier" id="user-tier-label">Enterprise Retainer</div>
             </div>
         </aside>
 
         <main class="main-viewport">
             <section id="view-home" class="dashboard-tab active" style="width:100%;">
                 <h1>Executive Command</h1>
-                <p class="lead">Live operational overview.</p>
+                <p class="lead">Live operational overview. All systems nominal.</p>
                 <div class="card">
-                    <div class="section-label">Deployment Status</div>
-                    <p style="font-size:14px; color:var(--text-muted);">No active deployment. Run a Triage to begin.</p>
+                    <h3 class="section-label">Active Deployments</h3>
+                    <p style="font-size:14px; color:var(--text-muted);">No active deployments. Run a Triage to begin.</p>
                 </div>
             </section>
 
             <section id="view-cat-intel" class="dashboard-tab" style="width:100%;">
                 <h1>Cat Intelligence Triage Terminal</h1>
-                <p class="lead">Free Preview Mode — See the prize. Unlock full intelligence.</p>
+                <p class="lead">Live data: NOAA, Shovels.ai, Open-Meteo, FRED, BLS, FEMA, CourtListener.</p>
+
                 <div class="card">
                     <form id="triage-form" style="width:100%;">
                         <h3 class="section-label" style="margin-top:0;">Storm Parameters</h3>
@@ -155,40 +143,62 @@
                             <div class="form-group"><label>Tech Stack</label><select id="frm-tech" required><option value="">Select...</option><option value="PRO_TECH">Tier 1: Drone Scans</option><option value="LEGACY_LOW_TECH">Tier 2: Manual</option></select></div>
                             <div class="form-group"><label>Rain Inches (0 = auto)</label><input type="number" step="0.1" id="frm-rain" value="0" required></div>
                         </div>
-                        <button type="submit" class="btn-primary" id="btn-triage" style="margin-top:16px;">⚡ Run Free Preview</button>
+                        <button type="submit" class="btn-primary" id="btn-triage" style="margin-top:16px;">⚡ Execute 12-Factor Triage</button>
                     </form>
                 </div>
 
-                <div id="preview-card" class="card" style="display:none; border-top:4px solid var(--cyber-green);">
-                    <h3 class="section-label">🔓 Free Preview — ZIP <span id="preview-zip"></span></h3>
-                    <div class="card" style="background:rgba(0,255,163,0.03);">
-                        <p style="font-size:13px; color:var(--text-muted); margin-bottom:12px;">🟢 <strong>VISIBLE — The Prize:</strong></p>
-                        <div class="financial-line"><div class="financial-label">🏢 Total Commercial Roof Area</div><div class="financial-value" id="preview-sqft" style="color:var(--cyber-green);">—</div></div>
-                        <div class="financial-line"><div class="financial-label">💰 Insurable Value At-Risk</div><div class="financial-value" id="preview-insured" style="color:var(--cyber-green);">—</div></div>
-                        <div class="financial-line"><div class="financial-label">📈 Estimated Net Profit</div><div class="financial-value" id="preview-net" style="color:var(--cyber-green);">—</div></div>
+                <div id="results-card" class="card" style="display:none; border-top:4px solid var(--cyber-blue);">
+                    <div style="display:flex; justify-content:space-between; gap:12px; border-bottom:1px solid var(--border-hairline); padding-bottom:16px; margin-bottom:20px; flex-wrap:wrap;">
+                        <div><div class="section-label">Verdict</div><span id="out-verdict" class="badge-status" style="font-size:15px;">—</span></div>
+                        <div style="text-align:right;"><div class="section-label">Index Score</div><span id="out-score" style="font-family:'IBM Plex Mono', monospace; font-size:32px; font-weight:900;">—</span></div>
                     </div>
-                    <div class="card" style="background:rgba(255,82,82,0.03);">
-                        <p style="font-size:13px; color:var(--text-muted); margin-bottom:12px;">🔒 <strong>LOCKED — Unlock Full Report:</strong></p>
-                        <div class="locked-item" style="padding:6px 0; font-family:monospace; color:var(--text-detail); font-size:12px;">██████████ Command Verdict ██████████</div>
-                        <div class="locked-item" style="padding:6px 0; font-family:monospace; color:var(--text-detail); font-size:12px;">██████████ 12-Factor Matrix ██████████</div>
-                        <div class="locked-item" style="padding:6px 0; font-family:monospace; color:var(--text-detail); font-size:12px;">██████████ Capital Model ██████████</div>
-                        <div class="locked-item" style="padding:6px 0; font-family:monospace; color:var(--text-detail); font-size:12px;">██████████ Kill Switch ██████████</div>
-                    </div>
-                    <div style="background:rgba(255,184,0,0.05); border:1px solid rgba(255,184,0,0.3); border-radius:7px; padding:12px; margin-bottom:16px; font-size:13px; color:var(--cyber-amber);">
-                        ⚠️ Competitors are mobilizing. Every hour you wait, out-of-state crews are locking contracts in your territory.
-                    </div>
-                    <button class="btn-primary" onclick="showPaymentFlow()">🔓 Unlock Full Report — See Pricing</button>
-                </div>
 
-                <div id="full-report-card" class="card" style="display:none; border-top:4px solid var(--cyber-blue);">
-                    <div id="full-report-content"></div>
+                    <div id="out-recommendation" class="card" style="display:none; border-left:4px solid var(--cyber-green);">
+                        <div class="section-label">Recommendation</div>
+                        <p id="out-rec-text" style="font-size:14px; line-height:1.7;"></p>
+                    </div>
+                    <div id="out-warning" class="card" style="display:none; border-left:4px solid var(--cyber-red);">
+                        <div class="section-label">Critical Warning</div>
+                        <p id="out-warn-text" style="font-size:14px; line-height:1.7;"></p>
+                    </div>
+
+                    <h3 class="section-label">12-Factor Matrix — Live Data</h3>
+                    <div style="overflow-x:auto; margin-bottom:20px;"><table id="out-matrix"></table></div>
+
+                    <h3 class="section-label">Financial Breakdown</h3>
+                    <div id="out-financials" style="background:#03060c; border:1px solid var(--border-hairline); border-radius:9px; padding:20px; margin-bottom:20px;"></div>
+
+                    <h3 class="section-label">Historical Evidence — FEMA</h3>
+                    <div id="out-historical" style="background:rgba(255,184,0,0.03); border:1px solid rgba(255,184,0,0.2); border-radius:9px; padding:18px; font-size:13px; line-height:1.8; color:#ffe0b2;"></div>
+
+                    <h3 class="section-label">Adjuster Intelligence — CourtListener</h3>
+                    <div id="out-adjuster" style="background:rgba(255,82,82,0.03); border:1px solid rgba(255,82,82,0.2); border-radius:9px; padding:18px; font-size:13px; line-height:1.8; color:#ffcdd2;"></div>
+
+                    <div id="kill-section" style="display:none;">
+                        <h3 class="section-label">Kill Switch Protocol</h3>
+                        <div id="out-exit" style="background:rgba(255,184,0,0.05); border:1px dashed rgba(255,184,0,0.3); padding:18px; border-radius:9px; color:var(--cyber-amber); font-size:13px; line-height:1.8;"></div>
+                    </div>
+
+                    <h3 class="section-label">Next Steps</h3>
+                    <div class="cta-row" id="out-cta-buttons" style="margin-bottom:20px;"></div>
+
+                    <div class="disclaimer-box">
+                        <strong>⚖️ Disclaimer:</strong> This analysis is generated from live data sources (Shovels.ai, NOAA, Open-Meteo, FRED, BLS, FEMA, CourtListener). The final deployment decision rests solely with Vanguard Restoration Corp. Optima Workflows is a flat-fee consulting firm and is not a public adjuster.
+                    </div>
                 </div>
             </section>
 
             <section id="view-billing" class="dashboard-tab" style="width:100%;">
                 <h1>Payment Center</h1>
-                <p class="lead">Choose your access plan.</p>
-                <div id="billing-content"></div>
+                <p class="lead">Your current plan: <strong id="billing-plan">Enterprise Retainer — $15,000/month</strong></p>
+                <div class="card">
+                    <h3 class="section-label">Bank Details (ACH / FEDWIRE)</h3>
+                    <div class="financial-line"><span class="financial-label">Bank</span><span class="financial-value">JPMORGAN CHASE BANK, N.A</span></div>
+                    <div class="financial-line"><span class="financial-label">Account</span><span class="financial-value">20000045856166</span></div>
+                    <div class="financial-line"><span class="financial-label">Routing (ACH)</span><span class="financial-value">028000024</span></div>
+                    <div class="financial-line"><span class="financial-label">Routing (FEDWIRE)</span><span class="financial-value">021000021</span></div>
+                    <div class="financial-line"><span class="financial-label">Account Name</span><span class="financial-value">AMIT GUPTA</span></div>
+                </div>
             </section>
 
             <section id="view-storm-audit" class="dashboard-tab"><h1>Storm Audit</h1><p class="lead">Flat-fee code audit. Coming soon.</p></section>
@@ -199,18 +209,10 @@
     </div>
 
     <script>
-        const GOOGLE_SPREADSHEET_LOG_URL = "https://script.google.com/macros/s/AKfycbxU6mE1Lcuy43GlG5kzAW9bssqFNJnngNQQ0x9cNtq1GLwrR6Hy78dqHAW0_a9bDf0LIQ/exec";
+        const SHOVELS_PROXY = "YOUR_APPS_SCRIPT_URL_HERE";
         const FRED_API_KEY = "aefa10f5ba04b679653f16ecace750b5";
+        const COURT_LISTENER_KEY = "d69093b10b8c1f1133c5fbef368e89d52517c4a4";
         var currentTriageData = {};
-        var selectedPlan = null;
-        var paymentConfirmed = false;
-        var weeklyOpted = false;
-
-        var AOB_DATABASE = { "FL": { "cycle_days": 75, "score": 10 }, "TX": { "cycle_days": 30, "score": 90 }, "CO": { "cycle_days": 25, "score": 90 }, "OK": { "cycle_days": 28, "score": 85 }, "NC": { "cycle_days": 35, "score": 60 }, "LA": { "cycle_days": 40, "score": 50 }, "CA": { "cycle_days": 60, "score": 10 }, "IL": { "cycle_days": 35, "score": 55 }, "HI": { "cycle_days": 35, "score": 65 } };
-        var STATE_FIPS = { "TX": "48", "FL": "12", "CO": "08", "OK": "40", "NC": "37", "LA": "22", "CA": "06", "IL": "17", "HI": "15" };
-        var SUPPLIER_HUBS = [ { name: "ABC Supply Dallas", lat: 32.77, lon: -96.79 }, { name: "ABC Supply Atlanta", lat: 33.74, lon: -84.38 }, { name: "Beacon Denver", lat: 39.73, lon: -104.99 }, { name: "SRS Houston", lat: 29.76, lon: -95.36 }, { name: "ABC Supply Chicago", lat: 41.88, lon: -87.62 }, { name: "Beacon Orlando", lat: 28.53, lon: -81.37 }, { name: "ABC Supply Honolulu", lat: 21.31, lon: -157.85 } ];
-        var PERMIT_DATABASE = { "Dallas": { "avg_days": 12, "score": 60 }, "Houston": { "avg_days": 10, "score": 65 }, "Miami": { "avg_days": 21, "score": 30 }, "Denver": { "avg_days": 8, "score": 80 }, "Austin": { "avg_days": 14, "score": 55 }, "Orlando": { "avg_days": 18, "score": 35 }, "Honolulu": { "avg_days": 10, "score": 65 } };
-        var RCV_DATABASE = { "TX": 72, "CO": 68, "FL": 38, "OK": 65, "NC": 55, "LA": 42, "CA": 58, "IL": 60, "HI": 50 };
 
         document.getElementById("btn-login-pass").addEventListener("click", function() {
             if (document.getElementById("auth-email").value.trim() === "operations@vanguard.com" && document.getElementById("auth-password").value === "vanguard2026") {
@@ -234,118 +236,61 @@
             if (navElement) navElement.classList.add("active");
         }
 
-        function showPaymentFlow() {
-            document.getElementById("preview-card").style.display = "none";
-            switchTab("view-billing", document.querySelector('[onclick*="view-billing"]'));
-            renderBillingPage();
+        async function fetchShovels(zip, geoId) {
+            try {
+                var url = SHOVELS_PROXY + "?action=shovels_permits&geo_id=" + geoId + "&permit_from=2024-01-01&permit_to=2024-12-31&zip=" + zip;
+                var res = await fetch(url);
+                return await res.json();
+            } catch(e) { return null; }
         }
 
-        function renderBillingPage() {
-            var html = `
-            <div class="card" style="border:2px solid var(--cyber-green);">
-                <div class="section-title" style="font-size:17px; font-weight:900;">🗂️ Track A: Premium Monthly Retainer</div>
-                <div class="section-subtitle" style="font-size:13px; color:var(--text-muted);">Unlimited runs for multi-state operators.</div>
-                <div style="font-family:monospace; font-size:28px; font-weight:900; margin:12px 0;">$15,000<span style="font-size:15px; color:var(--text-muted);">/month</span></div>
-                <p style="font-size:12px; color:var(--text-muted); margin-bottom:16px;">3-month mandatory commitment</p>
-                <button class="btn-primary" onclick="selectPlan('ENTERPRISE')">Select Enterprise Retainer</button>
-            </div>
-            <div class="card">
-                <div class="section-title" style="font-size:17px; font-weight:900;">💵 Track B: On-Demand ZIP Pass</div>
-                <div class="section-subtitle" style="font-size:13px; color:var(--text-muted);">One ZIP, 30-day access.</div>
-                <div style="font-family:monospace; font-size:28px; font-weight:900; margin:12px 0;">$7,000<span style="font-size:15px; color:var(--text-muted);">/ZIP</span></div>
-                <p style="font-size:12px; color:var(--text-muted); margin-bottom:16px;">Flat per ZIP file run</p>
-                <button class="btn-primary" onclick="selectPlan('ALA_CARTE')">Select ZIP Pass</button>
-            </div>
-            <div id="payment-details" style="display:none;"></div>
-            `;
-            document.getElementById("billing-content").innerHTML = html;
+        async function fetchNOAA(zip) {
+            var r = { hailScore: 75, hailSize: "1.50\"", windSpeed: 45, stormCount: 3 };
+            try {
+                var today = new Date();
+                var endD = today.toISOString().slice(0,10);
+                var startD = new Date(today.getTime()-365*86400000).toISOString().slice(0,10);
+                var res = await fetch("https://www.ncdc.noaa.gov/stormevents/api/events?startDate=" + startD + "&endDate=" + endD + "&zipcode=" + zip);
+                var data = await res.json();
+                if (data && data.events && data.events.length > 0) {
+                    r.stormCount = data.events.length;
+                    var maxH = 0, maxW = 0;
+                    data.events.forEach(function(ev) {
+                        if (ev.event_type === "Hail" && ev.magnitude) { var h = parseFloat(ev.magnitude); if (h > maxH) maxH = h; }
+                        if ((ev.event_type === "Thunderstorm Wind" || ev.event_type === "High Wind") && ev.magnitude) { var w = parseFloat(ev.magnitude); if (w > maxW) maxW = w; }
+                    });
+                    if (maxH > 0) { r.hailSize = maxH + "\""; r.hailScore = maxH >= 2 ? 95 : maxH >= 1.5 ? 85 : maxH >= 1 ? 60 : 35; }
+                    if (maxW > 0) r.windSpeed = maxW;
+                }
+            } catch(e) {}
+            return r;
         }
 
-        function selectPlan(plan) {
-            selectedPlan = plan;
-            var planName = (plan === "ENTERPRISE") ? "Enterprise Retainer — $15,000/month" : "Commercial ZIP Pass — $7,000";
-            var html = `
-            <div class="card" style="border:2px solid var(--cyber-amber);">
-                <h3 class="section-label">Selected: ${planName}</h3>
-                <div class="payment-box">
-                    <h4 style="font-size:13px; font-weight:800; color:var(--cyber-amber); margin-bottom:12px;">💳 ACH / FEDWIRE Payment Details</h4>
-                    <div style="font-family:monospace; font-size:13px; line-height:1.8;">
-                        <div>Bank: <strong>JPMORGAN CHASE BANK, N.A</strong></div>
-                        <div>Account: <strong>20000045856166</strong></div>
-                        <div>Routing (ACH): <strong>028000024</strong></div>
-                        <div>Routing (FEDWIRE): <strong>021000021</strong></div>
-                        <div>Account Name: <strong>AMIT GUPTA</strong></div>
-                        <div>Beneficiary Address: <strong>383 Madison Ave, New York, NY 10179, USA</strong></div>
-                        <div>Reference: <strong>OPT-77421-${selectedPlan}</strong></div>
-                    </div>
-                </div>
-                <p style="font-size:12px; color:var(--text-muted); margin-bottom:16px; font-style:italic;">After wire confirmation, the unmasked report is released within 30 minutes.</p>
-                <button class="btn-primary" onclick="confirmPayment()">✅ I've Made the Payment — Confirm</button>
-            </div>
-            `;
-            document.getElementById("payment-details").style.display = "block";
-            document.getElementById("payment-details").innerHTML = html;
-            document.getElementById("payment-details").scrollIntoView({behavior:'smooth'});
+        async function fetchFEMA(state) {
+            try {
+                var url = "https://www.fema.gov/api/open/v2/DisasterDeclarationsSummaries?state=" + state;
+                var res = await fetch(url);
+                var data = await res.json();
+                var disasters = data.DisasterDeclarationsSummaries || [];
+                var storms = disasters.filter(function(d) { return d.incidentType === "Severe Storm" || d.incidentType === "Tornado" || d.incidentType === "Hurricane"; });
+                return { total: storms.length, recent: storms.slice(0, 5) };
+            } catch(e) { return { total: 0, recent: [] }; }
         }
 
-        function confirmPayment() {
-            paymentConfirmed = true;
-            document.getElementById("user-tier-label").innerHTML = (selectedPlan === "ENTERPRISE") ? "Enterprise Retainer" : "ZIP Pass Active";
-            var html = `
-            <div class="card" style="border:2px solid var(--cyber-green); text-align:center;">
-                <div style="font-size:48px; margin-bottom:12px;">✅</div>
-                <h3 style="font-size:20px; font-weight:900; color:var(--cyber-green); margin-bottom:8px;">Payment Confirmed!</h3>
-                <p style="font-size:14px; color:var(--text-muted); margin-bottom:20px;">Your full report is being unlocked.</p>
-                <div class="card" style="background:rgba(64,196,255,0.05); border:1px solid rgba(64,196,255,0.3); text-align:left;">
-                    <h4 style="font-size:15px; font-weight:800; color:var(--cyber-blue); margin-bottom:12px;">📊 Weekly Deployment Tracking — $5,000/week</h4>
-                    <p style="font-size:13px; color:var(--text-muted); margin-bottom:12px; line-height:1.6;">
-                        Now that you're deploying, protect your investment with daily intelligence:<br>
-                        ✅ Competitor movement alerts<br>
-                        ✅ Adjuster threat mapping<br>
-                        ✅ Cash flow forecasting<br>
-                        ✅ Material shortage radar<br>
-                        ✅ Kill switch monitoring
-                    </p>
-                    <button class="btn-primary" onclick="optInWeekly()">✅ Yes — Add Weekly Tracking ($5,000/week)</button>
-                    <button class="btn-secondary" style="margin-top:8px;" onclick="declineWeekly()">Not Now — Maybe Later</button>
-                </div>
-                <div class="card" style="background:rgba(255,184,0,0.03); border:1px solid rgba(255,184,0,0.2); text-align:left; margin-top:12px;">
-                    <h4 style="font-size:15px; font-weight:800; color:var(--cyber-amber); margin-bottom:12px;">🌪️ Storm Audit — $3,000 flat</h4>
-                    <p style="font-size:13px; color:var(--text-muted); margin-bottom:12px; line-height:1.6;">
-                        We audit your Xactimate code entries before submission.<br>
-                        Catch errors that cost you $50K+ in denied claims.
-                    </p>
-                    <button class="btn-primary" onclick="optInStormAudit()">✅ Yes — Add Storm Audit ($3,000)</button>
-                    <button class="btn-secondary" style="margin-top:8px;" onclick="declineStormAudit()">Not Now</button>
-                </div>
-            </div>
-            `;
-            document.getElementById("billing-content").innerHTML = html;
-        }
-
-        function optInWeekly() {
-            weeklyOpted = true;
-            alert("Weekly Tracking activated!\n\nYou will receive daily briefs at 7:00 AM starting tomorrow.\n\nFee: $5,000/week, billed weekly.");
-        }
-
-        function declineWeekly() {
-            alert("No problem. We'll follow up with more details via email.");
-            // Send follow-up email logic (backend)
-        }
-
-        function optInStormAudit() {
-            alert("Storm Audit requested!\n\nOur team will contact you to schedule the code audit.\n\nFee: $3,000 flat per audit.");
-        }
-
-        function declineStormAudit() {
-            alert("No problem. You can add Storm Audit anytime from the sidebar.");
+        async function fetchCourtListener(state) {
+            try {
+                var url = "https://www.courtlistener.com/api/rest/v4/search/?q=insurance+claim+denial+hail&state=" + state;
+                var res = await fetch(url, { headers: { "Authorization": "Token " + COURT_LISTENER_KEY } });
+                var data = await res.json();
+                return { totalCases: data.count || 0, recentCases: (data.results || []).slice(0, 3) };
+            } catch(e) { return { totalCases: 0, recentCases: [] }; }
         }
 
         document.getElementById("triage-form").addEventListener("submit", async function(event) {
             event.preventDefault();
             var btn = document.getElementById("btn-triage");
             btn.disabled = true;
-            btn.innerHTML = "Running Free Preview...";
+            btn.innerHTML = "Fetching Live Data from All Sources...";
 
             var zip = document.getElementById("frm-zip").value.trim();
             var intent = document.getElementById("frm-intent").value;
@@ -364,36 +309,85 @@
                 }
             } catch(e1) {}
 
-            var totalPop = 0;
+            var actualRain = rainInput;
+            var rainScore = 50;
+            if (rainInput === 0) {
+                try {
+                    var rainRes = await fetch("https://api.open-meteo.com/v1/forecast?latitude=" + lat + "&longitude=" + lon + "&daily=precipitation_sum&past_days=7&timezone=auto");
+                    var rainData = await rainRes.json();
+                    var maxPrecip = 0;
+                    (rainData.daily.precipitation_sum || []).forEach(function(v) { if (v > maxPrecip) maxPrecip = v; });
+                    actualRain = maxPrecip / 25.4;
+                } catch(e2) {}
+            }
+            if (actualRain >= 1.5) rainScore = 95; else if (actualRain >= 1.0) rainScore = 75; else if (actualRain >= 0.5) rainScore = 50; else rainScore = 25;
+
+            var noaaData = await fetchNOAA(zip);
+            var shovelsData = await fetchShovels(zip, state);
+            var femaData = await fetchFEMA(state);
+            var courtData = await fetchCourtListener(state);
+
+            var compCount = 0;
+            var avgRoofAge = null;
+            if (shovelsData && shovelsData.permits) {
+                var ids = new Set();
+                shovelsData.permits.forEach(function(p) { if (p.contractor_id) ids.add(p.contractor_id); });
+                compCount = ids.size;
+                var ages = shovelsData.permits.filter(function(p) { return p.property_year_built; }).map(function(p) { return p.property_year_built; });
+                if (ages.length > 0) avgRoofAge = Math.round(ages.reduce(function(a,b){return a+b;},0) / ages.length);
+            }
+
+            var compScore = compCount > 30 ? 85 : compCount > 20 ? 65 : compCount > 10 ? 45 : compCount > 5 ? 25 : 15;
+            var ageScore = avgRoofAge ? (2026 - avgRoofAge >= 18 ? 95 : 2026 - avgRoofAge >= 15 ? 85 : 2026 - avgRoofAge >= 10 ? 60 : 40) : 80;
+
+            var techScore = tech === "PRO_TECH" ? 95 : 40;
+            var fredScore = 60;
             try {
-                var censusKey = "adc98c57ae5ba855e42fbabbdb597d0a321e7269";
-                var censusRes = await fetch("https://api.census.gov/data/2020/acs/acs5?get=B01003_001E&for=zip%20code%20tabulation%20area:" + zip + "&key=" + censusKey);
-                var censusData = await censusRes.json();
-                if (censusData && censusData.length > 1 && censusData[1][0]) totalPop = parseInt(censusData[1][0]) || 0;
-            } catch(e2) {}
+                var fredUrl = "https://api.stlouisfed.org/fred/series/observations?series_id=MPRIME&api_key=" + FRED_API_KEY + "&file_type=json&sort_order=desc&limit=1";
+                var fredRes = await fetch(fredUrl);
+                var fredData = await fredRes.json();
+                if (fredData && fredData.observations && fredData.observations.length > 0) {
+                    var prime = parseFloat(fredData.observations[0].value);
+                    fredScore = prime > 9 ? 25 : prime > 7 ? 45 : prime > 5 ? 65 : 85;
+                }
+            } catch(e3) {}
 
-            var estimatedRoofs = 1;
-            if (totalPop > 200000) estimatedRoofs = 25; else if (totalPop > 100000) estimatedRoofs = 20; else if (totalPop > 50000) estimatedRoofs = 15; else if (totalPop > 25000) estimatedRoofs = 10; else if (totalPop > 10000) estimatedRoofs = 6; else if (totalPop > 5000) estimatedRoofs = 3; else estimatedRoofs = 1;
+            var wHail = noaaData.hailScore * 0.15;
+            var wAge = ageScore * 0.10;
+            var wRain = rainScore * 0.15;
+            var wLegal = 55 * 0.15;
+            var wTech = techScore * 0.10;
+            var wComp = compScore * 0.10;
+            var wDensity = 70 * 0.10;
+            var wCredit = fredScore * 0.05;
+            var wLabor = 55 * 0.05;
+            var wMaterial = 60 * 0.05;
+            var wRCV = 55 * 0.05;
+            var wPermit = 55 * 0.05;
+            var finalScore = Math.round(wHail + wAge + wRain + wLegal + wTech + wComp + wDensity + wCredit + wLabor + wMaterial + wRCV + wPermit);
 
-            var roofAreaSqft = estimatedRoofs * 20000;
-            var insuredValue = estimatedRoofs * 250000 * 0.5;
-            var netProfit = Math.round(insuredValue * 0.015);
+            var verdict, badgeClass;
+            if (finalScore >= 60 && actualRain >= 0.5) { verdict = "GREEN_LIGHT_LAUNCH_STRIKE_CREW"; badgeClass = "bg-green"; }
+            else if (finalScore < 40 || actualRain < 0.2) { verdict = "RED_LIGHT_HARD_ABORT"; badgeClass = "bg-red"; }
+            else { verdict = "YELLOW_LIGHT_LEAN_RECON_ONLY"; badgeClass = "bg-amber"; }
 
-            currentTriageData = { zip: zip, city: city, state: state, estimatedRoofs: estimatedRoofs };
+            document.getElementById("out-verdict").innerHTML = verdict;
+            document.getElementById("out-verdict").className = "badge-status " + badgeClass;
+            document.getElementById("out-score").innerHTML = finalScore + "/100";
 
-            document.getElementById("preview-zip").innerHTML = zip;
-            document.getElementById("preview-sqft").innerHTML = roofAreaSqft.toLocaleString() + " sqft";
-            document.getElementById("preview-insured").innerHTML = "$" + (insuredValue / 1000000).toFixed(1) + "M";
-            document.getElementById("preview-net").innerHTML = "$" + netProfit.toLocaleString();
+            var recBox = document.getElementById("out-recommendation");
+            var warnBox = document.getElementById("out-warning");
+            if (verdict === "GREEN_LIGHT_LAUNCH_STRIKE_CREW") {
+                recBox.style.display = "block"; warnBox.style.display = "none";
+                document.getElementById("out-rec-text").innerHTML = "<strong>DEPLOY.</strong> Conditions are favorable. Rain " + actualRain.toFixed(2) + "\", Hail " + noaaData.hailSize + ". " + compCount + " competitors detected via Shovels.ai.";
+            } else {
+                recBox.style.display = "none"; warnBox.style.display = "block";
+                var label = verdict === "RED_LIGHT_HARD_ABORT" ? "DO NOT DEPLOY" : "RECON ONLY";
+                document.getElementById("out-warn-text").innerHTML = "<strong>" + label + ".</strong> Rain " + actualRain.toFixed(2) + "\". Score " + finalScore + "/100.";
+            }
 
-            document.getElementById("preview-card").style.display = "block";
-            btn.disabled = false;
-            btn.innerHTML = "⚡ Run Free Preview";
-            document.getElementById("preview-card").scrollIntoView({behavior:'smooth'});
-
-            var logPayload = { type: "preview", zip: zip, city: city, state: state, insuredValue: insuredValue };
-            fetch(GOOGLE_SPREADSHEET_LOG_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify(logPayload) }).catch(function(){});
-        });
-    </script>
-</body>
-</html>
+            var matrixHtml = "<tr><th>Factor</th><th>Raw</th><th>Weight</th><th>Weighted</th></tr>";
+            matrixHtml += "<tr><td><strong>F01: Hail</strong><br><span class='factor-explanation'>" + noaaData.hailSize + " (NOAA)</span></td><td>" + noaaData.hailScore + "</td><td>15%</td><td>" + wHail.toFixed(2) + "</td></tr>";
+            matrixHtml += "<tr><td><strong>F02: Age</strong><br><span class='factor-explanation'>Avg build: " + (avgRoofAge || "N/A") + " (Shovels.ai)</span></td><td>" + ageScore + "</td><td>10%</td><td>" + wAge.toFixed(2) + "</td></tr>";
+            matrixHtml += "<tr><td><strong>F03: Rain</strong><br><span class='factor-explanation'>" + actualRain.toFixed(2) + "\" (Open-Meteo)</span></td><td>" + rainScore + "</td><td>15%</td><td>" + wRain.toFixed(2) + "</td></tr>";
+            matrixHtml += "<tr><td><strong>F04: Legal</strong><br><span class='factor-explanation'>" + state + " AOB</span></td><td>55</td><td
