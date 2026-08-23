@@ -20,11 +20,23 @@
         input, select { width: 100%; background-color: #020617; border: 1px solid var(--border-color); border-radius: 6px; padding: 14px; color: #ffffff; font-size: 14px; }
         .submit-btn { width: 100%; border: 1px solid rgba(56, 189, 248, 0.2); color: var(--accent-blue); padding: 16px; border-radius: 6px; font-weight: 700; font-size: 13px; cursor: pointer; text-transform: uppercase; background: rgba(56, 189, 248, 0.05); transition: all 0.2s; margin-top: 8px; }
         .submit-btn:hover { background: #ffffff; color: #030712; border-color: #ffffff; }
+        .submit-btn:disabled { opacity: 0.2; cursor: not-allowed; }
         .modal-overlay { position: fixed; inset: 0; background: rgba(3, 7, 18, 0.97); z-index: 9999; display: flex; align-items: center; justify-content: center; padding: 20px; }
         .auth-card { background: var(--card-gradient); border: 1px solid var(--border-color); width: 100%; max-width: 440px; padding: 40px; border-radius: 12px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.5); }
         ol { padding-left: 16px; color: var(--text-muted); font-size: 13px; line-height: 1.6; margin-bottom: 20px; }
         li { margin-bottom: 8px; }
         .domain-warning { display: none; background: rgba(239, 68, 68, 0.1); border: 1px solid var(--accent-red); color: var(--accent-red); font-size: 12.5px; font-weight: 600; padding: 12px; border-radius: 6px; margin-top: 6px; line-height: 1.4; }
+        
+        /* SSO BUTTONS */
+        .divider { display: flex; align-items: center; gap: 12px; margin: 16px 0; }
+        .divider::before, .divider::after { content: ""; flex: 1; height: 1px; background: var(--border-color); }
+        .divider span { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
+        .sso-btn { width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 14px; border-radius: 6px; font-weight: 700; font-size: 13px; cursor: pointer; transition: all 0.2s; margin-bottom: 12px; background: transparent; }
+        .sso-google { border: 1px solid rgba(255,255,255,0.2); color: #ffffff; }
+        .sso-google:hover { border-color: #ffffff; background: rgba(255,255,255,0.05); }
+        .sso-microsoft { border: 1px solid rgba(56, 189, 248, 0.3); color: var(--accent-blue); }
+        .sso-microsoft:hover { border-color: var(--accent-blue); background: rgba(56, 189, 248, 0.05); }
+        .sso-icon { font-size: 18px; }
     </style>
 </head>
 <body>
@@ -58,6 +70,16 @@
         <p class="lead">Establish your operational profile identity coordinates to access your secure trial dashboard loops instantly.</p>
         
         <div class="card">
+            <!-- SSO Options -->
+            <button type="button" class="sso-btn sso-google" onclick="handleGoogleSSO()">
+                <span class="sso-icon">🔵</span> Continue with Google
+            </button>
+            <button type="button" class="sso-btn sso-microsoft" onclick="handleMicrosoftSSO()">
+                <span class="sso-icon">🟦</span> Continue with Microsoft
+            </button>
+            
+            <div class="divider"><span>or use email</span></div>
+            
             <form id="master-register-form" onsubmit="event.preventDefault(); launchTwoFactorConfigurationModal();">
                 <input type="hidden" id="user-uid" name="account_uid" value="">
                 <input type="hidden" id="hidden-service-token" name="selected_operational_service" value="cat-intelligence">
@@ -101,7 +123,7 @@
             const blacklistedConsumerDomains = ["gmail.com", "yahoo.com", "outlook.com", "hotmail.com", "aol.com", "icloud.com", "zoho.com", "protonmail.com"];
             
             const emailParts = emailValue.split('@');
-            if (emailParts.length < 2) return; // Wait for full address string
+            if (emailParts.length < 2) return;
             
             const targetDomain = emailParts[1];
             
@@ -118,6 +140,20 @@
                 emailInput.style.borderColor = "var(--border-color)";
                 warningBox.style.display = "none";
             }
+        }
+
+        // 🔵 GOOGLE SSO
+        function handleGoogleSSO() {
+            // In production: Redirect to Google OAuth endpoint
+            // For now: Simulate SSO flow
+            alert("Google SSO will be configured.\n\nFor now, this simulates the OAuth flow.\n\nYou can still register with email below.");
+        }
+
+        // 🔷 MICROSOFT SSO
+        function handleMicrosoftSSO() {
+            // In production: Redirect to Microsoft OAuth endpoint
+            // For now: Simulate SSO flow
+            alert("Microsoft SSO will be configured.\n\nFor now, this simulates the OAuth flow.\n\nYou can still register with email below.");
         }
 
         function launchTwoFactorConfigurationModal() {
@@ -138,4 +174,13 @@
                 else if (automaticServiceToken === "vendor-audit") targetIntakePath = "../vendor-audit-intake/";
                 else if (automaticServiceToken === "appointment-booking") targetIntakePath = "../appointment-booking-intake/";
                 else if (automaticServiceToken === "freight-audit") targetIntakePath = "../freight-audit-intake/";
-                else if (automaticServiceToken === "chargeback-recovery") targetIntakePath = "../chargeback-recovery-intake/";window.location.href = targetIntakePath;} else {document.getElementById("auth-error").style.display = "block";}}
+                else if (automaticServiceToken === "chargeback-recovery") targetIntakePath = "../chargeback-recovery-intake/";
+                
+                window.location.href = targetIntakePath;
+            } else {
+                document.getElementById("auth-error").style.display = "block";
+            }
+        }
+    </script>
+</body>
+</html>
