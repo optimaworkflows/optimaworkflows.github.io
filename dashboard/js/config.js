@@ -68,3 +68,8 @@ const CONFIG = {
         ACCOUNT_NAME: "AMIT GUPTA"
     }
 };
+const CONFIG = {
+    SHOVELS_PROXY: "https://script.google.com/macros/s/AKfycbyARSRA8VmCjY9Ax7ZRwG4ZZJ4RYHEVwfXDM_SQfM9U-1nDH4cHWzwMotjWvH9JI7EjBg/exec",
+    LOGGING_URL: "https://script.google.com/macros/s/AKfycbzuwNoDCa8X87iq3Q_UP1ehb1uvxEAYedVHf8745uF1DsNsIBjpV7JTxeT7AUuVjuqE/exec",
+    // ... rest of config
+};
