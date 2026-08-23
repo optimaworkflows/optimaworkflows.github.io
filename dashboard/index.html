@@ -3,83 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Optima Workflows | CAT Intelligence Dashboard</title>
+    <title>Optima Workflows | Command Center</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg-deep: #05080f;
-            --bg-card: linear-gradient(145deg, #0b101b, #070b13);
-            --border-hairline: #1c2536;
-            --text-primary: #ffffff;
-            --text-muted: #b0bec5;
-            --text-detail: #78909c;
-            --cyber-green: #00ffa3;
-            --cyber-amber: #ffb800;
-            --cyber-red: #ff5252;
-            --cyber-blue: #40c4ff;
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background-color: var(--bg-deep); color: var(--text-primary); font-family: 'Inter', sans-serif; display: flex; height: 100vh; overflow: hidden; font-size: 15px; }
-        .mono { font-family: 'IBM Plex Mono', monospace; }
-
-        #auth-overlay { position: fixed; inset: 0; background: var(--bg-deep); z-index: 9999; display: flex; align-items: center; justify-content: center; padding: 20px; }
-        .auth-card { background: var(--bg-card); border: 1px solid var(--border-hairline); width: 100%; max-width: 420px; padding: 40px; border-radius: 16px; }
-        .auth-card h2 { font-size: 22px; font-weight: 800; text-align: center; margin-bottom: 6px; }
-        .auth-lead { font-size: 14px; color: var(--text-muted); margin: 10px 0 28px; text-align: center; }
-
-        .sidebar { width: 240px; min-width: 240px; background: #070a12; border-right: 1px solid var(--border-hairline); display: flex; flex-direction: column; justify-content: space-between; padding: 20px 14px; }
-        .logo { font-weight: 900; font-size: 13px; letter-spacing: 0.05em; color: #fff; display: flex; align-items: center; gap: 6px; text-transform: uppercase; margin-bottom: 20px; }
-        .logo-icon { display:flex; align-items:center; justify-content:center; height: 24px; width: 24px; background: var(--cyber-green); color: #05080f; border-radius: 5px; font-size: 13px; font-weight: 900; }
-        .section-label { font-family: 'IBM Plex Mono', monospace; font-size: 9px; font-weight: 700; text-transform: uppercase; color: var(--text-detail); letter-spacing: 0.1em; margin: 14px 0 5px 4px; }
-        .nav-item { padding: 8px 10px; border-radius: 5px; color: var(--text-muted); font-size: 12px; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; border-left: 2px solid transparent; }
-        .nav-item:hover { background: rgba(255,255,255,0.03); color: #fff; }
-        .nav-item.active { background: rgba(0, 255, 163, 0.05); color: var(--cyber-green); border-left: 2px solid var(--cyber-green); font-weight: 700; }
-        .user-block { border-top: 1px solid var(--border-hairline); padding-top: 12px; font-size: 11px; color: var(--text-muted); }
-        .user-name { color: #fff; font-weight: 800; }
-        .user-tier { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--cyber-amber); }
-
-        .main-viewport { flex: 1; padding: 24px 32px; overflow-y: auto; background: radial-gradient(circle at 80% 20%, rgba(0, 255, 163, 0.02), transparent 40%), var(--bg-deep); width: 100%; }
-        h1 { font-size: 24px; font-weight: 900; letter-spacing: -0.02em; margin-bottom: 4px; }
-        .lead { font-size: 14px; color: var(--text-muted); margin-bottom: 20px; line-height: 1.5; }
-        .card { background: var(--bg-card); border: 1px solid var(--border-hairline); border-radius: 12px; padding: 22px; margin-bottom: 20px; width: 100%; }
-        .dashboard-tab { display: none; width: 100%; }
-        .dashboard-tab.active { display: block; width: 100%; }
-
-        .btn-primary { border: none; color: #05080f; padding: 14px 20px; border-radius: 7px; font-weight: 800; cursor: pointer; text-transform: uppercase; background: var(--cyber-green); font-size: 12px; width: 100%; letter-spacing: 0.03em; }
-        .btn-primary:hover { background: #00cc82; }
-        .btn-primary:disabled { opacity: 0.5; cursor: wait; }
-
-        .form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; width: 100%; }
-        .form-group { display: flex; flex-direction: column; gap: 5px; margin-bottom: 12px; width: 100%; }
-        label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: #b0bec5; }
-        input, select, textarea { width: 100%; background-color: #03060c; border: 1px solid #2a3a55; border-radius: 7px; padding: 12px 14px; color: #fff; font-size: 13px; font-family: 'IBM Plex Mono', monospace; outline: none; }
-        input:focus, select:focus, textarea:focus { border-color: var(--cyber-green); }
-
-        table { width: 100%; border-collapse: collapse; font-size: 13px; }
-        th { font-size: 10px; text-transform: uppercase; color: #cfd8dc; padding: 10px 8px; border-bottom: 2px solid var(--border-hairline); text-align: left; letter-spacing: 0.05em; background: rgba(255,255,255,0.02); }
-        td { padding: 12px 8px; border-bottom: 1px solid #111827; font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; line-height: 1.6; vertical-align: top; }
-        .badge-status { padding: 5px 12px; border-radius: 4px; font-size: 11px; font-weight: 800; font-family: 'IBM Plex Mono', monospace; text-transform: uppercase; letter-spacing: 0.04em; }
-        .bg-green { background: rgba(0, 255, 163, 0.15); color: var(--cyber-green); border: 1px solid rgba(0,255,163,0.4); }
-        .bg-amber { background: rgba(255, 184, 0, 0.15); color: var(--cyber-amber); border: 1px solid rgba(255,184,0,0.4); }
-        .bg-red { background: rgba(255, 82, 82, 0.15); color: var(--cyber-red); border: 1px solid rgba(255,82,82,0.4); }
-
-        .factor-explanation { font-size: 12.5px; color: #b0bec5; margin-top: 3px; line-height: 1.6; }
-        .financial-line { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #1a2332; }
-        .financial-line:last-child { border-bottom: none; }
-        .financial-label { font-size: 13px; color: #cfd8dc; font-weight: 600; }
-        .financial-value { font-family: 'IBM Plex Mono', monospace; font-size: 15px; font-weight: 700; }
-        .financial-detail { font-size: 11px; color: #78909c; margin-top: 3px; line-height: 1.4; }
-        .cta-row { display: flex; gap: 8px; flex-wrap: wrap; width: 100%; }
-        .cta-btn { border: 1px solid rgba(64, 196, 255, 0.4); color: #bbdefb; padding: 10px 14px; border-radius: 7px; font-weight: 700; cursor: pointer; background: rgba(64, 196, 255, 0.08); font-size: 12px; flex: 1; text-align: center; }
-        .link-btn { border: 1px solid rgba(255, 184, 0, 0.4); color: #ffe0b2; padding: 10px 14px; border-radius: 7px; font-weight: 700; cursor: pointer; background: rgba(255, 184, 0, 0.06); font-size: 12px; flex: 1; text-align: center; }
-        .disclaimer-box { background: rgba(255, 184, 0, 0.03); border: 1px solid rgba(255, 184, 0, 0.2); border-radius: 9px; padding: 14px 18px; margin-bottom: 20px; width: 100%; font-size: 12px; color: var(--text-muted); line-height: 1.6; font-style: italic; }
-        .urgent-text { color: var(--cyber-amber); font-size: 13px; font-weight: 700; line-height: 1.6; }
-    </style>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 
+    <!-- AUTH OVERLAY -->
     <div id="auth-overlay">
         <div class="auth-card" id="step-password-box">
             <h2>Corporate Authorization</h2>
@@ -96,21 +28,29 @@
         </div>
     </div>
 
+    <!-- DASHBOARD WRAPPER -->
     <div id="dashboard-wrapper" style="display:none; width:100%;">
+        
+        <!-- SIDEBAR -->
         <aside class="sidebar">
             <div>
                 <div class="logo"><span class="logo-icon">◈</span> Optima Workflows</div>
+                
                 <div class="section-label">Executive</div>
-                <div class="nav-item active" onclick="switchTab('view-home', this)"><span>🏠 Command</span></div>
-                <div class="section-label">CAT Ops</div>
-                <div class="nav-item" onclick="switchTab('view-cat-intel', this)"><span>🛰️ CAT Intel</span></div>
+                <div class="nav-item active" data-tab="home" onclick="switchTab('home', this)"><span>🏠 Command Center</span></div>
+                
+                <div class="section-label">CAT Operations</div>
+                <div class="nav-item" data-tab="cat-intel" onclick="switchTab('cat-intel', this)"><span>🛰️ CAT Intelligence</span></div>
+                <div class="nav-item" data-tab="storm-audit" onclick="switchTab('storm-audit', this)"><span>🌪️ Storm Audit</span></div>
+                
                 <div class="section-label">Back Office</div>
-                <div class="nav-item" onclick="switchTab('view-storm-audit', this)"><span>🌪️ Storm Audit</span></div>
-                <div class="nav-item" onclick="switchTab('view-vendor-audit', this)"><span>🛡️ Vendor</span></div>
-                <div class="nav-item" onclick="switchTab('view-freight-audit', this)"><span>📦 Freight</span></div>
-                <div class="nav-item" onclick="switchTab('view-chargeback', this)"><span>💳 Chargebacks</span></div>
+                <div class="nav-item" data-tab="vendor-audit" onclick="switchTab('vendor-audit', this)"><span>🛡️ Vendor Audit</span></div>
+                <div class="nav-item" data-tab="freight-audit" onclick="switchTab('freight-audit', this)"><span>📦 Freight Audit</span></div>
+                <div class="nav-item" data-tab="chargeback" onclick="switchTab('chargeback', this)"><span>💳 Chargebacks</span></div>
+                <div class="nav-item" data-tab="appointments" onclick="switchTab('appointments', this)"><span>📅 Appointments</span></div>
+                
                 <div class="section-label">Billing</div>
-                <div class="nav-item" onclick="switchTab('view-billing', this)"><span>💳 Payment Center</span></div>
+                <div class="nav-item" data-tab="billing" onclick="switchTab('billing', this)"><span>💳 Payment Center</span></div>
             </div>
             <div class="user-block">
                 <div class="user-name">Vanguard Restoration</div>
@@ -118,81 +58,66 @@
             </div>
         </aside>
 
+        <!-- MAIN VIEWPORT -->
         <main class="main-viewport">
-            <section id="view-home" class="dashboard-tab active" style="width:100%;">
-                <h1>Executive Command</h1>
-                <p class="lead">Live operational overview. All systems nominal.</p>
+            
+            <!-- HOME -->
+            <section id="tab-home" class="dashboard-tab active">
+                <h1>Executive Command Center</h1>
+                <p class="lead">Live operational overview. Select a module to begin.</p>
                 <div class="card">
-                    <h3 class="section-label">Active Deployments</h3>
-                    <p style="font-size:14px; color:var(--text-muted);">No active deployments. Run a Triage to begin.</p>
-                </div>
-            </section>
-
-            <section id="view-cat-intel" class="dashboard-tab" style="width:100%;">
-                <h1>Cat Intelligence Triage Terminal</h1>
-                <p class="lead">Live data: NOAA, Shovels.ai, Open-Meteo, FRED, BLS, FEMA, CourtListener.</p>
-
-                <div class="card">
-                    <form id="triage-form" style="width:100%;">
-                        <h3 class="section-label" style="margin-top:0;">Storm Parameters</h3>
-                        <div class="form-row">
-                            <div class="form-group"><label>Target ZIP</label><input type="text" id="frm-zip" placeholder="e.g., 75062" required></div>
-                            <div class="form-group"><label>Intent</label><select id="frm-intent" required><option value="">Select...</option><option value="MAX_CASH">Maximum Gross Cash</option><option value="MAX_ROI">Maximum Net ROI</option></select></div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group"><label>Tech Stack</label><select id="frm-tech" required><option value="">Select...</option><option value="PRO_TECH">Tier 1: Drone Scans</option><option value="LEGACY_LOW_TECH">Tier 2: Manual</option></select></div>
-                            <div class="form-group"><label>Rain Inches (0 = auto)</label><input type="number" step="0.1" id="frm-rain" value="0" required></div>
-                        </div>
-                        <button type="submit" class="btn-primary" id="btn-triage" style="margin-top:16px;">⚡ Execute 12-Factor Triage</button>
-                    </form>
-                </div>
-
-                <div id="results-card" class="card" style="display:none; border-top:4px solid var(--cyber-blue);">
-                    <div style="display:flex; justify-content:space-between; gap:12px; border-bottom:1px solid var(--border-hairline); padding-bottom:16px; margin-bottom:20px; flex-wrap:wrap;">
-                        <div><div class="section-label">Verdict</div><span id="out-verdict" class="badge-status" style="font-size:15px;">—</span></div>
-                        <div style="text-align:right;"><div class="section-label">Index Score</div><span id="out-score" style="font-family:'IBM Plex Mono', monospace; font-size:32px; font-weight:900;">—</span></div>
-                    </div>
-
-                    <div id="out-recommendation" class="card" style="display:none; border-left:4px solid var(--cyber-green);">
-                        <div class="section-label">Recommendation</div>
-                        <p id="out-rec-text" style="font-size:14px; line-height:1.7;"></p>
-                    </div>
-                    <div id="out-warning" class="card" style="display:none; border-left:4px solid var(--cyber-red);">
-                        <div class="section-label">Critical Warning</div>
-                        <p id="out-warn-text" style="font-size:14px; line-height:1.7;"></p>
-                    </div>
-
-                    <h3 class="section-label">12-Factor Matrix — Live Data</h3>
-                    <div style="overflow-x:auto; margin-bottom:20px;"><table id="out-matrix"></table></div>
-
-                    <h3 class="section-label">Financial Breakdown</h3>
-                    <div id="out-financials" style="background:#03060c; border:1px solid var(--border-hairline); border-radius:9px; padding:20px; margin-bottom:20px;"></div>
-
-                    <h3 class="section-label">Historical Evidence — FEMA</h3>
-                    <div id="out-historical" style="background:rgba(255,184,0,0.03); border:1px solid rgba(255,184,0,0.2); border-radius:9px; padding:18px; font-size:13px; line-height:1.8; color:#ffe0b2;"></div>
-
-                    <h3 class="section-label">Adjuster Intelligence — CourtListener</h3>
-                    <div id="out-adjuster" style="background:rgba(255,82,82,0.03); border:1px solid rgba(255,82,82,0.2); border-radius:9px; padding:18px; font-size:13px; line-height:1.8; color:#ffcdd2;"></div>
-
-                    <div id="kill-section" style="display:none;">
-                        <h3 class="section-label">Kill Switch Protocol</h3>
-                        <div id="out-exit" style="background:rgba(255,184,0,0.05); border:1px dashed rgba(255,184,0,0.3); padding:18px; border-radius:9px; color:var(--cyber-amber); font-size:13px; line-height:1.8;"></div>
-                    </div>
-
-                    <h3 class="section-label">Next Steps</h3>
-                    <div class="cta-row" id="out-cta-buttons" style="margin-bottom:20px;"></div>
-
-                    <div class="disclaimer-box">
-                        <strong>⚖️ Disclaimer:</strong> This analysis is generated from live data sources (Shovels.ai, NOAA, Open-Meteo, FRED, BLS, FEMA, CourtListener). The final deployment decision rests solely with Vanguard Restoration Corp. Optima Workflows is a flat-fee consulting firm and is not a public adjuster.
+                    <h3 class="section-label">Quick Actions</h3>
+                    <div class="cta-row">
+                        <button class="cta-btn" onclick="switchTab('cat-intel', document.querySelector('[data-tab=cat-intel]'))">🛰️ Run CAT Triage</button>
+                        <button class="cta-btn" onclick="switchTab('storm-audit', document.querySelector('[data-tab=storm-audit]'))">🌪️ Storm Audit</button>
+                        <button class="cta-btn" onclick="switchTab('billing', document.querySelector('[data-tab=billing]'))">💳 Payment Center</button>
                     </div>
                 </div>
             </section>
 
-            <section id="view-billing" class="dashboard-tab" style="width:100%;">
+            <!-- CAT INTELLIGENCE -->
+            <section id="tab-cat-intel" class="dashboard-tab">
+                <div id="cat-intel-content">
+                    <p class="lead">Loading CAT Intelligence module...</p>
+                </div>
+            </section>
+
+            <!-- STORM AUDIT -->
+            <section id="tab-storm-audit" class="dashboard-tab">
+                <h1>Storm Audit</h1>
+                <p class="lead">Flat-fee code audit. Module coming soon.</p>
+            </section>
+
+            <!-- VENDOR AUDIT -->
+            <section id="tab-vendor-audit" class="dashboard-tab">
+                <h1>Vendor Audit</h1>
+                <p class="lead">Module coming soon.</p>
+            </section>
+
+            <!-- FREIGHT AUDIT -->
+            <section id="tab-freight-audit" class="dashboard-tab">
+                <h1>Freight Audit</h1>
+                <p class="lead">Module coming soon.</p>
+            </section>
+
+            <!-- CHARGEBACK -->
+            <section id="tab-chargeback" class="dashboard-tab">
+                <h1>Chargebacks</h1>
+                <p class="lead">Module coming soon.</p>
+            </section>
+
+            <!-- APPOINTMENTS -->
+            <section id="tab-appointments" class="dashboard-tab">
+                <h1>Appointments</h1>
+                <p class="lead">Module coming soon.</p>
+            </section>
+
+            <!-- BILLING -->
+            <section id="tab-billing" class="dashboard-tab">
                 <h1>Payment Center</h1>
-                <p class="lead">Your current plan: <strong id="billing-plan">Enterprise Retainer — $15,000/month</strong></p>
+                <p class="lead">Your current plan: <strong>Enterprise Retainer — $15,000/month</strong></p>
                 <div class="card">
-                    <h3 class="section-label">Bank Details (ACH / FEDWIRE)</h3>
+                    <h3 class="section-label">Bank Details</h3>
                     <div class="financial-line"><span class="financial-label">Bank</span><span class="financial-value">JPMORGAN CHASE BANK, N.A</span></div>
                     <div class="financial-line"><span class="financial-label">Account</span><span class="financial-value">20000045856166</span></div>
                     <div class="financial-line"><span class="financial-label">Routing (ACH)</span><span class="financial-value">028000024</span></div>
@@ -201,193 +126,39 @@
                 </div>
             </section>
 
-            <section id="view-storm-audit" class="dashboard-tab"><h1>Storm Audit</h1><p class="lead">Flat-fee code audit. Coming soon.</p></section>
-            <section id="view-vendor-audit" class="dashboard-tab"><h1>Vendor Audit</h1><p class="lead">Coming soon.</p></section>
-            <section id="view-freight-audit" class="dashboard-tab"><h1>Freight Audit</h1><p class="lead">Coming soon.</p></section>
-            <section id="view-chargeback" class="dashboard-tab"><h1>Chargebacks</h1><p class="lead">Coming soon.</p></section>
         </main>
     </div>
 
+    <!-- SCRIPTS -->
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/triage.js"></script>
     <script>
-        const SHOVELS_PROXY = "YOUR_APPS_SCRIPT_URL_HERE";
-        const FRED_API_KEY = "aefa10f5ba04b679653f16ecace750b5";
-        const COURT_LISTENER_KEY = "d69093b10b8c1f1133c5fbef368e89d52517c4a4";
-        var currentTriageData = {};
-
-        document.getElementById("btn-login-pass").addEventListener("click", function() {
-            if (document.getElementById("auth-email").value.trim() === "operations@vanguard.com" && document.getElementById("auth-password").value === "vanguard2026") {
-                document.getElementById("step-password-box").style.display = "none";
-                document.getElementById("step-twofactor-box").style.display = "block";
-            } else { alert("Invalid credentials"); }
-        });
-        document.getElementById("btn-login-2fa").addEventListener("click", function() {
-            if (document.getElementById("auth-2fa-token").value.trim() === "481516") {
-                document.getElementById("auth-overlay").style.display = "none";
-                document.getElementById("dashboard-wrapper").style.display = "flex";
-            } else { alert("Invalid token"); }
-        });
-
+        // Navigation
         function switchTab(tabId, navElement) {
             var tabs = document.querySelectorAll(".dashboard-tab");
             for (var i = 0; i < tabs.length; i++) tabs[i].classList.remove("active");
             var navs = document.querySelectorAll(".nav-item");
             for (var j = 0; j < navs.length; j++) navs[j].classList.remove("active");
-            document.getElementById(tabId).classList.add("active");
+            document.getElementById("tab-" + tabId).classList.add("active");
             if (navElement) navElement.classList.add("active");
-        }
-
-        async function fetchShovels(zip, geoId) {
-            try {
-                var url = SHOVELS_PROXY + "?action=shovels_permits&geo_id=" + geoId + "&permit_from=2024-01-01&permit_to=2024-12-31&zip=" + zip;
-                var res = await fetch(url);
-                return await res.json();
-            } catch(e) { return null; }
-        }
-
-        async function fetchNOAA(zip) {
-            var r = { hailScore: 75, hailSize: "1.50\"", windSpeed: 45, stormCount: 3 };
-            try {
-                var today = new Date();
-                var endD = today.toISOString().slice(0,10);
-                var startD = new Date(today.getTime()-365*86400000).toISOString().slice(0,10);
-                var res = await fetch("https://www.ncdc.noaa.gov/stormevents/api/events?startDate=" + startD + "&endDate=" + endD + "&zipcode=" + zip);
-                var data = await res.json();
-                if (data && data.events && data.events.length > 0) {
-                    r.stormCount = data.events.length;
-                    var maxH = 0, maxW = 0;
-                    data.events.forEach(function(ev) {
-                        if (ev.event_type === "Hail" && ev.magnitude) { var h = parseFloat(ev.magnitude); if (h > maxH) maxH = h; }
-                        if ((ev.event_type === "Thunderstorm Wind" || ev.event_type === "High Wind") && ev.magnitude) { var w = parseFloat(ev.magnitude); if (w > maxW) maxW = w; }
-                    });
-                    if (maxH > 0) { r.hailSize = maxH + "\""; r.hailScore = maxH >= 2 ? 95 : maxH >= 1.5 ? 85 : maxH >= 1 ? 60 : 35; }
-                    if (maxW > 0) r.windSpeed = maxW;
-                }
-            } catch(e) {}
-            return r;
-        }
-
-        async function fetchFEMA(state) {
-            try {
-                var url = "https://www.fema.gov/api/open/v2/DisasterDeclarationsSummaries?state=" + state;
-                var res = await fetch(url);
-                var data = await res.json();
-                var disasters = data.DisasterDeclarationsSummaries || [];
-                var storms = disasters.filter(function(d) { return d.incidentType === "Severe Storm" || d.incidentType === "Tornado" || d.incidentType === "Hurricane"; });
-                return { total: storms.length, recent: storms.slice(0, 5) };
-            } catch(e) { return { total: 0, recent: [] }; }
-        }
-
-        async function fetchCourtListener(state) {
-            try {
-                var url = "https://www.courtlistener.com/api/rest/v4/search/?q=insurance+claim+denial+hail&state=" + state;
-                var res = await fetch(url, { headers: { "Authorization": "Token " + COURT_LISTENER_KEY } });
-                var data = await res.json();
-                return { totalCases: data.count || 0, recentCases: (data.results || []).slice(0, 3) };
-            } catch(e) { return { totalCases: 0, recentCases: [] }; }
-        }
-
-        document.getElementById("triage-form").addEventListener("submit", async function(event) {
-            event.preventDefault();
-            var btn = document.getElementById("btn-triage");
-            btn.disabled = true;
-            btn.innerHTML = "Fetching Live Data from All Sources...";
-
-            var zip = document.getElementById("frm-zip").value.trim();
-            var intent = document.getElementById("frm-intent").value;
-            var tech = document.getElementById("frm-tech").value;
-            var rainInput = parseFloat(document.getElementById("frm-rain").value);
-
-            var lat = 32.85, lon = -96.97, city = "Unknown", state = "TX";
-            try {
-                var geoRes = await fetch("https://api.zippopotam.us/us/" + zip);
-                var geoData = await geoRes.json();
-                if (geoData && geoData.places && geoData.places.length > 0) {
-                    lat = parseFloat(geoData.places[0].latitude);
-                    lon = parseFloat(geoData.places[0].longitude);
-                    city = geoData.places[0]["place name"];
-                    state = geoData.places[0]["state abbreviation"];
-                }
-            } catch(e1) {}
-
-            var actualRain = rainInput;
-            var rainScore = 50;
-            if (rainInput === 0) {
-                try {
-                    var rainRes = await fetch("https://api.open-meteo.com/v1/forecast?latitude=" + lat + "&longitude=" + lon + "&daily=precipitation_sum&past_days=7&timezone=auto");
-                    var rainData = await rainRes.json();
-                    var maxPrecip = 0;
-                    (rainData.daily.precipitation_sum || []).forEach(function(v) { if (v > maxPrecip) maxPrecip = v; });
-                    actualRain = maxPrecip / 25.4;
-                } catch(e2) {}
+            
+            // Load CAT Intelligence module when clicked
+            if (tabId === "cat-intel" && !window.catIntelLoaded) {
+                loadCatIntelModule();
             }
-            if (actualRain >= 1.5) rainScore = 95; else if (actualRain >= 1.0) rainScore = 75; else if (actualRain >= 0.5) rainScore = 50; else rainScore = 25;
+        }
 
-            var noaaData = await fetchNOAA(zip);
-            var shovelsData = await fetchShovels(zip, state);
-            var femaData = await fetchFEMA(state);
-            var courtData = await fetchCourtListener(state);
-
-            var compCount = 0;
-            var avgRoofAge = null;
-            if (shovelsData && shovelsData.permits) {
-                var ids = new Set();
-                shovelsData.permits.forEach(function(p) { if (p.contractor_id) ids.add(p.contractor_id); });
-                compCount = ids.size;
-                var ages = shovelsData.permits.filter(function(p) { return p.property_year_built; }).map(function(p) { return p.property_year_built; });
-                if (ages.length > 0) avgRoofAge = Math.round(ages.reduce(function(a,b){return a+b;},0) / ages.length);
-            }
-
-            var compScore = compCount > 30 ? 85 : compCount > 20 ? 65 : compCount > 10 ? 45 : compCount > 5 ? 25 : 15;
-            var ageScore = avgRoofAge ? (2026 - avgRoofAge >= 18 ? 95 : 2026 - avgRoofAge >= 15 ? 85 : 2026 - avgRoofAge >= 10 ? 60 : 40) : 80;
-
-            var techScore = tech === "PRO_TECH" ? 95 : 40;
-            var fredScore = 60;
-            try {
-                var fredUrl = "https://api.stlouisfed.org/fred/series/observations?series_id=MPRIME&api_key=" + FRED_API_KEY + "&file_type=json&sort_order=desc&limit=1";
-                var fredRes = await fetch(fredUrl);
-                var fredData = await fredRes.json();
-                if (fredData && fredData.observations && fredData.observations.length > 0) {
-                    var prime = parseFloat(fredData.observations[0].value);
-                    fredScore = prime > 9 ? 25 : prime > 7 ? 45 : prime > 5 ? 65 : 85;
-                }
-            } catch(e3) {}
-
-            var wHail = noaaData.hailScore * 0.15;
-            var wAge = ageScore * 0.10;
-            var wRain = rainScore * 0.15;
-            var wLegal = 55 * 0.15;
-            var wTech = techScore * 0.10;
-            var wComp = compScore * 0.10;
-            var wDensity = 70 * 0.10;
-            var wCredit = fredScore * 0.05;
-            var wLabor = 55 * 0.05;
-            var wMaterial = 60 * 0.05;
-            var wRCV = 55 * 0.05;
-            var wPermit = 55 * 0.05;
-            var finalScore = Math.round(wHail + wAge + wRain + wLegal + wTech + wComp + wDensity + wCredit + wLabor + wMaterial + wRCV + wPermit);
-
-            var verdict, badgeClass;
-            if (finalScore >= 60 && actualRain >= 0.5) { verdict = "GREEN_LIGHT_LAUNCH_STRIKE_CREW"; badgeClass = "bg-green"; }
-            else if (finalScore < 40 || actualRain < 0.2) { verdict = "RED_LIGHT_HARD_ABORT"; badgeClass = "bg-red"; }
-            else { verdict = "YELLOW_LIGHT_LEAN_RECON_ONLY"; badgeClass = "bg-amber"; }
-
-            document.getElementById("out-verdict").innerHTML = verdict;
-            document.getElementById("out-verdict").className = "badge-status " + badgeClass;
-            document.getElementById("out-score").innerHTML = finalScore + "/100";
-
-            var recBox = document.getElementById("out-recommendation");
-            var warnBox = document.getElementById("out-warning");
-            if (verdict === "GREEN_LIGHT_LAUNCH_STRIKE_CREW") {
-                recBox.style.display = "block"; warnBox.style.display = "none";
-                document.getElementById("out-rec-text").innerHTML = "<strong>DEPLOY.</strong> Conditions are favorable. Rain " + actualRain.toFixed(2) + "\", Hail " + noaaData.hailSize + ". " + compCount + " competitors detected via Shovels.ai.";
+        function loadCatIntelModule() {
+            window.catIntelLoaded = true;
+            var content = document.getElementById("cat-intel-content");
+            if (typeof initCatIntel === "function") {
+                initCatIntel(content);
             } else {
-                recBox.style.display = "none"; warnBox.style.display = "block";
-                var label = verdict === "RED_LIGHT_HARD_ABORT" ? "DO NOT DEPLOY" : "RECON ONLY";
-                document.getElementById("out-warn-text").innerHTML = "<strong>" + label + ".</strong> Rain " + actualRain.toFixed(2) + "\". Score " + finalScore + "/100.";
+                content.innerHTML = "<p class='lead'>Error loading module. Check js/triage.js</p>";
             }
-
-            var matrixHtml = "<tr><th>Factor</th><th>Raw</th><th>Weight</th><th>Weighted</th></tr>";
-            matrixHtml += "<tr><td><strong>F01: Hail</strong><br><span class='factor-explanation'>" + noaaData.hailSize + " (NOAA)</span></td><td>" + noaaData.hailScore + "</td><td>15%</td><td>" + wHail.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F02: Age</strong><br><span class='factor-explanation'>Avg build: " + (avgRoofAge || "N/A") + " (Shovels.ai)</span></td><td>" + ageScore + "</td><td>10%</td><td>" + wAge.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F03: Rain</strong><br><span class='factor-explanation'>" + actualRain.toFixed(2) + "\" (Open-Meteo)</span></td><td>" + rainScore + "</td><td>15%</td><td>" + wRain.toFixed(2) + "</td></tr>";
-            matrixHtml += "<tr><td><strong>F04: Legal</strong><br><span class='factor-explanation'>" + state + " AOB</span></td><td>55</td><td
+        }
+    </script>
+</body>
+</html>
