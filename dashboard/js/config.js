@@ -3,24 +3,60 @@
 // ============================================================
 
 const CONFIG = {
-    // API Keys
+    // Firebase
+    FIREBASE: {
+        apiKey: "AIzaSyByA5URVNnpb0Vugq5TnlmfKw9TChxDD90",
+        authDomain: "optima-workflows.firebaseapp.com",
+        projectId: "optima-workflows",
+        storageBucket: "optima-workflows.firebasestorage.app",
+        messagingSenderId: "877555560659",
+        appId: "1:877555560659:web:35daa074996cab7bc72426"
+    },
+    
+    // API Keys (internal only)
     SHOVELS_PROXY: "YOUR_APPS_SCRIPT_URL_HERE",
     FRED_API_KEY: "aefa10f5ba04b679653f16ecace750b5",
     COURT_LISTENER_KEY: "d69093b10b8c1f1133c5fbef368e89d52517c4a4",
     CENSUS_API_KEY: "adc98c57ae5ba855e42fbabbdb597d0a321e7269",
     
-    // Google Sheets Logging
-    LOGGING_URL: "YOUR_APPS_SCRIPT_URL_HERE",
-    
-    // Pricing
-    PRICING: {
-        ENTERPRISE_MONTHLY: 15000,
-        ZIP_PASS: 7000,
-        INDUSTRIAL_SURCHARGE: 7500,
-        DAILY_TRACKING_15_DAYS: 18750,
-        WEEKLY_TRACKING: 8750,
-        STORM_AUDIT_PER_ROOF: 3500,
-        EXTENSION_FEE: 2500
+    // Module Definitions
+    MODULES: {
+        "cat-intelligence": {
+            name: "CAT Intelligence",
+            icon: "🛰️",
+            jsFile: "cat-intel.js",
+            description: "Pre-deployment zone scoring"
+        },
+        "storm-audit": {
+            name: "Storm Audit",
+            icon: "🌪️",
+            jsFile: "storm-audit.js",
+            description: "Xactimate code verification"
+        },
+        "vendor-audit": {
+            name: "Vendor Audit",
+            icon: "🛡️",
+            jsFile: "vendor-audit.js",
+            description: "Subcontractor compliance"
+        },
+        "freight-audit": {
+            name: "Freight Audit",
+            icon: "📦",
+            jsFile: "freight-audit.js",
+            description: "Shipping chargeback recovery"
+        },
+        "chargeback-recovery": {
+            name: "Chargebacks",
+            icon: "💳",
+            jsFile: "chargeback.js",
+            description: "Retail chargeback recovery"
+        },
+        "appointment-booking": {
+            name: "Appointments",
+            icon: "📅",
+            jsFile: "appointments.js",
+            description: "Insurance inspection scheduling"
+        }
     },
     
     // Bank Details
