@@ -8,157 +8,58 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 </head>
 <body>
 
-    <!-- AUTH OVERLAY -->
-    <div id="auth-overlay">
-        <div class="auth-card" id="step-password-box">
-            <h2>Corporate Authorization</h2>
-            <p class="auth-lead">Input core operational access keys.</p>
-            <div class="form-group"><label>Corporate Email</label><input type="email" id="auth-email" value="operations@vanguard.com"></div>
-            <div class="form-group"><label>Security Key</label><input type="password" id="auth-password" value="vanguard2026"></div>
-            <button type="button" class="btn-primary" style="margin-top:16px;" id="btn-login-pass">Verify Password</button>
-        </div>
-        <div class="auth-card" id="step-twofactor-box" style="display:none;">
-            <h2>Two-Factor Validation</h2>
-            <p class="auth-lead">Demo: 481516</p>
-            <div class="form-group"><label>Token</label><input type="text" id="auth-2fa-token" maxlength="6" style="text-align:center; font-size:16px;" value="481516"></div>
-            <button type="button" class="btn-primary" style="margin-top:12px;" id="btn-login-2fa">Authorize</button>
-        </div>
+    <!-- LOADING SCREEN -->
+    <div id="loading-screen" style="position:fixed; inset:0; background:#030712; z-index:99999; display:flex; align-items:center; justify-content:center; flex-direction:column;">
+        <div class="logo" style="margin-bottom:16px;"><span class="logo-icon">◈</span> Optima Workflows</div>
+        <p style="color:#94a3b8; font-size:13px;">Verifying access credentials...</p>
+    </div>
+
+    <!-- NO ACCESS SCREEN -->
+    <div id="no-access-screen" style="display:none; position:fixed; inset:0; background:#030712; z-index:99998; align-items:center; justify-content:center; flex-direction:column; text-align:center; padding:20px;">
+        <div style="font-size:48px; margin-bottom:16px;">🔒</div>
+        <h1 style="font-size:24px; font-weight:800; margin-bottom:8px;">Access Restricted</h1>
+        <p style="color:#94a3b8; font-size:14px; margin-bottom:24px; max-width:400px;">Your account doesn't have access to any modules yet. Contact your administrator or purchase access.</p>
+        <button class="btn-primary" style="max-width:300px;" onclick="window.location.href='../login/'">Return to Login</button>
     </div>
 
     <!-- DASHBOARD WRAPPER -->
     <div id="dashboard-wrapper" style="display:none; width:100%;">
         
-        <!-- SIDEBAR -->
         <aside class="sidebar">
             <div>
                 <div class="logo"><span class="logo-icon">◈</span> Optima Workflows</div>
                 
-                <div class="section-label">Executive</div>
-                <div class="nav-item active" data-tab="home" onclick="switchTab('home', this)"><span>🏠 Command Center</span></div>
+                <div class="section-label">Available Modules</div>
+                <nav class="nav-group" id="nav-modules">
+                    <!-- Modules injected dynamically based on access -->
+                </nav>
                 
-                <div class="section-label">CAT Operations</div>
-                <div class="nav-item" data-tab="cat-intel" onclick="switchTab('cat-intel', this)"><span>🛰️ CAT Intelligence</span></div>
-                <div class="nav-item" data-tab="storm-audit" onclick="switchTab('storm-audit', this)"><span>🌪️ Storm Audit</span></div>
-                
-                <div class="section-label">Back Office</div>
-                <div class="nav-item" data-tab="vendor-audit" onclick="switchTab('vendor-audit', this)"><span>🛡️ Vendor Audit</span></div>
-                <div class="nav-item" data-tab="freight-audit" onclick="switchTab('freight-audit', this)"><span>📦 Freight Audit</span></div>
-                <div class="nav-item" data-tab="chargeback" onclick="switchTab('chargeback', this)"><span>💳 Chargebacks</span></div>
-                <div class="nav-item" data-tab="appointments" onclick="switchTab('appointments', this)"><span>📅 Appointments</span></div>
-                
-                <div class="section-label">Billing</div>
-                <div class="nav-item" data-tab="billing" onclick="switchTab('billing', this)"><span>💳 Payment Center</span></div>
+                <div class="section-label">Account</div>
+                <nav class="nav-group">
+                    <div class="nav-item" onclick="showBilling()"><span>💳 Billing & Payments</span></div>
+                    <div class="nav-item" onclick="showProfile()"><span>👤 Profile Settings</span></div>
+                    <div class="nav-item" onclick="logout()"><span>🚪 Sign Out</span></div>
+                </nav>
             </div>
             <div class="user-block">
-                <div class="user-name">Vanguard Restoration</div>
-                <div class="user-tier" id="user-tier-label">Enterprise Retainer</div>
+                <div class="user-name" id="sidebar-user-name">Loading...</div>
+                <div class="user-tier" id="sidebar-user-tier">Checking access...</div>
             </div>
         </aside>
 
-        <!-- MAIN VIEWPORT -->
-        <main class="main-viewport">
-            
-            <!-- HOME -->
-            <section id="tab-home" class="dashboard-tab active">
-                <h1>Executive Command Center</h1>
-                <p class="lead">Live operational overview. Select a module to begin.</p>
-                <div class="card">
-                    <h3 class="section-label">Quick Actions</h3>
-                    <div class="cta-row">
-                        <button class="cta-btn" onclick="switchTab('cat-intel', document.querySelector('[data-tab=cat-intel]'))">🛰️ Run CAT Triage</button>
-                        <button class="cta-btn" onclick="switchTab('storm-audit', document.querySelector('[data-tab=storm-audit]'))">🌪️ Storm Audit</button>
-                        <button class="cta-btn" onclick="switchTab('billing', document.querySelector('[data-tab=billing]'))">💳 Payment Center</button>
-                    </div>
-                </div>
-            </section>
-
-            <!-- CAT INTELLIGENCE -->
-            <section id="tab-cat-intel" class="dashboard-tab">
-                <div id="cat-intel-content">
-                    <p class="lead">Loading CAT Intelligence module...</p>
-                </div>
-            </section>
-
-            <!-- STORM AUDIT -->
-            <section id="tab-storm-audit" class="dashboard-tab">
-                <h1>Storm Audit</h1>
-                <p class="lead">Flat-fee code audit. Module coming soon.</p>
-            </section>
-
-            <!-- VENDOR AUDIT -->
-            <section id="tab-vendor-audit" class="dashboard-tab">
-                <h1>Vendor Audit</h1>
-                <p class="lead">Module coming soon.</p>
-            </section>
-
-            <!-- FREIGHT AUDIT -->
-            <section id="tab-freight-audit" class="dashboard-tab">
-                <h1>Freight Audit</h1>
-                <p class="lead">Module coming soon.</p>
-            </section>
-
-            <!-- CHARGEBACK -->
-            <section id="tab-chargeback" class="dashboard-tab">
-                <h1>Chargebacks</h1>
-                <p class="lead">Module coming soon.</p>
-            </section>
-
-            <!-- APPOINTMENTS -->
-            <section id="tab-appointments" class="dashboard-tab">
-                <h1>Appointments</h1>
-                <p class="lead">Module coming soon.</p>
-            </section>
-
-            <!-- BILLING -->
-            <section id="tab-billing" class="dashboard-tab">
-                <h1>Payment Center</h1>
-                <p class="lead">Your current plan: <strong>Enterprise Retainer — $15,000/month</strong></p>
-                <div class="card">
-                    <h3 class="section-label">Bank Details</h3>
-                    <div class="financial-line"><span class="financial-label">Bank</span><span class="financial-value">JPMORGAN CHASE BANK, N.A</span></div>
-                    <div class="financial-line"><span class="financial-label">Account</span><span class="financial-value">20000045856166</span></div>
-                    <div class="financial-line"><span class="financial-label">Routing (ACH)</span><span class="financial-value">028000024</span></div>
-                    <div class="financial-line"><span class="financial-label">Routing (FEDWIRE)</span><span class="financial-value">021000021</span></div>
-                    <div class="financial-line"><span class="financial-label">Account Name</span><span class="financial-value">AMIT GUPTA</span></div>
-                </div>
-            </section>
-
+        <main class="main-viewport" id="main-content">
+            <!-- Dynamic module content loaded here -->
         </main>
     </div>
 
-    <!-- SCRIPTS -->
     <script src="js/config.js"></script>
     <script src="js/auth.js"></script>
-    <script src="js/utils.js"></script>
-    <script src="js/triage.js"></script>
-    <script>
-        // Navigation
-        function switchTab(tabId, navElement) {
-            var tabs = document.querySelectorAll(".dashboard-tab");
-            for (var i = 0; i < tabs.length; i++) tabs[i].classList.remove("active");
-            var navs = document.querySelectorAll(".nav-item");
-            for (var j = 0; j < navs.length; j++) navs[j].classList.remove("active");
-            document.getElementById("tab-" + tabId).classList.add("active");
-            if (navElement) navElement.classList.add("active");
-            
-            // Load CAT Intelligence module when clicked
-            if (tabId === "cat-intel" && !window.catIntelLoaded) {
-                loadCatIntelModule();
-            }
-        }
-
-        function loadCatIntelModule() {
-            window.catIntelLoaded = true;
-            var content = document.getElementById("cat-intel-content");
-            if (typeof initCatIntel === "function") {
-                initCatIntel(content);
-            } else {
-                content.innerHTML = "<p class='lead'>Error loading module. Check js/triage.js</p>";
-            }
-        }
-    </script>
 </body>
 </html>
