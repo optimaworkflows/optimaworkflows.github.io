@@ -1,352 +1,155 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Optima Workflows | CAT Intelligence Dashboard</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg-deep: #05080f;
-            --bg-card: linear-gradient(145deg, #0b101b, #070b13);
-            --border-hairline: #1c2536;
-            --text-primary: #ffffff;
-            --text-muted: #b0bec5;
-            --text-detail: #78909c;
-            --cyber-green: #00ffa3;
-            --cyber-amber: #ffb800;
-            --cyber-red: #ff5252;
-            --cyber-blue: #40c4ff;
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background-color: var(--bg-deep); color: var(--text-primary); font-family: 'Inter', sans-serif; display: flex; height: 100vh; overflow: hidden; font-size: 15px; }
-        .mono { font-family: 'IBM Plex Mono', monospace; }
-
-        .sidebar { width: 260px; min-width: 260px; background: #070a12; border-right: 1px solid var(--border-hairline); display: flex; flex-direction: column; justify-content: space-between; padding: 20px 14px; }
-        .logo { font-weight: 900; font-size: 13px; color: #fff; display: flex; align-items: center; gap: 6px; text-transform: uppercase; margin-bottom: 20px; }
-        .logo-icon { display:flex; align-items:center; justify-content:center; height: 24px; width: 24px; background: var(--cyber-green); color: #05080f; border-radius: 5px; font-size: 13px; font-weight: 900; }
-        .section-label { font-family: 'IBM Plex Mono', monospace; font-size: 9px; font-weight: 700; text-transform: uppercase; color: var(--text-detail); letter-spacing: 0.1em; margin: 14px 0 5px 4px; }
-        .nav-item { padding: 8px 10px; border-radius: 5px; color: var(--text-muted); font-size: 12px; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; border-left: 2px solid transparent; }
-        .nav-item:hover { background: rgba(255,255,255,0.03); color: #fff; }
-        .nav-item.active { background: rgba(0, 255, 163, 0.05); color: var(--cyber-green); border-left: 2px solid var(--cyber-green); font-weight: 700; }
-        .status-dot { height: 5px; width: 5px; background-color: var(--cyber-green); border-radius: 50%; }
-        .user-block { border-top: 1px solid var(--border-hairline); padding-top: 12px; font-size: 11px; color: var(--text-muted); }
-        .user-name { color: #fff; font-weight: 800; }
-        .user-tier { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--cyber-amber); }
-        .logout-btn { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--cyber-red); cursor: pointer; margin-top: 8px; }
-
-        .main-viewport { flex: 1; padding: 24px 32px; overflow-y: auto; background: radial-gradient(circle at 80% 20%, rgba(0, 255, 163, 0.02), transparent 40%), var(--bg-deep); width: 100%; }
-        h1 { font-size: 24px; font-weight: 900; margin-bottom: 4px; }
-        .lead { font-size: 14px; color: var(--text-muted); margin-bottom: 20px; }
-        .card { background: var(--bg-card); border: 1px solid var(--border-hairline); border-radius: 12px; padding: 22px; margin-bottom: 20px; width: 100%; }
-        .dashboard-tab { display: none; width: 100%; }
-        .dashboard-tab.active { display: block; width: 100%; }
-
-        .btn-primary { border: none; color: #05080f; padding: 14px 20px; border-radius: 7px; font-weight: 800; cursor: pointer; text-transform: uppercase; background: var(--cyber-green); font-size: 12px; width: 100%; }
-        .btn-primary:hover { background: #00cc82; }
-        .btn-primary:disabled { opacity: 0.5; cursor: wait; }
-        .btn-blue { background: var(--cyber-blue); color: #05080f; }
-        .btn-amber { background: var(--cyber-amber); color: #05080f; }
-        .btn-secondary { border: 1px solid var(--border-hairline); color: var(--text-muted); padding: 12px 16px; border-radius: 7px; font-weight: 700; cursor: pointer; background: transparent; font-size: 11px; width: 100%; }
-
-        .form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; width: 100%; }
-        .form-group { display: flex; flex-direction: column; gap: 5px; margin-bottom: 12px; width: 100%; }
-        label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 700; text-transform: uppercase; color: #b0bec5; }
-        input, select { width: 100%; background-color: #03060c; border: 1px solid #2a3a55; border-radius: 7px; padding: 12px 14px; color: #fff; font-size: 13px; font-family: 'IBM Plex Mono', monospace; outline: none; }
-        input:focus, select:focus { border-color: var(--cyber-green); }
-
-        table { width: 100%; border-collapse: collapse; font-size: 13px; }
-        th { font-size: 10px; text-transform: uppercase; color: #cfd8dc; padding: 10px 8px; border-bottom: 2px solid var(--border-hairline); text-align: left; background: rgba(255,255,255,0.02); }
-        td { padding: 12px 8px; border-bottom: 1px solid #111827; font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; line-height: 1.6; vertical-align: top; }
-        .badge-status { padding: 5px 12px; border-radius: 4px; font-size: 11px; font-weight: 800; font-family: 'IBM Plex Mono', monospace; text-transform: uppercase; }
-        .bg-green { background: rgba(0, 255, 163, 0.15); color: var(--cyber-green); border: 1px solid rgba(0,255,163,0.4); }
-        .bg-amber { background: rgba(255, 184, 0, 0.15); color: var(--cyber-amber); border: 1px solid rgba(255,184,0,0.4); }
-        .bg-red { background: rgba(255, 82, 82, 0.15); color: var(--cyber-red); border: 1px solid rgba(255,82,82,0.4); }
-
-        .factor-explanation { font-size: 12.5px; color: #b0bec5; margin-top: 3px; line-height: 1.6; }
-        .financial-line { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #1a2332; }
-        .financial-label { font-size: 13px; color: #cfd8dc; font-weight: 600; }
-        .financial-value { font-family: 'IBM Plex Mono', monospace; font-size: 15px; font-weight: 700; }
-        .loss-box { background: rgba(255, 82, 82, 0.05); border: 2px solid rgba(255, 82, 82, 0.5); border-radius: 9px; padding: 20px; margin-bottom: 20px; width: 100%; }
-        .loss-title { font-size: 16px; color: var(--cyber-red); font-weight: 900; margin-bottom: 12px; }
-        .loss-item { font-size: 13px; color: var(--text-muted); padding: 6px 0; line-height: 1.7; }
-        .loss-big { font-size: 20px; font-weight: 900; color: var(--cyber-red); margin-top: 8px; }
-        .disclaimer-box { background: rgba(255, 184, 0, 0.03); border: 1px solid rgba(255, 184, 0, 0.2); border-radius: 9px; padding: 14px 18px; margin-bottom: 20px; width: 100%; font-size: 12px; color: var(--text-muted); line-height: 1.6; font-style: italic; }
-        .preview-badge { display: inline-block; background: rgba(255,184,0,0.15); border: 1px solid rgba(255,184,0,0.4); color: var(--cyber-amber); padding: 4px 10px; border-radius: 4px; font-size: 10px; font-weight: 800; text-transform: uppercase; }
-        .payment-toggle { display: flex; gap: 8px; margin-bottom: 16px; }
-        .payment-toggle button { flex: 1; padding: 10px; border-radius: 6px; font-weight: 700; cursor: pointer; font-size: 12px; border: 1px solid var(--border-hairline); background: transparent; color: var(--text-muted); }
-        .payment-toggle button.active { border-color: var(--cyber-green); color: var(--cyber-green); background: rgba(0,255,163,0.05); }
-        .payment-card { background: #03060c; border: 1px solid var(--border-hairline); border-radius: 8px; padding: 16px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; line-height: 1.8; margin-bottom: 12px; cursor: pointer; }
-        .payment-card:hover { border-color: var(--cyber-green); }
-        .payment-card h4 { font-size: 12px; font-weight: 800; text-transform: uppercase; color: var(--cyber-amber); margin-bottom: 8px; }
-        .upsell-box { background: rgba(64,196,255,0.03); border: 1px solid rgba(64,196,255,0.3); border-radius: 9px; padding: 20px; margin-bottom: 20px; }
-        .phase-box { background: rgba(64,196,255,0.05); border: 1px solid rgba(64,196,255,0.3); border-radius: 8px; padding: 16px; margin-bottom: 16px; }
-        .phase-title { font-size: 13px; font-weight: 800; color: var(--cyber-blue); margin-bottom: 8px; }
-        .phase-text { font-size: 12px; color: var(--text-muted); line-height: 1.6; }
-        .price-breakdown { background: #03060c; border: 1px solid var(--border-hairline); border-radius: 8px; padding: 16px; margin-bottom: 16px; }
-        .price-line { display: flex; justify-content: space-between; padding: 6px 0; font-size: 13px; }
-        .price-line.total { border-top: 1px solid var(--border-hairline); margin-top: 8px; padding-top: 12px; font-weight: 800; font-size: 16px; }
-        .deliverable-list { list-style: none; padding: 0; margin-bottom: 12px; }
-        .deliverable-list li { font-size: 13px; color: var(--text-muted); padding: 6px 0; border-bottom: 1px solid #1a2332; }
-        .deliverable-list li strong { color: #fff; }
-    </style>
+<script>var stormSubmitted = false;</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Submit Your Scope Documents — Storm Audit | Optima Workflows</title>
+<meta name="description" content="Submit your property details and scope documents to start your free Storm Audit code-compliance findings snapshot.">
+<style>
+:root{
+--bg-dark:#020509; --card-bg-gradient:linear-gradient(145deg,#0d1220,#070b15);
+--border-color:#26324a; --text-main:#ffffff; --text-muted:#cdd8e6;
+--accent-blue:#38bdf8; --accent-green:#34d399; --accent-amber:#fbbf24;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg-dark)!important;color:var(--text-main)!important;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;line-height:1.55;padding-bottom:60px;}
+.container{max-width:820px;margin:0 auto;padding:0 24px;}
+.banner{background:#111827;border-bottom:1px solid var(--border-color);color:#e0e7ff;font-size:11px;font-weight:700;text-align:center;padding:10px 12px;letter-spacing:.05em;font-family:monospace;text-transform:uppercase;}
+nav{display:flex;justify-content:space-between;align-items:center;max-width:820px;margin:0 auto;padding:22px 24px;}
+.logo{font-weight:800;font-size:15px;display:flex;align-items:center;gap:8px;text-transform:uppercase;}
+.logo-dot{height:8px;width:8px;background:var(--accent-blue);border-radius:50%;}
+.back-link{color:var(--text-muted);font-size:12.5px;text-decoration:none;}
+header{text-align:center;padding:44px 24px 20px;max-width:720px;margin:0 auto;}
+.badge{display:inline-block;padding:9px 18px;border-radius:9999px;font-size:13px;font-weight:700;margin-bottom:22px;background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.3);color:var(--accent-amber);}
+h1{font-size:36px;font-weight:800;letter-spacing:-.02em;line-height:1.18;margin-bottom:18px;}
+.gradient-text{background:linear-gradient(to right,#38bdf8,#3b82f6,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.lead{font-size:15px;color:var(--text-muted);max-width:580px;margin:0 auto;}
+section{padding:40px 0;border-top:1px solid var(--border-color);}
+.form-card{background:var(--card-bg-gradient);border:1px solid var(--border-color);border-radius:12px;padding:36px;}
+.form-group{margin-bottom:20px;}
+label{display:block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--text-muted);margin-bottom:8px;}
+input,textarea{width:100%;background:#020617;border:1px solid var(--border-color);border-radius:6px;padding:13px;color:#fff;font-family:inherit;font-size:14px;}
+input:focus,textarea:focus{outline:none;border-color:var(--accent-blue);}
+input.prefilled{background:#0a1628;border-color:#1a3a55;}
+.form-hint{font-size:12px;color:var(--text-muted);margin-top:6px;}
+.consent{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--text-muted);margin:22px 0;}
+.consent input{width:auto;margin-top:3px;}
+.submit-btn{width:100%;background:var(--accent-blue);color:#020617;padding:15px;border:none;border-radius:6px;font-weight:800;font-size:14.5px;cursor:pointer;}
+.submit-btn:hover{background:#7dd3fc;}
+.thank-you-card{background:var(--card-bg-gradient);border:1px solid rgba(52,211,153,.35);border-radius:12px;padding:48px 36px;text-align:center;}
+.thank-you-icon{width:52px;height:52px;border-radius:50%;background:rgba(52,211,153,.15);border:1px solid rgba(52,211,153,.4);color:var(--accent-green);font-size:26px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;}
+.thank-you-card h3{font-size:20px;margin-bottom:12px;color:#fff;}
+.thank-you-card p{font-size:14px;color:var(--text-muted);max-width:440px;margin:0 auto;}
+.data-note{background:rgba(52,211,153,.06);border:1px solid rgba(52,211,153,.25);border-radius:10px;padding:18px 22px;font-size:13.5px;color:#d1fae5;margin-top:8px;}
+.prefill-badge{display:inline-block;background:rgba(52,211,153,.1);border:1px solid rgba(52,211,153,.3);color:var(--accent-green);padding:2px 8px;border-radius:4px;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;margin-left:8px;}
+</style>
 </head>
 <body>
+<div class="banner">DATA SUBMITTED HERE FEEDS DIRECTLY INTO YOUR CODE-COMPLIANCE REVIEW · NO MANUAL WAIT</div>
+<nav>
+<div class="logo"><span class="logo-dot"></span> OPTIMA WORKFLOWS</div>
+<a href="../storm-audit/" class="back-link">← Back</a>
+</nav>
+<header>
+<div class="badge">Data Intake · Storm Audit</div>
+<h1>Send Your Scope Documents, <span class="gradient-text">We Start the Review Right Away</span></h1>
+<p class="lead">Your details are pre-filled. You only need to add the Google Drive link.</p>
+</header>
 
-    <div id="dashboard-wrapper" style="display:flex; width:100%;">
-        <aside class="sidebar">
-            <div>
-                <div class="logo"><span class="logo-icon">◈</span> Optima Workflows</div>
-                <div class="section-label">Executive</div>
-                <div class="nav-item active" onclick="switchTab('view-home', this)"><span>🏠 Command</span></div>
-                <div class="section-label">CAT Ops</div>
-                <div class="nav-item" onclick="switchTab('view-cat-intel', this)"><span>🛰️ CAT Intel</span><span class="status-dot"></span></div>
-                <div class="section-label">Back Office</div>
-                <div class="nav-item" onclick="switchTab('view-storm-audit', this)"><span>🌪️ Storm Audit</span></div>
-                <div class="nav-item" onclick="switchTab('view-vendor-audit', this)"><span>🛡️ Vendor</span></div>
-                <div class="nav-item" onclick="switchTab('view-freight-audit', this)"><span>📦 Freight</span></div>
-                <div class="nav-item" onclick="switchTab('view-chargeback', this)"><span>💳 Chargebacks</span></div>
-                <div class="section-label">Billing</div>
-                <div class="nav-item" onclick="switchTab('view-billing', this)"><span>💳 Payment Center</span></div>
-                <div class="section-label">Account</div>
-                <div class="nav-item" onclick="switchTab('view-settings', this)"><span>🔐 Settings</span></div>
-            </div>
-            <div class="user-block">
-                <div class="user-name">Vanguard Restoration</div>
-                <div class="user-tier" id="user-tier-label">Enterprise Retainer</div>
-                <div class="logout-btn" onclick="logout()">⏻ Logout</div>
-            </div>
-        </aside>
+<section id="intake-form">
+<div class="container">
+<div id="formWrap" class="form-card">
+<form id="intakeForm" action="https://docs.google.com/forms/d/e/1FAIpQLSdr7bQSqWc9vQnWawKujiAmaVDOsXC_fTmWPQlqYKRSdHCi0w/formResponse"
+method="POST" target="hidden_iframe_storm" onsubmit="stormSubmitted=true;">
 
-        <main class="main-viewport">
-            <section id="view-home" class="dashboard-tab active" style="width:100%;">
-                <h1>Executive Command</h1>
-                <p class="lead">Live operational overview.</p>
-                <div class="card"><h3 class="section-label">Active Deployments</h3><p style="font-size:14px; color:var(--text-muted);">No active deployments.</p></div>
-            </section>
+<div class="form-group">
+<label for="company">Company Name <span class="prefill-badge">Prefilled</span></label>
+<input type="text" id="company" name="entry.476800857" class="prefilled" required>
+</div>
 
-            <section id="view-cat-intel" class="dashboard-tab" style="width:100%;">
-                <h1>Cat Intelligence Triage Terminal</h1>
-                <p class="lead">Pre-deployment zone scoring for commercial CAT roofing.</p>
+<div class="form-group">
+<label for="contact">Your Name</label>
+<input type="text" id="contact" name="entry.1944912808" required>
+</div>
 
-                <div class="card">
-                    <form id="triage-form">
-                        <div class="form-row">
-                            <div class="form-group"><label>Target ZIP</label><input type="text" id="frm-zip" placeholder="e.g., 75062" required></div>
-                            <div class="form-group"><label>Intent</label><select id="frm-intent" required><option value="">Select...</option><option value="MAX_CASH">Maximum Gross Cash</option><option value="MAX_ROI">Maximum Net ROI</option></select></div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group"><label>Tech Stack</label><select id="frm-tech" required><option value="">Select...</option><option value="PRO_TECH">Tier 1: Drone Scans</option><option value="LEGACY_LOW_TECH">Tier 2: Manual</option></select></div>
-                            <div class="form-group"><label>Rain Inches (0 = auto)</label><input type="number" step="0.1" id="frm-rain" value="0" required></div>
-                        </div>
-                        <button type="submit" class="btn-primary" id="btn-triage" style="margin-top:16px;">⚡ Run Analysis</button>
-                    </form>
-                </div>
+<div class="form-group">
+<label for="email">Corporate Email <span class="prefill-badge">Prefilled</span></label>
+<input type="email" id="email" name="entry.2021031500" class="prefilled" required>
+</div>
 
-                <div id="preview-card" class="card" style="display:none; border-top:4px solid var(--cyber-amber);">
-                    <div style="display:flex; justify-content:space-between; gap:12px; border-bottom:1px solid var(--border-hairline); padding-bottom:16px; margin-bottom:20px;">
-                        <div><div class="section-label" style="margin:0;">Preliminary Verdict</div><span id="pv-verdict" class="badge-status" style="font-size:15px;">—</span><span class="preview-badge" style="margin-left:8px;">Free Preview</span></div>
-                        <div style="text-align:right;"><div class="section-label" style="margin:0;">Score</div><span id="pv-score" style="font-family:'IBM Plex Mono', monospace; font-size:32px; font-weight:900;">—</span></div>
-                    </div>
-                    <p style="font-size:13px; color:var(--text-muted); margin-bottom:16px;">🔓 <strong>FREE PREVIEW — 3 of 12 Factors</strong></p>
-                    <table>
-                        <tr><th>Factor</th><th>Value</th><th>Weight</th></tr>
-                        <tr><td><strong>Rain Saturation</strong><br><span class='factor-explanation' id="pv-rain-desc"></span></td><td id="pv-rain-score"></td><td>15%</td></tr>
-                        <tr><td><strong>Market Activity</strong><br><span class='factor-explanation' id="pv-density-desc"></span></td><td id="pv-density-score"></td><td>10%</td></tr>
-                        <tr><td><strong>Tech Stack</strong><br><span class='factor-explanation' id="pv-tech-desc"></span></td><td id="pv-tech-score"></td><td>10%</td></tr>
-                    </table>
-                    <div class="loss-box">
-                        <div class="loss-title">⚠️ 9 HIDDEN FACTORS</div>
-                        <div class="loss-item">🔒 Who is mobilizing against you</div>
-                        <div class="loss-item">🔒 Whether hail is claim-worthy</div>
-                        <div class="loss-item">🔒 Whether adjusters approve or deny</div>
-                        <div class="loss-item">🔒 How long carriers delay YOUR payments</div>
-                        <div class="loss-item">🔒 Your true cost per roof</div>
-                        <div class="loss-item">🔒 Labor and material availability</div>
-                        <div class="loss-item">🔒 Your actual margin — profit or loss</div>
-                        <div class="loss-item">🔒 When to walk away</div>
-                        <div style="margin-top:12px; padding-top:12px; border-top:1px solid rgba(255,82,82,0.4);">
-                            <div style="font-size:14px; color:#fff;">💰 Value at stake: <span id="loss-gross" style="color:var(--cyber-amber);">—</span></div>
-                            <div class="loss-big">📉 Cost of being wrong: <span id="loss-amount">—</span></div>
-                            <div style="font-size:14px; color:var(--cyber-green); font-weight:800;">✅ Cost of knowing: $7,000</div>
-                        </div>
-                    </div>
-                    <button class="btn-primary" onclick="showPaymentScreen()">🔓 Unlock Full Report — $7,000</button>
-                </div>
+<div class="form-group">
+<label for="state">Target State <span class="prefill-badge">Prefilled</span></label>
+<input type="text" id="state" name="entry.2131427226" class="prefilled" maxlength="2" required>
+</div>
 
-                <div id="payment-screen" class="card" style="display:none; border-top:4px solid var(--cyber-green);">
-                    <h3 class="section-label" style="margin:0; color:var(--cyber-green);">💳 Payment — Full Report</h3>
-                    <p style="font-size:14px; margin-bottom:16px;"><strong>$7,000</strong></p>
-                    <div class="payment-toggle">
-                        <button id="btn-ach" class="active" onclick="togglePayment('ACH')">💳 ACH</button>
-                        <button id="btn-fedwire" onclick="togglePayment('FEDWIRE')">⚡ FEDWIRE</button>
-                    </div>
-                    <div id="pay-ach" class="payment-card" onclick="copyPayment('ACH')"><h4>ACH — Click to Copy</h4><div>Bank: JPMORGAN CHASE</div><div>Account: 20000045856166</div><div>Routing: 028000024</div><div>Ref: OPT-77421-REPORT</div></div>
-                    <div id="pay-fedwire" class="payment-card" style="display:none;" onclick="copyPayment('FEDWIRE')"><h4>FEDWIRE — Click to Copy</h4><div>Bank: JPMORGAN CHASE</div><div>Account: 20000045856166</div><div>Routing: 021000021</div><div>Ref: OPT-77421-REPORT</div></div>
-                    <button class="btn-primary" onclick="showVerificationPending()">✅ I've Made Payment — Confirm</button>
-                </div>
+<div class="form-group">
+<label for="city">City <span class="prefill-badge">Prefilled</span></label>
+<input type="text" id="city" name="entry.327565592" class="prefilled" required>
+</div>
 
-                <div id="verification-pending" class="card" style="display:none; border-top:4px solid var(--cyber-amber);">
-                    <div style="text-align:center; padding:20px;">
-                        <div style="font-size:48px;">⏳</div>
-                        <h3 style="font-size:18px; font-weight:900; color:var(--cyber-amber);">Verification Pending</h3>
-                        <p style="font-size:13px; color:var(--text-muted);">We verify within 2 business hours.</p>
-                    </div>
+<div class="form-group">
+<label for="zip">ZIP Code <span class="prefill-badge">Prefilled</span></label>
+<input type="text" id="zip" name="entry.654630999" class="prefilled">
+</div>
 
-                    <div class="upsell-box">
-                        <h4 style="font-size:16px; font-weight:900; color:var(--cyber-blue); margin-bottom:12px;">📊 Weekly Deployment Tracking</h4>
-                        
-                        <div class="phase-box">
-                            <div class="phase-title">⚡ Phase 1: Days 1-15 — DAILY (Why Daily?)</div>
-                            <div class="phase-text">
-                                The first 15 days decide your entire deployment. Competitors mobilize in Days 1-7. Adjusters assign in Days 2-5. Materials deplete by Day 10. Missing ONE day of intelligence can cost you $50K.<br><br>
-                                <strong>Cost: $18,750 ($1,250/day)</strong>
-                            </div>
-                        </div>
-                        <div class="phase-box">
-                            <div class="phase-title">✅ Phase 2: Days 16+ — WEEKLY ($8,750/week)</div>
-                            <div class="phase-text">
-                                After Day 15, conditions stabilize. Weekly briefs with urgent alerts keep you protected.
-                            </div>
-                        </div>
+<div class="form-group">
+<label for="claimref">Claim / Reference Number</label>
+<input type="text" id="claimref" name="entry.513867674" placeholder="Internal claim or job reference">
+</div>
 
-                        <h5 style="font-size:13px; font-weight:800; color:#fff; margin-bottom:8px;">Every Morning at 7:00 AM:</h5>
-                        <ul class="deliverable-list">
-                            <li><strong>Competitor Movement</strong> — Who arrived overnight</li>
-                            <li><strong>Adjuster Threat Map</strong> — Approve or deny patterns</li>
-                            <li><strong>Cash Flow Forecast</strong> — Which claims pay when</li>
-                            <li><strong>Material Radar</strong> — What's running out</li>
-                            <li><strong>Kill Switch</strong> — When to pivot or withdraw</li>
-                        </ul>
+<div class="form-group">
+<label for="structcount">Number of Structures <span class="prefill-badge">Prefilled</span></label>
+<input type="text" id="structcount" name="entry.69411161" class="prefilled">
+</div>
 
-                        <div class="loss-box">
-                            <div class="loss-title">⚠️ WITHOUT DAILY TRACKING — DAYS 1-15:</div>
-                            <div class="loss-item">Day 3: Competitors arrive undetected → Lose 3-5 contracts → <strong>$150K-$250K</strong></div>
-                            <div class="loss-item">Day 5: Adjuster denies your claims → <strong>$50K-$100K</strong></div>
-                            <div class="loss-item">Day 10: Materials gone → Production stalls → <strong>$30K-$50K</strong></div>
-                            <div class="loss-big">TOTAL: $230K-$400K GONE</div>
-                            <div style="font-size:14px; color:var(--cyber-green); font-weight:800; margin-top:8px;">✅ Cost to prevent: $18,750</div>
-                        </div>
+<div class="form-group">
+<label for="scopelink">Secure Scope Document Link (Google Drive) <span style="color:var(--accent-red);">* Only field you need to fill</span></label>
+<input type="text" id="scopelink" name="entry.89385988" placeholder="https://drive.google.com/..." required>
+<div class="form-hint">Set sharing to "anyone with the link can view."</div>
+</div>
 
-                        <button class="btn-primary btn-blue" onclick="showWeeklyPayment()">✅ Proceed to Weekly Payment</button>
-                        <button class="btn-secondary" style="margin-top:8px;" onclick="alert('You can add later.')">Not Now</button>
-                    </div>
-                </div>
+<label class="consent">
+<input type="checkbox" name="entry.1477953076" value="I confirm I have the right to share this data" required>
+I confirm I have the right to share this data.
+</label>
 
-                <div id="weekly-payment-screen" class="card" style="display:none; border-top:4px solid var(--cyber-blue);">
-                    <h3 class="section-label" style="margin:0; color:var(--cyber-blue);">💳 Payment — Weekly Tracking</h3>
-                    <div class="price-breakdown">
-                        <div class="price-line"><span>Phase 1: Days 1-15 (Daily)</span><span>$18,750</span></div>
-                        <div class="price-line"><span>Phase 2: Days 16+ (Weekly)</span><span>$8,750/week</span></div>
-                        <div class="price-line total"><span>Due Today</span><span style="color:var(--cyber-blue);">$18,750</span></div>
-                    </div>
-                    <div class="payment-toggle">
-                        <button id="btn-wach" class="active" onclick="toggleWeeklyPayment('ACH')">💳 ACH</button>
-                        <button id="btn-wfedwire" onclick="toggleWeeklyPayment('FEDWIRE')">⚡ FEDWIRE</button>
-                    </div>
-                    <div id="wpay-ach" class="payment-card" onclick="copyPayment('ACH')"><h4>ACH — Click to Copy</h4><div>Bank: JPMORGAN CHASE</div><div>Account: 20000045856166</div><div>Routing: 028000024</div><div>Ref: OPT-77421-WEEKLY</div></div>
-                    <div id="wpay-fedwire" class="payment-card" style="display:none;" onclick="copyPayment('FEDWIRE')"><h4>FEDWIRE — Click to Copy</h4><div>Bank: JPMORGAN CHASE</div><div>Account: 20000045856166</div><div>Routing: 021000021</div><div>Ref: OPT-77421-WEEKLY</div></div>
-                    <button class="btn-primary btn-blue" onclick="showWeeklyVerification()">✅ I've Made Payment — Confirm</button>
-                </div>
+<button type="submit" class="submit-btn">Submit for Free Findings Snapshot</button>
+</form>
+</div>
 
-                <div id="weekly-verification" class="card" style="display:none; border-top:4px solid var(--cyber-amber);">
-                    <div style="text-align:center; padding:20px;">
-                        <div style="font-size:48px;">⏳</div>
-                        <h3 style="font-size:18px; font-weight:900; color:var(--cyber-amber);">Weekly Tracking — Verification Pending</h3>
-                        <p style="font-size:13px; color:var(--text-muted);">Activates after wire verification (within 2 hours).</p>
-                    </div>
+<div id="thankYou" class="thank-you-card" style="display:none;">
+<div class="thank-you-icon">✓</div>
+<h3>Got it — your submission is in the queue.</h3>
+<p>You'll hear back by email with your free findings snapshot.</p>
+</div>
 
-                    <div class="upsell-box" style="background:rgba(255,184,0,0.03); border-color:rgba(255,184,0,0.3);">
-                        <h4 style="font-size:16px; font-weight:900; color:var(--cyber-amber); margin-bottom:12px;">🌪️ Storm Audit — $3,500/roof</h4>
-                        <div class="loss-box">
-                            <div class="loss-title">💰 MONEY LEFT ON TABLE WITHOUT AUDIT:</div>
-                            <div class="loss-item">Undocumented line items: <strong>$15K-$40K per roof</strong></div>
-                            <div class="loss-item">Wrong Xactimate codes: <strong>30-50% claim reduction</strong></div>
-                            <div class="loss-item">Missing O&P: <strong>$8K-$25K per claim</strong></div>
-                            <div class="loss-big">TOTAL: $33K-$95K PER ROOF LOST</div>
-                            <div style="font-size:14px; color:var(--cyber-amber); font-weight:800; margin-top:8px;">✅ Cost to prevent: $3,500/roof</div>
-                        </div>
-                        <ul class="deliverable-list">
-                            <li><strong>Xactimate Code Audit</strong> — Fix errors before submission</li>
-                            <li><strong>Missing Line Items</strong> — Document everything</li>
-                            <li><strong>Depreciation Review</strong> — Correct calculations</li>
-                            <li><strong>O&P Documentation</strong> — Justify overhead</li>
-                        </ul>
-                        <button class="btn-primary btn-amber" onclick="window.location.href='https://optimaworkflows.github.io/storm-audit-intake/?zip=75062&client=Vanguard%20Restoration%20Corp'">🌪️ Proceed to Storm Audit Intake</button>
-                        <button class="btn-secondary" style="margin-top:8px;" onclick="alert('You can add later.')">Not Now</button>
-                    </div>
-                </div>
-            </section>
+<iframe name="hidden_iframe_storm" id="hidden_iframe_storm" style="display:none;"
+onload="if(stormSubmitted){document.getElementById('formWrap').style.display='none';document.getElementById('thankYou').style.display='block';window.scrollTo({top:document.getElementById('thankYou').offsetTop-100,behavior:'smooth'});}"></iframe>
 
-            <section id="view-billing" class="dashboard-tab"><h1>Payment Center</h1><div class="card"><div class="financial-line"><span>Bank</span><span>JPMORGAN CHASE</span></div><div class="financial-line"><span>Account</span><span>20000045856166</span></div><div class="financial-line"><span>Routing ACH</span><span>028000024</span></div><div class="financial-line"><span>Routing FEDWIRE</span><span>021000021</span></div></div></section>
-            <section id="view-settings" class="dashboard-tab"><h1>Settings</h1><div class="card"><div class="financial-line"><span>Client</span><span>Vanguard Restoration Corp</span></div><div class="financial-line"><span>Account Key</span><span>OPT-77421</span></div></div></section>
-            <section id="view-storm-audit" class="dashboard-tab"><h1>Storm Audit</h1><p class="lead">Coming soon.</p></section>
-            <section id="view-vendor-audit" class="dashboard-tab"><h1>Vendor Audit</h1><p class="lead">Coming soon.</p></section>
-            <section id="view-freight-audit" class="dashboard-tab"><h1>Freight Audit</h1><p class="lead">Coming soon.</p></section>
-            <section id="view-chargeback" class="dashboard-tab"><h1>Chargebacks</h1><p class="lead">Coming soon.</p></section>
-        </main>
-    </div>
+<div class="data-note"><strong>What happens next:</strong> your submission is logged and code-compliance review begins. First review is a free findings snapshot.</div>
+</div>
+</section>
 
-    <script>
-        var SHOVELS_PROXY = "https://script.google.com/macros/s/AKfycbyARSRA8VmCjY9Ax7ZRwG4ZZJ4RYHEVwfXDM_SQfM9U-1nDH4cHWzwMotjWvH9JI7EjBg/exec";
-
-        function switchTab(tabId, navElement) {
-            var tabs = document.querySelectorAll(".dashboard-tab");
-            for (var i = 0; i < tabs.length; i++) tabs[i].classList.remove("active");
-            var navs = document.querySelectorAll(".nav-item");
-            for (var j = 0; j < navs.length; j++) navs[j].classList.remove("active");
-            document.getElementById(tabId).classList.add("active");
-            if (navElement) navElement.classList.add("active");
-        }
-        function logout() { alert("Logged out."); }
-        function showPaymentScreen() { document.getElementById("preview-card").style.display="none"; document.getElementById("payment-screen").style.display="block"; }
-        function togglePayment(m) { document.getElementById("btn-ach").classList.toggle("active",m==="ACH"); document.getElementById("btn-fedwire").classList.toggle("active",m==="FEDWIRE"); document.getElementById("pay-ach").style.display=m==="ACH"?"block":"none"; document.getElementById("pay-fedwire").style.display=m==="FEDWIRE"?"block":"none"; }
-        function copyPayment(m) { var t = m==="ACH" ? "Bank: JPMORGAN CHASE\nAccount: 20000045856166\nRouting: 028000024" : "Bank: JPMORGAN CHASE\nAccount: 20000045856166\nRouting: 021000021"; navigator.clipboard.writeText(t).then(function(){alert("Copied.");}); }
-        function showVerificationPending() { document.getElementById("payment-screen").style.display="none"; document.getElementById("verification-pending").style.display="block"; }
-        function showWeeklyPayment() { document.getElementById("verification-pending").style.display="none"; document.getElementById("weekly-payment-screen").style.display="block"; }
-        function toggleWeeklyPayment(m) { document.getElementById("btn-wach").classList.toggle("active",m==="ACH"); document.getElementById("btn-wfedwire").classList.toggle("active",m==="FEDWIRE"); document.getElementById("wpay-ach").style.display=m==="ACH"?"block":"none"; document.getElementById("wpay-fedwire").style.display=m==="FEDWIRE"?"block":"none"; }
-        function showWeeklyVerification() { document.getElementById("weekly-payment-screen").style.display="none"; document.getElementById("weekly-verification").style.display="block"; }
-
-        async function fetchShovels(zip, geoId) {
-            try { var url = SHOVELS_PROXY + "?action=shovels_permits&geo_id=" + geoId + "&permit_from=2024-01-01&permit_to=2024-12-31&zip=" + zip; var res = await fetch(url); return await res.json(); } catch(e) { return null; }
-        }
-
-        document.getElementById("triage-form").addEventListener("submit", async function(event) {
-            event.preventDefault();
-            var btn = document.getElementById("btn-triage"); btn.disabled = true; btn.innerHTML = "Running Analysis...";
-            var zip = document.getElementById("frm-zip").value.trim();
-            var tech = document.getElementById("frm-tech").value;
-            var rainInput = parseFloat(document.getElementById("frm-rain").value);
-            var lat=32.85, lon=-96.97, state="TX";
-            try { var geoRes = await fetch("https://api.zippopotam.us/us/" + zip); var geoData = await geoRes.json(); if(geoData && geoData.places && geoData.places.length>0){ lat=parseFloat(geoData.places[0].latitude); lon=parseFloat(geoData.places[0].longitude); state=geoData.places[0]["state abbreviation"]; } } catch(e1) {}
-            var actualRain = rainInput; var rainScore=50;
-            if(rainInput===0){ try { var rainRes = await fetch("https://api.open-meteo.com/v1/forecast?latitude="+lat+"&longitude="+lon+"&daily=precipitation_sum&past_days=7&timezone=auto"); var rainData = await rainRes.json(); var maxPrecip=0; (rainData.daily.precipitation_sum||[]).forEach(function(v){if(v>maxPrecip)maxPrecip=v;}); actualRain=maxPrecip/25.4; } catch(e2){} }
-            if(actualRain>=1.5)rainScore=95;else if(actualRain>=1.0)rainScore=75;else if(actualRain>=0.5)rainScore=50;else rainScore=25;
-            var shovelsData = await fetchShovels(zip, state);
-            var compCount=0; var totalPermits=0;
-            if(shovelsData && shovelsData.permits){ var ids=new Set(); shovelsData.permits.forEach(function(p){if(p.contractor_id)ids.add(p.contractor_id);}); compCount=ids.size; totalPermits=shovelsData.permits.length; }
-            var techScore = tech==="PRO_TECH"?95:40;
-            var densityScore = totalPermits>30?90:totalPermits>20?70:totalPermits>10?50:30;
-            document.getElementById("pv-rain-score").innerHTML=rainScore;
-            document.getElementById("pv-rain-desc").innerHTML=actualRain.toFixed(2)+"\". "+(actualRain>=0.5?"Interior damage confirmed.":"Dry conditions.");
-            document.getElementById("pv-density-score").innerHTML=densityScore;
-            document.getElementById("pv-density-desc").innerHTML=totalPermits+" commercial permits.";
-            document.getElementById("pv-tech-score").innerHTML=techScore;
-            document.getElementById("pv-tech-desc").innerHTML=tech==="PRO_TECH"?"Drone-accelerated.":"Manual.";
-            var previewScore = Math.round((rainScore*0.35)+(densityScore*0.35)+(techScore*0.30));
-            var previewVerdict = previewScore>=60?"LIKELY GREEN":"LIKELY YELLOW";
-            document.getElementById("pv-score").innerHTML=previewScore+"/100";
-            document.getElementById("pv-verdict").innerHTML=previewVerdict;
-            document.getElementById("pv-verdict").className="badge-status "+(previewScore>=60?"bg-green":"bg-amber");
-            var estRoofs=Math.max(2,Math.round(totalPermits/2)); var gross=estRoofs*250000; var loss=Math.round(gross*0.60);
-            document.getElementById("loss-gross").innerHTML="$"+(gross/1000000).toFixed(1)+"M";
-            document.getElementById("loss-amount").innerHTML="$"+(loss/1000).toFixed(0)+"K";
-            document.getElementById("preview-card").style.display="block";
-            btn.disabled=false; btn.innerHTML="⚡ Run Analysis";
-            document.getElementById("preview-card").scrollIntoView({behavior:'smooth'});
-        });
-    </script>
+<script>
+// PREFILL FROM URL PARAMETERS
+(function() {
+    var params = new URLSearchParams(window.location.search);
+    
+    var client = params.get('client') || "";
+    var email = params.get('email') || "";
+    var state = params.get('state') || "";
+    var city = params.get('city') || "";
+    var zip = params.get('zip') || "";
+    var roofs = params.get('roofs') || "";
+    
+    if (client) document.getElementById("company").value = client;
+    if (email) document.getElementById("email").value = email;
+    if (state) document.getElementById("state").value = state;
+    if (city) document.getElementById("city").value = city;
+    if (zip) document.getElementById("zip").value = zip;
+    if (roofs) document.getElementById("structcount").value = roofs;
+})();
+</script>
 </body>
 </html>
