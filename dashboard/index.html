@@ -146,8 +146,13 @@
                 </div>
 
                 <div id="preview-card" class="card" style="display:none; border-top:4px solid var(--cyber-amber);">
-                    <div style="display:flex; justify-content:space-between; gap:12px; border-bottom:1px solid var(--border-hairline); padding-bottom:16px; margin-bottom:20px;">
-                        <div><div class="section-label" style="margin:0;">Preliminary Verdict</div><span id="pv-verdict" class="badge-status" style="font-size:15px;">—</span><span class="preview-badge" style="margin-left:8px;">Free Preview</span></div>
+                    <div style="display:flex; justify-content:space-between; gap:12px; border-bottom:1px solid var(--border-hairline); padding-bottom:16px; margin-bottom:20px; flex-wrap:wrap;">
+                        <div>
+                            <div class="section-label" style="margin:0;">Preliminary Verdict</div>
+                            <span id="pv-verdict" class="badge-status" style="font-size:15px;">—</span>
+                            <span class="preview-badge" style="margin-left:8px;">Free Preview</span>
+                            <div style="font-size:13px; color:var(--text-muted); margin-top:6px;" id="pv-location">—</div>
+                        </div>
                         <div style="text-align:right;"><div class="section-label" style="margin:0;">Score</div><span id="pv-score" style="font-family:'IBM Plex Mono', monospace; font-size:32px; font-weight:900;">—</span></div>
                     </div>
                     <p style="font-size:13px; color:var(--text-muted); margin-bottom:16px;">🔓 <strong>FREE PREVIEW — 3 of 12 Factors</strong></p>
@@ -157,7 +162,7 @@
                         <tr><td><strong>Market Activity</strong><br><span class='factor-explanation' id="pv-density-desc"></span></td><td id="pv-density-score"></td><td>10%</td></tr>
                         <tr><td><strong>Tech Stack</strong><br><span class='factor-explanation' id="pv-tech-desc"></span></td><td id="pv-tech-score"></td><td>10%</td></tr>
                     </table>
-                    <div class="loss-box">
+                    <div class="loss-box" style="margin-top:20px;">
                         <div class="loss-title">⚠️ 9 HIDDEN FACTORS</div>
                         <div class="loss-item">🔒 Who is mobilizing against you</div>
                         <div class="loss-item">🔒 Whether hail is claim-worthy</div>
@@ -199,20 +204,17 @@
                         <h4 style="font-size:16px; font-weight:900; color:var(--cyber-blue); margin-bottom:12px;">📊 Weekly Deployment Tracking</h4>
                         
                         <div class="phase-box">
-                            <div class="phase-title">⚡ Phase 1: Days 1-15 — DAILY (Why Daily?)</div>
+                            <div class="phase-title">⚡ Phase 1: Days 1-15 — DAILY</div>
                             <div class="phase-text">
-                                The first 15 days decide your entire deployment. Competitors mobilize in Days 1-7. Adjusters assign in Days 2-5. Materials deplete by Day 10. Missing ONE day of intelligence can cost you $50K.<br><br>
+                                Competitors mobilize in Days 1-7. Adjusters assign in Days 2-5. Materials deplete by Day 10. Missing ONE day = $50K+ loss.<br>
                                 <strong>Cost: $18,750 ($1,250/day)</strong>
                             </div>
                         </div>
                         <div class="phase-box">
-                            <div class="phase-title">✅ Phase 2: Days 16+ — WEEKLY ($8,750/week)</div>
-                            <div class="phase-text">
-                                After Day 15, conditions stabilize. Weekly briefs with urgent alerts keep you protected.
-                            </div>
+                            <div class="phase-title">✅ Phase 2: Days 16+ — WEEKLY</div>
+                            <div class="phase-text"><strong>$8,750/week</strong></div>
                         </div>
 
-                        <h5 style="font-size:13px; font-weight:800; color:#fff; margin-bottom:8px;">Every Morning at 7:00 AM:</h5>
                         <ul class="deliverable-list">
                             <li><strong>Competitor Movement</strong> — Who arrived overnight</li>
                             <li><strong>Adjuster Threat Map</strong> — Approve or deny patterns</li>
@@ -222,10 +224,10 @@
                         </ul>
 
                         <div class="loss-box">
-                            <div class="loss-title">⚠️ WITHOUT DAILY TRACKING — DAYS 1-15:</div>
-                            <div class="loss-item">Day 3: Competitors arrive undetected → Lose 3-5 contracts → <strong>$150K-$250K</strong></div>
-                            <div class="loss-item">Day 5: Adjuster denies your claims → <strong>$50K-$100K</strong></div>
-                            <div class="loss-item">Day 10: Materials gone → Production stalls → <strong>$30K-$50K</strong></div>
+                            <div class="loss-title">⚠️ WITHOUT DAILY TRACKING:</div>
+                            <div class="loss-item">Day 3: Competitors undetected → <strong>$150K-$250K</strong></div>
+                            <div class="loss-item">Day 5: Adjuster denials → <strong>$50K-$100K</strong></div>
+                            <div class="loss-item">Day 10: Materials gone → <strong>$30K-$50K</strong></div>
                             <div class="loss-big">TOTAL: $230K-$400K GONE</div>
                             <div style="font-size:14px; color:var(--cyber-green); font-weight:800; margin-top:8px;">✅ Cost to prevent: $18,750</div>
                         </div>
@@ -262,19 +264,13 @@
                         <h4 style="font-size:16px; font-weight:900; color:var(--cyber-amber); margin-bottom:12px;">🌪️ Storm Audit — $3,500/roof</h4>
                         <div class="loss-box">
                             <div class="loss-title">💰 MONEY LEFT ON TABLE WITHOUT AUDIT:</div>
-                            <div class="loss-item">Undocumented line items: <strong>$15K-$40K per roof</strong></div>
-                            <div class="loss-item">Wrong Xactimate codes: <strong>30-50% claim reduction</strong></div>
+                            <div class="loss-item">Undocumented items: <strong>$15K-$40K per roof</strong></div>
+                            <div class="loss-item">Wrong codes: <strong>30-50% claim reduction</strong></div>
                             <div class="loss-item">Missing O&P: <strong>$8K-$25K per claim</strong></div>
                             <div class="loss-big">TOTAL: $33K-$95K PER ROOF LOST</div>
                             <div style="font-size:14px; color:var(--cyber-amber); font-weight:800; margin-top:8px;">✅ Cost to prevent: $3,500/roof</div>
                         </div>
-                        <ul class="deliverable-list">
-                            <li><strong>Xactimate Code Audit</strong> — Fix errors before submission</li>
-                            <li><strong>Missing Line Items</strong> — Document everything</li>
-                            <li><strong>Depreciation Review</strong> — Correct calculations</li>
-                            <li><strong>O&P Documentation</strong> — Justify overhead</li>
-                        </ul>
-                        <button class="btn-primary btn-amber" onclick="window.location.href='https://optimaworkflows.github.io/storm-audit-intake/?zip=75062&client=Vanguard%20Restoration%20Corp'">🌪️ Proceed to Storm Audit Intake</button>
+                        <button class="btn-primary btn-amber" onclick="goToStormAudit()">🌪️ Proceed to Storm Audit Intake</button>
                         <button class="btn-secondary" style="margin-top:8px;" onclick="alert('You can add later.')">Not Now</button>
                     </div>
                 </div>
@@ -291,6 +287,11 @@
 
     <script>
         var SHOVELS_PROXY = "https://script.google.com/macros/s/AKfycbyARSRA8VmCjY9Ax7ZRwG4ZZJ4RYHEVwfXDM_SQfM9U-1nDH4cHWzwMotjWvH9JI7EjBg/exec";
+        var currentZip = "";
+        var currentCity = "";
+        var currentState = "";
+        var currentClient = "Vanguard Restoration Corp";
+        var currentEmail = "operations@vanguard.com";
 
         function switchTab(tabId, navElement) {
             var tabs = document.querySelectorAll(".dashboard-tab");
@@ -308,6 +309,10 @@
         function showWeeklyPayment() { document.getElementById("verification-pending").style.display="none"; document.getElementById("weekly-payment-screen").style.display="block"; }
         function toggleWeeklyPayment(m) { document.getElementById("btn-wach").classList.toggle("active",m==="ACH"); document.getElementById("btn-wfedwire").classList.toggle("active",m==="FEDWIRE"); document.getElementById("wpay-ach").style.display=m==="ACH"?"block":"none"; document.getElementById("wpay-fedwire").style.display=m==="FEDWIRE"?"block":"none"; }
         function showWeeklyVerification() { document.getElementById("weekly-payment-screen").style.display="none"; document.getElementById("weekly-verification").style.display="block"; }
+        function goToStormAudit() {
+            var url = "https://optimaworkflows.github.io/storm-audit-intake/?client=" + encodeURIComponent(currentClient) + "&email=" + encodeURIComponent(currentEmail) + "&state=" + encodeURIComponent(currentState) + "&city=" + encodeURIComponent(currentCity) + "&zip=" + encodeURIComponent(currentZip) + "&roofs=5";
+            window.location.href = url;
+        }
 
         async function fetchShovels(zip, geoId) {
             try { var url = SHOVELS_PROXY + "?action=shovels_permits&geo_id=" + geoId + "&permit_from=2024-01-01&permit_to=2024-12-31&zip=" + zip; var res = await fetch(url); return await res.json(); } catch(e) { return null; }
@@ -319,8 +324,13 @@
             var zip = document.getElementById("frm-zip").value.trim();
             var tech = document.getElementById("frm-tech").value;
             var rainInput = parseFloat(document.getElementById("frm-rain").value);
-            var lat=32.85, lon=-96.97, state="TX";
-            try { var geoRes = await fetch("https://api.zippopotam.us/us/" + zip); var geoData = await geoRes.json(); if(geoData && geoData.places && geoData.places.length>0){ lat=parseFloat(geoData.places[0].latitude); lon=parseFloat(geoData.places[0].longitude); state=geoData.places[0]["state abbreviation"]; } } catch(e1) {}
+            var lat=32.85, lon=-96.97, state="TX", city="Unknown";
+            try {
+                var geoRes = await fetch("https://api.zippopotam.us/us/" + zip);
+                var geoData = await geoRes.json();
+                if(geoData && geoData.places && geoData.places.length>0){ lat=parseFloat(geoData.places[0].latitude); lon=parseFloat(geoData.places[0].longitude); state=geoData.places[0]["state abbreviation"]; city=geoData.places[0]["place name"]; }
+            } catch(e1) {}
+            currentZip = zip; currentCity = city; currentState = state;
             var actualRain = rainInput; var rainScore=50;
             if(rainInput===0){ try { var rainRes = await fetch("https://api.open-meteo.com/v1/forecast?latitude="+lat+"&longitude="+lon+"&daily=precipitation_sum&past_days=7&timezone=auto"); var rainData = await rainRes.json(); var maxPrecip=0; (rainData.daily.precipitation_sum||[]).forEach(function(v){if(v>maxPrecip)maxPrecip=v;}); actualRain=maxPrecip/25.4; } catch(e2){} }
             if(actualRain>=1.5)rainScore=95;else if(actualRain>=1.0)rainScore=75;else if(actualRain>=0.5)rainScore=50;else rainScore=25;
@@ -329,6 +339,7 @@
             if(shovelsData && shovelsData.permits){ var ids=new Set(); shovelsData.permits.forEach(function(p){if(p.contractor_id)ids.add(p.contractor_id);}); compCount=ids.size; totalPermits=shovelsData.permits.length; }
             var techScore = tech==="PRO_TECH"?95:40;
             var densityScore = totalPermits>30?90:totalPermits>20?70:totalPermits>10?50:30;
+            document.getElementById("pv-location").innerHTML = zip + " — " + city + ", " + state;
             document.getElementById("pv-rain-score").innerHTML=rainScore;
             document.getElementById("pv-rain-desc").innerHTML=actualRain.toFixed(2)+"\". "+(actualRain>=0.5?"Interior damage confirmed.":"Dry conditions.");
             document.getElementById("pv-density-score").innerHTML=densityScore;
