@@ -42,6 +42,7 @@ input.prefilled{background:#0a1628;border-color:#1a3a55;}
 .thank-you-card h3{font-size:20px;margin-bottom:12px;color:#fff;}
 .thank-you-card p{font-size:14px;color:var(--text-muted);max-width:440px;margin:0 auto;}
 .data-note{background:rgba(52,211,153,.06);border:1px solid rgba(52,211,153,.25);border-radius:10px;padding:18px 22px;font-size:13.5px;color:#d1fae5;margin-top:8px;}
+.prefill-badge{display:inline-block;background:rgba(52,211,153,.1);border:1px solid rgba(52,211,153,.3);color:var(--accent-green);padding:2px 8px;border-radius:4px;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;margin-left:8px;}
 </style>
 </head>
 <body>
@@ -52,8 +53,8 @@ input.prefilled{background:#0a1628;border-color:#1a3a55;}
 </nav>
 <header>
 <div class="badge">Data Intake · Storm Audit</div>
-<h1>Send Your Scope Documents, <span class="gradient-text">We Start the Code-Compliance Review Right Away</span></h1>
-<p class="lead">Fill in the details below. Your data is queued for review immediately.</p>
+<h1>Send Your Scope Documents, <span class="gradient-text">We Start the Review Right Away</span></h1>
+<p class="lead">Your details are pre-filled. You only need to add the Google Drive link.</p>
 </header>
 
 <section id="intake-form">
@@ -63,8 +64,8 @@ input.prefilled{background:#0a1628;border-color:#1a3a55;}
 method="POST" target="hidden_iframe_storm" onsubmit="stormSubmitted=true;">
 
 <div class="form-group">
-<label for="company">Company Name</label>
-<input type="text" id="company" name="entry.476800857" required>
+<label for="company">Company Name <span class="prefill-badge">Prefilled</span></label>
+<input type="text" id="company" name="entry.476800857" class="prefilled" required>
 </div>
 
 <div class="form-group">
@@ -73,23 +74,23 @@ method="POST" target="hidden_iframe_storm" onsubmit="stormSubmitted=true;">
 </div>
 
 <div class="form-group">
-<label for="email">Corporate Email Address</label>
-<input type="email" id="email" name="entry.2021031500" required>
+<label for="email">Corporate Email <span class="prefill-badge">Prefilled</span></label>
+<input type="email" id="email" name="entry.2021031500" class="prefilled" required>
 </div>
 
 <div class="form-group">
-<label for="state">Target Property State</label>
-<input type="text" id="state" name="entry.2131427226" placeholder="e.g. TX" maxlength="2" required>
+<label for="state">Target State <span class="prefill-badge">Prefilled</span></label>
+<input type="text" id="state" name="entry.2131427226" class="prefilled" maxlength="2" required>
 </div>
 
 <div class="form-group">
-<label for="city">Local Municipality / City</label>
-<input type="text" id="city" name="entry.327565592" placeholder="e.g. Irving" required>
+<label for="city">City <span class="prefill-badge">Prefilled</span></label>
+<input type="text" id="city" name="entry.327565592" class="prefilled" required>
 </div>
 
 <div class="form-group">
-<label for="zip">ZIP Code</label>
-<input type="text" id="zip" name="entry.654630999" placeholder="e.g. 75061">
+<label for="zip">ZIP Code <span class="prefill-badge">Prefilled</span></label>
+<input type="text" id="zip" name="entry.654630999" class="prefilled">
 </div>
 
 <div class="form-group">
@@ -98,12 +99,12 @@ method="POST" target="hidden_iframe_storm" onsubmit="stormSubmitted=true;">
 </div>
 
 <div class="form-group">
-<label for="structcount">Number of Structures</label>
-<input type="text" id="structcount" name="entry.69411161" placeholder="e.g. 1">
+<label for="structcount">Number of Structures <span class="prefill-badge">Prefilled</span></label>
+<input type="text" id="structcount" name="entry.69411161" class="prefilled">
 </div>
 
 <div class="form-group">
-<label for="scopelink">Secure Scope Document Link (Google Drive)</label>
+<label for="scopelink">Secure Scope Document Link (Google Drive) <span style="color:var(--accent-red);">* Only field you need to fill</span></label>
 <input type="text" id="scopelink" name="entry.89385988" placeholder="https://drive.google.com/..." required>
 <div class="form-hint">Set sharing to "anyone with the link can view."</div>
 </div>
@@ -136,13 +137,17 @@ onload="if(stormSubmitted){document.getElementById('formWrap').style.display='no
     var params = new URLSearchParams(window.location.search);
     
     var client = params.get('client') || "";
-    var zip = params.get('zip') || "";
     var email = params.get('email') || "";
+    var state = params.get('state') || "";
+    var city = params.get('city') || "";
+    var zip = params.get('zip') || "";
     var roofs = params.get('roofs') || "";
     
     if (client) document.getElementById("company").value = client;
-    if (zip) document.getElementById("zip").value = zip;
     if (email) document.getElementById("email").value = email;
+    if (state) document.getElementById("state").value = state;
+    if (city) document.getElementById("city").value = city;
+    if (zip) document.getElementById("zip").value = zip;
     if (roofs) document.getElementById("structcount").value = roofs;
 })();
 </script>
