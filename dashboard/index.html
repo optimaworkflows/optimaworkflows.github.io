@@ -56,7 +56,6 @@
         label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: #b0bec5; }
         input, select { width: 100%; background-color: #03060c; border: 1px solid #2a3a55; border-radius: 7px; padding: 12px 14px; color: #fff; font-size: 13px; font-family: 'IBM Plex Mono', monospace; outline: none; }
         input:focus, select:focus { border-color: var(--cyber-green); }
-        input.prefilled { background-color: #0a1628; border-color: #1a3a55; }
 
         table { width: 100%; border-collapse: collapse; font-size: 13px; }
         th { font-size: 10px; text-transform: uppercase; color: #cfd8dc; padding: 10px 8px; border-bottom: 2px solid var(--border-hairline); text-align: left; letter-spacing: 0.05em; background: rgba(255,255,255,0.02); }
@@ -86,6 +85,9 @@
         .deliverable-list { list-style: none; padding: 0; margin-bottom: 12px; }
         .deliverable-list li { font-size: 13px; color: var(--text-muted); padding: 6px 0; border-bottom: 1px solid #1a2332; line-height: 1.5; }
         .deliverable-list li strong { color: #fff; }
+        .price-breakdown { background: #03060c; border: 1px solid var(--border-hairline); border-radius: 8px; padding: 16px; margin-bottom: 16px; }
+        .price-line { display: flex; justify-content: space-between; padding: 6px 0; font-size: 13px; }
+        .price-line.total { border-top: 1px solid var(--border-hairline); margin-top: 8px; padding-top: 12px; font-weight: 800; font-size: 15px; }
     </style>
 </head>
 <body>
@@ -119,10 +121,7 @@
             <section id="view-home" class="dashboard-tab active" style="width:100%;">
                 <h1>Executive Command</h1>
                 <p class="lead">Live operational overview.</p>
-                <div class="card">
-                    <h3 class="section-label">Active Deployments</h3>
-                    <p style="font-size:14px; color:var(--text-muted);">No active deployments. Run a Triage to begin.</p>
-                </div>
+                <div class="card"><h3 class="section-label">Active Deployments</h3><p style="font-size:14px; color:var(--text-muted);">No active deployments. Run a Triage to begin.</p></div>
             </section>
 
             <section id="view-cat-intel" class="dashboard-tab" style="width:100%;">
@@ -176,28 +175,14 @@
                 </div>
 
                 <div id="payment-screen" class="card" style="display:none; border-top:4px solid var(--cyber-green);">
-                    <h3 class="section-label" style="margin:0 0 12px; color:var(--cyber-green);">💳 Payment Required</h3>
-                    <p style="font-size:14px; margin-bottom:16px;">Full 12-Factor Report — <strong>$7,000</strong></p>
+                    <h3 class="section-label" style="margin:0 0 12px; color:var(--cyber-green);">💳 Payment Required — Full Report</h3>
+                    <p style="font-size:14px; margin-bottom:16px;"><strong>$7,000</strong></p>
                     <div class="payment-toggle">
                         <button id="btn-ach" class="active" onclick="togglePayment('ACH')">💳 ACH</button>
                         <button id="btn-fedwire" onclick="togglePayment('FEDWIRE')">⚡ FEDWIRE</button>
                     </div>
-                    <div id="pay-ach" class="payment-card" onclick="copyPayment('ACH')">
-                        <h4>💳 ACH Transfer — Click to Copy</h4>
-                        <div>Bank: <strong>JPMORGAN CHASE BANK, N.A</strong></div>
-                        <div>Account: <strong>20000045856166</strong></div>
-                        <div>Routing: <strong>028000024</strong></div>
-                        <div>Account Name: <strong>AMIT GUPTA</strong></div>
-                        <div>Reference: <strong>OPT-77421-REPORT</strong></div>
-                    </div>
-                    <div id="pay-fedwire" class="payment-card" style="display:none;" onclick="copyPayment('FEDWIRE')">
-                        <h4>⚡ FEDWIRE Transfer — Click to Copy</h4>
-                        <div>Bank: <strong>JPMORGAN CHASE BANK, N.A</strong></div>
-                        <div>Account: <strong>20000045856166</strong></div>
-                        <div>Routing: <strong>021000021</strong></div>
-                        <div>Account Name: <strong>AMIT GUPTA</strong></div>
-                        <div>Reference: <strong>OPT-77421-REPORT</strong></div>
-                    </div>
+                    <div id="pay-ach" class="payment-card" onclick="copyPayment('ACH')"><h4>💳 ACH — Click to Copy</h4><div>Bank: <strong>JPMORGAN CHASE BANK, N.A</strong></div><div>Account: <strong>20000045856166</strong></div><div>Routing: <strong>028000024</strong></div><div>Name: <strong>AMIT GUPTA</strong></div><div>Reference: <strong>OPT-77421-REPORT</strong></div></div>
+                    <div id="pay-fedwire" class="payment-card" style="display:none;" onclick="copyPayment('FEDWIRE')"><h4>⚡ FEDWIRE — Click to Copy</h4><div>Bank: <strong>JPMORGAN CHASE BANK, N.A</strong></div><div>Account: <strong>20000045856166</strong></div><div>Routing: <strong>021000021</strong></div><div>Name: <strong>AMIT GUPTA</strong></div><div>Reference: <strong>OPT-77421-REPORT</strong></div></div>
                     <button class="btn-primary" style="margin-top:16px;" onclick="showVerificationPending()">✅ I've Made the Payment — Confirm</button>
                 </div>
 
@@ -205,48 +190,70 @@
                     <div style="text-align:center; padding:20px;">
                         <div style="font-size:48px;">⏳</div>
                         <h3 style="font-size:18px; font-weight:900; color:var(--cyber-amber); margin-bottom:8px;">Verification Pending</h3>
-                        <p style="font-size:13px; color:var(--text-muted); line-height:1.6;">
-                            We'll verify your wire transfer within <strong>2 business hours</strong>.<br>
-                            Your full report unlocks immediately after verification.<br><br>
-                            <strong>Reference: OPT-77421-REPORT</strong>
-                        </p>
+                        <p style="font-size:13px; color:var(--text-muted); line-height:1.6;">We'll verify your wire within 2 business hours.<br>Reference: <strong>OPT-77421-REPORT</strong></p>
                     </div>
 
-                    <div class="upsell-box" style="margin-top:20px;">
-                        <h4 style="font-size:15px; font-weight:800; color:var(--cyber-blue); margin-bottom:12px;">📊 While You Wait — Weekly Deployment Tracking</h4>
-                        <p style="font-size:13px; color:var(--text-muted); margin-bottom:12px; line-height:1.6;">
-                            Your deployment is a 90-day war. The first 15 days are critical.<br>
-                            Competitors arrive. Adjusters assign. Materials deplete.
-                        </p>
-                        <h5 style="font-size:13px; font-weight:800; color:#fff; margin-bottom:8px;">Every Morning at 7:00 AM, You Receive:</h5>
+                    <div class="upsell-box">
+                        <h4 style="font-size:15px; font-weight:800; color:var(--cyber-blue); margin-bottom:12px;">📊 Weekly Deployment Tracking</h4>
+                        <div class="price-breakdown">
+                            <div class="price-line"><span>Days 1-15 (Daily Briefs)</span><span>$18,750</span></div>
+                            <div class="price-line"><span>Days 16+ (Weekly Briefs)</span><span>$8,750/week</span></div>
+                        </div>
+                        <h5 style="font-size:13px; font-weight:800; color:#fff; margin-bottom:8px;">Every Morning at 7:00 AM:</h5>
                         <ul class="deliverable-list">
-                            <li><strong>Competitor Movement Alerts</strong> — Who's mobilizing in your territory</li>
-                            <li><strong>Adjuster Threat Map</strong> — Which adjusters approve, which deny</li>
-                            <li><strong>Cash Flow Forecast</strong> — Which claims pay, when, and how much</li>
-                            <li><strong>Material Shortage Radar</strong> — What's running out before it does</li>
-                            <li><strong>Kill Switch Monitor</strong> — When to pivot or withdraw</li>
+                            <li><strong>Competitor Movement Alerts</strong> — Who's mobilizing</li>
+                            <li><strong>Adjuster Threat Map</strong> — Approve or deny patterns</li>
+                            <li><strong>Cash Flow Forecast</strong> — Which claims pay when</li>
+                            <li><strong>Material Shortage Radar</strong> — Before it runs out</li>
+                            <li><strong>Kill Switch Monitor</strong> — When to pivot</li>
                         </ul>
-                        <div class="loss-box" style="margin-top:12px;">
-                            <div class="loss-title">⚠️ WITHOUT DAILY TRACKING:</div>
-                            <div class="loss-item">• Competitors arrive undetected → Lose 3-5 contracts → $150K-$250K</div>
-                            <div class="loss-item">• Adjuster denies claims → $50K-$100K</div>
-                            <div class="loss-item">• Materials run out → Production stalls → $30K-$50K</div>
-                            <div class="loss-item" style="color:#fff; font-weight:700;">Total potential loss: $230K-$400K</div>
+                        <div class="loss-box">
+                            <div class="loss-title">⚠️ WITHOUT TRACKING:</div>
+                            <div class="loss-item">• Competitors undetected → $150K-$250K lost</div>
+                            <div class="loss-item">• Adjuster denials → $50K-$100K</div>
+                            <div class="loss-item">• Material shortage → $30K-$50K</div>
+                            <div class="loss-item" style="color:#fff; font-weight:700;">Total: $230K-$400K</div>
                         </div>
-                        <div style="margin-top:12px;">
-                            <div style="font-size:14px; font-weight:800;">Cost: <span style="color:var(--cyber-blue);">$18,750</span> (15 days)</div>
-                            <div style="font-size:14px; font-weight:800; color:var(--cyber-green);">Cost of NOT having it: $400,000</div>
-                        </div>
-                        <button class="btn-primary btn-blue" style="margin-top:12px;" onclick="alert('Weekly tracking request received! We will contact you.')">✅ Yes — Activate Weekly Tracking</button>
-                        <button class="btn-secondary" style="margin-top:8px;" onclick="alert('No problem. You can add later.')">Not Now</button>
+                        <button class="btn-primary btn-blue" onclick="showWeeklyPayment()">✅ Yes — Activate Weekly Tracking</button>
+                        <button class="btn-secondary" style="margin-top:8px;" onclick="alert('You can add later.')">Not Now</button>
+                    </div>
+                </div>
+
+                <div id="weekly-payment-screen" class="card" style="display:none; border-top:4px solid var(--cyber-blue);">
+                    <h3 class="section-label" style="margin:0 0 12px; color:var(--cyber-blue);">💳 Payment — Weekly Tracking</h3>
+                    <div class="price-breakdown">
+                        <div class="price-line"><span>Days 1-15 (Daily)</span><span>$18,750</span></div>
+                        <div class="price-line total"><span>Total Due</span><span style="color:var(--cyber-blue);">$18,750</span></div>
+                    </div>
+                    <div class="payment-toggle">
+                        <button id="btn-wach" class="active" onclick="toggleWeeklyPayment('ACH')">💳 ACH</button>
+                        <button id="btn-wfedwire" onclick="toggleWeeklyPayment('FEDWIRE')">⚡ FEDWIRE</button>
+                    </div>
+                    <div id="wpay-ach" class="payment-card" onclick="copyPayment('ACH')"><h4>💳 ACH — Click to Copy</h4><div>Bank: <strong>JPMORGAN CHASE BANK, N.A</strong></div><div>Account: <strong>20000045856166</strong></div><div>Routing: <strong>028000024</strong></div><div>Name: <strong>AMIT GUPTA</strong></div><div>Reference: <strong>OPT-77421-WEEKLY</strong></div></div>
+                    <div id="wpay-fedwire" class="payment-card" style="display:none;" onclick="copyPayment('FEDWIRE')"><h4>⚡ FEDWIRE — Click to Copy</h4><div>Bank: <strong>JPMORGAN CHASE BANK, N.A</strong></div><div>Account: <strong>20000045856166</strong></div><div>Routing: <strong>021000021</strong></div><div>Name: <strong>AMIT GUPTA</strong></div><div>Reference: <strong>OPT-77421-WEEKLY</strong></div></div>
+                    <button class="btn-primary btn-blue" onclick="showWeeklyConfirmation()">✅ I've Made the Payment — Confirm Weekly</button>
+                </div>
+
+                <div id="weekly-confirmation" class="card" style="display:none; border-top:4px solid var(--cyber-green);">
+                    <div style="text-align:center; padding:20px;">
+                        <div style="font-size:48px;">✅</div>
+                        <h3 style="font-size:18px; font-weight:900; color:var(--cyber-green);">Weekly Tracking Active</h3>
+                        <p style="font-size:13px; color:var(--text-muted);">Daily briefs start tomorrow 7:00 AM.</p>
                     </div>
 
                     <div class="upsell-box" style="background:rgba(255,184,0,0.03); border-color:rgba(255,184,0,0.3);">
                         <h4 style="font-size:15px; font-weight:800; color:var(--cyber-amber); margin-bottom:12px;">🌪️ Storm Audit — $3,500/roof</h4>
                         <p style="font-size:13px; color:var(--text-muted); margin-bottom:12px; line-height:1.6;">
-                            Xactimate code errors cost $33K-$95K per roof in denied claims.
+                            Before you submit Xactimate codes, we audit them.<br>
+                            Catch errors that cost $33K-$95K per roof in denied claims.
                         </p>
-                        <button class="btn-primary btn-amber" onclick="alert('Storm audit requested!')">✅ Yes — Add Storm Audit</button>
+                        <ul class="deliverable-list">
+                            <li><strong>Xactimate Code Accuracy</strong> — Wrong codes = denied claims</li>
+                            <li><strong>Missing Line Items</strong> — Undocumented work = unpaid</li>
+                            <li><strong>Depreciation Errors</strong> — Incorrect = reduced payout</li>
+                            <li><strong>O&P Documentation</strong> — Missing = denied overhead</li>
+                        </ul>
+                        <button class="btn-primary btn-amber" onclick="window.location.href='https://optimaworkflows.github.io/storm-audit-intake/?zip=75062&client=Vanguard%20Restoration%20Corp'">🌪️ Yes — Proceed to Storm Audit Intake</button>
                         <button class="btn-secondary" style="margin-top:8px;" onclick="alert('You can add later.')">Not Now</button>
                     </div>
                 </div>
@@ -315,6 +322,22 @@
             document.getElementById("verification-pending").style.display = "block";
             document.getElementById("verification-pending").scrollIntoView({behavior:'smooth'});
         }
+        function showWeeklyPayment() {
+            document.getElementById("verification-pending").style.display = "none";
+            document.getElementById("weekly-payment-screen").style.display = "block";
+            document.getElementById("weekly-payment-screen").scrollIntoView({behavior:'smooth'});
+        }
+        function toggleWeeklyPayment(method) {
+            document.getElementById("btn-wach").classList.toggle("active", method === "ACH");
+            document.getElementById("btn-wfedwire").classList.toggle("active", method === "FEDWIRE");
+            document.getElementById("wpay-ach").style.display = method === "ACH" ? "block" : "none";
+            document.getElementById("wpay-fedwire").style.display = method === "FEDWIRE" ? "block" : "none";
+        }
+        function showWeeklyConfirmation() {
+            document.getElementById("weekly-payment-screen").style.display = "none";
+            document.getElementById("weekly-confirmation").style.display = "block";
+            document.getElementById("weekly-confirmation").scrollIntoView({behavior:'smooth'});
+        }
 
         async function fetchShovels(zip, geoId) {
             try {
@@ -368,6 +391,8 @@
             document.getElementById("preview-card").style.display = "block";
             document.getElementById("payment-screen").style.display = "none";
             document.getElementById("verification-pending").style.display = "none";
+            document.getElementById("weekly-payment-screen").style.display = "none";
+            document.getElementById("weekly-confirmation").style.display = "none";
             btn.disabled = false; btn.innerHTML = "⚡ Run Analysis";
             document.getElementById("preview-card").scrollIntoView({behavior:'smooth'});
         });
