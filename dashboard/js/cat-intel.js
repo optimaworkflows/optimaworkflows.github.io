@@ -23,27 +23,21 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { background-color: var(--bg-deep); color: var(--text-primary); font-family: 'Inter', sans-serif; min-height: 100vh; overflow-y: auto; font-size: 15px; }
         .mono { font-family: 'IBM Plex Mono', monospace; }
-        
         .container { max-width: 800px; margin: 0 auto; padding: 40px 24px; }
-        
         .header { text-align: center; margin-bottom: 32px; }
         .logo { font-weight: 900; font-size: 18px; letter-spacing: 0.06em; color: #fff; display: inline-flex; align-items: center; gap: 8px; text-transform: uppercase; margin-bottom: 12px; }
         .logo-icon { display:flex; align-items:center; justify-content:center; height: 28px; width: 28px; background: var(--cyber-green); color: #05080f; border-radius: 5px; font-size: 15px; font-weight: 900; }
         h1 { font-size: 26px; font-weight: 900; letter-spacing: -0.02em; margin-bottom: 6px; }
         .lead { font-size: 14px; color: var(--text-muted); margin-bottom: 8px; line-height: 1.5; }
-        
         .card { background: var(--bg-card); border: 1px solid var(--border-hairline); border-radius: 12px; padding: 22px; margin-bottom: 20px; width: 100%; }
-        
         .btn-primary { border: none; color: #05080f; padding: 14px 20px; border-radius: 7px; font-weight: 800; cursor: pointer; text-transform: uppercase; background: var(--cyber-green); font-size: 12px; width: 100%; letter-spacing: 0.03em; }
         .btn-primary:hover { background: #00cc82; }
         .btn-primary:disabled { opacity: 0.5; cursor: wait; }
-        
         .form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; width: 100%; }
         .form-group { display: flex; flex-direction: column; gap: 5px; margin-bottom: 12px; width: 100%; }
         label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: #b0bec5; }
         input, select { width: 100%; background-color: #03060c; border: 1px solid #2a3a55; border-radius: 7px; padding: 12px 14px; color: #fff; font-size: 13px; font-family: 'IBM Plex Mono', monospace; outline: none; }
         input:focus, select:focus { border-color: var(--cyber-green); }
-        
         table { width: 100%; border-collapse: collapse; font-size: 13px; }
         th { font-size: 10px; text-transform: uppercase; color: #cfd8dc; padding: 10px 8px; border-bottom: 2px solid var(--border-hairline); text-align: left; letter-spacing: 0.05em; background: rgba(255,255,255,0.02); }
         td { padding: 12px 8px; border-bottom: 1px solid #111827; font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; line-height: 1.6; vertical-align: top; }
@@ -51,13 +45,12 @@
         .bg-green { background: rgba(0, 255, 163, 0.15); color: var(--cyber-green); border: 1px solid rgba(0,255,163,0.4); }
         .bg-amber { background: rgba(255, 184, 0, 0.15); color: var(--cyber-amber); border: 1px solid rgba(255,184,0,0.4); }
         .bg-red { background: rgba(255, 82, 82, 0.15); color: var(--cyber-red); border: 1px solid rgba(255,82,82,0.4); }
-        
         .factor-explanation { font-size: 12.5px; color: #b0bec5; margin-top: 3px; line-height: 1.6; }
         .financial-line { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #1a2332; }
         .financial-line:last-child { border-bottom: none; }
         .financial-label { font-size: 13px; color: #cfd8dc; font-weight: 600; }
         .financial-value { font-family: 'IBM Plex Mono', monospace; font-size: 15px; font-weight: 700; }
-        
+        .financial-detail { font-size: 11px; color: #78909c; margin-top: 3px; line-height: 1.4; }
         .loss-box { background: rgba(255, 82, 82, 0.03); border: 1px solid rgba(255, 82, 82, 0.3); border-radius: 9px; padding: 20px; margin-bottom: 20px; width: 100%; }
         .loss-title { font-size: 14px; color: var(--cyber-red); font-weight: 800; margin-bottom: 10px; }
         .loss-item { font-size: 13px; color: var(--text-muted); padding: 5px 0; line-height: 1.6; }
@@ -68,7 +61,6 @@
 <body>
 
     <div class="container">
-        
         <div class="header">
             <div class="logo"><span class="logo-icon">◈</span> Optima Workflows</div>
             <h1>Cat Intelligence Triage Terminal</h1>
@@ -89,28 +81,18 @@
             </form>
         </div>
 
-        <!-- PREVIEW -->
         <div id="preview-card" class="card" style="display:none; border-top:4px solid var(--cyber-amber);">
             <div style="display:flex; justify-content:space-between; gap:12px; border-bottom:1px solid var(--border-hairline); padding-bottom:16px; margin-bottom:20px; flex-wrap:wrap;">
-                <div>
-                    <div class="section-label" style="margin:0; color:var(--text-detail);">Preliminary Verdict</div>
-                    <span id="pv-verdict" class="badge-status" style="font-size:15px;">—</span>
-                    <span class="preview-badge" style="margin-left:8px;">Free Preview</span>
-                </div>
+                <div><div class="section-label" style="margin:0; color:var(--text-detail);">Preliminary Verdict</div><span id="pv-verdict" class="badge-status" style="font-size:15px;">—</span><span class="preview-badge" style="margin-left:8px;">Free Preview</span></div>
                 <div style="text-align:right;"><div class="section-label" style="margin:0; color:var(--text-detail);">Preliminary Score</div><span id="pv-score" style="font-family:'IBM Plex Mono', monospace; font-size:32px; font-weight:900;">—</span></div>
             </div>
-
-            <p style="font-size:13px; color:var(--text-muted); margin-bottom:16px;">
-                🔓 <strong>FREE PREVIEW — 3 of 12 Factors Shown</strong>
-            </p>
-
+            <p style="font-size:13px; color:var(--text-muted); margin-bottom:16px;">🔓 <strong>FREE PREVIEW — 3 of 12 Factors Shown</strong></p>
             <table>
                 <tr><th>Factor</th><th>Value</th><th>Weight</th></tr>
                 <tr><td><strong>Rain Saturation</strong><br><span class='factor-explanation' id="pv-rain-desc"></span></td><td id="pv-rain-score"></td><td>15%</td></tr>
                 <tr><td><strong>Market Activity</strong><br><span class='factor-explanation' id="pv-density-desc"></span></td><td id="pv-density-score"></td><td>10%</td></tr>
                 <tr><td><strong>Tech Stack</strong><br><span class='factor-explanation' id="pv-tech-desc"></span></td><td id="pv-tech-score"></td><td>10%</td></tr>
             </table>
-
             <div class="loss-box" style="margin-top:20px;">
                 <div class="loss-title">⚠️ 9 HIDDEN FACTORS — What You're Not Seeing:</div>
                 <div class="loss-item">🔒 Who is actively mobilizing in your territory</div>
@@ -122,53 +104,31 @@
                 <div class="loss-item">🔒 Whether materials are available on your timeline</div>
                 <div class="loss-item">🔒 What your actual margin will be after all costs</div>
                 <div class="loss-item">🔒 When to withdraw before losses compound</div>
-
                 <div style="margin-top:16px; padding-top:12px; border-top:1px solid rgba(255,82,82,0.3);">
-                    <div style="font-size:14px; font-weight:800; color:#fff;">
-                        💰 Value at stake in ZIP <span id="loss-zip" style="color:var(--cyber-amber);">—</span>: 
-                        <span id="loss-gross" style="color:var(--cyber-amber);">—</span>
-                    </div>
-                    <div style="font-size:18px; font-weight:900; color:var(--cyber-red); margin-top:4px;">
-                        📉 Potential loss without full report: <span id="loss-amount">—</span>
-                    </div>
-                    <div style="font-size:11px; color:var(--text-detail); margin-top:4px;">
-                        Derived from live data for this specific ZIP. Not generic estimates.
-                    </div>
+                    <div style="font-size:14px; font-weight:800; color:#fff;">💰 Value at stake in ZIP <span id="loss-zip" style="color:var(--cyber-amber);">—</span>: <span id="loss-gross" style="color:var(--cyber-amber);">—</span></div>
+                    <div style="font-size:18px; font-weight:900; color:var(--cyber-red); margin-top:4px;">📉 Potential loss without full report: <span id="loss-amount">—</span></div>
                 </div>
             </div>
-
-            <button class="btn-primary" style="margin-top:16px;" onclick="window.location.href='https://optimaworkflows.github.io/cat-intelligence-pricing/'">
-                🔓 Unlock Full 12-Factor Report — $7,000
-            </button>
+            <button class="btn-primary" style="margin-top:16px;" onclick="window.location.href='https://optimaworkflows.github.io/cat-intelligence-pricing/'">🔓 Unlock Full 12-Factor Report — $7,000</button>
         </div>
 
-        <!-- FULL REPORT -->
         <div id="full-report-card" class="card" style="display:none; border-top:4px solid var(--cyber-green);">
             <div style="display:flex; justify-content:space-between; gap:12px; border-bottom:1px solid var(--border-hairline); padding-bottom:16px; margin-bottom:20px; flex-wrap:wrap;">
                 <div><div class="section-label" style="margin:0; color:var(--text-detail);">Verdict</div><span id="out-verdict" class="badge-status" style="font-size:15px;">—</span></div>
                 <div style="text-align:right;"><div class="section-label" style="margin:0; color:var(--text-detail);">Index Score</div><span id="out-score" style="font-family:'IBM Plex Mono', monospace; font-size:32px; font-weight:900;">—</span></div>
             </div>
-
             <h3 class="section-label" style="margin:0 0 12px; color:var(--text-detail);">Full Analysis</h3>
             <div style="overflow-x:auto; margin-bottom:20px;"><table id="out-matrix"></table></div>
-
             <h3 class="section-label" style="margin:0 0 12px; color:var(--text-detail);">Financial Breakdown</h3>
             <div id="out-financials" style="background:#03060c; border:1px solid var(--border-hairline); border-radius:9px; padding:20px; margin-bottom:20px;"></div>
-
             <h3 class="section-label" style="margin:0 0 12px; color:var(--text-detail);">Historical Evidence</h3>
             <div id="out-historical" style="background:rgba(255,184,0,0.03); border:1px solid rgba(255,184,0,0.2); border-radius:9px; padding:18px; font-size:13px; line-height:1.8; color:#ffe0b2;"></div>
-
             <h3 class="section-label" style="margin:0 0 12px; color:var(--text-detail);">Litigation Risk</h3>
             <div id="out-adjuster" style="background:rgba(255,82,82,0.03); border:1px solid rgba(255,82,82,0.2); border-radius:9px; padding:18px; font-size:13px; line-height:1.8; color:#ffcdd2;"></div>
-
             <h3 class="section-label" style="margin:0 0 12px; color:var(--text-detail);">Kill Switch Protocol</h3>
             <div id="out-exit" style="background:rgba(255,184,0,0.05); border:1px dashed rgba(255,184,0,0.3); padding:18px; border-radius:9px; color:var(--cyber-amber); font-size:13px; line-height:1.8;"></div>
-
-            <div class="disclaimer-box">
-                <strong>⚖️ Disclaimer:</strong> This analysis is generated from proprietary intelligence sources. The final deployment decision rests solely with the client.
-            </div>
+            <div class="disclaimer-box"><strong>⚖️ Disclaimer:</strong> This analysis is generated from proprietary intelligence sources. The final deployment decision rests solely with the client.</div>
         </div>
-
     </div>
 
     <script>
@@ -184,7 +144,6 @@
                 return await res.json();
             } catch(e) { return null; }
         }
-
         async function fetchContractors(zip, geoId) {
             try {
                 var url = SHOVELS_PROXY + "?action=shovels_contractors&geo_id=" + geoId + "&permit_from=2024-01-01&permit_to=2024-12-31";
@@ -192,7 +151,6 @@
                 return await res.json();
             } catch(e) { return null; }
         }
-
         async function fetchNOAA(zip) {
             var r = { hailScore: 75, hailSize: "1.50\"", windSpeed: 45, stormCount: 3 };
             try {
@@ -214,7 +172,6 @@
             } catch(e) {}
             return r;
         }
-
         async function fetchFEMA(state) {
             try {
                 var url = "https://www.fema.gov/api/open/v2/DisasterDeclarationsSummaries?state=" + state;
@@ -225,7 +182,6 @@
                 return { total: storms.length };
             } catch(e) { return { total: 0 }; }
         }
-
         async function fetchCourtListener(state) {
             try {
                 var url = "https://www.courtlistener.com/api/rest/v4/search/?q=insurance+claim+denial+hail&state=" + state;
@@ -240,12 +196,10 @@
             var btn = document.getElementById("btn-triage");
             btn.disabled = true;
             btn.innerHTML = "Running Analysis...";
-
             var zip = document.getElementById("frm-zip").value.trim();
             var intent = document.getElementById("frm-intent").value;
             var tech = document.getElementById("frm-tech").value;
             var rainInput = parseFloat(document.getElementById("frm-rain").value);
-
             var lat = 32.85, lon = -96.97, city = "Unknown", state = "TX";
             try {
                 var geoRes = await fetch("https://api.zippopotam.us/us/" + zip);
@@ -257,7 +211,6 @@
                     state = geoData.places[0]["state abbreviation"];
                 }
             } catch(e1) {}
-
             var actualRain = rainInput;
             var rainScore = 50;
             if (rainInput === 0) {
@@ -270,40 +223,27 @@
                 } catch(e2) {}
             }
             if (actualRain >= 1.5) rainScore = 95; else if (actualRain >= 1.0) rainScore = 75; else if (actualRain >= 0.5) rainScore = 50; else rainScore = 25;
-
             var noaaData = await fetchNOAA(zip);
             var shovelsData = await fetchShovels(zip, state);
             var contractorsData = await fetchContractors(zip, state);
             var femaData = await fetchFEMA(state);
             var courtData = await fetchCourtListener(state);
-
-            var compCount = 0;
-            var avgRoofAge = null;
-            var totalPermits = 0;
-
+            var compCount = 0, avgRoofAge = null, totalPermits = 0;
             if (shovelsData && shovelsData.permits) {
-                var ids = new Set();
-                var ages = [];
-                shovelsData.permits.forEach(function(p) {
-                    if (p.contractor_id) ids.add(p.contractor_id);
-                    if (p.property_year_built) ages.push(p.property_year_built);
-                });
-                compCount = ids.size;
-                totalPermits = shovelsData.permits.length;
+                var ids = new Set(); var ages = [];
+                shovelsData.permits.forEach(function(p) { if (p.contractor_id) ids.add(p.contractor_id); if (p.property_year_built) ages.push(p.property_year_built); });
+                compCount = ids.size; totalPermits = shovelsData.permits.length;
                 if (ages.length > 0) avgRoofAge = Math.round(ages.reduce(function(a,b){return a+b;},0) / ages.length);
             }
-
             if (contractorsData && contractorsData.items) {
                 var roofers = contractorsData.items.filter(function(c) { return c.tag_tally && c.tag_tally.roofing > 0; });
                 if (roofers.length > 0) compCount = roofers.length;
             }
-
             var compScore = compCount > 30 ? 85 : compCount > 20 ? 65 : compCount > 10 ? 45 : compCount > 5 ? 25 : 15;
             var ageScore = avgRoofAge ? (2026 - avgRoofAge >= 18 ? 95 : 2026 - avgRoofAge >= 15 ? 85 : 2026 - avgRoofAge >= 10 ? 60 : 40) : 80;
             var techScore = tech === "PRO_TECH" ? 95 : 40;
             var legalScore = 55;
             var densityScore = totalPermits > 30 ? 90 : totalPermits > 20 ? 70 : totalPermits > 10 ? 50 : 30;
-
             var fredScore = 60;
             try {
                 var fredUrl = "https://api.stlouisfed.org/fred/series/observations?series_id=MPRIME&api_key=" + FRED_API_KEY + "&file_type=json&sort_order=desc&limit=1";
@@ -314,7 +254,6 @@
                     fredScore = prime > 9 ? 25 : prime > 7 ? 45 : prime > 5 ? 65 : 85;
                 }
             } catch(e3) {}
-
             var laborScore = 55;
             try {
                 var fipsMap = {"TX":"48","FL":"12","CO":"08","OK":"40","NC":"37","LA":"22","CA":"06","IL":"17","HI":"15"};
@@ -329,13 +268,19 @@
                 }
             } catch(e4) {}
 
-            // DYNAMIC LOSS
-            var estimatedRoofs = Math.max(2, Math.round(totalPermits / 2));
-            var grossAtStake = estimatedRoofs * 250000;
-            var baseLossPct = 0.60;
-            if (actualRain < 0.3) baseLossPct += 0.15;
-            if (compCount > 20) baseLossPct += 0.10;
-            var potentialLoss = Math.round(grossAtStake * baseLossPct);
+            var wHail = noaaData.hailScore * 0.15;
+            var wAge = ageScore * 0.10;
+            var wRain = rainScore * 0.15;
+            var wLegal = legalScore * 0.15;
+            var wTech = techScore * 0.10;
+            var wComp = compScore * 0.10;
+            var wDensity = densityScore * 0.10;
+            var wCredit = fredScore * 0.05;
+            var wLabor = laborScore * 0.05;
+            var wMaterial = 60 * 0.05;
+            var wRCV = 55 * 0.05;
+            var wPermit = 55 * 0.05;
+            var finalScore = Math.round(wHail + wAge + wRain + wLegal + wTech + wComp + wDensity + wCredit + wLabor + wMaterial + wRCV + wPermit);
 
             // PREVIEW
             document.getElementById("pv-rain-score").innerHTML = rainScore;
@@ -344,25 +289,29 @@
             document.getElementById("pv-density-desc").innerHTML = totalPermits + " commercial permits detected.";
             document.getElementById("pv-tech-score").innerHTML = techScore;
             document.getElementById("pv-tech-desc").innerHTML = tech === "PRO_TECH" ? "Drone-accelerated." : "Manual.";
-
             var previewScore = Math.round((rainScore * 0.35) + (densityScore * 0.35) + (techScore * 0.30));
             var previewVerdict = previewScore >= 60 ? "LIKELY GREEN" : "LIKELY YELLOW";
             document.getElementById("pv-score").innerHTML = previewScore + "/100";
             document.getElementById("pv-verdict").innerHTML = previewVerdict;
             document.getElementById("pv-verdict").className = "badge-status " + (previewScore >= 60 ? "bg-green" : "bg-amber");
-
+            var estRoofsForLoss = Math.max(2, Math.round(totalPermits / 2));
+            var grossAtStake = estRoofsForLoss * 250000;
+            var baseLossPct = 0.60;
+            if (actualRain < 0.3) baseLossPct += 0.15;
+            if (compCount > 20) baseLossPct += 0.10;
+            var potentialLoss = Math.round(grossAtStake * baseLossPct);
             document.getElementById("loss-zip").innerHTML = zip;
             document.getElementById("loss-gross").innerHTML = "$" + (grossAtStake/1000000).toFixed(1) + "M";
             document.getElementById("loss-amount").innerHTML = "$" + (potentialLoss/1000).toFixed(0) + "K";
-
             document.getElementById("preview-card").style.display = "block";
+            document.getElementById("full-report-card").style.display = "none";
             btn.disabled = false;
             btn.innerHTML = "⚡ Run Analysis";
             document.getElementById("preview-card").scrollIntoView({behavior:'smooth'});
 
             fullReportData = {
-                zip: zip, city: city, state: state,
-                noaaData: noaaData, shovelsData: shovelsData, contractorsData: contractorsData,
+                zip: zip, city: city, state: state, noaaData: noaaData,
+                shovelsData: shovelsData, contractorsData: contractorsData,
                 femaData: femaData, courtData: courtData,
                 actualRain: actualRain, rainScore: rainScore,
                 compCount: compCount, compScore: compScore,
