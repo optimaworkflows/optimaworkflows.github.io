@@ -213,7 +213,7 @@
     </div>
 
     <script>
-        const SHOVELS_PROXY = "https://script.google.com/macros/s/AKfycbyARSRA8VmCjY9Ax7ZRwG4ZZJ4RYHEVwfXDM_SQfM9U-1nDH4cHWzwMotjWvH9JI7EjBg/exec";
+        const SHOVELS_PROXY = "https://script.google.com/macros/s/AKfycbx_fSsaqWJPclEO-CJ7Ql-MFuSOhMguMijq75Uz4S0Xz-rJGPRe-n6RJop20S4fbMwNGA/exec";
         const FRED_API_KEY = "aefa10f5ba04b679653f16ecace750b5";
         const COURT_LISTENER_KEY = "d69093b10b8c1f1133c5fbef368e89d52517c4a4";
         var fullReportData = null;
