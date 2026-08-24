@@ -47,12 +47,16 @@
         .btn-primary { border: none; color: #05080f; padding: 14px 20px; border-radius: 7px; font-weight: 800; cursor: pointer; text-transform: uppercase; background: var(--cyber-green); font-size: 12px; width: 100%; letter-spacing: 0.03em; }
         .btn-primary:hover { background: #00cc82; }
         .btn-primary:disabled { opacity: 0.5; cursor: wait; }
+        .btn-amber { background: var(--cyber-amber); color: #05080f; }
+        .btn-blue { background: var(--cyber-blue); color: #05080f; }
+        .btn-secondary { border: 1px solid var(--border-hairline); color: var(--text-muted); padding: 12px 16px; border-radius: 7px; font-weight: 700; cursor: pointer; background: transparent; font-size: 11px; width: 100%; }
 
         .form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; width: 100%; }
         .form-group { display: flex; flex-direction: column; gap: 5px; margin-bottom: 12px; width: 100%; }
         label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: #b0bec5; }
         input, select { width: 100%; background-color: #03060c; border: 1px solid #2a3a55; border-radius: 7px; padding: 12px 14px; color: #fff; font-size: 13px; font-family: 'IBM Plex Mono', monospace; outline: none; }
         input:focus, select:focus { border-color: var(--cyber-green); }
+        input.prefilled { background-color: #0a1628; border-color: #1a3a55; }
 
         table { width: 100%; border-collapse: collapse; font-size: 13px; }
         th { font-size: 10px; text-transform: uppercase; color: #cfd8dc; padding: 10px 8px; border-bottom: 2px solid var(--border-hairline); text-align: left; letter-spacing: 0.05em; background: rgba(255,255,255,0.02); }
@@ -72,6 +76,12 @@
         .loss-item { font-size: 13px; color: var(--text-muted); padding: 5px 0; line-height: 1.6; }
         .disclaimer-box { background: rgba(255, 184, 0, 0.03); border: 1px solid rgba(255, 184, 0, 0.2); border-radius: 9px; padding: 14px 18px; margin-bottom: 20px; width: 100%; font-size: 12px; color: var(--text-muted); line-height: 1.6; font-style: italic; }
         .preview-badge { display: inline-block; background: rgba(255,184,0,0.15); border: 1px solid rgba(255,184,0,0.4); color: var(--cyber-amber); padding: 4px 10px; border-radius: 4px; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; }
+        .payment-toggle { display: flex; gap: 8px; margin-bottom: 16px; }
+        .payment-toggle button { flex: 1; padding: 10px; border-radius: 6px; font-weight: 700; cursor: pointer; font-size: 12px; border: 1px solid var(--border-hairline); background: transparent; color: var(--text-muted); }
+        .payment-toggle button.active { border-color: var(--cyber-green); color: var(--cyber-green); background: rgba(0,255,163,0.05); }
+        .payment-card { background: #03060c; border: 1px solid var(--border-hairline); border-radius: 8px; padding: 16px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; line-height: 1.8; margin-bottom: 12px; cursor: pointer; }
+        .payment-card:hover { border-color: var(--cyber-green); }
+        .payment-card h4 { font-size: 12px; font-weight: 800; text-transform: uppercase; color: var(--cyber-amber); margin-bottom: 8px; }
     </style>
 </head>
 <body>
@@ -133,42 +143,77 @@
                         <div><div class="section-label" style="margin:0; color:var(--text-detail);">Preliminary Verdict</div><span id="pv-verdict" class="badge-status" style="font-size:15px;">—</span><span class="preview-badge" style="margin-left:8px;">Free Preview</span></div>
                         <div style="text-align:right;"><div class="section-label" style="margin:0; color:var(--text-detail);">Preliminary Score</div><span id="pv-score" style="font-family:'IBM Plex Mono', monospace; font-size:32px; font-weight:900;">—</span></div>
                     </div>
-
                     <p style="font-size:13px; color:var(--text-muted); margin-bottom:16px;">🔓 <strong>FREE PREVIEW — 3 of 12 Factors Shown</strong></p>
-
                     <table>
                         <tr><th>Factor</th><th>Value</th><th>Weight</th></tr>
                         <tr><td><strong>Rain Saturation</strong><br><span class='factor-explanation' id="pv-rain-desc"></span></td><td id="pv-rain-score"></td><td>15%</td></tr>
                         <tr><td><strong>Market Activity</strong><br><span class='factor-explanation' id="pv-density-desc"></span></td><td id="pv-density-score"></td><td>10%</td></tr>
                         <tr><td><strong>Tech Stack</strong><br><span class='factor-explanation' id="pv-tech-desc"></span></td><td id="pv-tech-score"></td><td>10%</td></tr>
                     </table>
-
                     <div class="loss-box" style="margin-top:20px;">
-                        <div class="loss-title">⚠️ YELLOW LIGHT = HIGHEST RISK ZONE</div>
-                        <div class="loss-item" style="color:#fff; font-weight:600; margin-bottom:8px;">
-                            Green = deploy with confidence.<br>
-                            Red = clearly avoid.<br>
-                            Yellow = YOU DON'T KNOW. And not knowing costs money.
-                        </div>
-                        <div class="loss-item">🔒 Whether competitors are truly absent or operating off-permit</div>
-                        <div class="loss-item">🔒 Whether the hail is actually claim-worthy for commercial roofs</div>
-                        <div class="loss-item">🔒 Whether adjusters will approve or deny in THIS specific ZIP</div>
-                        <div class="loss-item">🔒 How long carriers delay payments in THIS state</div>
-                        <div class="loss-item">🔒 What your true cost per roof will be in THIS area</div>
+                        <div class="loss-title">⚠️ 9 HIDDEN FACTORS — What You're Not Seeing:</div>
+                        <div class="loss-item">🔒 Who is actively mobilizing in your territory</div>
+                        <div class="loss-item">🔒 Whether the storm damage is claim-worthy</div>
+                        <div class="loss-item">🔒 Whether adjusters will approve full replacement</div>
+                        <div class="loss-item">🔒 How long carriers will delay YOUR payments</div>
+                        <div class="loss-item">🔒 What your true cost per roof will be</div>
+                        <div class="loss-item">🔒 Whether local labor can staff your deployment</div>
                         <div class="loss-item">🔒 Whether materials are available on your timeline</div>
-                        <div class="loss-item">🔒 What your actual margin will be — profit or loss?</div>
-                        <div class="loss-item">🔒 When to walk away before losses compound</div>
-
+                        <div class="loss-item">🔒 What your actual margin will be after all costs</div>
+                        <div class="loss-item">🔒 When to withdraw before losses compound</div>
                         <div style="margin-top:16px; padding-top:12px; border-top:1px solid rgba(255,82,82,0.3);">
                             <div style="font-size:14px; font-weight:800; color:#fff;">💰 Value at stake: <span id="loss-gross" style="color:var(--cyber-amber);">—</span></div>
                             <div style="font-size:16px; font-weight:900; color:var(--cyber-red); margin-top:4px;">📉 Cost of being wrong: <span id="loss-amount">—</span></div>
                             <div style="font-size:14px; font-weight:800; color:var(--cyber-green); margin-top:8px;">✅ Cost of knowing: $7,000</div>
                         </div>
                     </div>
+                    <button class="btn-primary" style="margin-top:16px;" onclick="showPaymentScreen()">🔓 Unlock Full Report — $7,000</button>
+                </div>
 
-                    <button class="btn-primary" style="margin-top:16px;" onclick="window.location.href='https://optimaworkflows.github.io/cat-intelligence-pricing/'">
-                        🔓 Resolve the Uncertainty — Get Full Report
-                    </button>
+                <div id="payment-screen" class="card" style="display:none; border-top:4px solid var(--cyber-green);">
+                    <h3 class="section-label" style="margin:0 0 12px; color:var(--cyber-green);">💳 Payment Required</h3>
+                    <p style="font-size:14px; margin-bottom:16px;">Full 12-Factor Report — <strong>$7,000</strong></p>
+                    <div class="payment-toggle">
+                        <button id="btn-ach" class="active" onclick="togglePayment('ACH')">💳 ACH</button>
+                        <button id="btn-fedwire" onclick="togglePayment('FEDWIRE')">⚡ FEDWIRE</button>
+                    </div>
+                    <div id="pay-ach" class="payment-card" onclick="copyPayment('ACH')">
+                        <h4>💳 ACH Transfer — Click to Copy</h4>
+                        <div>Bank: <strong>JPMORGAN CHASE BANK, N.A</strong></div>
+                        <div>Account: <strong>20000045856166</strong></div>
+                        <div>Routing: <strong>028000024</strong></div>
+                        <div>Account Name: <strong>AMIT GUPTA</strong></div>
+                        <div>Reference: <strong>OPT-77421-REPORT</strong></div>
+                    </div>
+                    <div id="pay-fedwire" class="payment-card" style="display:none;" onclick="copyPayment('FEDWIRE')">
+                        <h4>⚡ FEDWIRE Transfer — Click to Copy</h4>
+                        <div>Bank: <strong>JPMORGAN CHASE BANK, N.A</strong></div>
+                        <div>Account: <strong>20000045856166</strong></div>
+                        <div>Routing: <strong>021000021</strong></div>
+                        <div>Account Name: <strong>AMIT GUPTA</strong></div>
+                        <div>Reference: <strong>OPT-77421-REPORT</strong></div>
+                    </div>
+                    <button class="btn-primary" style="margin-top:16px;" onclick="confirmPayment()">✅ I've Made the Payment — Confirm</button>
+                </div>
+
+                <div id="confirmation-screen" class="card" style="display:none; border-top:4px solid var(--cyber-green);">
+                    <div style="text-align:center; padding:20px;">
+                        <div style="font-size:64px;">✅</div>
+                        <h3 style="font-size:20px; font-weight:900; color:var(--cyber-green); margin-bottom:8px;">Payment Confirmed!</h3>
+                        <p style="font-size:14px; color:var(--text-muted);">Your full report is being unlocked.</p>
+                    </div>
+                    <div class="card" style="background:rgba(64,196,255,0.05); border:1px solid rgba(64,196,255,0.3);">
+                        <h4 style="font-size:15px; font-weight:800; color:var(--cyber-blue); margin-bottom:12px;">📊 Weekly Deployment Tracking — $18,750 (15 days)</h4>
+                        <p style="font-size:13px; color:var(--text-muted); margin-bottom:12px; line-height:1.6;">Daily intelligence at 7:00 AM. Competitor alerts, adjuster intel, cash flow forecasts.</p>
+                        <button class="btn-primary btn-blue" onclick="alert('Weekly tracking activated!')">✅ Yes — Add Weekly Tracking</button>
+                        <button class="btn-secondary" style="margin-top:8px;" onclick="alert('You can add later.')">Not Now</button>
+                    </div>
+                    <div class="card" style="background:rgba(255,184,0,0.03); border:1px solid rgba(255,184,0,0.2); margin-top:12px;">
+                        <h4 style="font-size:15px; font-weight:800; color:var(--cyber-amber); margin-bottom:12px;">🌪️ Storm Audit — $3,500/roof</h4>
+                        <p style="font-size:13px; color:var(--text-muted); margin-bottom:12px; line-height:1.6;">Xactimate code audit before submission. Catch errors that cost $50K+.</p>
+                        <button class="btn-primary btn-amber" onclick="alert('Storm audit requested!')">✅ Yes — Add Storm Audit</button>
+                        <button class="btn-secondary" style="margin-top:8px;" onclick="alert('You can add later.')">Not Now</button>
+                    </div>
                 </div>
             </section>
 
@@ -205,8 +250,6 @@
 
     <script>
         var SHOVELS_PROXY = "https://script.google.com/macros/s/AKfycbyARSRA8VmCjY9Ax7ZRwG4ZZJ4RYHEVwfXDM_SQfM9U-1nDH4cHWzwMotjWvH9JI7EjBg/exec";
-        var FRED_API_KEY = "aefa10f5ba04b679653f16ecace750b5";
-        var COURT_LISTENER_KEY = "d69093b10b8c1f1133c5fbef368e89d52517c4a4";
 
         function switchTab(tabId, navElement) {
             var tabs = document.querySelectorAll(".dashboard-tab");
@@ -217,6 +260,26 @@
             if (navElement) navElement.classList.add("active");
         }
         function logout() { alert("Logged out."); }
+        function showPaymentScreen() {
+            document.getElementById("preview-card").style.display = "none";
+            document.getElementById("payment-screen").style.display = "block";
+            document.getElementById("payment-screen").scrollIntoView({behavior:'smooth'});
+        }
+        function togglePayment(method) {
+            document.getElementById("btn-ach").classList.toggle("active", method === "ACH");
+            document.getElementById("btn-fedwire").classList.toggle("active", method === "FEDWIRE");
+            document.getElementById("pay-ach").style.display = method === "ACH" ? "block" : "none";
+            document.getElementById("pay-fedwire").style.display = method === "FEDWIRE" ? "block" : "none";
+        }
+        function copyPayment(method) {
+            var text = method === "ACH" ? "Bank: JPMORGAN CHASE\nAccount: 20000045856166\nRouting: 028000024\nName: AMIT GUPTA" : "Bank: JPMORGAN CHASE\nAccount: 20000045856166\nRouting: 021000021\nName: AMIT GUPTA";
+            navigator.clipboard.writeText(text).then(function() { alert("Payment details copied."); });
+        }
+        function confirmPayment() {
+            document.getElementById("payment-screen").style.display = "none";
+            document.getElementById("confirmation-screen").style.display = "block";
+            document.getElementById("confirmation-screen").scrollIntoView({behavior:'smooth'});
+        }
 
         async function fetchShovels(zip, geoId) {
             try {
@@ -224,32 +287,18 @@
                 var res = await fetch(url); return await res.json();
             } catch(e) { return null; }
         }
-        async function fetchNOAA(zip) {
-            var r = { hailScore: 75, hailSize: "1.50\"" };
-            try {
-                var today = new Date(); var endD = today.toISOString().slice(0,10); var startD = new Date(today.getTime()-365*86400000).toISOString().slice(0,10);
-                var res = await fetch("https://www.ncdc.noaa.gov/stormevents/api/events?startDate=" + startD + "&endDate=" + endD + "&zipcode=" + zip);
-                var data = await res.json();
-                if (data && data.events && data.events.length > 0) {
-                    var maxH = 0; data.events.forEach(function(ev) { if (ev.event_type === "Hail" && ev.magnitude) { var h = parseFloat(ev.magnitude); if (h > maxH) maxH = h; } });
-                    if (maxH > 0) { r.hailSize = maxH + "\""; r.hailScore = maxH >= 2 ? 95 : maxH >= 1.5 ? 85 : maxH >= 1 ? 60 : 35; }
-                }
-            } catch(e) {}
-            return r;
-        }
 
         document.getElementById("triage-form").addEventListener("submit", async function(event) {
             event.preventDefault();
             var btn = document.getElementById("btn-triage"); btn.disabled = true; btn.innerHTML = "Running Analysis...";
             var zip = document.getElementById("frm-zip").value.trim();
-            var intent = document.getElementById("frm-intent").value;
             var tech = document.getElementById("frm-tech").value;
             var rainInput = parseFloat(document.getElementById("frm-rain").value);
-            var lat = 32.85, lon = -96.97, city = "Unknown", state = "TX";
+            var lat = 32.85, lon = -96.97, state = "TX";
             try {
                 var geoRes = await fetch("https://api.zippopotam.us/us/" + zip);
                 var geoData = await geoRes.json();
-                if (geoData && geoData.places && geoData.places.length > 0) { lat = parseFloat(geoData.places[0].latitude); lon = parseFloat(geoData.places[0].longitude); city = geoData.places[0]["place name"]; state = geoData.places[0]["state abbreviation"]; }
+                if (geoData && geoData.places && geoData.places.length > 0) { lat = parseFloat(geoData.places[0].latitude); lon = parseFloat(geoData.places[0].longitude); state = geoData.places[0]["state abbreviation"]; }
             } catch(e1) {}
             var actualRain = rainInput; var rainScore = 50;
             if (rainInput === 0) {
@@ -261,11 +310,9 @@
                 } catch(e2) {}
             }
             if (actualRain >= 1.5) rainScore = 95; else if (actualRain >= 1.0) rainScore = 75; else if (actualRain >= 0.5) rainScore = 50; else rainScore = 25;
-            var noaaData = await fetchNOAA(zip);
             var shovelsData = await fetchShovels(zip, state);
             var compCount = 0; var totalPermits = 0;
             if (shovelsData && shovelsData.permits) { var ids = new Set(); shovelsData.permits.forEach(function(p) { if (p.contractor_id) ids.add(p.contractor_id); }); compCount = ids.size; totalPermits = shovelsData.permits.length; }
-            var compScore = compCount > 30 ? 85 : compCount > 20 ? 65 : compCount > 10 ? 45 : compCount > 5 ? 25 : 15;
             var techScore = tech === "PRO_TECH" ? 95 : 40;
             var densityScore = totalPermits > 30 ? 90 : totalPermits > 20 ? 70 : totalPermits > 10 ? 50 : 30;
 
@@ -284,6 +331,8 @@
             document.getElementById("loss-gross").innerHTML = "$" + (gross/1000000).toFixed(1) + "M";
             document.getElementById("loss-amount").innerHTML = "$" + (loss/1000).toFixed(0) + "K";
             document.getElementById("preview-card").style.display = "block";
+            document.getElementById("payment-screen").style.display = "none";
+            document.getElementById("confirmation-screen").style.display = "none";
             btn.disabled = false; btn.innerHTML = "⚡ Run Analysis";
             document.getElementById("preview-card").scrollIntoView({behavior:'smooth'});
         });
