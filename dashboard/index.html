@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Optima Workflows | CAT Intelligence</title>
+    <title>Optima Workflows | CAT Intelligence Dashboard</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -67,7 +67,6 @@
         .financial-line:last-child { border-bottom: none; }
         .financial-label { font-size: 13px; color: #cfd8dc; font-weight: 600; }
         .financial-value { font-family: 'IBM Plex Mono', monospace; font-size: 15px; font-weight: 700; }
-        .financial-detail { font-size: 11px; color: #78909c; margin-top: 3px; line-height: 1.4; }
         .loss-box { background: rgba(255, 82, 82, 0.03); border: 1px solid rgba(255, 82, 82, 0.3); border-radius: 9px; padding: 20px; margin-bottom: 20px; width: 100%; }
         .loss-title { font-size: 14px; color: var(--cyber-red); font-weight: 800; margin-bottom: 10px; }
         .loss-item { font-size: 13px; color: var(--text-muted); padding: 5px 0; line-height: 1.6; }
@@ -128,35 +127,48 @@
                         <button type="submit" class="btn-primary" id="btn-triage" style="margin-top:16px;">⚡ Run Analysis</button>
                     </form>
                 </div>
+
                 <div id="preview-card" class="card" style="display:none; border-top:4px solid var(--cyber-amber);">
                     <div style="display:flex; justify-content:space-between; gap:12px; border-bottom:1px solid var(--border-hairline); padding-bottom:16px; margin-bottom:20px; flex-wrap:wrap;">
                         <div><div class="section-label" style="margin:0; color:var(--text-detail);">Preliminary Verdict</div><span id="pv-verdict" class="badge-status" style="font-size:15px;">—</span><span class="preview-badge" style="margin-left:8px;">Free Preview</span></div>
                         <div style="text-align:right;"><div class="section-label" style="margin:0; color:var(--text-detail);">Preliminary Score</div><span id="pv-score" style="font-family:'IBM Plex Mono', monospace; font-size:32px; font-weight:900;">—</span></div>
                     </div>
+
                     <p style="font-size:13px; color:var(--text-muted); margin-bottom:16px;">🔓 <strong>FREE PREVIEW — 3 of 12 Factors Shown</strong></p>
+
                     <table>
                         <tr><th>Factor</th><th>Value</th><th>Weight</th></tr>
                         <tr><td><strong>Rain Saturation</strong><br><span class='factor-explanation' id="pv-rain-desc"></span></td><td id="pv-rain-score"></td><td>15%</td></tr>
                         <tr><td><strong>Market Activity</strong><br><span class='factor-explanation' id="pv-density-desc"></span></td><td id="pv-density-score"></td><td>10%</td></tr>
                         <tr><td><strong>Tech Stack</strong><br><span class='factor-explanation' id="pv-tech-desc"></span></td><td id="pv-tech-score"></td><td>10%</td></tr>
                     </table>
+
                     <div class="loss-box" style="margin-top:20px;">
-                        <div class="loss-title">⚠️ 9 HIDDEN FACTORS — What You're Not Seeing:</div>
-                        <div class="loss-item">🔒 Who is actively mobilizing in your territory</div>
-                        <div class="loss-item">🔒 Whether the storm damage is claim-worthy</div>
-                        <div class="loss-item">🔒 Whether adjusters will approve full replacement</div>
-                        <div class="loss-item">🔒 How long carriers will delay YOUR payments</div>
-                        <div class="loss-item">🔒 What your true cost per roof will be</div>
-                        <div class="loss-item">🔒 Whether local labor can staff your deployment</div>
+                        <div class="loss-title">⚠️ YELLOW LIGHT = HIGHEST RISK ZONE</div>
+                        <div class="loss-item" style="color:#fff; font-weight:600; margin-bottom:8px;">
+                            Green = deploy with confidence.<br>
+                            Red = clearly avoid.<br>
+                            Yellow = YOU DON'T KNOW. And not knowing costs money.
+                        </div>
+                        <div class="loss-item">🔒 Whether competitors are truly absent or operating off-permit</div>
+                        <div class="loss-item">🔒 Whether the hail is actually claim-worthy for commercial roofs</div>
+                        <div class="loss-item">🔒 Whether adjusters will approve or deny in THIS specific ZIP</div>
+                        <div class="loss-item">🔒 How long carriers delay payments in THIS state</div>
+                        <div class="loss-item">🔒 What your true cost per roof will be in THIS area</div>
                         <div class="loss-item">🔒 Whether materials are available on your timeline</div>
-                        <div class="loss-item">🔒 What your actual margin will be after all costs</div>
-                        <div class="loss-item">🔒 When to withdraw before losses compound</div>
+                        <div class="loss-item">🔒 What your actual margin will be — profit or loss?</div>
+                        <div class="loss-item">🔒 When to walk away before losses compound</div>
+
                         <div style="margin-top:16px; padding-top:12px; border-top:1px solid rgba(255,82,82,0.3);">
-                            <div style="font-size:14px; font-weight:800; color:#fff;">💰 Value at stake in ZIP <span id="loss-zip" style="color:var(--cyber-amber);">—</span>: <span id="loss-gross" style="color:var(--cyber-amber);">—</span></div>
-                            <div style="font-size:18px; font-weight:900; color:var(--cyber-red); margin-top:4px;">📉 Potential loss without full report: <span id="loss-amount">—</span></div>
+                            <div style="font-size:14px; font-weight:800; color:#fff;">💰 Value at stake: <span id="loss-gross" style="color:var(--cyber-amber);">—</span></div>
+                            <div style="font-size:16px; font-weight:900; color:var(--cyber-red); margin-top:4px;">📉 Cost of being wrong: <span id="loss-amount">—</span></div>
+                            <div style="font-size:14px; font-weight:800; color:var(--cyber-green); margin-top:8px;">✅ Cost of knowing: $7,000</div>
                         </div>
                     </div>
-                    <button class="btn-primary" style="margin-top:16px;" onclick="window.location.href='https://optimaworkflows.github.io/cat-intelligence-pricing/'">🔓 Unlock Full 12-Factor Report — $7,000</button>
+
+                    <button class="btn-primary" style="margin-top:16px;" onclick="window.location.href='https://optimaworkflows.github.io/cat-intelligence-pricing/'">
+                        🔓 Resolve the Uncertainty — Get Full Report
+                    </button>
                 </div>
             </section>
 
@@ -269,7 +281,6 @@
             document.getElementById("pv-verdict").innerHTML = previewVerdict;
             document.getElementById("pv-verdict").className = "badge-status " + (previewScore >= 60 ? "bg-green" : "bg-amber");
             var estRoofs = Math.max(2, Math.round(totalPermits / 2)); var gross = estRoofs * 250000; var loss = Math.round(gross * 0.60);
-            document.getElementById("loss-zip").innerHTML = zip;
             document.getElementById("loss-gross").innerHTML = "$" + (gross/1000000).toFixed(1) + "M";
             document.getElementById("loss-amount").innerHTML = "$" + (loss/1000).toFixed(0) + "K";
             document.getElementById("preview-card").style.display = "block";
