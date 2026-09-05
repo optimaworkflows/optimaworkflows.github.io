@@ -72,7 +72,7 @@
         .financial-line { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #1a2332; }
         .financial-label { font-size: 13px; color: #cfd8dc; font-weight: 600; }
         .financial-value { font-family: 'IBM Plex Mono', monospace; font-size: 15px; font-weight: 700; }
-        .loss-box { background: rgba(255, 82, 82, 0.05); border: 2px solid rgba(255, 82, 82, 0.5); border-radius: 9px; padding: 20px; margin-bottom: 20px; width: 100%; }
+        .loss-box { background: rgba(255, 82, 82, 0.05); border: 2px solid rgba(255, 82, 82, 0.5); border-radius: 9px; padding: 20px; margin-bottom: 20px; width: 100%; overflow: visible; height: auto; }
         .loss-title { font-size: 16px; color: var(--cyber-red); font-weight: 900; margin-bottom: 12px; }
         .loss-item { font-size: 13px; color: var(--text-muted); padding: 6px 0; line-height: 1.7; }
         .loss-big { font-size: 20px; font-weight: 900; color: var(--cyber-red); margin-top: 8px; }
@@ -92,6 +92,24 @@
         .deliverable-list { list-style: none; padding: 0; margin-bottom: 12px; }
         .deliverable-list li { font-size: 13px; color: var(--text-muted); padding: 6px 0; border-bottom: 1px solid #1a2332; }
         .deliverable-list li strong { color: #fff; }
+
+        /* PREVIEW CARD FIX - ensure all content shows */
+        #preview-card {
+            overflow: visible;
+            height: auto;
+            min-height: 400px;
+        }
+        #preview-card table {
+            width: 100%;
+            margin-bottom: 16px;
+        }
+        #preview-card .btn-primary {
+            margin-top: 16px;
+        }
+        #preview-card .loss-box {
+            overflow: visible;
+            height: auto;
+        }
 
         /* Storm Intake Form Styles (embedded) */
         .intake-form-card { background: var(--bg-card); border: 1px solid var(--border-hairline); border-radius: 12px; padding: 36px; margin-top: 20px; }
@@ -295,11 +313,10 @@
                         <div class="loss-item">Wrong codes: <strong>30-50% reduction</strong></div>
                         <div class="loss-big">$33K-$95K PER ROOF LOST</div>
                     </div>
-                    <!-- ✅ This button now reveals the intake form -->
                     <button class="btn-primary btn-amber" onclick="showStormIntake()">🌪️ Proceed to Storm Audit</button>
                 </div>
 
-                <!-- ✅ STORM INTAKE FORM — hidden until button above is clicked -->
+                <!-- STORM INTAKE FORM — hidden until button above is clicked -->
                 <div id="storm-intake-section" style="display:none; margin-top: 30px; border-top: 1px solid var(--border-hairline); padding-top: 30px;">
                     <h2 style="font-size: 22px; font-weight: 800; margin-bottom: 8px;">Submit Your Scope Documents</h2>
                     <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 20px;">Fill in the details below and share your scope documents for code‑compliance review.</p>
@@ -451,7 +468,7 @@
     var subscribedServices = {
         cat_intel: true,
         storm_audit: true,
-        appointment_booking: true,   // Insurance agent module
+        appointment_booking: true,
         vendor_audit: false,
         freight_audit: false,
         chargebacks: false
@@ -466,7 +483,7 @@
             "nav-vendor-audit": subscribedServices.vendor_audit,
             "nav-freight-audit": subscribedServices.freight_audit,
             "nav-chargeback": subscribedServices.chargebacks,
-            "nav-billing": true  // Always show billing
+            "nav-billing": true
         };
 
         for (var id in services) {
@@ -551,14 +568,9 @@
 
     // ===== NEW: Show Storm Intake Form =====
     function showStormIntake() {
-        // Hide the upsell box content (the audit summary)
         var upsellBox = document.querySelector('#weekly-verification .upsell-box');
         if (upsellBox) upsellBox.style.display = 'none';
-        
-        // Show the intake form
         document.getElementById('storm-intake-section').style.display = 'block';
-        
-        // Scroll to it
         document.getElementById('storm-intake-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
@@ -576,7 +588,6 @@
 
         currentZip = zip;
 
-        // Simulate location lookup
         var locationData = {
             "75062": { city: "Irving", state: "TX", density: "High", rainScore: 85, densityScore: 78, techScore: tech === "PRO_TECH" ? 92 : 65 },
             "75201": { city: "Dallas", state: "TX", density: "Very High", rainScore: 72, densityScore: 90, techScore: tech === "PRO_TECH" ? 88 : 60 },
@@ -589,7 +600,6 @@
         currentCity = data.city;
         currentState = data.state;
 
-        // Prefill intake form
         document.getElementById("intake-zip").value = zip;
         document.getElementById("intake-city").value = data.city;
         document.getElementById("intake-state").value = data.state;
@@ -597,7 +607,6 @@
         document.getElementById("intake-contact").value = "Operations Team";
         document.getElementById("intake-email").value = currentEmail;
 
-        // Show preview
         var previewCard = document.getElementById("preview-card");
         previewCard.style.display = "block";
         document.getElementById("pv-location").textContent = data.city + ", " + data.state + " (" + zip + ")";
@@ -621,7 +630,6 @@
         document.getElementById("loss-gross").textContent = "$" + gross.toLocaleString();
         document.getElementById("loss-amount").textContent = "$" + Math.round(gross * 0.65).toLocaleString();
 
-        // Scroll to preview
         previewCard.scrollIntoView({ behavior: "smooth", block: "center" });
     });
 
