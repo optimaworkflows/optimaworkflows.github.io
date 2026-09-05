@@ -281,6 +281,7 @@
                 <button class="btn-primary btn-blue" onclick="showWeeklyVerification()">✅ I've Made Payment — Confirm</button>
             </div>
 
+            <!-- WEEKLY VERIFICATION (upsell box + Storm Intake) -->
             <div id="weekly-verification" class="card" style="display:none; border-top:4px solid var(--cyber-amber);">
                 <div style="text-align:center; padding:20px;">
                     <div style="font-size:48px;">⏳</div>
@@ -294,74 +295,75 @@
                         <div class="loss-item">Wrong codes: <strong>30-50% reduction</strong></div>
                         <div class="loss-big">$33K-$95K PER ROOF LOST</div>
                     </div>
-                    <button class="btn-primary btn-amber" onclick="goToStormAudit()">🌪️ Proceed to Storm Audit</button>
+                    <!-- ✅ This button now reveals the intake form -->
+                    <button class="btn-primary btn-amber" onclick="showStormIntake()">🌪️ Proceed to Storm Audit</button>
                 </div>
-            </div>
 
-            <!-- STORM INTAKE FORM (embedded) -->
-            <div id="storm-intake-section" style="margin-top: 30px; border-top: 1px solid var(--border-hairline); padding-top: 30px;">
-                <h2 style="font-size: 22px; font-weight: 800; margin-bottom: 8px;">Submit Your Scope Documents</h2>
-                <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 20px;">Fill in the details below and share your scope documents for code-compliance review.</p>
-                
-                <div id="intake-form-wrap" class="intake-form-card">
-                    <form id="intakeForm" action="https://docs.google.com/forms/d/e/1FAIpQLSdr7bQSqWc9vQnWawKujiAmaVDOsXC_fTmWPQlqYKRSdHCi0w/formResponse" method="POST" target="hidden_iframe_storm" onsubmit="stormSubmitted=true;">
-                        <div class="form-group">
-                            <label for="intake-company">Company Name</label>
-                            <input type="text" id="intake-company" name="entry.476800857" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="intake-contact">Your Name</label>
-                            <input type="text" id="intake-contact" name="entry.1944912808" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="intake-email">Corporate Email Address</label>
-                            <input type="email" id="intake-email" name="entry.2021031500" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="intake-state">Target Property State</label>
-                            <input type="text" id="intake-state" name="entry.2131427226" placeholder="e.g. TX" maxlength="2" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="intake-city">Local Municipality / City</label>
-                            <input type="text" id="intake-city" name="entry.327565592" placeholder="e.g. Irving" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="intake-zip">ZIP Code <span style="text-transform:none;font-weight:400;">(optional — sharpens jurisdiction lookup)</span></label>
-                            <input type="text" id="intake-zip" name="entry.654630999" placeholder="e.g. 75061">
-                        </div>
-                        <div class="form-group">
-                            <label for="intake-claimref">Claim / Reference Number <span style="text-transform:none;font-weight:400;">(optional)</span></label>
-                            <input type="text" id="intake-claimref" name="entry.513867674" placeholder="Internal claim or job reference">
-                        </div>
-                        <div class="form-group">
-                            <label for="intake-structcount">Number of Structures Covered by This Scope <span style="text-transform:none;font-weight:400;">(optional)</span></label>
-                            <input type="text" id="intake-structcount" name="entry.69411161" placeholder="e.g. 1">
-                            <div class="form-hint">Up to 3 structures under one claim number counts as a single review; each additional structure is billed at 50% of a standard review.</div>
-                        </div>
-                        <div class="form-group">
-                            <label for="intake-scopelink">Secure Scope Document Link (Google Drive)</label>
-                            <input type="text" id="intake-scopelink" name="entry.89385988" placeholder="https://drive.google.com/..." required>
-                            <div class="form-hint">Set sharing to "anyone with the link can view" before pasting it here.</div>
-                            <div class="doc-checklist">
-                                <div class="doc-item"><div class="doc-num">1</div><div><div class="doc-title">Preliminary Carrier Scope of Loss<span class="tag">Required</span></div><div class="doc-desc">The initial adjuster summary PDF — the raw estimate written right after the storm, before any code review.</div></div></div>
-                                <div class="doc-item"><div class="doc-num">2</div><div><div class="doc-title">Contractor's Draft Estimate<span class="tag">Required</span></div><div class="doc-desc">Your own team's scope of work (Xactimate PDF or export) — the document we cross-reference line by line.</div></div></div>
-                                <div class="doc-item"><div class="doc-num">3</div><div><div class="doc-title">Local Jurisdiction Photographic Evidence<span class="tag">Required</span></div><div class="doc-desc">High-resolution photos of roof eaves, gutters, and structural valleys — supports the documented case for code items like drip edge or ice-and-water underlayment.</div></div></div>
+                <!-- ✅ STORM INTAKE FORM — hidden until button above is clicked -->
+                <div id="storm-intake-section" style="display:none; margin-top: 30px; border-top: 1px solid var(--border-hairline); padding-top: 30px;">
+                    <h2 style="font-size: 22px; font-weight: 800; margin-bottom: 8px;">Submit Your Scope Documents</h2>
+                    <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 20px;">Fill in the details below and share your scope documents for code‑compliance review.</p>
+                    
+                    <div id="intake-form-wrap" class="intake-form-card">
+                        <form id="intakeForm" action="https://docs.google.com/forms/d/e/1FAIpQLSdr7bQSqWc9vQnWawKujiAmaVDOsXC_fTmWPQlqYKRSdHCi0w/formResponse" method="POST" target="hidden_iframe_storm" onsubmit="stormSubmitted=true;">
+                            <div class="form-group">
+                                <label for="intake-company">Company Name</label>
+                                <input type="text" id="intake-company" name="entry.476800857" required>
                             </div>
-                        </div>
-                        <label class="consent">
-                            <input type="checkbox" name="entry.1477953076" value="I confirm I have the right to share this data and understand it will be used only to run this review." required>
-                            I confirm I have the right to share this data and understand it will be used only to run this review.
-                        </label>
-                        <button type="submit" class="submit-btn">Submit for Free Findings Snapshot</button>
-                    </form>
+                            <div class="form-group">
+                                <label for="intake-contact">Your Name</label>
+                                <input type="text" id="intake-contact" name="entry.1944912808" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="intake-email">Corporate Email Address</label>
+                                <input type="email" id="intake-email" name="entry.2021031500" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="intake-state">Target Property State</label>
+                                <input type="text" id="intake-state" name="entry.2131427226" placeholder="e.g. TX" maxlength="2" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="intake-city">Local Municipality / City</label>
+                                <input type="text" id="intake-city" name="entry.327565592" placeholder="e.g. Irving" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="intake-zip">ZIP Code <span style="text-transform:none;font-weight:400;">(optional — sharpens jurisdiction lookup)</span></label>
+                                <input type="text" id="intake-zip" name="entry.654630999" placeholder="e.g. 75061">
+                            </div>
+                            <div class="form-group">
+                                <label for="intake-claimref">Claim / Reference Number <span style="text-transform:none;font-weight:400;">(optional)</span></label>
+                                <input type="text" id="intake-claimref" name="entry.513867674" placeholder="Internal claim or job reference">
+                            </div>
+                            <div class="form-group">
+                                <label for="intake-structcount">Number of Structures Covered by This Scope <span style="text-transform:none;font-weight:400;">(optional)</span></label>
+                                <input type="text" id="intake-structcount" name="entry.69411161" placeholder="e.g. 1">
+                                <div class="form-hint">Up to 3 structures under one claim number counts as a single review; each additional structure is billed at 50% of a standard review.</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="intake-scopelink">Secure Scope Document Link (Google Drive)</label>
+                                <input type="text" id="intake-scopelink" name="entry.89385988" placeholder="https://drive.google.com/..." required>
+                                <div class="form-hint">Set sharing to "anyone with the link can view" before pasting it here.</div>
+                                <div class="doc-checklist">
+                                    <div class="doc-item"><div class="doc-num">1</div><div><div class="doc-title">Preliminary Carrier Scope of Loss<span class="tag">Required</span></div><div class="doc-desc">The initial adjuster summary PDF — the raw estimate written right after the storm, before any code review.</div></div></div>
+                                    <div class="doc-item"><div class="doc-num">2</div><div><div class="doc-title">Contractor's Draft Estimate<span class="tag">Required</span></div><div class="doc-desc">Your own team's scope of work (Xactimate PDF or export) — the document we cross-reference line by line.</div></div></div>
+                                    <div class="doc-item"><div class="doc-num">3</div><div><div class="doc-title">Local Jurisdiction Photographic Evidence<span class="tag">Required</span></div><div class="doc-desc">High-resolution photos of roof eaves, gutters, and structural valleys — supports the documented case for code items like drip edge or ice-and-water underlayment.</div></div></div>
+                                </div>
+                            </div>
+                            <label class="consent">
+                                <input type="checkbox" name="entry.1477953076" value="I confirm I have the right to share this data and understand it will be used only to run this review." required>
+                                I confirm I have the right to share this data and understand it will be used only to run this review.
+                            </label>
+                            <button type="submit" class="submit-btn">Submit for Free Findings Snapshot</button>
+                        </form>
+                    </div>
+                    <div id="intake-thankyou" class="thank-you-card">
+                        <div class="thank-you-icon">✓</div>
+                        <h3>Got it — your submission is in the queue.</h3>
+                        <p>Cross‑referencing against current municipal and IRC code begins from here. You'll hear back by email with your free findings snapshot — no cost, no obligation.</p>
+                    </div>
+                    <iframe name="hidden_iframe_storm" id="hidden_iframe_storm" style="display:none;" onload="if(stormSubmitted){document.getElementById('intake-form-wrap').style.display='none';document.getElementById('intake-thankyou').style.display='block';window.scrollTo({top:document.getElementById('intake-thankyou').offsetTop-100,behavior:'smooth'});}"></iframe>
+                    <div class="data-note"><strong>What happens next:</strong> your submission is logged the moment you hit submit, and code‑compliance cross‑referencing begins from there. Your first review is a free findings snapshot, at no cost and no obligation.</div>
                 </div>
-                <div id="intake-thankyou" class="thank-you-card">
-                    <div class="thank-you-icon">✓</div>
-                    <h3>Got it — your submission is in the queue.</h3>
-                    <p>Cross-referencing against current municipal and IRC code begins from here. You'll hear back by email with your free findings snapshot — no cost, no obligation.</p>
-                </div>
-                <iframe name="hidden_iframe_storm" id="hidden_iframe_storm" style="display:none;" onload="if(stormSubmitted){document.getElementById('intake-form-wrap').style.display='none';document.getElementById('intake-thankyou').style.display='block';window.scrollTo({top:document.getElementById('intake-thankyou').offsetTop-100,behavior:'smooth'});}"></iframe>
-                <div class="data-note"><strong>What happens next:</strong> your submission is logged the moment you hit submit, and code-compliance cross-referencing begins from there. Your first review is a free findings snapshot, at no cost and no obligation.</div>
             </div>
         </section>
 
@@ -545,6 +547,19 @@
     function goToStormAudit() {
         switchTab("view-storm-audit", document.querySelector("#nav-storm-audit"));
         document.getElementById("weekly-verification").style.display = "none";
+    }
+
+    // ===== NEW: Show Storm Intake Form =====
+    function showStormIntake() {
+        // Hide the upsell box content (the audit summary)
+        var upsellBox = document.querySelector('#weekly-verification .upsell-box');
+        if (upsellBox) upsellBox.style.display = 'none';
+        
+        // Show the intake form
+        document.getElementById('storm-intake-section').style.display = 'block';
+        
+        // Scroll to it
+        document.getElementById('storm-intake-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
     // ===== CAT INTELLIGENCE TRIAGE =====
