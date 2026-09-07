@@ -517,6 +517,50 @@
 /* Surgical change only: move the Hero bottom ribbon upward by 2px. */
 .trust-strip{transform:translateY(-2px)!important;}
 </style>
+
+<style id="v31-services-viewport-and-nav-label">
+/* V31 — services viewport fit only. No Hero, proof, process, or other section changes. */
+@media (min-width:901px){
+  .services{padding-top:58px!important;padding-bottom:58px!important;}
+  .services .section-head.center{margin-bottom:34px!important;}
+  .services .section-head h2{font-size:clamp(46px,4.6vw,64px)!important;}
+  .services .section-head.center p{margin-top:13px!important;}
+  .services .service-card{min-height:415px!important;padding-bottom:22px!important;}
+  .services .service-card .scene{flex-basis:172px!important;height:172px!important;margin:14px 0!important;}
+  .services .service-card .card-link{padding-top:18px!important;}
+}
+@media (min-width:1181px){
+  .services .service-card{min-height:405px!important;}
+}
+</style>
+
+<style id="optima-dot-circle-cursor">
+/* Surgical addition only: Optima dot + trailing circle cursor. */
+@media (pointer:fine){
+  html,body,*{cursor:none!important}
+  #optima-cursor-dot{
+    position:fixed;left:0;top:0;width:7px;height:7px;border-radius:50%;
+    background:var(--green);box-shadow:0 0 16px rgba(184,255,90,.85);
+    pointer-events:none;z-index:99999;transform:translate(-50%,-50%);
+    will-change:transform;transition:opacity .2s ease,transform .08s linear;
+  }
+  #optima-cursor-ring{
+    position:fixed;left:0;top:0;width:30px;height:30px;border-radius:50%;
+    border:1px solid rgba(184,255,90,.62);box-shadow:0 0 22px rgba(184,255,90,.12);
+    pointer-events:none;z-index:99998;transform:translate(-50%,-50%);
+    will-change:transform;transition:width .22s var(--ease),height .22s var(--ease),
+      border-color .22s ease,opacity .2s ease,transform .16s ease;
+  }
+  #optima-cursor-ring.is-hover{
+    width:42px;height:42px;border-color:rgba(184,255,90,.9);
+  }
+  #optima-cursor-dot.is-down{transform:translate(-50%,-50%) scale(.7)}
+  #optima-cursor-ring.is-down{transform:translate(-50%,-50%) scale(.82)}
+}
+@media (pointer:coarse){
+  #optima-cursor-dot,#optima-cursor-ring{display:none!important}
+}
+</style>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -526,12 +570,12 @@
   <div class="nav-inner shell">
     <a class="brand" href="#top" aria-label="Optima Workflows home"><i></i><span>OPTIMA<br><small>WORKFLOWS</small></span></a>
     <nav class="desktop-nav" aria-label="Primary navigation">
-      <a href="#services">Services</a><a href="#proof">Examples</a><a href="#how-it-works">How It Works</a><a href="#fit">Fit</a><a href="#faq">FAQ</a>
+      <a href="#services">Services</a><a href="#proof">Examples</a><a href="#how-it-works">How It Works</a><a href="#fit">Are you a Fit</a><a href="#faq">FAQ</a>
     </nav>
     <a class="btn btn-primary nav-btn" href="#trial-form">Start Free Audit <span>↗</span></a>
     <button class="menu-btn" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
   </div>
-  <div class="mobile-nav" aria-hidden="true"><a href="#services">Services</a><a href="#proof">Examples</a><a href="#how-it-works">How It Works</a><a href="#fit">Fit</a><a href="#faq">FAQ</a><a class="btn btn-primary" href="#trial-form">Start Free Audit ↗</a></div>
+  <div class="mobile-nav" aria-hidden="true"><a href="#services">Services</a><a href="#proof">Examples</a><a href="#how-it-works">How It Works</a><a href="#fit">Are you a Fit</a><a href="#faq">FAQ</a><a class="btn btn-primary" href="#trial-form">Start Free Audit ↗</a></div>
 </header>
 
 <main id="main">
@@ -621,7 +665,7 @@
 
 <section class="cta-section" id="trial-form"><div class="cta-glow"></div><div class="shell cta-grid"><div class="cta-copy"><div class="eyebrow reveal">THE FIRST STEP IS FREE.</div><h2 class="reveal">Find out what's sitting in your data.</h2><p class="reveal">Send the first batch. We'll look for discrepancies, document what we find, and tell you whether there's anything worth pursuing.</p><div class="cta-points reveal"><span>No upfront fee</span><span>No sales call required</span><span>No obligation to continue</span></div></div><div class="trial-card reveal"><div class="trial-screen"><small>RECOVERABLE VALUE</small><b id="trialValue">$ ?</b><span>waiting to be measured</span></div><form action="https://formspree.io/f/YOUR_FORM_ID" method="POST"><div class="form-row"><label><span>Name</span><input type="text" name="name" autocomplete="name" required></label><label><span>Email</span><input type="email" name="email" autocomplete="email" required></label></div><div class="form-row"><label><span>Business / industry</span><input type="text" name="industry" autocomplete="organization" required></label><label><span>Service</span><select name="service" required><option value="" selected disabled>Select a service</option><option>Vendor &amp; Invoice Overbilling Audit</option><option>Live Lead Booking &amp; Reactivation</option><option>Freight Invoice &amp; Accessorial Audit</option><option>Retail Chargeback Dispute Recovery</option><option>Storm Damage Verification &amp; Code-Compliance Supplement Audit</option></select></label></div><label><span>What are you looking to solve?</span><textarea name="message" rows="4"></textarea></label><button class="btn btn-primary" type="submit">Start With No Cost <span>→</span></button><small class="form-note">Your first audit is the test. The evidence decides what happens next.</small></form></div></div></section>
 
-<section class="final"><div class="shell"><div class="eyebrow reveal">ONE LAST QUESTION.</div><h2 class="reveal">There may be money<br>in your data. <em>Find out.</em></h2><p class="reveal">This isn't a sales pitch. It's a look at what your own records may already be telling you.</p><a class="btn btn-primary reveal" href="#trial-form">Start a Free Audit <span>↗</span></a></div></section>
+<section class="final"><div class="shell"><div class="eyebrow reveal">JUST TO REMIND YOU.</div><h2 class="reveal">There may be money<br>in your data. <em>Find out.</em></h2><p class="reveal">This isn't a sales pitch. It's a look at what your own records may already be telling you.</p><a class="btn btn-primary reveal" href="#trial-form">Start a Free Audit <span>↗</span></a></div></section>
 </main>
 
 <footer class="footer"><div class="shell footer-grid"><div><a class="brand" href="#top"><i></i><span>OPTIMA<br><small>WORKFLOWS</small></span></a><p>Find the money hiding in your existing data.</p><small>© 2026 Optima Workflows. All Rights Reserved.</small></div><nav aria-label="Footer navigation"><a href="#services">Services</a><a href="#proof">Examples</a><a href="#how-it-works">How It Works</a><a href="#fit">Fit</a><a href="#faq">FAQ</a><a href="#trial-form">Start an Audit</a></nav></div></footer>
@@ -760,6 +804,55 @@
 .trial-screen span { color:#b7c3c7; }
 .form-note { color:#c3cdd1; }
 </style>
+
+<script id="optima-dot-circle-cursor-js">
+/* Surgical addition only: dot follows pointer; ring follows with a soft trailing motion. */
+(function(){
+  if (!window.matchMedia('(pointer:fine)').matches) return;
+  const dot=document.createElement('div');
+  const ring=document.createElement('div');
+  dot.id='optima-cursor-dot';
+  ring.id='optima-cursor-ring';
+  document.body.append(dot,ring);
+
+  let x=window.innerWidth/2,y=window.innerHeight/2;
+  let rx=x,ry=y;
+  let raf=0;
+
+  function move(e){
+    x=e.clientX; y=e.clientY;
+    dot.style.transform='translate3d('+x+'px,'+y+'px,0) translate(-50%,-50%)';
+    if(!raf) raf=requestAnimationFrame(trail);
+  }
+  function trail(){
+    raf=0;
+    rx += (x-rx)*0.16;
+    ry += (y-ry)*0.16;
+    ring.style.transform='translate3d('+rx+'px,'+ry+'px,0) translate(-50%,-50%)';
+    if(Math.abs(x-rx)+Math.abs(y-ry)>0.2) raf=requestAnimationFrame(trail);
+  }
+  function hover(on){ ring.classList.toggle('is-hover',on); }
+  function down(on){
+    dot.classList.toggle('is-down',on);
+    ring.classList.toggle('is-down',on);
+  }
+
+  document.addEventListener('pointermove',move,{passive:true});
+  document.addEventListener('pointerover',function(e){
+    const t=e.target;
+    hover(!!t.closest('a,button,input,select,textarea,summary,[role="button"]'));
+  },{passive:true});
+  document.addEventListener('pointerdown',function(){down(true)},{passive:true});
+  document.addEventListener('pointerup',function(){down(false)},{passive:true});
+  document.addEventListener('pointercancel',function(){down(false)},{passive:true});
+  document.addEventListener('mouseleave',function(){
+    dot.style.opacity='0'; ring.style.opacity='0';
+  });
+  document.addEventListener('mouseenter',function(){
+    dot.style.opacity='1'; ring.style.opacity='1';
+  });
+})();
+</script>
 </body>
 </html>
 
