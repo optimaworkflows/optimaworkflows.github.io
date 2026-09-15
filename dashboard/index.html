@@ -6,7 +6,7 @@
 <title>Optima Workflows | CAT Intelligence Dashboard</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
     :root {
         --bg-deep: #05080f;
@@ -19,22 +19,6 @@
         --cyber-amber: #ffb800;
         --cyber-red: #ff5252;
         --cyber-blue: #40c4ff;
-        --pop-bg:#090b0e;
-        --pop-panel:#12161c;
-        --pop-panel-2:#171c23;
-        --pop-line: rgba(236,233,225,0.09);
-        --pop-line-strong: rgba(236,233,225,0.16);
-        --pop-text:#FBFAF6;
-        --pop-text-dim:#CDD5D9;
-        --pop-text-dimmer:#98A2AA;
-        --pop-amber:#ff9248;
-        --pop-amber-dim: rgba(255,146,72,0.15);
-        --pop-cyan:#4fd8c7;
-        --pop-cyan-dim: rgba(79,216,199,0.13);
-        --pop-risk:#e5573f;
-        --pop-risk-dim: rgba(229,87,63,0.13);
-        --pop-good:#7fd88f;
-        --pop-radius: 3px;
         --pop-ease: cubic-bezier(.19,1,.22,1);
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -140,12 +124,11 @@
     .thank-you-card p { font-size: 14px; color: var(--text-muted); max-width: 440px; margin: 0 auto; }
 
     /* ============================================================
-       PREMIUM POP-UP REDESIGN
-       Editorial cream + serif + amber accent.
+       POP-UP — Dashboard theme (dark + cyan + amber + mono)
        ============================================================ */
     .cat-popup-overlay {
         position: fixed; inset: 0; z-index: 10000;
-        background: rgba(8, 7, 5, 0.92);
+        background: rgba(3, 6, 10, 0.88);
         display: none;
         align-items: flex-start;
         justify-content: center;
@@ -153,225 +136,243 @@
         overflow-y: auto;
         opacity: 0;
         transition: opacity 0.35s var(--pop-ease);
-        -webkit-backdrop-filter: blur(10px);
-        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(8px);
+        backdrop-filter: blur(8px);
     }
     .cat-popup-overlay.is-open { display: flex; }
     .cat-popup-overlay.is-visible { opacity: 1; }
+    .cat-popup-overlay::before {
+        content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 1; opacity: 0.028; mix-blend-mode: overlay;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+    .cat-popup-overlay::after {
+        content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 1;
+        background: radial-gradient(ellipse at 50% 40%, transparent 45%, rgba(3,6,10,0.6) 100%);
+    }
 
     .cat-popup {
         position: relative;
         z-index: 2;
         width: 100%;
         max-width: 720px;
-        background-color: #F5F1E8;
-        background-image:
-            radial-gradient(circle at 20% 10%, rgba(200, 134, 45, 0.06), transparent 40%),
-            radial-gradient(circle at 80% 90%, rgba(120, 90, 40, 0.04), transparent 40%),
-            url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
-        border: 1px solid rgba(120, 90, 40, 0.28);
-        border-radius: 2px;
-        padding: 56px 60px 48px;
-        color: #1E1A14;
+        background: linear-gradient(165deg, #0c1220 0%, #070b13 100%);
+        border: 1px solid #1f2b3d;
+        border-radius: 14px;
+        padding: 42px 46px 38px;
+        color: #fff;
         box-shadow:
-            0 60px 120px -40px rgba(0, 0, 0, 0.7),
-            0 0 0 1px rgba(255, 255, 255, 0.4) inset,
-            0 0 0 8px rgba(245, 241, 232, 0.04);
+            0 40px 90px -30px rgba(0, 0, 0, 0.85),
+            0 0 0 1px rgba(255, 255, 255, 0.02) inset,
+            0 0 60px -30px rgba(0, 255, 163, 0.08);
         transform: scale(0.94) translateY(12px);
         opacity: 0;
         transition: transform 0.5s var(--pop-ease), opacity 0.4s var(--pop-ease);
         font-family: 'Inter', system-ui, sans-serif;
+        overflow: hidden;
     }
     .cat-popup-overlay.is-visible .cat-popup {
         transform: scale(1) translateY(0);
         opacity: 1;
     }
-    .cat-popup::after {
-        content: '';
-        position: absolute;
-        inset: 12px;
-        border: 1px solid rgba(120, 90, 40, 0.14);
-        pointer-events: none;
-        border-radius: 1px;
+    /* Top accent line — amber gradient */
+    .cat-popup::before {
+        content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+        background: linear-gradient(90deg, var(--cyber-amber), rgba(255, 184, 0, 0.2) 60%, transparent);
     }
-    .cat-popup::before { display: none; }
-    .cat-popup .pop-corner { display: none; }
+    /* Corner brackets */
+    .cat-popup .pop-corner {
+        position: absolute; width: 18px; height: 18px;
+        border-color: var(--cyber-blue); opacity: 0.55; pointer-events: none; z-index: 3;
+    }
+    .cat-popup .pop-corner.tl { top: 10px; left: 10px; border-top: 1.5px solid; border-left: 1.5px solid; }
+    .cat-popup .pop-corner.tr { top: 10px; right: 10px; border-top: 1.5px solid; border-right: 1.5px solid; }
+    .cat-popup .pop-corner.bl { bottom: 10px; left: 10px; border-bottom: 1.5px solid; border-left: 1.5px solid; }
+    .cat-popup .pop-corner.br { bottom: 10px; right: 10px; border-bottom: 1.5px solid; border-right: 1.5px solid; }
 
     .cat-popup-close {
         position: absolute;
-        top: 20px; right: 20px;
-        width: 36px; height: 36px;
-        border: 1px solid rgba(120, 90, 40, 0.25);
-        color: #6B5A40;
+        top: 16px; right: 16px;
+        width: 34px; height: 34px;
+        border: 1px solid var(--border-hairline);
+        color: var(--text-muted);
         background: transparent;
         font-size: 14px;
-        border-radius: 50%;
+        border-radius: 6px;
         transition: all 0.25s ease;
-        z-index: 3;
+        z-index: 4;
         cursor: pointer;
         display: flex; align-items: center; justify-content: center;
         font-family: 'Inter', sans-serif;
     }
     .cat-popup-close:hover {
-        border-color: #C8862D;
-        color: #C8862D;
-        background: rgba(200, 134, 45, 0.08);
+        border-color: var(--cyber-amber);
+        color: var(--cyber-amber);
+        background: rgba(255, 184, 0, 0.06);
     }
 
     .pop-kicker {
         display: flex; align-items: center; gap: 12px;
-        color: #8B6B2E;
-        font-family: 'Inter', sans-serif;
+        color: var(--cyber-green);
+        font-family: 'IBM Plex Mono', monospace;
         font-size: 10.5px;
-        letter-spacing: 0.22em;
+        letter-spacing: 0.18em;
         font-weight: 700;
         text-transform: uppercase;
-        margin-bottom: 20px;
+        margin-bottom: 22px;
     }
-    .pop-kicker .line { background: #C8862D; width: 32px; height: 1px; opacity: 1; }
+    .pop-kicker .line { background: var(--cyber-green); width: 28px; height: 1px; opacity: 0.7; }
 
     .pop-check {
         width: 44px; height: 44px;
-        background: transparent;
-        border: 1px solid #C8862D;
-        color: #C8862D;
+        background: rgba(0, 255, 163, 0.08);
+        border: 1px solid rgba(0, 255, 163, 0.4);
+        color: var(--cyber-green);
         font-size: 18px;
-        font-weight: 500;
-        margin-bottom: 24px;
+        font-weight: 700;
+        margin-bottom: 22px;
         border-radius: 50%;
         display: flex; align-items: center; justify-content: center;
+        box-shadow: 0 0 24px -8px rgba(0, 255, 163, 0.5);
     }
 
     .pop-headline {
-        font-family: 'Playfair Display', Georgia, serif;
-        font-weight: 600;
-        font-size: clamp(2.1rem, 4.6vw, 3rem);
-        line-height: 1.05;
-        letter-spacing: -0.015em;
-        color: #1A1611;
-        margin: 0 0 14px;
+        font-size: clamp(1.9rem, 4.2vw, 2.55rem);
+        font-weight: 800;
+        line-height: 1.12;
+        letter-spacing: -0.025em;
+        color: #fff;
+        margin: 0 0 16px;
+        font-family: 'Inter', sans-serif;
     }
-    .pop-headline .accent { color: #C8862D; }
+    .pop-headline .accent {
+        color: var(--cyber-amber);
+        background: linear-gradient(135deg, #ffb800, #ff9248);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
 
     .pop-sub {
-        font-size: 15px;
-        color: #4A4033;
+        font-size: 14.5px;
+        color: var(--text-muted);
         line-height: 1.65;
-        margin: 0 0 28px;
+        margin: 0 0 26px;
         max-width: 60ch;
     }
+    .pop-sub b { color: #fff; font-weight: 600; }
 
     .pop-truth {
-        border-left: 2px solid #C8862D;
-        background: rgba(200, 134, 45, 0.07);
-        padding: 20px 24px;
-        margin: 0 0 28px;
-        border-radius: 0;
+        border-left: 2px solid var(--cyber-amber);
+        background: linear-gradient(90deg, rgba(255, 184, 0, 0.08), rgba(255, 184, 0, 0.02));
+        padding: 18px 22px;
+        margin: 0 0 26px;
+        border-radius: 0 8px 8px 0;
     }
     .pop-truth .truth-label {
-        color: #8B6B2E;
-        font-family: 'Inter', sans-serif;
-        font-size: 10.5px;
-        letter-spacing: 0.18em;
+        color: var(--cyber-amber);
+        font-family: 'IBM Plex Mono', monospace;
+        font-size: 10px;
+        letter-spacing: 0.16em;
         font-weight: 700;
         margin-bottom: 8px;
         text-transform: uppercase;
     }
     .pop-truth p {
-        color: #2A2419;
-        font-size: 15px;
-        line-height: 1.6;
+        color: #d7dee4;
+        font-size: 14px;
+        line-height: 1.65;
         margin: 0;
     }
+    .pop-truth p b { color: #fff; font-weight: 600; }
 
     .pop-loss {
-        border: 1px solid rgba(180, 60, 40, 0.28);
-        background: rgba(180, 60, 40, 0.05);
-        border-radius: 2px;
-        padding: 22px 26px;
-        margin: 0 0 28px;
+        border: 1px solid rgba(255, 82, 82, 0.35);
+        background: rgba(255, 82, 82, 0.05);
+        border-radius: 10px;
+        padding: 20px 24px;
+        margin: 0 0 26px;
     }
     .pop-loss-title {
-        color: #A23A26;
-        font-family: 'Inter', sans-serif;
+        color: var(--cyber-red);
+        font-family: 'IBM Plex Mono', monospace;
         font-size: 10.5px;
-        letter-spacing: 0.18em;
-        font-weight: 700;
+        letter-spacing: 0.16em;
+        font-weight: 800;
         margin-bottom: 14px;
         text-transform: uppercase;
     }
     .pop-loss-item {
-        color: #3A2F22;
-        font-size: 14px;
-        padding: 7px 0;
-        border-bottom: 1px solid rgba(180, 60, 40, 0.12);
+        color: #c9d2d8;
+        font-size: 13.5px;
+        padding: 9px 0;
+        border-bottom: 1px solid rgba(255, 82, 82, 0.14);
         display: flex;
         justify-content: space-between;
         gap: 12px;
     }
     .pop-loss-item:last-of-type { border-bottom: none; }
     .pop-loss-item .num {
-        font-family: 'Playfair Display', serif;
-        font-weight: 600;
-        color: #A23A26;
-        font-size: 16px;
+        font-family: 'IBM Plex Mono', monospace;
+        font-weight: 800;
+        color: var(--cyber-red);
+        font-size: 14.5px;
         white-space: nowrap;
     }
     .pop-loss-total {
         margin-top: 14px;
         padding-top: 14px;
-        border-top: 1px solid rgba(180, 60, 40, 0.28);
+        border-top: 1px solid rgba(255, 82, 82, 0.35);
         display: flex;
         justify-content: space-between;
         align-items: baseline;
     }
     .pop-loss-total .lbl {
-        color: #4A4033;
+        color: #b0bec5;
         font-size: 13px;
     }
     .pop-loss-total .val {
-        font-family: 'Playfair Display', serif;
-        font-weight: 700;
-        font-size: 1.75rem;
-        color: #A23A26;
+        font-family: 'IBM Plex Mono', monospace;
+        font-weight: 900;
+        font-size: 1.65rem;
+        color: var(--cyber-red);
         letter-spacing: -0.01em;
     }
 
     .pop-offer {
-        border: 1px solid rgba(120, 90, 40, 0.28);
-        background: rgba(255, 255, 255, 0.5);
-        padding: 26px 28px;
-        margin: 0 0 28px;
-        border-radius: 2px;
+        border: 1px solid rgba(64, 196, 255, 0.28);
+        background: linear-gradient(165deg, rgba(64, 196, 255, 0.06), rgba(11, 16, 27, 0.4));
+        padding: 24px 26px;
+        margin: 0 0 26px;
+        border-radius: 10px;
         position: relative;
+        overflow: hidden;
     }
     .pop-offer::before {
         content: '';
         position: absolute;
         top: 0; left: 0; right: 0;
         height: 2px;
-        background: #C8862D;
+        background: linear-gradient(90deg, var(--cyber-blue), transparent);
     }
     .pop-offer-label {
-        color: #8B6B2E;
-        font-family: 'Inter', sans-serif;
-        font-size: 10.5px;
-        letter-spacing: 0.18em;
-        font-weight: 700;
+        color: var(--cyber-blue);
+        font-family: 'IBM Plex Mono', monospace;
+        font-size: 10px;
+        letter-spacing: 0.16em;
+        font-weight: 800;
         margin-bottom: 8px;
         text-transform: uppercase;
     }
     .pop-offer-title {
-        font-family: 'Playfair Display', Georgia, serif;
-        font-weight: 600;
-        font-size: 1.75rem;
-        color: #1A1611;
+        font-size: 1.6rem;
+        font-weight: 800;
+        color: #fff;
         margin: 0 0 8px;
-        letter-spacing: -0.01em;
+        letter-spacing: -0.02em;
     }
     .pop-offer-desc {
-        color: #4A4033;
-        font-size: 14px;
+        color: var(--text-muted);
+        font-size: 13.5px;
         line-height: 1.6;
         margin: 0 0 18px;
     }
@@ -379,148 +380,149 @@
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 12px;
-        margin-bottom: 18px;
+        margin-bottom: 16px;
     }
     .pop-phase {
-        border: 1px solid rgba(120, 90, 40, 0.2);
-        background: rgba(245, 241, 232, 0.6);
-        padding: 16px 18px;
-        border-radius: 2px;
+        border: 1px solid rgba(64, 196, 255, 0.2);
+        background: rgba(3, 6, 12, 0.5);
+        padding: 14px 16px;
+        border-radius: 8px;
     }
     .pop-phase-label {
-        color: #6B5A40;
-        font-family: 'Inter', sans-serif;
+        color: var(--cyber-blue);
+        font-family: 'IBM Plex Mono', monospace;
         font-size: 10px;
-        letter-spacing: 0.14em;
-        font-weight: 700;
+        letter-spacing: 0.12em;
+        font-weight: 800;
         text-transform: uppercase;
         margin-bottom: 6px;
     }
     .pop-phase-amount {
-        font-family: 'Playfair Display', Georgia, serif;
-        font-weight: 700;
-        font-size: 1.6rem;
-        color: #C8862D;
+        font-family: 'IBM Plex Mono', monospace;
+        font-weight: 900;
+        font-size: 1.45rem;
+        color: var(--cyber-amber);
         line-height: 1;
-        letter-spacing: -0.015em;
+        letter-spacing: -0.02em;
     }
     .pop-phase-note {
-        color: #6B5A40;
+        color: var(--text-detail);
         font-size: 11.5px;
         margin-top: 6px;
         line-height: 1.45;
     }
     .pop-offer-total {
-        padding-top: 16px;
-        border-top: 1px solid rgba(120, 90, 40, 0.2);
+        padding-top: 14px;
+        border-top: 1px solid rgba(64, 196, 255, 0.2);
         display: flex;
         justify-content: space-between;
         align-items: baseline;
     }
     .pop-offer-total .lbl {
-        color: #4A4033;
+        color: #b0bec5;
         font-size: 13px;
     }
     .pop-offer-total .val {
-        font-family: 'Playfair Display', Georgia, serif;
-        font-weight: 700;
-        font-size: 1.8rem;
-        color: #C8862D;
-        letter-spacing: -0.015em;
+        font-family: 'IBM Plex Mono', monospace;
+        font-weight: 900;
+        font-size: 1.6rem;
+        color: var(--cyber-amber);
+        letter-spacing: -0.02em;
     }
 
     .pop-zone-def {
-        border: 1px solid rgba(120, 90, 40, 0.2);
-        background: rgba(255, 255, 255, 0.35);
+        border: 1px solid var(--border-hairline);
+        border-left: 2px solid var(--cyber-blue);
+        background: rgba(64, 196, 255, 0.04);
         padding: 18px 22px;
-        margin: 0 0 28px;
-        border-radius: 2px;
-        border-left: 2px solid #C8862D;
+        margin: 0 0 26px;
+        border-radius: 0 8px 8px 0;
     }
     .pop-zone-def .zd-label {
-        color: #8B6B2E;
-        font-family: 'Inter', sans-serif;
-        font-size: 10.5px;
-        letter-spacing: 0.18em;
-        font-weight: 700;
+        color: var(--cyber-blue);
+        font-family: 'IBM Plex Mono', monospace;
+        font-size: 10px;
+        letter-spacing: 0.16em;
+        font-weight: 800;
         margin-bottom: 6px;
         text-transform: uppercase;
     }
     .pop-zone-def p {
-        color: #3A2F22;
+        color: #c9d2d8;
         font-size: 13.5px;
-        line-height: 1.6;
+        line-height: 1.65;
         margin: 0;
     }
-    .pop-zone-def b { color: #1A1611; font-weight: 600; }
+    .pop-zone-def b { color: #fff; font-weight: 600; }
 
-    .pop-checklist { list-style: none; padding: 0; margin: 0 0 28px; }
+    .pop-checklist { list-style: none; padding: 0; margin: 0 0 26px; }
     .pop-checklist li {
-        color: #3A2F22;
-        font-size: 14.5px;
-        padding: 10px 0 10px 32px;
+        color: #c9d2d8;
+        font-size: 14px;
+        padding: 12px 0 12px 32px;
         position: relative;
-        border-bottom: 1px solid rgba(120, 90, 40, 0.12);
+        border-bottom: 1px solid var(--border-hairline);
         line-height: 1.55;
     }
     .pop-checklist li:last-child { border-bottom: none; }
     .pop-checklist li::before {
         content: '✓';
         position: absolute;
-        left: 0; top: 9px;
-        color: #C8862D;
-        font-weight: 500;
-        font-size: 15px;
+        left: 0; top: 11px;
+        color: var(--cyber-green);
+        font-weight: 800;
+        font-size: 14px;
     }
-    .pop-checklist li b { color: #1A1611; font-weight: 600; }
+    .pop-checklist li b { color: #fff; font-weight: 600; }
 
     .pop-disclaimer {
-        color: #6B5A40;
+        color: var(--text-detail);
         font-size: 11.5px;
         line-height: 1.6;
         padding: 14px 18px;
-        border: 1px solid rgba(120, 90, 40, 0.18);
-        background: rgba(255, 255, 255, 0.3);
-        border-radius: 2px;
-        margin: 0 0 28px;
+        border: 1px solid var(--border-hairline);
+        background: rgba(3, 6, 12, 0.4);
+        border-radius: 8px;
+        margin: 0 0 26px;
     }
-    .pop-disclaimer b { color: #4A4033; font-weight: 600; }
+    .pop-disclaimer b { color: var(--text-muted); font-weight: 600; }
 
     .pop-actions {
         display: flex;
-        gap: 14px;
+        gap: 12px;
         flex-wrap: wrap;
-        margin-top: 8px;
+        margin-top: 4px;
     }
     .pop-btn {
         display: inline-flex;
         align-items: center;
         justify-content: center;
         gap: 10px;
-        padding: 16px 26px;
+        padding: 15px 26px;
         font-family: 'Inter', sans-serif;
-        font-size: 14px;
-        font-weight: 600;
-        letter-spacing: 0.005em;
-        border-radius: 2px;
+        font-size: 13.5px;
+        font-weight: 800;
+        letter-spacing: 0.02em;
+        text-transform: uppercase;
+        border-radius: 8px;
         cursor: pointer;
         transition: all 0.3s cubic-bezier(.19,1,.22,1);
         border: 1px solid transparent;
         flex: 1 1 auto;
-        min-width: 200px;
+        min-width: 220px;
         text-decoration: none;
     }
     .pop-btn-primary {
-        background: #C8862D;
-        color: #FBF7EE;
-        border-color: #C8862D;
-        box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 12px 28px -12px rgba(200, 134, 45, 0.6);
+        background: var(--cyber-amber);
+        color: #05080f;
+        border-color: var(--cyber-amber);
+        box-shadow: 0 10px 30px -12px rgba(255, 184, 0, 0.6);
     }
     .pop-btn-primary:hover {
-        background: #B37625;
-        border-color: #B37625;
-        transform: translateY(-1px);
-        box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 18px 36px -12px rgba(200, 134, 45, 0.75);
+        background: #ffc933;
+        border-color: #ffc933;
+        transform: translateY(-2px);
+        box-shadow: 0 16px 40px -12px rgba(255, 184, 0, 0.75);
     }
     .pop-btn-primary svg {
         width: 14px; height: 14px;
@@ -530,22 +532,23 @@
 
     .pop-btn-ghost {
         background: transparent;
-        color: #4A4033;
-        border-color: rgba(120, 90, 40, 0.3);
+        color: var(--text-muted);
+        border-color: var(--border-hairline);
     }
     .pop-btn-ghost:hover {
-        border-color: #8B6B2E;
-        color: #1A1611;
-        background: rgba(200, 134, 45, 0.06);
+        border-color: var(--cyber-blue);
+        color: var(--cyber-blue);
+        background: rgba(64, 196, 255, 0.05);
     }
 
     @media(max-width: 640px) {
         .cat-popup-overlay { padding: 32px 16px; }
-        .cat-popup { padding: 40px 28px 32px; }
-        .cat-popup-close { top: 14px; right: 14px; width: 32px; height: 32px; }
-        .pop-headline { font-size: clamp(1.6rem, 6.4vw, 2.1rem); }
+        .cat-popup { padding: 34px 24px 28px; border-radius: 10px; }
+        .cat-popup-close { top: 12px; right: 12px; width: 30px; height: 30px; }
+        .cat-popup .pop-corner { display: none; }
+        .pop-headline { font-size: clamp(1.5rem, 6vw, 2rem); }
         .pop-offer-phases { grid-template-columns: 1fr; }
-        .pop-btn { min-width: 0; flex: 1 1 100%; }
+        .pop-btn { min-width: 0; flex: 1 1 100%; font-size: 12.5px; }
     }
 </style>
 </head>
@@ -872,11 +875,13 @@
 
 <div class="cat-popup-overlay" id="popup-post-payment" role="dialog" aria-modal="true">
     <div class="cat-popup">
+        <span class="pop-corner tl"></span><span class="pop-corner tr"></span>
+        <span class="pop-corner bl"></span><span class="pop-corner br"></span>
         <button class="cat-popup-close" onclick="closePopup('popup-post-payment')" aria-label="Close">✕</button>
 
         <div class="pop-kicker"><span class="line"></span>Payment received · Full report unlocked</div>
         <div class="pop-check">✓</div>
-        <h2 class="pop-headline">Thank you. Your report is being built.</h2>
+        <h2 class="pop-headline">Thank you. Your report is <span class="accent">being built.</span></h2>
         <p class="pop-sub">We've received your $7,000 for the full Commercial CAT Intelligence report on <b id="pop1-zone-label">this zone</b>. Our team verifies within 2 business hours — then the full scored intel lands in your dashboard.</p>
 
         <div class="pop-zone-def">
@@ -909,7 +914,7 @@
                 </div>
                 <div class="pop-phase">
                     <div class="pop-phase-label">Phase 2 · Days 16+</div>
-                    <div class="pop-phase-amount">$8,750<span style="font-size:0.7em;">/week</span></div>
+                    <div class="pop-phase-amount">$8,750<span style="font-size:0.7em;">/wk</span></div>
                     <div class="pop-phase-note">Weekly cadence · retainer continues</div>
                 </div>
             </div>
@@ -921,7 +926,7 @@
         </div>
 
         <div class="pop-actions">
-            <button class="pop-btn pop-btn-primary" onclick="proceedToWeeklyFromPopup()">Proceed to Weekly Payment<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 8h10M9 4l4 4-4 4"/></svg></button>
+            <button class="pop-btn pop-btn-primary" onclick="proceedToWeeklyFromPopup()">Proceed to Weekly Payment<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h10M9 4l4 4-4 4"/></svg></button>
             <button class="pop-btn pop-btn-ghost" onclick="closePopup('popup-post-payment')">Not Now</button>
         </div>
     </div>
@@ -929,11 +934,13 @@
 
 <div class="cat-popup-overlay" id="popup-post-weekly" role="dialog" aria-modal="true">
     <div class="cat-popup">
+        <span class="pop-corner tl"></span><span class="pop-corner tr"></span>
+        <span class="pop-corner bl"></span><span class="pop-corner br"></span>
         <button class="cat-popup-close" onclick="closePopup('popup-post-weekly')" aria-label="Close">✕</button>
 
         <div class="pop-kicker"><span class="line"></span>Payment received · Weekly tracking live</div>
         <div class="pop-check">✓</div>
-        <h2 class="pop-headline">Thank you. Your weekly tracking is now active.</h2>
+        <h2 class="pop-headline">Thank you. Your weekly tracking is <span class="accent">now active.</span></h2>
         <p class="pop-sub">Phase 1 daily tracking begins now. You'll receive zone updates every 24 hours through Day 15, then weekly from Day 16 onward at $8,750/week retainer.</p>
 
         <div class="pop-truth">
@@ -968,7 +975,7 @@
         </div>
 
         <div class="pop-actions">
-            <button class="pop-btn pop-btn-primary" onclick="proceedToStormFromPopup()">Proceed to Storm Audit<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 8h10M9 4l4 4-4 4"/></svg></button>
+            <button class="pop-btn pop-btn-primary" onclick="proceedToStormFromPopup()">Proceed to Storm Audit<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h10M9 4l4 4-4 4"/></svg></button>
             <button class="pop-btn pop-btn-ghost" onclick="closePopup('popup-post-weekly')">Not Now</button>
         </div>
     </div>
@@ -976,11 +983,13 @@
 
 <div class="cat-popup-overlay" id="popup-final" role="dialog" aria-modal="true">
     <div class="cat-popup">
+        <span class="pop-corner tl"></span><span class="pop-corner tr"></span>
+        <span class="pop-corner bl"></span><span class="pop-corner br"></span>
         <button class="cat-popup-close" onclick="closePopup('popup-final')" aria-label="Close">✕</button>
 
         <div class="pop-kicker"><span class="line"></span>Submission received</div>
         <div class="pop-check">✓</div>
-        <h2 class="pop-headline">Thank you. Your scope is in the queue.</h2>
+        <h2 class="pop-headline">Thank you. Your scope is <span class="accent">in the queue.</span></h2>
         <p class="pop-sub">Cross-referencing against current municipal and IRC code begins from here. You'll hear back by email with your findings snapshot.</p>
 
         <div class="pop-truth">
@@ -999,7 +1008,7 @@
         </div>
 
         <div class="pop-actions">
-            <button class="pop-btn pop-btn-primary" onclick="returnToDashboard()">Return to Dashboard<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 8h10M9 4l4 4-4 4"/></svg></button>
+            <button class="pop-btn pop-btn-primary" onclick="returnToDashboard()">Return to Dashboard<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h10M9 4l4 4-4 4"/></svg></button>
         </div>
     </div>
 </div>
