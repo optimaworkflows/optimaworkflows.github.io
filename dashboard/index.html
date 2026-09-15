@@ -1,518 +1,557 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Optima Workflows | CAT Intelligence Dashboard</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg-deep: #05080f;
-            --bg-card: linear-gradient(145deg, #0b101b, #070b13);
-            --border-hairline: #1c2536;
-            --text-primary: #ffffff;
-            --text-muted: #b0bec5;
-            --text-detail: #78909c;
-            --cyber-green: #00ffa3;
-            --cyber-amber: #ffb800;
-            --cyber-red: #ff5252;
-            --cyber-blue: #40c4ff;
-            /* Pop-up branding (from CAT Intelligence landing page) */
-            --pop-bg:#090b0e;
-            --pop-panel:#12161c;
-            --pop-panel-2:#171c23;
-            --pop-line: rgba(236,233,225,0.09);
-            --pop-line-strong: rgba(236,233,225,0.16);
-            --pop-text:#FBFAF6;
-            --pop-text-dim:#CDD5D9;
-            --pop-text-dimmer:#98A2AA;
-            --pop-amber:#ff9248;
-            --pop-amber-dim: rgba(255,146,72,0.15);
-            --pop-cyan:#4fd8c7;
-            --pop-cyan-dim: rgba(79,216,199,0.13);
-            --pop-risk:#e5573f;
-            --pop-risk-dim: rgba(229,87,63,0.13);
-            --pop-good:#7fd88f;
-            --pop-radius: 3px;
-            --pop-ease: cubic-bezier(.19,1,.22,1);
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background-color: var(--bg-deep); color: var(--text-primary); font-family: 'Inter', sans-serif; display: flex; height: 100vh; overflow: hidden; font-size: 15px; }
-        .mono { font-family: 'IBM Plex Mono', monospace; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Optima Workflows | CAT Intelligence Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+    :root {
+        --bg-deep: #05080f;
+        --bg-card: linear-gradient(145deg, #0b101b, #070b13);
+        --border-hairline: #1c2536;
+        --text-primary: #ffffff;
+        --text-muted: #b0bec5;
+        --text-detail: #78909c;
+        --cyber-green: #00ffa3;
+        --cyber-amber: #ffb800;
+        --cyber-red: #ff5252;
+        --cyber-blue: #40c4ff;
+        --pop-bg:#090b0e;
+        --pop-panel:#12161c;
+        --pop-panel-2:#171c23;
+        --pop-line: rgba(236,233,225,0.09);
+        --pop-line-strong: rgba(236,233,225,0.16);
+        --pop-text:#FBFAF6;
+        --pop-text-dim:#CDD5D9;
+        --pop-text-dimmer:#98A2AA;
+        --pop-amber:#ff9248;
+        --pop-amber-dim: rgba(255,146,72,0.15);
+        --pop-cyan:#4fd8c7;
+        --pop-cyan-dim: rgba(79,216,199,0.13);
+        --pop-risk:#e5573f;
+        --pop-risk-dim: rgba(229,87,63,0.13);
+        --pop-good:#7fd88f;
+        --pop-radius: 3px;
+        --pop-ease: cubic-bezier(.19,1,.22,1);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background-color: var(--bg-deep); color: var(--text-primary); font-family: 'Inter', sans-serif; display: flex; height: 100vh; overflow: hidden; font-size: 15px; }
+    .mono { font-family: 'IBM Plex Mono', monospace; }
 
-        .sidebar { width: 280px; min-width: 280px; background: #070a12; border-right: 1px solid var(--border-hairline); display: flex; flex-direction: column; justify-content: space-between; padding: 20px 14px; overflow-y: auto; }
-        .logo { font-weight: 900; font-size: 13px; color: #fff; display: flex; align-items: center; gap: 6px; text-transform: uppercase; margin-bottom: 20px; }
-        .logo-icon { display:flex; align-items:center; justify-content:center; height: 24px; width: 24px; background: var(--cyber-green); color: #05080f; border-radius: 5px; font-size: 13px; font-weight: 900; }
-        .section-label { font-family: 'IBM Plex Mono', monospace; font-size: 9px; font-weight: 700; text-transform: uppercase; color: var(--text-detail); letter-spacing: 0.1em; margin: 14px 0 5px 4px; }
-        .nav-item { padding: 8px 10px; border-radius: 5px; color: var(--text-muted); font-size: 12px; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; border-left: 2px solid transparent; }
-        .nav-item:hover { background: rgba(255,255,255,0.03); color: #fff; }
-        .nav-item.active { background: rgba(0, 255, 163, 0.05); color: var(--cyber-green); border-left: 2px solid var(--cyber-green); font-weight: 700; }
-        .nav-item.hidden-service { display: none; }
-        .status-dot { height: 5px; width: 5px; background-color: var(--cyber-green); border-radius: 50%; }
-        .user-block { border-top: 1px solid var(--border-hairline); padding-top: 12px; font-size: 11px; color: var(--text-muted); }
-        .user-name { color: #fff; font-weight: 800; }
-        .user-tier { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--cyber-amber); }
-        .logout-btn { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--cyber-red); cursor: pointer; margin-top: 8px; }
-        .admin-toggle { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--cyber-blue); cursor: pointer; margin-top: 8px; text-transform: uppercase; letter-spacing: 0.05em; }
+    .sidebar { width: 280px; min-width: 280px; background: #070a12; border-right: 1px solid var(--border-hairline); display: flex; flex-direction: column; justify-content: space-between; padding: 20px 14px; overflow-y: auto; }
+    .logo { font-weight: 900; font-size: 13px; color: #fff; display: flex; align-items: center; gap: 6px; text-transform: uppercase; margin-bottom: 20px; }
+    .logo-icon { display:flex; align-items:center; justify-content:center; height: 24px; width: 24px; background: var(--cyber-green); color: #05080f; border-radius: 5px; font-size: 13px; font-weight: 900; }
+    .section-label { font-family: 'IBM Plex Mono', monospace; font-size: 9px; font-weight: 700; text-transform: uppercase; color: var(--text-detail); letter-spacing: 0.1em; margin: 14px 0 5px 4px; }
+    .nav-item { padding: 8px 10px; border-radius: 5px; color: var(--text-muted); font-size: 12px; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; border-left: 2px solid transparent; }
+    .nav-item:hover { background: rgba(255,255,255,0.03); color: #fff; }
+    .nav-item.active { background: rgba(0, 255, 163, 0.05); color: var(--cyber-green); border-left: 2px solid var(--cyber-green); font-weight: 700; }
+    .nav-item.hidden-service { display: none; }
+    .status-dot { height: 5px; width: 5px; background-color: var(--cyber-green); border-radius: 50%; }
+    .user-block { border-top: 1px solid var(--border-hairline); padding-top: 12px; font-size: 11px; color: var(--text-muted); }
+    .user-name { color: #fff; font-weight: 800; }
+    .user-tier { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--cyber-amber); }
+    .logout-btn { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--cyber-red); cursor: pointer; margin-top: 8px; }
+    .admin-toggle { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--cyber-blue); cursor: pointer; margin-top: 8px; text-transform: uppercase; letter-spacing: 0.05em; }
 
-        .main-viewport { flex: 1; padding: 24px 32px; overflow-y: auto; background: radial-gradient(circle at 80% 20%, rgba(0, 255, 163, 0.02), transparent 40%), var(--bg-deep); width: 100%; }
-        h1 { font-size: 24px; font-weight: 900; margin-bottom: 4px; }
-        .lead { font-size: 14px; color: var(--text-muted); margin-bottom: 20px; }
-        .card { background: var(--bg-card); border: 1px solid var(--border-hairline); border-radius: 12px; padding: 22px; margin-bottom: 20px; width: 100%; }
-        .dashboard-tab { display: none; width: 100%; }
-        .dashboard-tab.active { display: block; width: 100%; }
+    .main-viewport { flex: 1; padding: 24px 32px; overflow-y: auto; background: radial-gradient(circle at 80% 20%, rgba(0, 255, 163, 0.02), transparent 40%), var(--bg-deep); width: 100%; }
+    h1 { font-size: 24px; font-weight: 900; margin-bottom: 4px; }
+    .lead { font-size: 14px; color: var(--text-muted); margin-bottom: 20px; }
+    .card { background: var(--bg-card); border: 1px solid var(--border-hairline); border-radius: 12px; padding: 22px; margin-bottom: 20px; width: 100%; }
+    .dashboard-tab { display: none; width: 100%; }
+    .dashboard-tab.active { display: block; width: 100%; }
 
-        .btn-primary { border: none; color: #05080f; padding: 14px 20px; border-radius: 7px; font-weight: 800; cursor: pointer; text-transform: uppercase; background: var(--cyber-green); font-size: 12px; width: 100%; }
-        .btn-primary:hover { background: #00cc82; }
-        .btn-primary:disabled { opacity: 0.5; cursor: wait; }
-        .btn-blue { background: var(--cyber-blue); color: #05080f; }
-        .btn-amber { background: var(--cyber-amber); color: #05080f; }
-        .btn-secondary { border: 1px solid var(--border-hairline); color: var(--text-muted); padding: 12px 16px; border-radius: 7px; font-weight: 700; cursor: pointer; background: transparent; font-size: 11px; width: 100%; }
+    .btn-primary { border: none; color: #05080f; padding: 14px 20px; border-radius: 7px; font-weight: 800; cursor: pointer; text-transform: uppercase; background: var(--cyber-green); font-size: 12px; width: 100%; }
+    .btn-primary:hover { background: #00cc82; }
+    .btn-primary:disabled { opacity: 0.5; cursor: wait; }
+    .btn-blue { background: var(--cyber-blue); color: #05080f; }
+    .btn-amber { background: var(--cyber-amber); color: #05080f; }
+    .btn-secondary { border: 1px solid var(--border-hairline); color: var(--text-muted); padding: 12px 16px; border-radius: 7px; font-weight: 700; cursor: pointer; background: transparent; font-size: 11px; width: 100%; }
 
-        .form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; width: 100%; }
-        .form-group { display: flex; flex-direction: column; gap: 5px; margin-bottom: 12px; width: 100%; }
-        label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 700; text-transform: uppercase; color: #b0bec5; }
-        input, select, textarea { width: 100%; background-color: #03060c; border: 1px solid #2a3a55; border-radius: 7px; padding: 12px 14px; color: #fff; font-size: 13px; font-family: 'IBM Plex Mono', monospace; outline: none; }
-        input:focus, select:focus, textarea:focus { border-color: var(--cyber-green); }
-        textarea { min-height: 80px; resize: vertical; }
+    .form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; width: 100%; }
+    .form-group { display: flex; flex-direction: column; gap: 5px; margin-bottom: 12px; width: 100%; }
+    label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 700; text-transform: uppercase; color: #b0bec5; }
+    input, select, textarea { width: 100%; background-color: #03060c; border: 1px solid #2a3a55; border-radius: 7px; padding: 12px 14px; color: #fff; font-size: 13px; font-family: 'IBM Plex Mono', monospace; outline: none; }
+    input:focus, select:focus, textarea:focus { border-color: var(--cyber-green); }
+    textarea { min-height: 80px; resize: vertical; }
 
-        table { width: 100%; border-collapse: collapse; font-size: 13px; }
-        th { font-size: 10px; text-transform: uppercase; color: #cfd8dc; padding: 10px 8px; border-bottom: 2px solid var(--border-hairline); text-align: left; background: rgba(255,255,255,0.02); }
-        td { padding: 12px 8px; border-bottom: 1px solid #111827; font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; line-height: 1.6; vertical-align: top; }
-        .badge-status { padding: 5px 12px; border-radius: 4px; font-size: 11px; font-weight: 800; font-family: 'IBM Plex Mono', monospace; text-transform: uppercase; }
-        .bg-green { background: rgba(0, 255, 163, 0.15); color: var(--cyber-green); border: 1px solid rgba(0,255,163,0.4); }
-        .bg-amber { background: rgba(255, 184, 0, 0.15); color: var(--cyber-amber); border: 1px solid rgba(255,184,0,0.4); }
-        .bg-red { background: rgba(255, 82, 82, 0.15); color: var(--cyber-red); border: 1px solid rgba(255,82,82,0.4); }
-        .bg-blue { background: rgba(64, 196, 255, 0.15); color: var(--cyber-blue); border: 1px solid rgba(64,196,255,0.4); }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th { font-size: 10px; text-transform: uppercase; color: #cfd8dc; padding: 10px 8px; border-bottom: 2px solid var(--border-hairline); text-align: left; background: rgba(255,255,255,0.02); }
+    td { padding: 12px 8px; border-bottom: 1px solid #111827; font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; line-height: 1.6; vertical-align: top; }
+    .badge-status { padding: 5px 12px; border-radius: 4px; font-size: 11px; font-weight: 800; font-family: 'IBM Plex Mono', monospace; text-transform: uppercase; }
+    .bg-green { background: rgba(0, 255, 163, 0.15); color: var(--cyber-green); border: 1px solid rgba(0,255,163,0.4); }
+    .bg-amber { background: rgba(255, 184, 0, 0.15); color: var(--cyber-amber); border: 1px solid rgba(255,184,0,0.4); }
+    .bg-red { background: rgba(255, 82, 82, 0.15); color: var(--cyber-red); border: 1px solid rgba(255,82,82,0.4); }
+    .bg-blue { background: rgba(64, 196, 255, 0.15); color: var(--cyber-blue); border: 1px solid rgba(64,196,255,0.4); }
 
-        .financial-line { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #1a2332; }
-        .financial-label { font-size: 13px; color: #cfd8dc; font-weight: 600; }
-        .financial-value { font-family: 'IBM Plex Mono', monospace; font-size: 15px; font-weight: 700; }
-        .loss-box { background: rgba(255, 82, 82, 0.05); border: 2px solid rgba(255, 82, 82, 0.5); border-radius: 9px; padding: 20px; margin-bottom: 20px; width: 100%; overflow: visible; height: auto; }
-        .loss-title { font-size: 16px; color: var(--cyber-red); font-weight: 900; margin-bottom: 12px; }
-        .loss-item { font-size: 13px; color: var(--text-muted); padding: 6px 0; line-height: 1.7; }
-        .loss-big { font-size: 20px; font-weight: 900; color: var(--cyber-red); margin-top: 8px; }
-        .preview-badge { display: inline-block; background: rgba(255,184,0,0.15); border: 1px solid rgba(255,184,0,0.4); color: var(--cyber-amber); padding: 4px 10px; border-radius: 4px; font-size: 10px; font-weight: 800; text-transform: uppercase; }
-        .payment-toggle { display: flex; gap: 8px; margin-bottom: 16px; }
-        .payment-toggle button { flex: 1; padding: 10px; border-radius: 6px; font-weight: 700; cursor: pointer; font-size: 12px; border: 1px solid var(--border-hairline); background: transparent; color: var(--text-muted); }
-        .payment-toggle button.active { border-color: var(--cyber-green); color: var(--cyber-green); background: rgba(0,255,163,0.05); }
-        .payment-card { background: #03060c; border: 1px solid var(--border-hairline); border-radius: 8px; padding: 16px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; line-height: 1.8; margin-bottom: 12px; cursor: pointer; }
-        .payment-card h4 { font-size: 12px; font-weight: 800; text-transform: uppercase; color: var(--cyber-amber); margin-bottom: 8px; }
-        .upsell-box { background: rgba(64,196,255,0.03); border: 1px solid rgba(64,196,255,0.3); border-radius: 9px; padding: 20px; margin-bottom: 20px; }
-        .phase-box { background: rgba(64,196,255,0.05); border: 1px solid rgba(64,196,255,0.3); border-radius: 8px; padding: 16px; margin-bottom: 16px; }
-        .phase-title { font-size: 13px; font-weight: 800; color: var(--cyber-blue); margin-bottom: 8px; }
-        .phase-text { font-size: 12px; color: var(--text-muted); line-height: 1.6; }
-        .price-breakdown { background: #03060c; border: 1px solid var(--border-hairline); border-radius: 8px; padding: 16px; margin-bottom: 16px; }
-        .price-line { display: flex; justify-content: space-between; padding: 6px 0; font-size: 13px; }
-        .price-line.total { border-top: 1px solid var(--border-hairline); margin-top: 8px; padding-top: 12px; font-weight: 800; font-size: 16px; }
-        .deliverable-list { list-style: none; padding: 0; margin-bottom: 12px; }
-        .deliverable-list li { font-size: 13px; color: var(--text-muted); padding: 6px 0; border-bottom: 1px solid #1a2332; }
-        .deliverable-list li strong { color: #fff; }
+    .financial-line { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #1a2332; }
+    .financial-label { font-size: 13px; color: #cfd8dc; font-weight: 600; }
+    .financial-value { font-family: 'IBM Plex Mono', monospace; font-size: 15px; font-weight: 700; }
+    .loss-box { background: rgba(255, 82, 82, 0.05); border: 2px solid rgba(255, 82, 82, 0.5); border-radius: 9px; padding: 20px; margin-bottom: 20px; width: 100%; overflow: visible; height: auto; }
+    .loss-title { font-size: 16px; color: var(--cyber-red); font-weight: 900; margin-bottom: 12px; }
+    .loss-item { font-size: 13px; color: var(--text-muted); padding: 6px 0; line-height: 1.7; }
+    .loss-big { font-size: 20px; font-weight: 900; color: var(--cyber-red); margin-top: 8px; }
+    .preview-badge { display: inline-block; background: rgba(255,184,0,0.15); border: 1px solid rgba(255,184,0,0.4); color: var(--cyber-amber); padding: 4px 10px; border-radius: 4px; font-size: 10px; font-weight: 800; text-transform: uppercase; }
+    .payment-toggle { display: flex; gap: 8px; margin-bottom: 16px; }
+    .payment-toggle button { flex: 1; padding: 10px; border-radius: 6px; font-weight: 700; cursor: pointer; font-size: 12px; border: 1px solid var(--border-hairline); background: transparent; color: var(--text-muted); }
+    .payment-toggle button.active { border-color: var(--cyber-green); color: var(--cyber-green); background: rgba(0,255,163,0.05); }
+    .payment-card { background: #03060c; border: 1px solid var(--border-hairline); border-radius: 8px; padding: 16px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; line-height: 1.8; margin-bottom: 12px; cursor: pointer; }
+    .payment-card h4 { font-size: 12px; font-weight: 800; text-transform: uppercase; color: var(--cyber-amber); margin-bottom: 8px; }
+    .upsell-box { background: rgba(64,196,255,0.03); border: 1px solid rgba(64,196,255,0.3); border-radius: 9px; padding: 20px; margin-bottom: 20px; }
+    .phase-box { background: rgba(64,196,255,0.05); border: 1px solid rgba(64,196,255,0.3); border-radius: 8px; padding: 16px; margin-bottom: 16px; }
+    .phase-title { font-size: 13px; font-weight: 800; color: var(--cyber-blue); margin-bottom: 8px; }
+    .phase-text { font-size: 12px; color: var(--text-muted); line-height: 1.6; }
+    .price-breakdown { background: #03060c; border: 1px solid var(--border-hairline); border-radius: 8px; padding: 16px; margin-bottom: 16px; }
+    .price-line { display: flex; justify-content: space-between; padding: 6px 0; font-size: 13px; }
+    .price-line.total { border-top: 1px solid var(--border-hairline); margin-top: 8px; padding-top: 12px; font-weight: 800; font-size: 16px; }
+    .deliverable-list { list-style: none; padding: 0; margin-bottom: 12px; }
+    .deliverable-list li { font-size: 13px; color: var(--text-muted); padding: 6px 0; border-bottom: 1px solid #1a2332; }
+    .deliverable-list li strong { color: #fff; }
 
-        #preview-card { overflow: visible; height: auto; min-height: 400px; }
-        #preview-card table { width: 100%; margin-bottom: 16px; }
-        #preview-card .btn-primary { margin-top: 16px; }
-        #preview-card .loss-box { overflow: visible; height: auto; }
+    #preview-card { overflow: visible; height: auto; min-height: 400px; }
+    #preview-card table { width: 100%; margin-bottom: 16px; }
+    #preview-card .btn-primary { margin-top: 16px; }
+    #preview-card .loss-box { overflow: visible; height: auto; }
 
-        .intake-form-card { background: var(--bg-card); border: 1px solid var(--border-hairline); border-radius: 12px; padding: 36px; margin-top: 20px; }
-        .intake-form-card .form-group { margin-bottom: 20px; }
-        .intake-form-card label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--text-muted); margin-bottom: 8px; }
-        .intake-form-card input, .intake-form-card textarea { width: 100%; background: #020617; border: 1px solid var(--border-hairline); border-radius: 6px; padding: 13px; color: #fff; font-family: 'Inter', sans-serif; font-size: 14px; }
-        .intake-form-card input:focus, .intake-form-card textarea:focus { outline: none; border-color: var(--cyber-blue); }
-        .intake-form-card .form-hint { font-size: 12px; color: var(--text-muted); margin-top: 6px; }
-        .intake-form-card .doc-checklist { background: #020617; border: 1px solid var(--border-hairline); border-radius: 10px; padding: 18px 20px; margin-top: 14px; }
-        .intake-form-card .doc-item { display: flex; gap: 12px; padding: 12px 0; border-top: 1px solid var(--border-hairline); }
-        .intake-form-card .doc-item:first-child { border-top: none; padding-top: 2px; }
-        .intake-form-card .doc-num { flex: 0 0 22px; height: 22px; border-radius: 6px; background: rgba(251,191,36,.12); border: 1px solid rgba(251,191,36,.3); color: var(--cyber-amber); font-size: 11.5px; font-weight: 800; font-family: monospace; display: flex; align-items: center; justify-content: center; margin-top: 1px; }
-        .intake-form-card .doc-title { font-size: 13.5px; font-weight: 700; color: #f1f5f9; margin-bottom: 3px; }
-        .intake-form-card .doc-title .tag { font-size: 10px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; margin-left: 8px; padding: 2px 7px; border-radius: 9999px; background: rgba(251,191,36,.12); border: 1px solid rgba(251,191,36,.3); color: var(--cyber-amber); }
-        .intake-form-card .doc-desc { font-size: 12.5px; color: var(--text-muted); line-height: 1.55; }
-        .intake-form-card .consent { display: flex; gap: 10px; align-items: flex-start; font-size: 13px; color: var(--text-muted); margin: 22px 0; }
-        .intake-form-card .consent input { width: auto; margin-top: 3px; }
-        .intake-form-card .submit-btn { width: 100%; background: var(--cyber-blue); color: #020617; padding: 15px; border: none; border-radius: 6px; font-weight: 800; font-size: 14.5px; cursor: pointer; }
-        .intake-form-card .submit-btn:hover { background: #7dd3fc; }
-        .intake-form-card .data-note { background: rgba(52,211,153,.06); border: 1px solid rgba(52,211,153,.25); border-radius: 10px; padding: 18px 22px; font-size: 13.5px; color: #d1fae5; margin-top: 8px; }
-        .intake-form-card .data-note strong { color: #fff; }
-        .thank-you-card { background: var(--bg-card); border: 1px solid rgba(52,211,153,.35); border-radius: 12px; padding: 48px 36px; text-align: center; display: none; }
-        .thank-you-icon { width: 52px; height: 52px; border-radius: 50%; background: rgba(52,211,153,.15); border: 1px solid rgba(52,211,153,.4); color: var(--cyber-green); font-size: 26px; font-weight: 800; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; }
-        .thank-you-card h3 { font-size: 20px; margin-bottom: 12px; color: #fff; }
-        .thank-you-card p { font-size: 14px; color: var(--text-muted); max-width: 440px; margin: 0 auto; }
+    .intake-form-card { background: var(--bg-card); border: 1px solid var(--border-hairline); border-radius: 12px; padding: 36px; margin-top: 20px; }
+    .intake-form-card .form-group { margin-bottom: 20px; }
+    .intake-form-card label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--text-muted); margin-bottom: 8px; }
+    .intake-form-card input, .intake-form-card textarea { width: 100%; background: #020617; border: 1px solid var(--border-hairline); border-radius: 6px; padding: 13px; color: #fff; font-family: 'Inter', sans-serif; font-size: 14px; }
+    .intake-form-card input:focus, .intake-form-card textarea:focus { outline: none; border-color: var(--cyber-blue); }
+    .intake-form-card .form-hint { font-size: 12px; color: var(--text-muted); margin-top: 6px; }
+    .intake-form-card .doc-checklist { background: #020617; border: 1px solid var(--border-hairline); border-radius: 10px; padding: 18px 20px; margin-top: 14px; }
+    .intake-form-card .doc-item { display: flex; gap: 12px; padding: 12px 0; border-top: 1px solid var(--border-hairline); }
+    .intake-form-card .doc-item:first-child { border-top: none; padding-top: 2px; }
+    .intake-form-card .doc-num { flex: 0 0 22px; height: 22px; border-radius: 6px; background: rgba(251,191,36,.12); border: 1px solid rgba(251,191,36,.3); color: var(--cyber-amber); font-size: 11.5px; font-weight: 800; font-family: monospace; display: flex; align-items: center; justify-content: center; margin-top: 1px; }
+    .intake-form-card .doc-title { font-size: 13.5px; font-weight: 700; color: #f1f5f9; margin-bottom: 3px; }
+    .intake-form-card .doc-title .tag { font-size: 10px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; margin-left: 8px; padding: 2px 7px; border-radius: 9999px; background: rgba(251,191,36,.12); border: 1px solid rgba(251,191,36,.3); color: var(--cyber-amber); }
+    .intake-form-card .doc-desc { font-size: 12.5px; color: var(--text-muted); line-height: 1.55; }
+    .intake-form-card .consent { display: flex; gap: 10px; align-items: flex-start; font-size: 13px; color: var(--text-muted); margin: 22px 0; }
+    .intake-form-card .consent input { width: auto; margin-top: 3px; }
+    .intake-form-card .submit-btn { width: 100%; background: var(--cyber-blue); color: #020617; padding: 15px; border: none; border-radius: 6px; font-weight: 800; font-size: 14.5px; cursor: pointer; }
+    .intake-form-card .submit-btn:hover { background: #7dd3fc; }
+    .intake-form-card .data-note { background: rgba(52,211,153,.06); border: 1px solid rgba(52,211,153,.25); border-radius: 10px; padding: 18px 22px; font-size: 13.5px; color: #d1fae5; margin-top: 8px; }
+    .intake-form-card .data-note strong { color: #fff; }
+    .thank-you-card { background: var(--bg-card); border: 1px solid rgba(52,211,153,.35); border-radius: 12px; padding: 48px 36px; text-align: center; display: none; }
+    .thank-you-icon { width: 52px; height: 52px; border-radius: 50%; background: rgba(52,211,153,.15); border: 1px solid rgba(52,211,153,.4); color: var(--cyber-green); font-size: 26px; font-weight: 800; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; }
+    .thank-you-card h3 { font-size: 20px; margin-bottom: 12px; color: #fff; }
+    .thank-you-card p { font-size: 14px; color: var(--text-muted); max-width: 440px; margin: 0 auto; }
 
-        /* ============================================================
-           PREMIUM POP-UP LANDING PAGES
-           Branding matched to CAT Intelligence landing page:
-           Barlow Condensed, amber/cyan palette, film grain, panel corners
-           ============================================================ */
-        .cat-popup-overlay {
-            position: fixed; inset: 0; z-index: 10000;
-            background: rgba(5,6,8,0.94);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            padding: 24px;
-            overflow-y: auto;
-            opacity: 0;
-            transition: opacity 0.35s var(--pop-ease);
-            -webkit-backdrop-filter: blur(6px);
-            backdrop-filter: blur(6px);
-        }
-        .cat-popup-overlay.is-open {
-            display: flex;
-        }
-        .cat-popup-overlay.is-visible {
-            opacity: 1;
-        }
-        /* film grain over overlay */
-        .cat-popup-overlay::before {
-            content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 1; opacity: 0.035; mix-blend-mode: overlay;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-        }
-        /* vignette over overlay */
-        .cat-popup-overlay::after {
-            content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 1;
-            background: radial-gradient(ellipse at 50% 40%, transparent 45%, rgba(5,6,8,0.55) 100%);
-        }
+    /* ============================================================
+       PREMIUM POP-UP REDESIGN
+       Editorial cream + serif + amber accent.
+       ============================================================ */
+    .cat-popup-overlay {
+        position: fixed; inset: 0; z-index: 10000;
+        background: rgba(8, 7, 5, 0.92);
+        display: none;
+        align-items: flex-start;
+        justify-content: center;
+        padding: 60px 24px;
+        overflow-y: auto;
+        opacity: 0;
+        transition: opacity 0.35s var(--pop-ease);
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+    }
+    .cat-popup-overlay.is-open { display: flex; }
+    .cat-popup-overlay.is-visible { opacity: 1; }
 
-        .cat-popup {
-            position: relative;
-            z-index: 2;
-            width: 100%;
-            max-width: 720px;
-            background-color: var(--pop-bg);
-            background-image:
-                repeating-linear-gradient(0deg, rgba(255,255,255,0.014) 0 1px, transparent 1px 72px),
-                repeating-linear-gradient(90deg, rgba(255,255,255,0.014) 0 1px, transparent 1px 72px);
-            border: 1px solid var(--pop-line-strong);
-            border-radius: 6px;
-            padding: 40px 44px 36px;
-            color: var(--pop-text);
-            box-shadow: 0 40px 90px -30px rgba(0,0,0,0.85), 0 0 0 1px rgba(255,255,255,0.02) inset;
-            transform: scale(0.94) translateY(12px);
-            opacity: 0;
-            transition: transform 0.5s var(--pop-ease), opacity 0.4s var(--pop-ease);
-            font-family: 'Inter', system-ui, sans-serif;
-        }
-        .cat-popup-overlay.is-visible .cat-popup {
-            transform: scale(1) translateY(0);
-            opacity: 1;
-        }
-        /* corner accents (from landing page panel corners) */
-        .cat-popup .pop-corner { position: absolute; width: 16px; height: 16px; border-color: var(--pop-cyan); opacity: 0.55; pointer-events: none; }
-        .cat-popup .pop-corner.tl { top: -1px; left: -1px; border-top: 1.5px solid; border-left: 1.5px solid; }
-        .cat-popup .pop-corner.tr { top: -1px; right: -1px; border-top: 1.5px solid; border-right: 1.5px solid; }
-        .cat-popup .pop-corner.bl { bottom: -1px; left: -1px; border-bottom: 1.5px solid; border-left: 1.5px solid; }
-        .cat-popup .pop-corner.br { bottom: -1px; right: -1px; border-bottom: 1.5px solid; border-right: 1.5px solid; }
-        /* top amber line */
-        .cat-popup::before {
-            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-            background: linear-gradient(90deg, var(--pop-amber), transparent);
-        }
-        /* close X button */
-        .cat-popup-close {
-            position: absolute; top: 14px; right: 14px;
-            width: 32px; height: 32px;
-            background: transparent; border: 1px solid var(--pop-line-strong);
-            color: var(--pop-text-dim); cursor: pointer;
-            font-size: 16px; line-height: 1;
-            border-radius: var(--pop-radius);
-            transition: border-color 0.25s, color 0.25s, background 0.25s;
-            display: flex; align-items: center; justify-content: center;
-            font-family: 'Inter', sans-serif;
-        }
-        .cat-popup-close:hover {
-            border-color: var(--pop-amber);
-            color: var(--pop-amber);
-            background: var(--pop-amber-dim);
-        }
+    .cat-popup {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        max-width: 720px;
+        background-color: #F5F1E8;
+        background-image:
+            radial-gradient(circle at 20% 10%, rgba(200, 134, 45, 0.06), transparent 40%),
+            radial-gradient(circle at 80% 90%, rgba(120, 90, 40, 0.04), transparent 40%),
+            url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+        border: 1px solid rgba(120, 90, 40, 0.28);
+        border-radius: 2px;
+        padding: 56px 60px 48px;
+        color: #1E1A14;
+        box-shadow:
+            0 60px 120px -40px rgba(0, 0, 0, 0.7),
+            0 0 0 1px rgba(255, 255, 255, 0.4) inset,
+            0 0 0 8px rgba(245, 241, 232, 0.04);
+        transform: scale(0.94) translateY(12px);
+        opacity: 0;
+        transition: transform 0.5s var(--pop-ease), opacity 0.4s var(--pop-ease);
+        font-family: 'Inter', system-ui, sans-serif;
+    }
+    .cat-popup-overlay.is-visible .cat-popup {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+    }
+    .cat-popup::after {
+        content: '';
+        position: absolute;
+        inset: 12px;
+        border: 1px solid rgba(120, 90, 40, 0.14);
+        pointer-events: none;
+        border-radius: 1px;
+    }
+    .cat-popup::before { display: none; }
+    .cat-popup .pop-corner { display: none; }
 
-        /* pop-up kicker line */
-        .pop-kicker {
-            display: flex; align-items: center; gap: 10px;
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase;
-            color: var(--pop-cyan); margin-bottom: 14px;
-        }
-        .pop-kicker .line { width: 22px; height: 1px; background: var(--pop-cyan); opacity: 0.6; flex: none; }
+    .cat-popup-close {
+        position: absolute;
+        top: 20px; right: 20px;
+        width: 36px; height: 36px;
+        border: 1px solid rgba(120, 90, 40, 0.25);
+        color: #6B5A40;
+        background: transparent;
+        font-size: 14px;
+        border-radius: 50%;
+        transition: all 0.25s ease;
+        z-index: 3;
+        cursor: pointer;
+        display: flex; align-items: center; justify-content: center;
+        font-family: 'Inter', sans-serif;
+    }
+    .cat-popup-close:hover {
+        border-color: #C8862D;
+        color: #C8862D;
+        background: rgba(200, 134, 45, 0.08);
+    }
 
-        /* pop-up headline */
-        .pop-headline {
-            font-family: 'Barlow Condensed', system-ui, sans-serif;
-            font-weight: 700;
-            font-size: clamp(2rem, 4.4vw, 2.8rem);
-            line-height: 1.04;
-            letter-spacing: -0.005em;
-            color: var(--pop-text);
-            margin: 0 0 8px;
-        }
-        .pop-headline .accent { color: var(--pop-amber); }
+    .pop-kicker {
+        display: flex; align-items: center; gap: 12px;
+        color: #8B6B2E;
+        font-family: 'Inter', sans-serif;
+        font-size: 10.5px;
+        letter-spacing: 0.22em;
+        font-weight: 700;
+        text-transform: uppercase;
+        margin-bottom: 20px;
+    }
+    .pop-kicker .line { background: #C8862D; width: 32px; height: 1px; opacity: 1; }
 
-        /* thank-you check marker */
-        .pop-check {
-            display: inline-flex; align-items: center; justify-content: center;
-            width: 40px; height: 40px; border-radius: 50%;
-            background: var(--pop-cyan-dim);
-            color: var(--pop-cyan);
-            font-size: 18px; font-weight: 700;
-            border: 1px solid rgba(79,216,199,0.4);
-            margin-bottom: 18px;
-        }
+    .pop-check {
+        width: 44px; height: 44px;
+        background: transparent;
+        border: 1px solid #C8862D;
+        color: #C8862D;
+        font-size: 18px;
+        font-weight: 500;
+        margin-bottom: 24px;
+        border-radius: 50%;
+        display: flex; align-items: center; justify-content: center;
+    }
 
-        /* pop-up body text */
-        .pop-sub {
-            font-size: 15px; color: var(--pop-text-dim);
-            margin: 0 0 22px;
-            max-width: 58ch;
-        }
+    .pop-headline {
+        font-family: 'Playfair Display', Georgia, serif;
+        font-weight: 600;
+        font-size: clamp(2.1rem, 4.6vw, 3rem);
+        line-height: 1.05;
+        letter-spacing: -0.015em;
+        color: #1A1611;
+        margin: 0 0 14px;
+    }
+    .pop-headline .accent { color: #C8862D; }
 
-        /* hard-truth callout */
-        .pop-truth {
-            border-left: 2px solid var(--pop-amber);
-            background: var(--pop-amber-dim);
-            padding: 16px 20px;
-            margin: 0 0 22px;
-            border-radius: 0 var(--pop-radius) var(--pop-radius) 0;
-        }
-        .pop-truth .truth-label {
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
-            color: var(--pop-amber);
-            margin-bottom: 6px;
-        }
-        .pop-truth p {
-            font-size: 14.5px; color: var(--pop-text);
-            line-height: 1.55;
-            margin: 0;
-        }
+    .pop-sub {
+        font-size: 15px;
+        color: #4A4033;
+        line-height: 1.65;
+        margin: 0 0 28px;
+        max-width: 60ch;
+    }
 
-        /* the loss block */
-        .pop-loss {
-            border: 1px solid rgba(229,87,63,0.5);
-            background: var(--pop-risk-dim);
-            border-radius: var(--pop-radius);
-            padding: 18px 20px;
-            margin: 0 0 22px;
-        }
-        .pop-loss-title {
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 11.5px; letter-spacing: 0.12em; text-transform: uppercase;
-            color: var(--pop-risk);
-            margin-bottom: 10px;
-        }
-        .pop-loss-item {
-            font-size: 14px; color: var(--pop-text-dim);
-            padding: 5px 0;
-            display: flex; justify-content: space-between; gap: 12px;
-        }
-        .pop-loss-item .num {
-            font-family: 'Barlow Condensed', sans-serif;
-            font-size: 15px; font-weight: 600;
-            color: var(--pop-risk);
-        }
-        .pop-loss-total {
-            margin-top: 12px; padding-top: 12px;
-            border-top: 1px solid rgba(229,87,63,0.35);
-            display: flex; justify-content: space-between; align-items: baseline;
-        }
-        .pop-loss-total .lbl {
-            font-size: 13px; color: var(--pop-text-dim);
-            letter-spacing: 0.02em;
-        }
-        .pop-loss-total .val {
-            font-family: 'Barlow Condensed', sans-serif;
-            font-size: 1.5rem; font-weight: 700;
-            color: var(--pop-risk);
-            letter-spacing: -0.01em;
-        }
+    .pop-truth {
+        border-left: 2px solid #C8862D;
+        background: rgba(200, 134, 45, 0.07);
+        padding: 20px 24px;
+        margin: 0 0 28px;
+        border-radius: 0;
+    }
+    .pop-truth .truth-label {
+        color: #8B6B2E;
+        font-family: 'Inter', sans-serif;
+        font-size: 10.5px;
+        letter-spacing: 0.18em;
+        font-weight: 700;
+        margin-bottom: 8px;
+        text-transform: uppercase;
+    }
+    .pop-truth p {
+        color: #2A2419;
+        font-size: 15px;
+        line-height: 1.6;
+        margin: 0;
+    }
 
-        /* the offer block */
-        .pop-offer {
-            border: 1px solid var(--pop-line-strong);
-            background: linear-gradient(160deg, var(--pop-panel-2), var(--pop-panel));
-            padding: 22px 24px;
-            margin: 0 0 22px;
-            border-radius: var(--pop-radius);
-            position: relative;
-        }
-        .pop-offer::before {
-            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-            background: linear-gradient(90deg, var(--pop-cyan), transparent);
-        }
-        .pop-offer-label {
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
-            color: var(--pop-cyan);
-            margin-bottom: 6px;
-        }
-        .pop-offer-title {
-            font-family: 'Barlow Condensed', sans-serif;
-            font-size: 1.55rem; font-weight: 700;
-            color: var(--pop-text);
-            margin: 0 0 4px;
-            letter-spacing: 0.005em;
-        }
-        .pop-offer-desc {
-            font-size: 14px; color: var(--pop-text-dim);
-            margin: 0 0 14px;
-        }
-        .pop-offer-phases {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-bottom: 14px;
-        }
-        @media(max-width: 520px) { .pop-offer-phases { grid-template-columns: 1fr; } }
-        .pop-phase {
-            border: 1px solid var(--pop-line);
-            padding: 12px 14px;
-            border-radius: var(--pop-radius);
-            background: rgba(15,19,24,0.6);
-        }
-        .pop-phase-label {
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase;
-            color: var(--pop-text-dim);
-            margin-bottom: 4px;
-        }
-        .pop-phase-amount {
-            font-family: 'Barlow Condensed', sans-serif;
-            font-size: 1.35rem; font-weight: 700;
-            color: var(--pop-amber);
-            line-height: 1;
-            letter-spacing: -0.005em;
-        }
-        .pop-phase-note {
-            font-size: 11.5px; color: var(--pop-text-dimmer);
-            margin-top: 4px;
-        }
-        .pop-offer-total {
-            display: flex; justify-content: space-between; align-items: baseline;
-            padding-top: 12px;
-            border-top: 1px solid var(--pop-line);
-        }
-        .pop-offer-total .lbl {
-            font-size: 13px; color: var(--pop-text-dim);
-            letter-spacing: 0.02em;
-        }
-        .pop-offer-total .val {
-            font-family: 'Barlow Condensed', sans-serif;
-            font-size: 1.6rem; font-weight: 700;
-            color: var(--pop-amber);
-            letter-spacing: -0.01em;
-        }
+    .pop-loss {
+        border: 1px solid rgba(180, 60, 40, 0.28);
+        background: rgba(180, 60, 40, 0.05);
+        border-radius: 2px;
+        padding: 22px 26px;
+        margin: 0 0 28px;
+    }
+    .pop-loss-title {
+        color: #A23A26;
+        font-family: 'Inter', sans-serif;
+        font-size: 10.5px;
+        letter-spacing: 0.18em;
+        font-weight: 700;
+        margin-bottom: 14px;
+        text-transform: uppercase;
+    }
+    .pop-loss-item {
+        color: #3A2F22;
+        font-size: 14px;
+        padding: 7px 0;
+        border-bottom: 1px solid rgba(180, 60, 40, 0.12);
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+    }
+    .pop-loss-item:last-of-type { border-bottom: none; }
+    .pop-loss-item .num {
+        font-family: 'Playfair Display', serif;
+        font-weight: 600;
+        color: #A23A26;
+        font-size: 16px;
+        white-space: nowrap;
+    }
+    .pop-loss-total {
+        margin-top: 14px;
+        padding-top: 14px;
+        border-top: 1px solid rgba(180, 60, 40, 0.28);
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+    }
+    .pop-loss-total .lbl {
+        color: #4A4033;
+        font-size: 13px;
+    }
+    .pop-loss-total .val {
+        font-family: 'Playfair Display', serif;
+        font-weight: 700;
+        font-size: 1.75rem;
+        color: #A23A26;
+        letter-spacing: -0.01em;
+    }
 
-        /* zone definition block (only shown in the first pop-up) */
-        .pop-zone-def {
-            border: 1px solid var(--pop-line);
-            border-left: 2px solid var(--pop-cyan);
-            background: rgba(79,216,199,0.04);
-            padding: 14px 18px;
-            margin: 0 0 22px;
-            border-radius: 0 var(--pop-radius) var(--pop-radius) 0;
-        }
-        .pop-zone-def .zd-label {
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase;
-            color: var(--pop-cyan);
-            margin-bottom: 5px;
-        }
-        .pop-zone-def p {
-            font-size: 13px; color: var(--pop-text-dim);
-            line-height: 1.55;
-            margin: 0;
-        }
-        .pop-zone-def b { color: var(--pop-text); font-weight: 600; }
+    .pop-offer {
+        border: 1px solid rgba(120, 90, 40, 0.28);
+        background: rgba(255, 255, 255, 0.5);
+        padding: 26px 28px;
+        margin: 0 0 28px;
+        border-radius: 2px;
+        position: relative;
+    }
+    .pop-offer::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 2px;
+        background: #C8862D;
+    }
+    .pop-offer-label {
+        color: #8B6B2E;
+        font-family: 'Inter', sans-serif;
+        font-size: 10.5px;
+        letter-spacing: 0.18em;
+        font-weight: 700;
+        margin-bottom: 8px;
+        text-transform: uppercase;
+    }
+    .pop-offer-title {
+        font-family: 'Playfair Display', Georgia, serif;
+        font-weight: 600;
+        font-size: 1.75rem;
+        color: #1A1611;
+        margin: 0 0 8px;
+        letter-spacing: -0.01em;
+    }
+    .pop-offer-desc {
+        color: #4A4033;
+        font-size: 14px;
+        line-height: 1.6;
+        margin: 0 0 18px;
+    }
+    .pop-offer-phases {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin-bottom: 18px;
+    }
+    .pop-phase {
+        border: 1px solid rgba(120, 90, 40, 0.2);
+        background: rgba(245, 241, 232, 0.6);
+        padding: 16px 18px;
+        border-radius: 2px;
+    }
+    .pop-phase-label {
+        color: #6B5A40;
+        font-family: 'Inter', sans-serif;
+        font-size: 10px;
+        letter-spacing: 0.14em;
+        font-weight: 700;
+        text-transform: uppercase;
+        margin-bottom: 6px;
+    }
+    .pop-phase-amount {
+        font-family: 'Playfair Display', Georgia, serif;
+        font-weight: 700;
+        font-size: 1.6rem;
+        color: #C8862D;
+        line-height: 1;
+        letter-spacing: -0.015em;
+    }
+    .pop-phase-note {
+        color: #6B5A40;
+        font-size: 11.5px;
+        margin-top: 6px;
+        line-height: 1.45;
+    }
+    .pop-offer-total {
+        padding-top: 16px;
+        border-top: 1px solid rgba(120, 90, 40, 0.2);
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+    }
+    .pop-offer-total .lbl {
+        color: #4A4033;
+        font-size: 13px;
+    }
+    .pop-offer-total .val {
+        font-family: 'Playfair Display', Georgia, serif;
+        font-weight: 700;
+        font-size: 1.8rem;
+        color: #C8862D;
+        letter-spacing: -0.015em;
+    }
 
-        /* final unlocked checklist */
-        .pop-checklist {
-            list-style: none; padding: 0; margin: 0 0 22px;
-            display: flex; flex-direction: column; gap: 10px;
-        }
-        .pop-checklist li {
-            font-size: 14.5px; color: var(--pop-text-dim);
-            padding-left: 26px;
-            position: relative;
-        }
-        .pop-checklist li::before {
-            content: '✓'; position: absolute; left: 0; top: 0;
-            color: var(--pop-good);
-            font-weight: 700;
-        }
-        .pop-checklist li b { color: var(--pop-text); font-weight: 600; }
+    .pop-zone-def {
+        border: 1px solid rgba(120, 90, 40, 0.2);
+        background: rgba(255, 255, 255, 0.35);
+        padding: 18px 22px;
+        margin: 0 0 28px;
+        border-radius: 2px;
+        border-left: 2px solid #C8862D;
+    }
+    .pop-zone-def .zd-label {
+        color: #8B6B2E;
+        font-family: 'Inter', sans-serif;
+        font-size: 10.5px;
+        letter-spacing: 0.18em;
+        font-weight: 700;
+        margin-bottom: 6px;
+        text-transform: uppercase;
+    }
+    .pop-zone-def p {
+        color: #3A2F22;
+        font-size: 13.5px;
+        line-height: 1.6;
+        margin: 0;
+    }
+    .pop-zone-def b { color: #1A1611; font-weight: 600; }
 
-        /* disclaimer */
-        .pop-disclaimer {
-            font-size: 12px; color: var(--pop-text-dimmer);
-            line-height: 1.6;
-            padding: 12px 14px;
-            border: 1px solid var(--pop-line);
-            border-radius: var(--pop-radius);
-            margin: 0 0 22px;
-        }
-        .pop-disclaimer b { color: var(--pop-text-dim); font-weight: 600; }
+    .pop-checklist { list-style: none; padding: 0; margin: 0 0 28px; }
+    .pop-checklist li {
+        color: #3A2F22;
+        font-size: 14.5px;
+        padding: 10px 0 10px 32px;
+        position: relative;
+        border-bottom: 1px solid rgba(120, 90, 40, 0.12);
+        line-height: 1.55;
+    }
+    .pop-checklist li:last-child { border-bottom: none; }
+    .pop-checklist li::before {
+        content: '✓';
+        position: absolute;
+        left: 0; top: 9px;
+        color: #C8862D;
+        font-weight: 500;
+        font-size: 15px;
+    }
+    .pop-checklist li b { color: #1A1611; font-weight: 600; }
 
-        /* action row */
-        .pop-actions {
-            display: flex; gap: 12px; flex-wrap: wrap;
-            margin-top: 4px;
-        }
-        .pop-btn {
-            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-            padding: 13px 22px;
-            font-family: 'Inter', sans-serif;
-            font-size: 14px;
-            font-weight: 600;
-            border-radius: var(--pop-radius);
-            cursor: pointer;
-            transition: transform 0.3s var(--pop-ease), background 0.25s, border-color 0.25s, box-shadow 0.3s;
-            text-decoration: none;
-            border: 1px solid transparent;
-            flex: 1 1 auto;
-            min-width: 200px;
-        }
-        .pop-btn-primary {
-            background: var(--pop-amber);
-            color: #100a05;
-            border-color: var(--pop-amber);
-            box-shadow: 0 10px 32px -10px rgba(255,146,72,0.55);
-        }
-        .pop-btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 14px 40px -8px rgba(255,146,72,0.7);
-        }
-        .pop-btn-primary svg { width: 14px; height: 14px; transition: transform 0.3s var(--pop-ease); }
-        .pop-btn-primary:hover svg { transform: translateX(3px); }
-        .pop-btn-ghost {
-            background: transparent;
-            color: var(--pop-text);
-            border-color: var(--pop-line-strong);
-        }
-        .pop-btn-ghost:hover {
-            border-color: var(--pop-text-dim);
-            transform: translateY(-2px);
-        }
-        .pop-btn:active { transform: scale(0.97) !important; transition-duration: 0.12s; }
-        .pop-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none !important;
-        }
+    .pop-disclaimer {
+        color: #6B5A40;
+        font-size: 11.5px;
+        line-height: 1.6;
+        padding: 14px 18px;
+        border: 1px solid rgba(120, 90, 40, 0.18);
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 2px;
+        margin: 0 0 28px;
+    }
+    .pop-disclaimer b { color: #4A4033; font-weight: 600; }
 
-        /* mobile */
-        @media(max-width: 640px) {
-            .cat-popup { padding: 32px 24px 28px; }
-            .cat-popup-close { top: 10px; right: 10px; }
-            .pop-headline { font-size: clamp(1.65rem, 6.8vw, 2.1rem); }
-            .pop-btn { min-width: 0; flex: 1 1 100%; }
-            .pop-sub { font-size: 14.5px; }
-        }
-    </style>
+    .pop-actions {
+        display: flex;
+        gap: 14px;
+        flex-wrap: wrap;
+        margin-top: 8px;
+    }
+    .pop-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 16px 26px;
+        font-family: 'Inter', sans-serif;
+        font-size: 14px;
+        font-weight: 600;
+        letter-spacing: 0.005em;
+        border-radius: 2px;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(.19,1,.22,1);
+        border: 1px solid transparent;
+        flex: 1 1 auto;
+        min-width: 200px;
+        text-decoration: none;
+    }
+    .pop-btn-primary {
+        background: #C8862D;
+        color: #FBF7EE;
+        border-color: #C8862D;
+        box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 12px 28px -12px rgba(200, 134, 45, 0.6);
+    }
+    .pop-btn-primary:hover {
+        background: #B37625;
+        border-color: #B37625;
+        transform: translateY(-1px);
+        box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 18px 36px -12px rgba(200, 134, 45, 0.75);
+    }
+    .pop-btn-primary svg {
+        width: 14px; height: 14px;
+        transition: transform 0.3s cubic-bezier(.19,1,.22,1);
+    }
+    .pop-btn-primary:hover svg { transform: translateX(4px); }
+
+    .pop-btn-ghost {
+        background: transparent;
+        color: #4A4033;
+        border-color: rgba(120, 90, 40, 0.3);
+    }
+    .pop-btn-ghost:hover {
+        border-color: #8B6B2E;
+        color: #1A1611;
+        background: rgba(200, 134, 45, 0.06);
+    }
+
+    @media(max-width: 640px) {
+        .cat-popup-overlay { padding: 32px 16px; }
+        .cat-popup { padding: 40px 28px 32px; }
+        .cat-popup-close { top: 14px; right: 14px; width: 32px; height: 32px; }
+        .pop-headline { font-size: clamp(1.6rem, 6.4vw, 2.1rem); }
+        .pop-offer-phases { grid-template-columns: 1fr; }
+        .pop-btn { min-width: 0; flex: 1 1 100%; }
+    }
+</style>
 </head>
 <body>
 
 <div id="dashboard-wrapper" style="display:flex; width:100%;">
-    <!-- SIDEBAR -->
     <aside class="sidebar">
         <div>
             <div class="logo"><span class="logo-icon">◈</span> Optima Workflows</div>
@@ -544,16 +583,13 @@
         </div>
     </aside>
 
-    <!-- MAIN VIEWPORT -->
     <main class="main-viewport">
-        <!-- HOME -->
         <section id="view-home" class="dashboard-tab active" style="width:100%;">
             <h1>Executive Command</h1>
             <p class="lead">Live operational overview.</p>
             <div class="card"><h3 class="section-label">Active Deployments</h3><p style="font-size:14px; color:var(--text-muted);">No active deployments. Run a Triage to begin.</p></div>
         </section>
 
-        <!-- CAT INTELLIGENCE -->
         <section id="view-cat-intel" class="dashboard-tab" style="width:100%;">
             <h1>Cat Intelligence Triage Terminal</h1>
             <p class="lead">Pre-deployment zone scoring for commercial CAT roofing.</p>
@@ -585,7 +621,6 @@
                 </form>
             </div>
 
-            <!-- PREVIEW CARD -->
             <div id="preview-card" class="card" style="display:none; border-top:4px solid var(--cyber-amber);">
                 <div style="display:flex; justify-content:space-between; gap:12px; border-bottom:1px solid var(--border-hairline); padding-bottom:16px; margin-bottom:20px; flex-wrap:wrap;">
                     <div>
@@ -700,7 +735,6 @@
                 <button class="btn-primary btn-blue" onclick="showWeeklyVerification()">✅ I've Made Payment — Confirm</button>
             </div>
 
-            <!-- WEEKLY VERIFICATION -->
             <div id="weekly-verification" class="card" style="display:none; border-top:4px solid var(--cyber-amber);">
                 <div style="text-align:center; padding:20px;">
                     <div style="font-size:48px;">⏳</div>
@@ -717,10 +751,9 @@
                     <button class="btn-primary btn-amber" onclick="showStormIntake()">🌪️ Proceed to Storm Audit</button>
                 </div>
 
-                <!-- STORM INTAKE FORM -->
                 <div id="storm-intake-section" style="display:none; margin-top: 30px; border-top: 1px solid var(--border-hairline); padding-top: 30px;">
                     <h2 style="font-size: 22px; font-weight: 800; margin-bottom: 8px;">Submit Your Scope Documents</h2>
-                    <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 20px;">Fill in the details below and share your scope documents for code‑compliance review.</p>
+                    <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 20px;">Share the documents below to begin your Storm Audit. Code-compliance cross-referencing starts the moment your files land.</p>
                     
                     <div id="intake-form-wrap" class="intake-form-card">
                         <form id="intakeForm" action="https://docs.google.com/forms/d/e/1FAIpQLSdr7bQSqWc9vQnWawKujiAmaVDOsXC_fTmWPQlqYKRSdHCi0w/formResponse" method="POST" target="hidden_iframe_storm" onsubmit="stormSubmitted=true;">
@@ -771,21 +804,20 @@
                                 <input type="checkbox" name="entry.1477953076" value="I confirm I have the right to share this data and understand it will be used only to run this review." required>
                                 I confirm I have the right to share this data and understand it will be used only to run this review.
                             </label>
-                            <button type="submit" class="submit-btn">Submit for Free Findings Snapshot</button>
+                            <button type="submit" class="submit-btn">Submit Scope Documents</button>
                         </form>
                     </div>
                     <div id="intake-thankyou" class="thank-you-card">
                         <div class="thank-you-icon">✓</div>
-                        <h3>Got it — your submission is in the queue.</h3>
-                        <p>Cross‑referencing against current municipal and IRC code begins from here. You'll hear back by email with your free findings snapshot — no cost, no obligation.</p>
+                        <h3>Got it — your scope is in the queue.</h3>
+                        <p>Cross‑referencing against current municipal and IRC code begins from here. You'll hear back by email with your findings snapshot.</p>
                     </div>
-                    <iframe name="hidden_iframe_storm" id="hidden_iframe_storm" style="display:none;" onload="if(stormSubmitted){document.getElementById('intake-form-wrap').style.display='none';document.getElementById('intake-thankyou').style.display='block';window.scrollTo({top:document.getElementById('intake-thankyou').offsetTop-100,behavior:'smooth'});}"></iframe>
-                    <div class="data-note"><strong>What happens next:</strong> your submission is logged the moment you hit submit, and code‑compliance cross‑referencing begins from there. Your first review is a free findings snapshot, at no cost and no obligation.</div>
+                    <iframe name="hidden_iframe_storm" id="hidden_iframe_storm" style="display:none;" onload="if(stormSubmitted){document.getElementById('intake-form-wrap').style.display='none';document.getElementById('intake-thankyou').style.display='block';}"></iframe>
+                    <div class="data-note"><strong>What happens next:</strong> your scope documents are logged the moment you hit submit, and code-compliance cross-referencing begins from there. Findings are returned by email.</div>
                 </div>
             </div>
         </section>
 
-        <!-- STORM AUDIT -->
         <section id="view-storm-audit" class="dashboard-tab" style="width:100%;">
             <h1>Storm Audit</h1>
             <p class="lead">Flat-fee Xactimate code audit before submission.</p>
@@ -799,7 +831,6 @@
             </div>
         </section>
 
-        <!-- APPOINTMENTS -->
         <section id="view-appointments" class="dashboard-tab" style="width:100%;">
             <h1>Insurance Appointment Booking</h1>
             <p class="lead">For insurance agents — automated lead-to-appointment conversion.</p>
@@ -814,25 +845,10 @@
             </div>
         </section>
 
-        <!-- VENDOR AUDIT -->
-        <section id="view-vendor-audit" class="dashboard-tab" style="width:100%;">
-            <h1>Vendor Audit</h1>
-            <p class="lead">Coming soon.</p>
-        </section>
+        <section id="view-vendor-audit" class="dashboard-tab" style="width:100%;"><h1>Vendor Audit</h1><p class="lead">Coming soon.</p></section>
+        <section id="view-freight-audit" class="dashboard-tab" style="width:100%;"><h1>Freight Audit</h1><p class="lead">Coming soon.</p></section>
+        <section id="view-chargeback" class="dashboard-tab" style="width:100%;"><h1>Chargebacks</h1><p class="lead">Coming soon.</p></section>
 
-        <!-- FREIGHT AUDIT -->
-        <section id="view-freight-audit" class="dashboard-tab" style="width:100%;">
-            <h1>Freight Audit</h1>
-            <p class="lead">Coming soon.</p>
-        </section>
-
-        <!-- CHARGEBACKS -->
-        <section id="view-chargeback" class="dashboard-tab" style="width:100%;">
-            <h1>Chargebacks</h1>
-            <p class="lead">Coming soon.</p>
-        </section>
-
-        <!-- BILLING -->
         <section id="view-billing" class="dashboard-tab" style="width:100%;">
             <h1>Payment Center</h1>
             <div class="card">
@@ -843,7 +859,6 @@
             </div>
         </section>
 
-        <!-- SETTINGS -->
         <section id="view-settings" class="dashboard-tab" style="width:100%;">
             <h1>Settings</h1>
             <div class="card">
@@ -855,23 +870,23 @@
     </main>
 </div>
 
-<!-- ============================================================
-     PREMIUM POP-UP: POST-PAYMENT (Full Report → Weekly Tracking)
-     ============================================================ -->
-<div class="cat-popup-overlay" id="popup-post-payment" role="dialog" aria-modal="true" aria-labelledby="pop1-title">
+<div class="cat-popup-overlay" id="popup-post-payment" role="dialog" aria-modal="true">
     <div class="cat-popup">
-        <span class="pop-corner tl"></span><span class="pop-corner tr"></span>
-        <span class="pop-corner bl"></span><span class="pop-corner br"></span>
         <button class="cat-popup-close" onclick="closePopup('popup-post-payment')" aria-label="Close">✕</button>
 
         <div class="pop-kicker"><span class="line"></span>Payment received · Full report unlocked</div>
         <div class="pop-check">✓</div>
-        <h2 class="pop-headline" id="pop1-title">Thank you. Your report is being built.</h2>
+        <h2 class="pop-headline">Thank you. Your report is being built.</h2>
         <p class="pop-sub">We've received your $7,000 for the full Commercial CAT Intelligence report on <b id="pop1-zone-label">this zone</b>. Our team verifies within 2 business hours — then the full scored intel lands in your dashboard.</p>
+
+        <div class="pop-zone-def">
+            <div class="zd-label">What counts as a standard zone</div>
+            <p>One contiguous storm-impact area that forms a single logical deployment decision — typically one metro area or a cluster of up to <b>8–12 contiguous ZIP codes</b>, roughly 15–25 miles across the core impact area. Example: core DFW impact area (North Dallas, Richardson, Plano) is one standard zone at $7,000.</p>
+        </div>
 
         <div class="pop-truth">
             <div class="truth-label">— While you wait · A hard truth</div>
-            <p>Intel without daily tracking is a report that sits on a shelf. <b>The zone is scored, but the situation on the ground changes every day.</b> Competitors move. Adjusters get assigned. Materials get consumed. What looked like an easy deployment on Day 1 can become contested ground by Day 10.</p>
+            <p>Intel without daily tracking is a report that sits on a shelf. <b>The zone is scored, but the situation on the ground changes every day.</b> Competitors move. Adjusters get assigned. Materials get consumed.</p>
         </div>
 
         <div class="pop-loss">
@@ -879,10 +894,7 @@
             <div class="pop-loss-item"><span>Day 3 — Competitors undetected</span><span class="num">$150K–$250K</span></div>
             <div class="pop-loss-item"><span>Day 5 — Adjuster denials</span><span class="num">$50K–$100K</span></div>
             <div class="pop-loss-item"><span>Day 10 — Materials depleted</span><span class="num">$30K–$50K</span></div>
-            <div class="pop-loss-total">
-                <span class="lbl">Total value exposed</span>
-                <span class="val">$230K–$400K</span>
-            </div>
+            <div class="pop-loss-total"><span class="lbl">Total value exposed</span><span class="val">$230K–$400K</span></div>
         </div>
 
         <div class="pop-offer">
@@ -898,13 +910,10 @@
                 <div class="pop-phase">
                     <div class="pop-phase-label">Phase 2 · Days 16+</div>
                     <div class="pop-phase-amount">$8,750<span style="font-size:0.7em;">/week</span></div>
-                    <div class="pop-phase-note">Weekly cadence once the initial window closes</div>
+                    <div class="pop-phase-note">Weekly cadence · retainer continues</div>
                 </div>
             </div>
-            <div class="pop-offer-total">
-                <span class="lbl">Due today to start Phase 1</span>
-                <span class="val">$18,750</span>
-            </div>
+            <div class="pop-offer-total"><span class="lbl">Due today to start Phase 1</span><span class="val">$18,750</span></div>
         </div>
 
         <div class="pop-disclaimer">
@@ -912,28 +921,20 @@
         </div>
 
         <div class="pop-actions">
-            <button class="pop-btn pop-btn-primary" onclick="proceedToWeeklyFromPopup()">
-                Proceed to Weekly Payment
-                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-            </button>
+            <button class="pop-btn pop-btn-primary" onclick="proceedToWeeklyFromPopup()">Proceed to Weekly Payment<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 8h10M9 4l4 4-4 4"/></svg></button>
             <button class="pop-btn pop-btn-ghost" onclick="closePopup('popup-post-payment')">Not Now</button>
         </div>
     </div>
 </div>
 
-<!-- ============================================================
-     PREMIUM POP-UP: POST-WEEKLY PAYMENT (Weekly Tracking → Storm Audit)
-     ============================================================ -->
-<div class="cat-popup-overlay" id="popup-post-weekly" role="dialog" aria-modal="true" aria-labelledby="pop2-title">
+<div class="cat-popup-overlay" id="popup-post-weekly" role="dialog" aria-modal="true">
     <div class="cat-popup">
-        <span class="pop-corner tl"></span><span class="pop-corner tr"></span>
-        <span class="pop-corner bl"></span><span class="pop-corner br"></span>
         <button class="cat-popup-close" onclick="closePopup('popup-post-weekly')" aria-label="Close">✕</button>
 
         <div class="pop-kicker"><span class="line"></span>Payment received · Weekly tracking live</div>
         <div class="pop-check">✓</div>
-        <h2 class="pop-headline" id="pop2-title">Thank you. Your weekly tracking is now active.</h2>
-        <p class="pop-sub">Phase 1 daily tracking begins now. You'll receive zone updates every 24 hours through Day 15, then weekly from Day 16 onward at $8,750/week.</p>
+        <h2 class="pop-headline">Thank you. Your weekly tracking is now active.</h2>
+        <p class="pop-sub">Phase 1 daily tracking begins now. You'll receive zone updates every 24 hours through Day 15, then weekly from Day 16 onward at $8,750/week retainer.</p>
 
         <div class="pop-truth">
             <div class="truth-label">— One more thing · A hard truth</div>
@@ -946,10 +947,7 @@
             <div class="pop-loss-item"><span>Wrong depreciation codes</span><span class="num">10–20%</span></div>
             <div class="pop-loss-item"><span>Undocumented code-required items</span><span class="num">$15K–$40K/roof</span></div>
             <div class="pop-loss-item"><span>Unjustified O&amp;P</span><span class="num">5–15%</span></div>
-            <div class="pop-loss-total">
-                <span class="lbl">Effective reduction per roof</span>
-                <span class="val">30–50%</span>
-            </div>
+            <div class="pop-loss-total"><span class="lbl">Effective reduction per roof</span><span class="val">30–50%</span></div>
         </div>
 
         <div class="pop-offer">
@@ -970,38 +968,30 @@
         </div>
 
         <div class="pop-actions">
-            <button class="pop-btn pop-btn-primary" onclick="proceedToStormFromPopup()">
-                Proceed to Storm Audit
-                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-            </button>
+            <button class="pop-btn pop-btn-primary" onclick="proceedToStormFromPopup()">Proceed to Storm Audit<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 8h10M9 4l4 4-4 4"/></svg></button>
             <button class="pop-btn pop-btn-ghost" onclick="closePopup('popup-post-weekly')">Not Now</button>
         </div>
     </div>
 </div>
 
-<!-- ============================================================
-     PREMIUM POP-UP: FINAL THANK YOU (after Storm Intake submission)
-     ============================================================ -->
-<div class="cat-popup-overlay" id="popup-final" role="dialog" aria-modal="true" aria-labelledby="pop3-title">
+<div class="cat-popup-overlay" id="popup-final" role="dialog" aria-modal="true">
     <div class="cat-popup">
-        <span class="pop-corner tl"></span><span class="pop-corner tr"></span>
-        <span class="pop-corner bl"></span><span class="pop-corner br"></span>
         <button class="cat-popup-close" onclick="closePopup('popup-final')" aria-label="Close">✕</button>
 
         <div class="pop-kicker"><span class="line"></span>Submission received</div>
         <div class="pop-check">✓</div>
-        <h2 class="pop-headline" id="pop3-title">Thank you. Your scope is in the queue.</h2>
-        <p class="pop-sub">Cross-referencing against current municipal and IRC code begins from here. You'll hear back by email with your free findings snapshot — no cost, no obligation.</p>
+        <h2 class="pop-headline">Thank you. Your scope is in the queue.</h2>
+        <p class="pop-sub">Cross-referencing against current municipal and IRC code begins from here. You'll hear back by email with your findings snapshot.</p>
 
-        <div class="pop-truth" style="border-left-color:var(--pop-cyan); background:var(--pop-cyan-dim);">
-            <div class="truth-label" style="color:var(--pop-cyan);">— What you've unlocked</div>
+        <div class="pop-truth">
+            <div class="truth-label">— What you've unlocked</div>
             <p>Three coordinated layers of commercial CAT intelligence, all running in your dashboard:</p>
         </div>
 
         <ul class="pop-checklist">
             <li><b>CAT Intelligence Full Report</b> — 12-factor scoring, historical outcomes, and deployment verdict for your target zone.</li>
-            <li><b>Weekly Deployment Tracking</b> — Daily zone intelligence for Days 1–15, then weekly from Day 16 onward.</li>
-            <li><b>Storm Audit Findings Snapshot</b> — Line-by-line Xactimate code review of your submitted scope documents.</li>
+            <li><b>Weekly Deployment Tracking</b> — Daily zone intelligence for Days 1–15, then weekly retainer from Day 16 onward.</li>
+            <li><b>Storm Audit</b> — Line-by-line Xactimate code review of your submitted scope documents.</li>
         </ul>
 
         <div class="pop-disclaimer">
@@ -1009,16 +999,12 @@
         </div>
 
         <div class="pop-actions">
-            <button class="pop-btn pop-btn-primary" onclick="returnToDashboard()">
-                Return to Dashboard
-                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-            </button>
+            <button class="pop-btn pop-btn-primary" onclick="returnToDashboard()">Return to Dashboard<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 8h10M9 4l4 4-4 4"/></svg></button>
         </div>
     </div>
 </div>
 
 <script>
-    // ===== CONFIGURATION =====
     var currentClient = "Vanguard Restoration Corp";
     var currentEmail = "operations@vanguard.com";
     var currentZip = "";
@@ -1027,7 +1013,6 @@
     var stormSubmitted = false;
     var adminMode = false;
 
-    // ===== SUBSCRIPTION DATA =====
     var subscribedServices = {
         cat_intel: true,
         storm_audit: true,
@@ -1037,7 +1022,6 @@
         chargebacks: false
     };
 
-    // ===== SIDEBAR RENDER =====
     function renderSidebar() {
         var services = {
             "nav-cat-intel": subscribedServices.cat_intel,
@@ -1065,13 +1049,11 @@
         document.getElementById("user-tier-label").textContent = adminMode ? "🔓 ADMIN VIEW" : "Enterprise Retainer";
     }
 
-    // ===== ADMIN TOGGLE =====
     function toggleAdminMode() {
         adminMode = !adminMode;
         renderSidebar();
     }
 
-    // ===== TAB SWITCHING =====
     function switchTab(tabId, navElement) {
         var tabs = document.querySelectorAll(".dashboard-tab");
         for (var i = 0; i < tabs.length; i++) tabs[i].classList.remove("active");
@@ -1081,15 +1063,15 @@
         if (navElement) navElement.classList.add("active");
 
         var hashMap = {
-            'view-home':         'command',
-            'view-cat-intel':    'cat-intel',
-            'view-storm-audit':  'storm-audit',
+            'view-home': 'command',
+            'view-cat-intel': 'cat-intel',
+            'view-storm-audit': 'storm-audit',
             'view-appointments': 'appointments',
             'view-vendor-audit': 'vendor-audit',
-            'view-freight-audit':'freight-audit',
-            'view-chargeback':   'chargebacks',
-            'view-billing':      'billing',
-            'view-settings':     'settings'
+            'view-freight-audit': 'freight-audit',
+            'view-chargeback': 'chargebacks',
+            'view-billing': 'billing',
+            'view-settings': 'settings'
         };
         var newHash = hashMap[tabId];
         if (newHash && window.location.hash !== '#' + newHash) {
@@ -1097,25 +1079,49 @@
         }
     }
 
-    // ===== DEEP-LINK SUPPORT =====
     function handleDeepLink() {
         var hash = window.location.hash.replace('#', '').trim();
-        if (!hash) return;
+
+        var params = new URLSearchParams(window.location.search);
+        var refZip = params.get('zip');
+
+        if (refZip) {
+            setTimeout(function() {
+                var zipInput = document.getElementById('frm-zip');
+                if (zipInput) {
+                    zipInput.value = refZip;
+                    document.getElementById('frm-intent').value = 'MAX_CASH';
+                    document.getElementById('frm-tech').value = 'PRO_TECH';
+                    document.getElementById('frm-rain').value = '0';
+                    switchTab('view-cat-intel', document.querySelector('#nav-cat-intel'));
+                    setTimeout(function() {
+                        document.getElementById('triage-form').dispatchEvent(new Event('submit'));
+                    }, 400);
+                }
+            }, 600);
+        }
+
+        if (!hash) {
+            if (refZip) {
+                switchTab('view-cat-intel', document.querySelector('#nav-cat-intel'));
+            }
+            return;
+        }
 
         var tabMap = {
-            'command':      'view-home',
-            'home':         'view-home',
-            'cat-intel':    'view-cat-intel',
-            'cat':          'view-cat-intel',
-            'storm-audit':  'view-storm-audit',
-            'storm':        'view-storm-audit',
+            'command': 'view-home',
+            'home': 'view-home',
+            'cat-intel': 'view-cat-intel',
+            'cat': 'view-cat-intel',
+            'storm-audit': 'view-storm-audit',
+            'storm': 'view-storm-audit',
             'appointments': 'view-appointments',
             'vendor-audit': 'view-vendor-audit',
-            'freight-audit':'view-freight-audit',
-            'chargebacks':  'view-chargeback',
-            'chargeback':   'view-chargeback',
-            'billing':      'view-billing',
-            'settings':     'view-settings'
+            'freight-audit': 'view-freight-audit',
+            'chargebacks': 'view-chargeback',
+            'chargeback': 'view-chargeback',
+            'billing': 'view-billing',
+            'settings': 'view-settings'
         };
 
         var targetTab = tabMap[hash];
@@ -1139,39 +1145,56 @@
         if (matchingNav) matchingNav.classList.add("active");
     }
 
-    // ===== LOGOUT =====
     function logout() { alert("Logged out."); }
 
-    // ===== PAYMENT FLOW =====
-    function showPaymentScreen() { 
-        document.getElementById("preview-card").style.display = "none"; 
-        document.getElementById("payment-screen").style.display = "block"; 
+    function showPaymentScreen() {
+        document.getElementById("preview-card").style.display = "none";
+        document.getElementById("payment-screen").style.display = "block";
     }
 
-    function togglePayment(m) { 
-        document.getElementById("btn-ach").classList.toggle("active", m === "ACH"); 
-        document.getElementById("btn-fedwire").classList.toggle("active", m === "FEDWIRE"); 
-        document.getElementById("pay-ach").style.display = m === "ACH" ? "block" : "none"; 
-        document.getElementById("pay-fedwire").style.display = m === "FEDWIRE" ? "block" : "none"; 
+    function togglePayment(m) {
+        document.getElementById("btn-ach").classList.toggle("active", m === "ACH");
+        document.getElementById("btn-fedwire").classList.toggle("active", m === "FEDWIRE");
+        document.getElementById("pay-ach").style.display = m === "ACH" ? "block" : "none";
+        document.getElementById("pay-fedwire").style.display = m === "FEDWIRE" ? "block" : "none";
     }
 
-    function copyPayment(m) { 
-        var t = m === "ACH" ? "Bank: JPMORGAN CHASE\nAccount: 20000045856166\nRouting: 028000024" : "Bank: JPMORGAN CHASE\nAccount: 20000045856166\nRouting: 021000021"; 
-        navigator.clipboard.writeText(t).then(function(){ alert("Copied."); }); 
+    function copyPayment(m) {
+        var t = m === "ACH" ? "Bank: JPMORGAN CHASE\nAccount: 20000045856166\nRouting: 028000024" : "Bank: JPMORGAN CHASE\nAccount: 20000045856166\nRouting: 021000021";
+        navigator.clipboard.writeText(t).then(function(){ alert("Copied."); });
     }
 
-    // ===== POP-UP SYSTEM =====
+    function showVerificationPending() {
+        document.getElementById("payment-screen").style.display = "none";
+        document.getElementById("verification-pending").style.display = "block";
+        setTimeout(function() { openPopup('popup-post-payment'); }, 300);
+    }
+
+    function showWeeklyPayment() {
+        document.getElementById("verification-pending").style.display = "none";
+        document.getElementById("weekly-payment-screen").style.display = "block";
+    }
+
+    function toggleWeeklyPayment(m) {
+        document.getElementById("btn-wach").classList.toggle("active", m === "ACH");
+        document.getElementById("btn-wfedwire").classList.toggle("active", m === "FEDWIRE");
+        document.getElementById("wpay-ach").style.display = m === "ACH" ? "block" : "none";
+        document.getElementById("wpay-fedwire").style.display = m === "FEDWIRE" ? "block" : "none";
+    }
+
+    function showWeeklyVerification() {
+        document.getElementById("weekly-payment-screen").style.display = "none";
+        document.getElementById("weekly-verification").style.display = "block";
+        setTimeout(function() { openPopup('popup-post-weekly'); }, 300);
+    }
+
     function openPopup(id) {
         var el = document.getElementById(id);
         if (!el) return;
         el.classList.add('is-open');
-        // trigger transition on next frame
         requestAnimationFrame(function() {
-            requestAnimationFrame(function() {
-                el.classList.add('is-visible');
-            });
+            requestAnimationFrame(function() { el.classList.add('is-visible'); });
         });
-        // lock body scroll
         document.body.style.overflow = 'hidden';
     }
 
@@ -1181,49 +1204,11 @@
         el.classList.remove('is-visible');
         setTimeout(function() {
             el.classList.remove('is-open');
-            // only unlock scroll if no other popup is open
             var anyOpen = document.querySelector('.cat-popup-overlay.is-open');
             if (!anyOpen) document.body.style.overflow = '';
         }, 400);
     }
 
-    // ===== SHOW VERIFICATION PENDING → triggers post-payment popup =====
-    function showVerificationPending() {
-        // Hide the payment screen
-        document.getElementById("payment-screen").style.display = "none";
-        // Show inline verification-pending card (Option B fallback)
-        document.getElementById("verification-pending").style.display = "block";
-        // Small delay for a smooth perceived transition, then fire pop-up
-        setTimeout(function() {
-            openPopup('popup-post-payment');
-        }, 300);
-    }
-
-    function showWeeklyPayment() { 
-        document.getElementById("verification-pending").style.display = "none"; 
-        document.getElementById("weekly-payment-screen").style.display = "block"; 
-    }
-
-    function toggleWeeklyPayment(m) { 
-        document.getElementById("btn-wach").classList.toggle("active", m === "ACH"); 
-        document.getElementById("btn-wfedwire").classList.toggle("active", m === "FEDWIRE"); 
-        document.getElementById("wpay-ach").style.display = m === "ACH" ? "block" : "none"; 
-        document.getElementById("wpay-fedwire").style.display = m === "FEDWIRE" ? "block" : "none"; 
-    }
-
-    // ===== SHOW WEEKLY VERIFICATION → triggers post-weekly popup =====
-    function showWeeklyVerification() {
-        // Hide the weekly payment screen
-        document.getElementById("weekly-payment-screen").style.display = "none";
-        // Show inline weekly-verification card (fallback)
-        document.getElementById("weekly-verification").style.display = "block";
-        // Small delay, then fire pop-up
-        setTimeout(function() {
-            openPopup('popup-post-weekly');
-        }, 300);
-    }
-
-    // ===== POP-UP ACTIONS =====
     function proceedToWeeklyFromPopup() {
         closePopup('popup-post-payment');
         setTimeout(function() {
@@ -1235,7 +1220,6 @@
     function proceedToStormFromPopup() {
         closePopup('popup-post-weekly');
         setTimeout(function() {
-            // Show the intake form inline (which was previously gated behind showStormIntake)
             var upsellBox = document.querySelector('#weekly-verification .upsell-box');
             if (upsellBox) upsellBox.style.display = 'none';
             document.getElementById('storm-intake-section').style.display = 'block';
@@ -1246,12 +1230,10 @@
     function returnToDashboard() {
         closePopup('popup-final');
         setTimeout(function() {
-            // Scroll to top of CAT Intelligence tab
             document.querySelector('.main-viewport').scrollTo({ top: 0, behavior: 'smooth' });
         }, 300);
     }
 
-    // ===== SHOW STORM INTAKE FORM (for the inline "Proceed to Storm Audit" button, if used) =====
     function showStormIntake() {
         var upsellBox = document.querySelector('#weekly-verification .upsell-box');
         if (upsellBox) upsellBox.style.display = 'none';
@@ -1259,25 +1241,6 @@
         document.getElementById('storm-intake-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
-    // ===== STORM FORM SUBMISSION → triggers final thank-you popup =====
-    document.getElementById("intakeForm").addEventListener("submit", function() {
-        stormSubmitted = true;
-    });
-
-    // ===== LISTEN FOR THE IFRAME LOAD (form submitted) =====
-    document.getElementById("hidden_iframe_storm").addEventListener("load", function() {
-        if (!stormSubmitted) return;
-        stormSubmitted = false;
-        // Hide the form, show the inline thank-you
-        document.getElementById('intake-form-wrap').style.display = 'none';
-        document.getElementById('intake-thankyou').style.display = 'block';
-        // Fire the final thank-you pop-up
-        setTimeout(function() {
-            openPopup('popup-final');
-        }, 500);
-    });
-
-    // ===== ESC KEY CLOSES ACTIVE POP-UP =====
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
             var openPop = document.querySelector('.cat-popup-overlay.is-open');
@@ -1285,7 +1248,6 @@
         }
     });
 
-    // ===== CAT INTELLIGENCE TRIAGE =====
     document.getElementById("triage-form").addEventListener("submit", function(e) {
         e.preventDefault();
         var zip = document.getElementById("frm-zip").value.trim();
@@ -1311,7 +1273,6 @@
         currentCity = data.city;
         currentState = data.state;
 
-        // Prefill intake form
         document.getElementById("intake-zip").value = zip;
         document.getElementById("intake-city").value = data.city;
         document.getElementById("intake-state").value = data.state;
@@ -1319,7 +1280,6 @@
         document.getElementById("intake-contact").value = "Operations Team";
         document.getElementById("intake-email").value = currentEmail;
 
-        // Show preview — directional teaser
         var previewCard = document.getElementById("preview-card");
         previewCard.style.display = "block";
         document.getElementById("pv-location").textContent = data.city + ", " + data.state + " (" + zip + ")";
@@ -1344,10 +1304,19 @@
         previewCard.scrollIntoView({ behavior: "smooth", block: "center" });
     });
 
-    // ===== INIT =====
+    document.getElementById("intakeForm").addEventListener("submit", function() {
+        stormSubmitted = true;
+    });
+    document.getElementById("hidden_iframe_storm").addEventListener("load", function() {
+        if (!stormSubmitted) return;
+        stormSubmitted = false;
+        document.getElementById('intake-form-wrap').style.display = 'none';
+        document.getElementById('intake-thankyou').style.display = 'block';
+        setTimeout(function() { openPopup('popup-final'); }, 500);
+    });
+
     renderSidebar();
     handleDeepLink();
-
     window.addEventListener('hashchange', handleDeepLink);
 </script>
 </body>
