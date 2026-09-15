@@ -93,25 +93,11 @@
         .deliverable-list li { font-size: 13px; color: var(--text-muted); padding: 6px 0; border-bottom: 1px solid #1a2332; }
         .deliverable-list li strong { color: #fff; }
 
-        /* PREVIEW CARD FIX - ensure all content shows */
-        #preview-card {
-            overflow: visible;
-            height: auto;
-            min-height: 400px;
-        }
-        #preview-card table {
-            width: 100%;
-            margin-bottom: 16px;
-        }
-        #preview-card .btn-primary {
-            margin-top: 16px;
-        }
-        #preview-card .loss-box {
-            overflow: visible;
-            height: auto;
-        }
+        #preview-card { overflow: visible; height: auto; min-height: 400px; }
+        #preview-card table { width: 100%; margin-bottom: 16px; }
+        #preview-card .btn-primary { margin-top: 16px; }
+        #preview-card .loss-box { overflow: visible; height: auto; }
 
-        /* Storm Intake Form Styles (embedded) */
         .intake-form-card { background: var(--bg-card); border: 1px solid var(--border-hairline); border-radius: 12px; padding: 36px; margin-top: 20px; }
         .intake-form-card .form-group { margin-bottom: 20px; }
         .intake-form-card label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--text-muted); margin-bottom: 8px; }
@@ -213,62 +199,69 @@
                 </form>
             </div>
 
-            <!-- PREVIEW CARD — verdict and score now LOCKED -->
+            <!-- PREVIEW CARD — directional teaser -->
             <div id="preview-card" class="card" style="display:none; border-top:4px solid var(--cyber-amber);">
                 <div style="display:flex; justify-content:space-between; gap:12px; border-bottom:1px solid var(--border-hairline); padding-bottom:16px; margin-bottom:20px; flex-wrap:wrap;">
                     <div>
                         <div class="section-label" style="margin:0;">Preliminary Verdict</div>
-                        <span id="pv-verdict" class="badge-status bg-amber" style="font-size:15px;">🔒 LOCKED</span>
+                        <span id="pv-verdict" class="badge-status bg-green" style="font-size:15px;">HIGH ACTIVITY</span>
                         <span class="preview-badge" style="margin-left:8px;">Free Preview</span>
                         <div style="font-size:13px; color:var(--text-muted); margin-top:6px;" id="pv-location">—</div>
                     </div>
                     <div style="text-align:right;">
                         <div class="section-label" style="margin:0;">Score</div>
-                        <span id="pv-score" style="font-family:'IBM Plex Mono', monospace; font-size:32px; font-weight:900; color:var(--cyber-amber);">🔒 ??%</span>
+                        <span id="pv-score" style="font-family:'IBM Plex Mono', monospace; font-size:28px; font-weight:900; color:var(--cyber-green);">Up to 85%</span>
+                        <div style="font-size:10px; color:var(--text-detail); margin-top:2px;">Exact score locked</div>
                     </div>
                 </div>
 
                 <p style="font-size:13px; color:var(--cyber-amber); margin-bottom:16px; padding:12px; background:rgba(255,184,0,0.05); border-radius:6px; border:1px solid rgba(255,184,0,0.2);">
-                    🔓 <strong>FREE PREVIEW — Teaser Only</strong><br>
-                    <span style="color:var(--text-muted);">Unlock the full report to reveal your verdict, score, and all 12 factors.</span>
+                    ⚠️ <strong>ACTIVITY DETECTED — DO NOT DEPLOY BLIND</strong><br>
+                    <span style="color:var(--text-muted);">This market is showing strong signals. But deployment without full intel is where roofers lose money. Unlock before you move.</span>
                 </p>
 
                 <table>
-                    <tr><th>Factor</th><th>Value</th><th>Weight</th></tr>
+                    <tr><th>Factor</th><th>Signal</th><th>Weight</th></tr>
                     <tr>
                         <td><strong>Rain Saturation</strong><br><span class="factor-explanation" id="pv-rain-desc">Detected</span></td>
-                        <td style="color:var(--cyber-amber);">🔒 Locked</td>
+                        <td style="color:var(--cyber-green); font-weight:800;">Event signal detected</td>
                         <td>15%</td>
                     </tr>
                     <tr>
                         <td><strong>Market Activity</strong><br><span class="factor-explanation" id="pv-density-desc">Detected</span></td>
-                        <td style="color:var(--cyber-amber);">🔒 Locked</td>
+                        <td style="color:var(--cyber-amber); font-weight:800;">Competition increasing daily</td>
                         <td>10%</td>
                     </tr>
                     <tr>
                         <td><strong>Tech Stack</strong><br><span class="factor-explanation" id="pv-tech-desc">Detected</span></td>
-                        <td style="color:var(--cyber-amber);">🔒 Locked</td>
+                        <td style="color:var(--cyber-green); font-weight:800;">🟢 Pro Tech ready</td>
                         <td>10%</td>
                     </tr>
                 </table>
 
                 <div class="loss-box" style="margin-top:20px;">
-                    <div class="loss-title">⚠️ 9 HIDDEN FACTORS</div>
-                    <div class="loss-item">🔒 Who is mobilizing against you</div>
-                    <div class="loss-item">🔒 Whether hail is claim-worthy</div>
-                    <div class="loss-item">🔒 Whether adjusters approve or deny</div>
-                    <div class="loss-item">🔒 How long carriers delay YOUR payments</div>
-                    <div class="loss-item">🔒 Your true cost per roof</div>
-                    <div class="loss-item">🔒 Labor and material availability</div>
-                    <div class="loss-item">🔒 Your actual margin — profit or loss</div>
-                    <div class="loss-item">🔒 When to walk away</div>
+                    <div class="loss-title">⚠️ 9 HIDDEN FACTORS — YOU'RE FLYING BLIND</div>
+                    <div class="loss-item">🔒 Mobilization risk analysis</div>
+                    <div class="loss-item">🔒 Claim-worthiness assessment</div>
+                    <div class="loss-item">🔒 Adjuster approval probability</div>
+                    <div class="loss-item">🔒 Carrier payment timeline</div>
+                    <div class="loss-item">🔒 Per-roof cost model</div>
+                    <div class="loss-item">🔒 Labor &amp; material readiness</div>
+                    <div class="loss-item">🔒 Margin forecast</div>
+                    <div class="loss-item">🔒 Deployment exit signals</div>
                     <div style="margin-top:12px; padding-top:12px; border-top:1px solid rgba(255,82,82,0.4);">
-                        <div style="font-size:14px; color:#fff;">💰 Value at stake: <span id="loss-gross" style="color:var(--cyber-amber);">$200K – $600K</span></div>
-                        <div class="loss-big">📉 Cost of being wrong: <span id="loss-amount">Unknown until unlocked</span></div>
+                        <div style="font-size:14px; color:#fff;">💰 Value at stake: <span id="loss-gross" style="color:var(--cyber-amber);">Up to $550K+</span></div>
+                        <div class="loss-big">📉 Cost of deploying blind: <span id="loss-amount" style="color:var(--cyber-red);">$250K+ at risk</span></div>
                         <div style="font-size:14px; color:var(--cyber-green); font-weight:800;">✅ Cost of knowing: $7,000</div>
                     </div>
                 </div>
-                <button class="btn-primary" onclick="showPaymentScreen()">🔓 Unlock Full Report — $7,000</button>
+
+                <div style="margin-top:16px; padding:14px; background:rgba(0,255,163,0.03); border:1px solid rgba(0,255,163,0.2); border-radius:8px;">
+                    <div style="font-size:13px; color:var(--cyber-green); font-weight:800; margin-bottom:4px;">⚡ Every day you wait, the mobilization window narrows.</div>
+                    <div style="font-size:12px; color:var(--text-muted);">Days 1–7 are when CAT markets get claimed. After Day 10, materials are gone and margins collapse.</div>
+                </div>
+
+                <button class="btn-primary" onclick="showPaymentScreen()" style="margin-top:16px;">🔓 Unlock Full Intel — $7,000</button>
             </div>
 
             <div id="payment-screen" class="card" style="display:none; border-top:4px solid var(--cyber-green);">
@@ -332,4 +325,329 @@
                     <div class="loss-box">
                         <div class="loss-title">💰 WITHOUT AUDIT:</div>
                         <div class="loss-item">Undocumented: <strong>$15K-$40K/roof</strong></div>
-                        <div class="
+                        <div class="loss-item">Wrong codes: <strong>30-50% reduction</strong></div>
+                        <div class="loss-big">$33K-$95K PER ROOF LOST</div>
+                    </div>
+                    <button class="btn-primary btn-amber" onclick="showStormIntake()">🌪️ Proceed to Storm Audit</button>
+                </div>
+
+                <!-- STORM INTAKE FORM — hidden until button above is clicked -->
+                <div id="storm-intake-section" style="display:none; margin-top: 30px; border-top: 1px solid var(--border-hairline); padding-top: 30px;">
+                    <h2 style="font-size: 22px; font-weight: 800; margin-bottom: 8px;">Submit Your Scope Documents</h2>
+                    <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 20px;">Fill in the details below and share your scope documents for code‑compliance review.</p>
+                    
+                    <div id="intake-form-wrap" class="intake-form-card">
+                        <form id="intakeForm" action="https://docs.google.com/forms/d/e/1FAIpQLSdr7bQSqWc9vQnWawKujiAmaVDOsXC_fTmWPQlqYKRSdHCi0w/formResponse" method="POST" target="hidden_iframe_storm" onsubmit="stormSubmitted=true;">
+                            <div class="form-group">
+                                <label for="intake-company">Company Name</label>
+                                <input type="text" id="intake-company" name="entry.476800857" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="intake-contact">Your Name</label>
+                                <input type="text" id="intake-contact" name="entry.1944912808" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="intake-email">Corporate Email Address</label>
+                                <input type="email" id="intake-email" name="entry.2021031500" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="intake-state">Target Property State</label>
+                                <input type="text" id="intake-state" name="entry.2131427226" placeholder="e.g. TX" maxlength="2" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="intake-city">Local Municipality / City</label>
+                                <input type="text" id="intake-city" name="entry.327565592" placeholder="e.g. Irving" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="intake-zip">ZIP Code <span style="text-transform:none;font-weight:400;">(optional — sharpens jurisdiction lookup)</span></label>
+                                <input type="text" id="intake-zip" name="entry.654630999" placeholder="e.g. 75061">
+                            </div>
+                            <div class="form-group">
+                                <label for="intake-claimref">Claim / Reference Number <span style="text-transform:none;font-weight:400;">(optional)</span></label>
+                                <input type="text" id="intake-claimref" name="entry.513867674" placeholder="Internal claim or job reference">
+                            </div>
+                            <div class="form-group">
+                                <label for="intake-structcount">Number of Structures Covered by This Scope <span style="text-transform:none;font-weight:400;">(optional)</span></label>
+                                <input type="text" id="intake-structcount" name="entry.69411161" placeholder="e.g. 1">
+                                <div class="form-hint">Up to 3 structures under one claim number counts as a single review; each additional structure is billed at 50% of a standard review.</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="intake-scopelink">Secure Scope Document Link (Google Drive)</label>
+                                <input type="text" id="intake-scopelink" name="entry.89385988" placeholder="https://drive.google.com/..." required>
+                                <div class="form-hint">Set sharing to "anyone with the link can view" before pasting it here.</div>
+                                <div class="doc-checklist">
+                                    <div class="doc-item"><div class="doc-num">1</div><div><div class="doc-title">Preliminary Carrier Scope of Loss<span class="tag">Required</span></div><div class="doc-desc">The initial adjuster summary PDF — the raw estimate written right after the storm, before any code review.</div></div></div>
+                                    <div class="doc-item"><div class="doc-num">2</div><div><div class="doc-title">Contractor's Draft Estimate<span class="tag">Required</span></div><div class="doc-desc">Your own team's scope of work (Xactimate PDF or export) — the document we cross-reference line by line.</div></div></div>
+                                    <div class="doc-item"><div class="doc-num">3</div><div><div class="doc-title">Local Jurisdiction Photographic Evidence<span class="tag">Required</span></div><div class="doc-desc">High-resolution photos of roof eaves, gutters, and structural valleys — supports the documented case for code items like drip edge or ice-and-water underlayment.</div></div></div>
+                                </div>
+                            </div>
+                            <label class="consent">
+                                <input type="checkbox" name="entry.1477953076" value="I confirm I have the right to share this data and understand it will be used only to run this review." required>
+                                I confirm I have the right to share this data and understand it will be used only to run this review.
+                            </label>
+                            <button type="submit" class="submit-btn">Submit for Free Findings Snapshot</button>
+                        </form>
+                    </div>
+                    <div id="intake-thankyou" class="thank-you-card">
+                        <div class="thank-you-icon">✓</div>
+                        <h3>Got it — your submission is in the queue.</h3>
+                        <p>Cross‑referencing against current municipal and IRC code begins from here. You'll hear back by email with your free findings snapshot — no cost, no obligation.</p>
+                    </div>
+                    <iframe name="hidden_iframe_storm" id="hidden_iframe_storm" style="display:none;" onload="if(stormSubmitted){document.getElementById('intake-form-wrap').style.display='none';document.getElementById('intake-thankyou').style.display='block';window.scrollTo({top:document.getElementById('intake-thankyou').offsetTop-100,behavior:'smooth'});}"></iframe>
+                    <div class="data-note"><strong>What happens next:</strong> your submission is logged the moment you hit submit, and code‑compliance cross‑referencing begins from there. Your first review is a free findings snapshot, at no cost and no obligation.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- STORM AUDIT -->
+        <section id="view-storm-audit" class="dashboard-tab" style="width:100%;">
+            <h1>Storm Audit</h1>
+            <p class="lead">Flat-fee Xactimate code audit before submission.</p>
+            <div class="card">
+                <h3 class="section-label">What We Audit</h3>
+                <div class="financial-line"><span>Xactimate Code Accuracy</span><span>Line-by-line review</span></div>
+                <div class="financial-line"><span>Missing Line Items</span><span>Undocumented work detection</span></div>
+                <div class="financial-line"><span>Depreciation Errors</span><span>Calculation verification</span></div>
+                <div class="financial-line"><span>O&amp;P Documentation</span><span>Overhead justification</span></div>
+                <div class="financial-line"><span>Cost</span><span style="color:var(--cyber-amber); font-weight:800;">$3,500/roof</span></div>
+            </div>
+        </section>
+
+        <!-- APPOINTMENTS -->
+        <section id="view-appointments" class="dashboard-tab" style="width:100%;">
+            <h1>Insurance Appointment Booking</h1>
+            <p class="lead">For insurance agents — automated lead-to-appointment conversion.</p>
+            <div class="card">
+                <h3 class="section-label">CRM Integration</h3>
+                <div class="financial-line"><span>CRM Connected</span><span style="color:var(--cyber-green);">✅ ACTIVE</span></div>
+                <div class="financial-line"><span>Response Time</span><span style="color:var(--cyber-amber);">Under 60 seconds</span></div>
+                <div style="margin-top:16px; padding:16px; background:#03060c; border-radius:8px; border:1px solid var(--border-hairline);">
+                    <p style="font-size:13px; color:var(--text-muted);">📋 <strong>200 old leads</strong> being converted to appointments as proof of concept.<br>
+                    <span style="font-size:12px; color:var(--text-detail);">Full service: real-time CRM integration for new lead booking.</span></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- VENDOR AUDIT -->
+        <section id="view-vendor-audit" class="dashboard-tab" style="width:100%;">
+            <h1>Vendor Audit</h1>
+            <p class="lead">Coming soon.</p>
+        </section>
+
+        <!-- FREIGHT AUDIT -->
+        <section id="view-freight-audit" class="dashboard-tab" style="width:100%;">
+            <h1>Freight Audit</h1>
+            <p class="lead">Coming soon.</p>
+        </section>
+
+        <!-- CHARGEBACKS -->
+        <section id="view-chargeback" class="dashboard-tab" style="width:100%;">
+            <h1>Chargebacks</h1>
+            <p class="lead">Coming soon.</p>
+        </section>
+
+        <!-- BILLING -->
+        <section id="view-billing" class="dashboard-tab" style="width:100%;">
+            <h1>Payment Center</h1>
+            <div class="card">
+                <div class="financial-line"><span>Bank</span><span>JPMORGAN CHASE</span></div>
+                <div class="financial-line"><span>Account</span><span>20000045856166</span></div>
+                <div class="financial-line"><span>Routing ACH</span><span>028000024</span></div>
+                <div class="financial-line"><span>Routing FEDWIRE</span><span>021000021</span></div>
+            </div>
+        </section>
+
+        <!-- SETTINGS -->
+        <section id="view-settings" class="dashboard-tab" style="width:100%;">
+            <h1>Settings</h1>
+            <div class="card">
+                <div class="financial-line"><span>Client</span><span id="settings-client">Vanguard Restoration Corp</span></div>
+                <div class="financial-line"><span>Account Key</span><span>OPT-77421</span></div>
+                <div class="financial-line"><span>Email</span><span id="settings-email">operations@vanguard.com</span></div>
+            </div>
+        </section>
+    </main>
+</div>
+
+<script>
+    // ===== CONFIGURATION =====
+    var currentClient = "Vanguard Restoration Corp";
+    var currentEmail = "operations@vanguard.com";
+    var currentZip = "";
+    var currentCity = "";
+    var currentState = "";
+    var stormSubmitted = false;
+    var adminMode = false;
+
+    // ===== SUBSCRIPTION DATA =====
+    var subscribedServices = {
+        cat_intel: true,
+        storm_audit: true,
+        appointment_booking: true,
+        vendor_audit: false,
+        freight_audit: false,
+        chargebacks: false
+    };
+
+    // ===== SIDEBAR RENDER =====
+    function renderSidebar() {
+        var services = {
+            "nav-cat-intel": subscribedServices.cat_intel,
+            "nav-storm-audit": subscribedServices.storm_audit,
+            "nav-appointments": subscribedServices.appointment_booking,
+            "nav-vendor-audit": subscribedServices.vendor_audit,
+            "nav-freight-audit": subscribedServices.freight_audit,
+            "nav-chargeback": subscribedServices.chargebacks,
+            "nav-billing": true
+        };
+
+        for (var id in services) {
+            var el = document.getElementById(id);
+            if (el) {
+                if (adminMode) {
+                    el.style.display = "flex";
+                    el.classList.remove("hidden-service");
+                } else {
+                    el.style.display = services[id] ? "flex" : "none";
+                    if (!services[id]) el.classList.add("hidden-service");
+                    else el.classList.remove("hidden-service");
+                }
+            }
+        }
+        document.getElementById("user-tier-label").textContent = adminMode ? "🔓 ADMIN VIEW" : "Enterprise Retainer";
+    }
+
+    // ===== ADMIN TOGGLE =====
+    function toggleAdminMode() {
+        adminMode = !adminMode;
+        renderSidebar();
+    }
+
+    // ===== TAB SWITCHING =====
+    function switchTab(tabId, navElement) {
+        var tabs = document.querySelectorAll(".dashboard-tab");
+        for (var i = 0; i < tabs.length; i++) tabs[i].classList.remove("active");
+        var navs = document.querySelectorAll(".nav-item");
+        for (var j = 0; j < navs.length; j++) navs[j].classList.remove("active");
+        document.getElementById(tabId).classList.add("active");
+        if (navElement) navElement.classList.add("active");
+    }
+
+    // ===== LOGOUT =====
+    function logout() { alert("Logged out."); }
+
+    // ===== PAYMENT FLOW =====
+    function showPaymentScreen() { 
+        document.getElementById("preview-card").style.display = "none"; 
+        document.getElementById("payment-screen").style.display = "block"; 
+    }
+
+    function togglePayment(m) { 
+        document.getElementById("btn-ach").classList.toggle("active", m === "ACH"); 
+        document.getElementById("btn-fedwire").classList.toggle("active", m === "FEDWIRE"); 
+        document.getElementById("pay-ach").style.display = m === "ACH" ? "block" : "none"; 
+        document.getElementById("pay-fedwire").style.display = m === "FEDWIRE" ? "block" : "none"; 
+    }
+
+    function copyPayment(m) { 
+        var t = m === "ACH" ? "Bank: JPMORGAN CHASE\nAccount: 20000045856166\nRouting: 028000024" : "Bank: JPMORGAN CHASE\nAccount: 20000045856166\nRouting: 021000021"; 
+        navigator.clipboard.writeText(t).then(function(){ alert("Copied."); }); 
+    }
+
+    function showVerificationPending() { 
+        document.getElementById("payment-screen").style.display = "none"; 
+        document.getElementById("verification-pending").style.display = "block"; 
+    }
+
+    function showWeeklyPayment() { 
+        document.getElementById("verification-pending").style.display = "none"; 
+        document.getElementById("weekly-payment-screen").style.display = "block"; 
+    }
+
+    function toggleWeeklyPayment(m) { 
+        document.getElementById("btn-wach").classList.toggle("active", m === "ACH"); 
+        document.getElementById("btn-wfedwire").classList.toggle("active", m === "FEDWIRE"); 
+        document.getElementById("wpay-ach").style.display = m === "ACH" ? "block" : "none"; 
+        document.getElementById("wpay-fedwire").style.display = m === "FEDWIRE" ? "block" : "none"; 
+    }
+
+    function showWeeklyVerification() { 
+        document.getElementById("weekly-payment-screen").style.display = "none"; 
+        document.getElementById("weekly-verification").style.display = "block"; 
+    }
+
+    // ===== SHOW STORM INTAKE FORM =====
+    function showStormIntake() {
+        var upsellBox = document.querySelector('#weekly-verification .upsell-box');
+        if (upsellBox) upsellBox.style.display = 'none';
+        document.getElementById('storm-intake-section').style.display = 'block';
+        document.getElementById('storm-intake-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // ===== CAT INTELLIGENCE TRIAGE =====
+    document.getElementById("triage-form").addEventListener("submit", function(e) {
+        e.preventDefault();
+        var zip = document.getElementById("frm-zip").value.trim();
+        var intent = document.getElementById("frm-intent").value;
+        var tech = document.getElementById("frm-tech").value;
+        var rain = parseFloat(document.getElementById("frm-rain").value) || 0;
+
+        if (!zip || zip.length < 5) { alert("Please enter a valid ZIP code."); return; }
+        if (!intent) { alert("Please select an intent."); return; }
+        if (!tech) { alert("Please select a tech stack."); return; }
+
+        currentZip = zip;
+
+        var locationData = {
+            "75062": { city: "Irving", state: "TX", density: "High", rainScore: 85, densityScore: 78, techScore: tech === "PRO_TECH" ? 92 : 65 },
+            "75201": { city: "Dallas", state: "TX", density: "Very High", rainScore: 72, densityScore: 90, techScore: tech === "PRO_TECH" ? 88 : 60 },
+            "77001": { city: "Houston", state: "TX", density: "High", rainScore: 95, densityScore: 82, techScore: tech === "PRO_TECH" ? 85 : 55 },
+            "78701": { city: "Austin", state: "TX", density: "Moderate", rainScore: 62, densityScore: 70, techScore: tech === "PRO_TECH" ? 90 : 58 },
+            "90210": { city: "Beverly Hills", state: "CA", density: "Low", rainScore: 25, densityScore: 55, techScore: tech === "PRO_TECH" ? 95 : 62 }
+        };
+
+        var data = locationData[zip] || { city: "Unknown", state: "XX", density: "Moderate", rainScore: 50, densityScore: 60, techScore: tech === "PRO_TECH" ? 75 : 50 };
+        currentCity = data.city;
+        currentState = data.state;
+
+        // Prefill intake form
+        document.getElementById("intake-zip").value = zip;
+        document.getElementById("intake-city").value = data.city;
+        document.getElementById("intake-state").value = data.state;
+        document.getElementById("intake-company").value = currentClient;
+        document.getElementById("intake-contact").value = "Operations Team";
+        document.getElementById("intake-email").value = currentEmail;
+
+        // Show preview — directional teaser
+        var previewCard = document.getElementById("preview-card");
+        previewCard.style.display = "block";
+        document.getElementById("pv-location").textContent = data.city + ", " + data.state + " (" + zip + ")";
+
+        // Verdict: show activity level (directional)
+        document.getElementById("pv-verdict").textContent = data.density.toUpperCase() + " ACTIVITY";
+        document.getElementById("pv-verdict").className = "badge-status " + (data.density === "High" || data.density === "Very High" ? "bg-green" : "bg-amber");
+
+        // Score: show as "Up to X%" ceiling only
+        var totalScore = Math.round((data.rainScore * 0.15 + data.densityScore * 0.10 + data.techScore * 0.10) / 0.35);
+        var ceiling = Math.min(100, totalScore + 5);
+        document.getElementById("pv-score").textContent = "Up to " + ceiling + "%";
+
+        // Factors: vague but real signals
+        document.getElementById("pv-rain-desc").textContent = "Event signal detected";
+        document.getElementById("pv-density-desc").textContent = "Competition increasing daily";
+        document.getElementById("pv-tech-desc").textContent = tech === "PRO_TECH" ? "🟢 Pro Tech ready" : "🟡 Manual — slower";
+
+        // Value: show ceiling only
+        var gross = Math.round(400000 + Math.random() * 150000);
+        var grossCeiling = Math.round(gross / 10000) * 10000;
+        document.getElementById("loss-gross").textContent = "Up to $" + (grossCeiling/1000).toFixed(0) + "K+";
+        document.getElementById("loss-amount").textContent = "$" + Math.round(grossCeiling * 0.45 / 1000) + "K+ at risk";
+
+        previewCard.scrollIntoView({ behavior: "smooth", block: "center" });
+    });
+
+    // ===== INIT =====
+    renderSidebar();
+</script>
+</body>
+</html>
