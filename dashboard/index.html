@@ -13,22 +13,42 @@
         --bg-card: linear-gradient(145deg, #0b101b, #070b13);
         --border-hairline: #1c2536;
         --text-primary: #ffffff;
-        --text-muted: #b0bec5;
-        --text-detail: #78909c;
+        --text-muted: #cfd8dc;      /* brighter than before */
+        --text-detail: #90a4ae;     /* brighter than before */
+        --text-soft: #dde4e9;       /* new — for body copy */
         --cyber-green: #00ffa3;
         --cyber-amber: #ffb800;
-        --cyber-red: #ff5252;
+        --cyber-red: #ff6b6b;       /* refined, warmer red */
+        --cyber-red-deep: #e5484d;  /* alternative accent */
         --cyber-blue: #40c4ff;
         --pop-ease: cubic-bezier(.19,1,.22,1);
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { background-color: var(--bg-deep); color: var(--text-primary); font-family: 'Inter', sans-serif; display: flex; height: 100vh; overflow: hidden; font-size: 15px; }
+
+    html {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeLegibility;
+    }
+    body {
+        background-color: var(--bg-deep);
+        color: var(--text-primary);
+        font-family: 'Inter', sans-serif;
+        display: flex;
+        height: 100vh;
+        overflow: hidden;
+        font-size: 15px;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeLegibility;
+    }
     .mono { font-family: 'IBM Plex Mono', monospace; }
 
+    /* ============ SIDEBAR ============ */
     .sidebar { width: 280px; min-width: 280px; background: #070a12; border-right: 1px solid var(--border-hairline); display: flex; flex-direction: column; justify-content: space-between; padding: 20px 14px; overflow-y: auto; }
-    .logo { font-weight: 900; font-size: 13px; color: #fff; display: flex; align-items: center; gap: 6px; text-transform: uppercase; margin-bottom: 20px; }
+    .logo { font-weight: 900; font-size: 13px; color: #fff; display: flex; align-items: center; gap: 6px; text-transform: uppercase; margin-bottom: 20px; letter-spacing: 0.02em; }
     .logo-icon { display:flex; align-items:center; justify-content:center; height: 24px; width: 24px; background: var(--cyber-green); color: #05080f; border-radius: 5px; font-size: 13px; font-weight: 900; }
-    .section-label { font-family: 'IBM Plex Mono', monospace; font-size: 9px; font-weight: 700; text-transform: uppercase; color: var(--text-detail); letter-spacing: 0.1em; margin: 14px 0 5px 4px; }
+    .section-label { font-family: 'IBM Plex Mono', monospace; font-size: 9px; font-weight: 700; text-transform: uppercase; color: var(--text-detail); letter-spacing: 0.12em; margin: 14px 0 5px 4px; }
     .nav-item { padding: 8px 10px; border-radius: 5px; color: var(--text-muted); font-size: 12px; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; border-left: 2px solid transparent; }
     .nav-item:hover { background: rgba(255,255,255,0.03); color: #fff; }
     .nav-item.active { background: rgba(0, 255, 163, 0.05); color: var(--cyber-green); border-left: 2px solid var(--cyber-green); font-weight: 700; }
@@ -40,14 +60,15 @@
     .logout-btn { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--cyber-red); cursor: pointer; margin-top: 8px; }
     .admin-toggle { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--cyber-blue); cursor: pointer; margin-top: 8px; text-transform: uppercase; letter-spacing: 0.05em; }
 
+    /* ============ MAIN VIEWPORT ============ */
     .main-viewport { flex: 1; padding: 24px 32px; overflow-y: auto; background: radial-gradient(circle at 80% 20%, rgba(0, 255, 163, 0.02), transparent 40%), var(--bg-deep); width: 100%; }
-    h1 { font-size: 24px; font-weight: 900; margin-bottom: 4px; }
+    h1 { font-size: 24px; font-weight: 900; margin-bottom: 4px; letter-spacing: -0.01em; }
     .lead { font-size: 14px; color: var(--text-muted); margin-bottom: 20px; }
     .card { background: var(--bg-card); border: 1px solid var(--border-hairline); border-radius: 12px; padding: 22px; margin-bottom: 20px; width: 100%; }
     .dashboard-tab { display: none; width: 100%; }
     .dashboard-tab.active { display: block; width: 100%; }
 
-    .btn-primary { border: none; color: #05080f; padding: 14px 20px; border-radius: 7px; font-weight: 800; cursor: pointer; text-transform: uppercase; background: var(--cyber-green); font-size: 12px; width: 100%; }
+    .btn-primary { border: none; color: #05080f; padding: 14px 20px; border-radius: 7px; font-weight: 800; cursor: pointer; text-transform: uppercase; background: var(--cyber-green); font-size: 12px; width: 100%; letter-spacing: 0.02em; }
     .btn-primary:hover { background: #00cc82; }
     .btn-primary:disabled { opacity: 0.5; cursor: wait; }
     .btn-blue { background: var(--cyber-blue); color: #05080f; }
@@ -56,37 +77,41 @@
 
     .form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; width: 100%; }
     .form-group { display: flex; flex-direction: column; gap: 5px; margin-bottom: 12px; width: 100%; }
-    label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 700; text-transform: uppercase; color: #b0bec5; }
+    label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 700; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.04em; }
     input, select, textarea { width: 100%; background-color: #03060c; border: 1px solid #2a3a55; border-radius: 7px; padding: 12px 14px; color: #fff; font-size: 13px; font-family: 'IBM Plex Mono', monospace; outline: none; }
     input:focus, select:focus, textarea:focus { border-color: var(--cyber-green); }
     textarea { min-height: 80px; resize: vertical; }
 
     table { width: 100%; border-collapse: collapse; font-size: 13px; }
-    th { font-size: 10px; text-transform: uppercase; color: #cfd8dc; padding: 10px 8px; border-bottom: 2px solid var(--border-hairline); text-align: left; background: rgba(255,255,255,0.02); }
-    td { padding: 12px 8px; border-bottom: 1px solid #111827; font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; line-height: 1.6; vertical-align: top; }
-    .badge-status { padding: 5px 12px; border-radius: 4px; font-size: 11px; font-weight: 800; font-family: 'IBM Plex Mono', monospace; text-transform: uppercase; }
+    th { font-size: 10px; text-transform: uppercase; color: var(--text-muted); padding: 10px 8px; border-bottom: 2px solid var(--border-hairline); text-align: left; background: rgba(255,255,255,0.02); letter-spacing: 0.06em; }
+    td { padding: 12px 8px; border-bottom: 1px solid #111827; font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; line-height: 1.65; vertical-align: top; }
+    .badge-status { padding: 5px 12px; border-radius: 4px; font-size: 11px; font-weight: 800; font-family: 'IBM Plex Mono', monospace; text-transform: uppercase; letter-spacing: 0.03em; }
     .bg-green { background: rgba(0, 255, 163, 0.15); color: var(--cyber-green); border: 1px solid rgba(0,255,163,0.4); }
     .bg-amber { background: rgba(255, 184, 0, 0.15); color: var(--cyber-amber); border: 1px solid rgba(255,184,0,0.4); }
-    .bg-red { background: rgba(255, 82, 82, 0.15); color: var(--cyber-red); border: 1px solid rgba(255,82,82,0.4); }
+    .bg-red { background: rgba(255, 107, 107, 0.15); color: var(--cyber-red); border: 1px solid rgba(255,107,107,0.4); }
     .bg-blue { background: rgba(64, 196, 255, 0.15); color: var(--cyber-blue); border: 1px solid rgba(64,196,255,0.4); }
 
     .financial-line { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #1a2332; }
-    .financial-label { font-size: 13px; color: #cfd8dc; font-weight: 600; }
+    .financial-label { font-size: 13px; color: var(--text-muted); font-weight: 600; }
     .financial-value { font-family: 'IBM Plex Mono', monospace; font-size: 15px; font-weight: 700; }
-    .loss-box { background: rgba(255, 82, 82, 0.05); border: 2px solid rgba(255, 82, 82, 0.5); border-radius: 9px; padding: 20px; margin-bottom: 20px; width: 100%; overflow: visible; height: auto; }
-    .loss-title { font-size: 16px; color: var(--cyber-red); font-weight: 900; margin-bottom: 12px; }
+
+    .loss-box { background: rgba(255, 107, 107, 0.06); border: 2px solid rgba(255, 107, 107, 0.5); border-radius: 9px; padding: 20px; margin-bottom: 20px; width: 100%; overflow: visible; height: auto; }
+    .loss-title { font-size: 16px; color: var(--cyber-red); font-weight: 900; margin-bottom: 12px; letter-spacing: 0.01em; }
     .loss-item { font-size: 13px; color: var(--text-muted); padding: 6px 0; line-height: 1.7; }
+    .loss-item strong { color: #fff; }
     .loss-big { font-size: 20px; font-weight: 900; color: var(--cyber-red); margin-top: 8px; }
-    .preview-badge { display: inline-block; background: rgba(255,184,0,0.15); border: 1px solid rgba(255,184,0,0.4); color: var(--cyber-amber); padding: 4px 10px; border-radius: 4px; font-size: 10px; font-weight: 800; text-transform: uppercase; }
+
+    .preview-badge { display: inline-block; background: rgba(255,184,0,0.15); border: 1px solid rgba(255,184,0,0.4); color: var(--cyber-amber); padding: 4px 10px; border-radius: 4px; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; }
     .payment-toggle { display: flex; gap: 8px; margin-bottom: 16px; }
     .payment-toggle button { flex: 1; padding: 10px; border-radius: 6px; font-weight: 700; cursor: pointer; font-size: 12px; border: 1px solid var(--border-hairline); background: transparent; color: var(--text-muted); }
     .payment-toggle button.active { border-color: var(--cyber-green); color: var(--cyber-green); background: rgba(0,255,163,0.05); }
     .payment-card { background: #03060c; border: 1px solid var(--border-hairline); border-radius: 8px; padding: 16px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; line-height: 1.8; margin-bottom: 12px; cursor: pointer; }
-    .payment-card h4 { font-size: 12px; font-weight: 800; text-transform: uppercase; color: var(--cyber-amber); margin-bottom: 8px; }
+    .payment-card h4 { font-size: 12px; font-weight: 800; text-transform: uppercase; color: var(--cyber-amber); margin-bottom: 8px; letter-spacing: 0.05em; }
+
     .upsell-box { background: rgba(64,196,255,0.03); border: 1px solid rgba(64,196,255,0.3); border-radius: 9px; padding: 20px; margin-bottom: 20px; }
     .phase-box { background: rgba(64,196,255,0.05); border: 1px solid rgba(64,196,255,0.3); border-radius: 8px; padding: 16px; margin-bottom: 16px; }
-    .phase-title { font-size: 13px; font-weight: 800; color: var(--cyber-blue); margin-bottom: 8px; }
-    .phase-text { font-size: 12px; color: var(--text-muted); line-height: 1.6; }
+    .phase-title { font-size: 13px; font-weight: 800; color: var(--cyber-blue); margin-bottom: 8px; letter-spacing: 0.02em; }
+    .phase-text { font-size: 12.5px; color: var(--text-muted); line-height: 1.65; }
     .price-breakdown { background: #03060c; border: 1px solid var(--border-hairline); border-radius: 8px; padding: 16px; margin-bottom: 16px; }
     .price-line { display: flex; justify-content: space-between; padding: 6px 0; font-size: 13px; }
     .price-line.total { border-top: 1px solid var(--border-hairline); margin-top: 8px; padding-top: 12px; font-weight: 800; font-size: 16px; }
@@ -94,11 +119,74 @@
     .deliverable-list li { font-size: 13px; color: var(--text-muted); padding: 6px 0; border-bottom: 1px solid #1a2332; }
     .deliverable-list li strong { color: #fff; }
 
+    /* ============ PREVIEW CARD FIX ============ */
     #preview-card { overflow: visible; height: auto; min-height: 400px; }
     #preview-card table { width: 100%; margin-bottom: 16px; }
     #preview-card .btn-primary { margin-top: 16px; }
     #preview-card .loss-box { overflow: visible; height: auto; }
 
+    /* Preview card header — verdict + score alignment fix */
+    #preview-card .preview-header {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        border-bottom: 1px solid var(--border-hairline);
+        padding-bottom: 18px;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+        align-items: flex-start;
+    }
+    #preview-card .verdict-col {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+    #preview-card .verdict-col .section-label {
+        margin: 0;
+        color: var(--text-detail);
+        font-size: 10px;
+        letter-spacing: 0.12em;
+    }
+    #preview-card .verdict-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+    #preview-card .pv-location {
+        font-size: 13px;
+        color: var(--text-muted);
+        letter-spacing: 0.01em;
+    }
+    #preview-card .score-col {
+        text-align: right;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+    #preview-card .score-col .section-label {
+        margin: 0;
+        color: var(--text-detail);
+        font-size: 10px;
+        letter-spacing: 0.12em;
+    }
+    #preview-card .pv-score-value {
+        font-family: 'IBM Plex Mono', monospace;
+        font-size: 30px;
+        font-weight: 900;
+        color: var(--cyber-green);
+        letter-spacing: -0.02em;
+        line-height: 1.05;
+    }
+    #preview-card .pv-score-note {
+        font-family: 'IBM Plex Mono', monospace;
+        font-size: 10px;
+        color: var(--text-detail);
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+    }
+
+    /* ============ STORM INTAKE FORM ============ */
     .intake-form-card { background: var(--bg-card); border: 1px solid var(--border-hairline); border-radius: 12px; padding: 36px; margin-top: 20px; }
     .intake-form-card .form-group { margin-bottom: 20px; }
     .intake-form-card label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--text-muted); margin-bottom: 8px; }
@@ -114,21 +202,22 @@
     .intake-form-card .doc-desc { font-size: 12.5px; color: var(--text-muted); line-height: 1.55; }
     .intake-form-card .consent { display: flex; gap: 10px; align-items: flex-start; font-size: 13px; color: var(--text-muted); margin: 22px 0; }
     .intake-form-card .consent input { width: auto; margin-top: 3px; }
-    .intake-form-card .submit-btn { width: 100%; background: var(--cyber-blue); color: #020617; padding: 15px; border: none; border-radius: 6px; font-weight: 800; font-size: 14.5px; cursor: pointer; }
+    .intake-form-card .submit-btn { width: 100%; background: var(--cyber-blue); color: #020617; padding: 15px; border: none; border-radius: 6px; font-weight: 800; font-size: 14.5px; cursor: pointer; letter-spacing: 0.02em; }
     .intake-form-card .submit-btn:hover { background: #7dd3fc; }
-    .intake-form-card .data-note { background: rgba(52,211,153,.06); border: 1px solid rgba(52,211,153,.25); border-radius: 10px; padding: 18px 22px; font-size: 13.5px; color: #d1fae5; margin-top: 8px; }
+    .intake-form-card .data-note { background: rgba(52,211,153,.06); border: 1px solid rgba(52,211,153,.25); border-radius: 10px; padding: 18px 22px; font-size: 13.5px; color: #d1fae5; margin-top: 8px; line-height: 1.6; }
     .intake-form-card .data-note strong { color: #fff; }
     .thank-you-card { background: var(--bg-card); border: 1px solid rgba(52,211,153,.35); border-radius: 12px; padding: 48px 36px; text-align: center; display: none; }
     .thank-you-icon { width: 52px; height: 52px; border-radius: 50%; background: rgba(52,211,153,.15); border: 1px solid rgba(52,211,153,.4); color: var(--cyber-green); font-size: 26px; font-weight: 800; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; }
     .thank-you-card h3 { font-size: 20px; margin-bottom: 12px; color: #fff; }
-    .thank-you-card p { font-size: 14px; color: var(--text-muted); max-width: 440px; margin: 0 auto; }
+    .thank-you-card p { font-size: 14px; color: var(--text-muted); max-width: 440px; margin: 0 auto; line-height: 1.6; }
 
     /* ============================================================
        POP-UP — Dashboard theme (dark + cyan + amber + mono)
+       Brighter, sharper text; refined red; better hierarchy.
        ============================================================ */
     .cat-popup-overlay {
         position: fixed; inset: 0; z-index: 10000;
-        background: rgba(3, 6, 10, 0.88);
+        background: rgba(3, 6, 10, 0.9);
         display: none;
         align-items: flex-start;
         justify-content: center;
@@ -136,13 +225,13 @@
         overflow-y: auto;
         opacity: 0;
         transition: opacity 0.35s var(--pop-ease);
-        -webkit-backdrop-filter: blur(8px);
-        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
     }
     .cat-popup-overlay.is-open { display: flex; }
     .cat-popup-overlay.is-visible { opacity: 1; }
     .cat-popup-overlay::before {
-        content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 1; opacity: 0.028; mix-blend-mode: overlay;
+        content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 1; opacity: 0.025; mix-blend-mode: overlay;
         background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     }
     .cat-popup-overlay::after {
@@ -155,34 +244,35 @@
         z-index: 2;
         width: 100%;
         max-width: 720px;
-        background: linear-gradient(165deg, #0c1220 0%, #070b13 100%);
-        border: 1px solid #1f2b3d;
+        background: linear-gradient(165deg, #0d1424 0%, #080d17 100%);
+        border: 1px solid #25324a;
         border-radius: 14px;
-        padding: 42px 46px 38px;
+        padding: 44px 48px 40px;
         color: #fff;
         box-shadow:
             0 40px 90px -30px rgba(0, 0, 0, 0.85),
             0 0 0 1px rgba(255, 255, 255, 0.02) inset,
-            0 0 60px -30px rgba(0, 255, 163, 0.08);
+            0 0 80px -30px rgba(0, 255, 163, 0.1);
         transform: scale(0.94) translateY(12px);
         opacity: 0;
         transition: transform 0.5s var(--pop-ease), opacity 0.4s var(--pop-ease);
         font-family: 'Inter', system-ui, sans-serif;
         overflow: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeLegibility;
     }
     .cat-popup-overlay.is-visible .cat-popup {
         transform: scale(1) translateY(0);
         opacity: 1;
     }
-    /* Top accent line — amber gradient */
     .cat-popup::before {
         content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
         background: linear-gradient(90deg, var(--cyber-amber), rgba(255, 184, 0, 0.2) 60%, transparent);
     }
-    /* Corner brackets */
     .cat-popup .pop-corner {
         position: absolute; width: 18px; height: 18px;
-        border-color: var(--cyber-blue); opacity: 0.55; pointer-events: none; z-index: 3;
+        border-color: var(--cyber-blue); opacity: 0.6; pointer-events: none; z-index: 3;
     }
     .cat-popup .pop-corner.tl { top: 10px; left: 10px; border-top: 1.5px solid; border-left: 1.5px solid; }
     .cat-popup .pop-corner.tr { top: 10px; right: 10px; border-top: 1.5px solid; border-right: 1.5px solid; }
@@ -193,8 +283,8 @@
         position: absolute;
         top: 16px; right: 16px;
         width: 34px; height: 34px;
-        border: 1px solid var(--border-hairline);
-        color: var(--text-muted);
+        border: 1px solid #2a3852;
+        color: #b8c4d0;
         background: transparent;
         font-size: 14px;
         border-radius: 6px;
@@ -207,39 +297,39 @@
     .cat-popup-close:hover {
         border-color: var(--cyber-amber);
         color: var(--cyber-amber);
-        background: rgba(255, 184, 0, 0.06);
+        background: rgba(255, 184, 0, 0.08);
     }
 
     .pop-kicker {
         display: flex; align-items: center; gap: 12px;
         color: var(--cyber-green);
         font-family: 'IBM Plex Mono', monospace;
-        font-size: 10.5px;
+        font-size: 11px;
         letter-spacing: 0.18em;
         font-weight: 700;
         text-transform: uppercase;
         margin-bottom: 22px;
     }
-    .pop-kicker .line { background: var(--cyber-green); width: 28px; height: 1px; opacity: 0.7; }
+    .pop-kicker .line { background: var(--cyber-green); width: 28px; height: 1px; opacity: 0.8; }
 
     .pop-check {
         width: 44px; height: 44px;
-        background: rgba(0, 255, 163, 0.08);
-        border: 1px solid rgba(0, 255, 163, 0.4);
+        background: rgba(0, 255, 163, 0.1);
+        border: 1px solid rgba(0, 255, 163, 0.45);
         color: var(--cyber-green);
-        font-size: 18px;
+        font-size: 20px;
         font-weight: 700;
         margin-bottom: 22px;
         border-radius: 50%;
         display: flex; align-items: center; justify-content: center;
-        box-shadow: 0 0 24px -8px rgba(0, 255, 163, 0.5);
+        box-shadow: 0 0 24px -8px rgba(0, 255, 163, 0.55);
     }
 
     .pop-headline {
         font-size: clamp(1.9rem, 4.2vw, 2.55rem);
         font-weight: 800;
         line-height: 1.12;
-        letter-spacing: -0.025em;
+        letter-spacing: -0.028em;
         color: #fff;
         margin: 0 0 16px;
         font-family: 'Inter', sans-serif;
@@ -253,95 +343,100 @@
     }
 
     .pop-sub {
-        font-size: 14.5px;
-        color: var(--text-muted);
-        line-height: 1.65;
+        font-size: 15px;
+        color: var(--text-soft);
+        line-height: 1.7;
         margin: 0 0 26px;
-        max-width: 60ch;
+        max-width: 62ch;
+        letter-spacing: 0.005em;
     }
     .pop-sub b { color: #fff; font-weight: 600; }
 
     .pop-truth {
         border-left: 2px solid var(--cyber-amber);
-        background: linear-gradient(90deg, rgba(255, 184, 0, 0.08), rgba(255, 184, 0, 0.02));
-        padding: 18px 22px;
+        background: linear-gradient(90deg, rgba(255, 184, 0, 0.09), rgba(255, 184, 0, 0.02));
+        padding: 20px 24px;
         margin: 0 0 26px;
         border-radius: 0 8px 8px 0;
     }
     .pop-truth .truth-label {
         color: var(--cyber-amber);
         font-family: 'IBM Plex Mono', monospace;
-        font-size: 10px;
+        font-size: 10.5px;
         letter-spacing: 0.16em;
-        font-weight: 700;
-        margin-bottom: 8px;
+        font-weight: 800;
+        margin-bottom: 10px;
         text-transform: uppercase;
     }
     .pop-truth p {
-        color: #d7dee4;
-        font-size: 14px;
-        line-height: 1.65;
+        color: var(--text-soft);
+        font-size: 14.5px;
+        line-height: 1.7;
         margin: 0;
+        letter-spacing: 0.005em;
     }
     .pop-truth p b { color: #fff; font-weight: 600; }
 
     .pop-loss {
-        border: 1px solid rgba(255, 82, 82, 0.35);
-        background: rgba(255, 82, 82, 0.05);
+        border: 1px solid rgba(255, 107, 107, 0.4);
+        background: rgba(255, 107, 107, 0.06);
         border-radius: 10px;
-        padding: 20px 24px;
+        padding: 22px 26px;
         margin: 0 0 26px;
     }
     .pop-loss-title {
         color: var(--cyber-red);
         font-family: 'IBM Plex Mono', monospace;
-        font-size: 10.5px;
+        font-size: 11px;
         letter-spacing: 0.16em;
         font-weight: 800;
-        margin-bottom: 14px;
+        margin-bottom: 16px;
         text-transform: uppercase;
     }
     .pop-loss-item {
-        color: #c9d2d8;
-        font-size: 13.5px;
-        padding: 9px 0;
-        border-bottom: 1px solid rgba(255, 82, 82, 0.14);
+        color: var(--text-soft);
+        font-size: 14px;
+        padding: 10px 0;
+        border-bottom: 1px solid rgba(255, 107, 107, 0.15);
         display: flex;
         justify-content: space-between;
         gap: 12px;
+        letter-spacing: 0.005em;
     }
     .pop-loss-item:last-of-type { border-bottom: none; }
     .pop-loss-item .num {
         font-family: 'IBM Plex Mono', monospace;
         font-weight: 800;
         color: var(--cyber-red);
-        font-size: 14.5px;
+        font-size: 15px;
         white-space: nowrap;
+        letter-spacing: -0.005em;
     }
     .pop-loss-total {
         margin-top: 14px;
         padding-top: 14px;
-        border-top: 1px solid rgba(255, 82, 82, 0.35);
+        border-top: 1px solid rgba(255, 107, 107, 0.4);
         display: flex;
         justify-content: space-between;
         align-items: baseline;
     }
     .pop-loss-total .lbl {
-        color: #b0bec5;
-        font-size: 13px;
+        color: var(--text-muted);
+        font-size: 13.5px;
+        letter-spacing: 0.005em;
     }
     .pop-loss-total .val {
         font-family: 'IBM Plex Mono', monospace;
         font-weight: 900;
         font-size: 1.65rem;
         color: var(--cyber-red);
-        letter-spacing: -0.01em;
+        letter-spacing: -0.015em;
     }
 
     .pop-offer {
-        border: 1px solid rgba(64, 196, 255, 0.28);
-        background: linear-gradient(165deg, rgba(64, 196, 255, 0.06), rgba(11, 16, 27, 0.4));
-        padding: 24px 26px;
+        border: 1px solid rgba(64, 196, 255, 0.32);
+        background: linear-gradient(165deg, rgba(64, 196, 255, 0.07), rgba(11, 16, 27, 0.4));
+        padding: 26px 28px;
         margin: 0 0 26px;
         border-radius: 10px;
         position: relative;
@@ -357,35 +452,36 @@
     .pop-offer-label {
         color: var(--cyber-blue);
         font-family: 'IBM Plex Mono', monospace;
-        font-size: 10px;
+        font-size: 10.5px;
         letter-spacing: 0.16em;
         font-weight: 800;
         margin-bottom: 8px;
         text-transform: uppercase;
     }
     .pop-offer-title {
-        font-size: 1.6rem;
+        font-size: 1.65rem;
         font-weight: 800;
         color: #fff;
-        margin: 0 0 8px;
-        letter-spacing: -0.02em;
+        margin: 0 0 10px;
+        letter-spacing: -0.025em;
     }
     .pop-offer-desc {
-        color: var(--text-muted);
-        font-size: 13.5px;
-        line-height: 1.6;
+        color: var(--text-soft);
+        font-size: 14px;
+        line-height: 1.65;
         margin: 0 0 18px;
+        letter-spacing: 0.005em;
     }
     .pop-offer-phases {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 12px;
-        margin-bottom: 16px;
+        margin-bottom: 18px;
     }
     .pop-phase {
-        border: 1px solid rgba(64, 196, 255, 0.2);
-        background: rgba(3, 6, 12, 0.5);
-        padding: 14px 16px;
+        border: 1px solid rgba(64, 196, 255, 0.22);
+        background: rgba(3, 6, 12, 0.55);
+        padding: 16px 18px;
         border-radius: 8px;
     }
     .pop-phase-label {
@@ -400,7 +496,7 @@
     .pop-phase-amount {
         font-family: 'IBM Plex Mono', monospace;
         font-weight: 900;
-        font-size: 1.45rem;
+        font-size: 1.5rem;
         color: var(--cyber-amber);
         line-height: 1;
         letter-spacing: -0.02em;
@@ -408,24 +504,26 @@
     .pop-phase-note {
         color: var(--text-detail);
         font-size: 11.5px;
-        margin-top: 6px;
-        line-height: 1.45;
+        margin-top: 8px;
+        line-height: 1.5;
+        letter-spacing: 0.01em;
     }
     .pop-offer-total {
-        padding-top: 14px;
-        border-top: 1px solid rgba(64, 196, 255, 0.2);
+        padding-top: 16px;
+        border-top: 1px solid rgba(64, 196, 255, 0.22);
         display: flex;
         justify-content: space-between;
         align-items: baseline;
     }
     .pop-offer-total .lbl {
-        color: #b0bec5;
-        font-size: 13px;
+        color: var(--text-muted);
+        font-size: 13.5px;
+        letter-spacing: 0.005em;
     }
     .pop-offer-total .val {
         font-family: 'IBM Plex Mono', monospace;
         font-weight: 900;
-        font-size: 1.6rem;
+        font-size: 1.65rem;
         color: var(--cyber-amber);
         letter-spacing: -0.02em;
     }
@@ -433,36 +531,38 @@
     .pop-zone-def {
         border: 1px solid var(--border-hairline);
         border-left: 2px solid var(--cyber-blue);
-        background: rgba(64, 196, 255, 0.04);
-        padding: 18px 22px;
+        background: rgba(64, 196, 255, 0.05);
+        padding: 20px 24px;
         margin: 0 0 26px;
         border-radius: 0 8px 8px 0;
     }
     .pop-zone-def .zd-label {
         color: var(--cyber-blue);
         font-family: 'IBM Plex Mono', monospace;
-        font-size: 10px;
+        font-size: 10.5px;
         letter-spacing: 0.16em;
         font-weight: 800;
-        margin-bottom: 6px;
+        margin-bottom: 8px;
         text-transform: uppercase;
     }
     .pop-zone-def p {
-        color: #c9d2d8;
-        font-size: 13.5px;
-        line-height: 1.65;
+        color: var(--text-soft);
+        font-size: 14px;
+        line-height: 1.7;
         margin: 0;
+        letter-spacing: 0.005em;
     }
     .pop-zone-def b { color: #fff; font-weight: 600; }
 
     .pop-checklist { list-style: none; padding: 0; margin: 0 0 26px; }
     .pop-checklist li {
-        color: #c9d2d8;
-        font-size: 14px;
-        padding: 12px 0 12px 32px;
+        color: var(--text-soft);
+        font-size: 14.5px;
+        padding: 12px 0 12px 34px;
         position: relative;
         border-bottom: 1px solid var(--border-hairline);
-        line-height: 1.55;
+        line-height: 1.6;
+        letter-spacing: 0.005em;
     }
     .pop-checklist li:last-child { border-bottom: none; }
     .pop-checklist li::before {
@@ -471,19 +571,20 @@
         left: 0; top: 11px;
         color: var(--cyber-green);
         font-weight: 800;
-        font-size: 14px;
+        font-size: 15px;
     }
     .pop-checklist li b { color: #fff; font-weight: 600; }
 
     .pop-disclaimer {
         color: var(--text-detail);
-        font-size: 11.5px;
-        line-height: 1.6;
-        padding: 14px 18px;
+        font-size: 12px;
+        line-height: 1.65;
+        padding: 16px 20px;
         border: 1px solid var(--border-hairline);
         background: rgba(3, 6, 12, 0.4);
         border-radius: 8px;
         margin: 0 0 26px;
+        letter-spacing: 0.005em;
     }
     .pop-disclaimer b { color: var(--text-muted); font-weight: 600; }
 
@@ -502,7 +603,7 @@
         font-family: 'Inter', sans-serif;
         font-size: 13.5px;
         font-weight: 800;
-        letter-spacing: 0.02em;
+        letter-spacing: 0.04em;
         text-transform: uppercase;
         border-radius: 8px;
         cursor: pointer;
@@ -516,13 +617,13 @@
         background: var(--cyber-amber);
         color: #05080f;
         border-color: var(--cyber-amber);
-        box-shadow: 0 10px 30px -12px rgba(255, 184, 0, 0.6);
+        box-shadow: 0 10px 30px -12px rgba(255, 184, 0, 0.65);
     }
     .pop-btn-primary:hover {
         background: #ffc933;
         border-color: #ffc933;
         transform: translateY(-2px);
-        box-shadow: 0 16px 40px -12px rgba(255, 184, 0, 0.75);
+        box-shadow: 0 16px 40px -12px rgba(255, 184, 0, 0.8);
     }
     .pop-btn-primary svg {
         width: 14px; height: 14px;
@@ -538,12 +639,12 @@
     .pop-btn-ghost:hover {
         border-color: var(--cyber-blue);
         color: var(--cyber-blue);
-        background: rgba(64, 196, 255, 0.05);
+        background: rgba(64, 196, 255, 0.06);
     }
 
     @media(max-width: 640px) {
         .cat-popup-overlay { padding: 32px 16px; }
-        .cat-popup { padding: 34px 24px 28px; border-radius: 10px; }
+        .cat-popup { padding: 36px 26px 30px; border-radius: 10px; }
         .cat-popup-close { top: 12px; right: 12px; width: 30px; height: 30px; }
         .cat-popup .pop-corner { display: none; }
         .pop-headline { font-size: clamp(1.5rem, 6vw, 2rem); }
@@ -624,18 +725,21 @@
                 </form>
             </div>
 
+            <!-- PREVIEW CARD — restructured header -->
             <div id="preview-card" class="card" style="display:none; border-top:4px solid var(--cyber-amber);">
-                <div style="display:flex; justify-content:space-between; gap:12px; border-bottom:1px solid var(--border-hairline); padding-bottom:16px; margin-bottom:20px; flex-wrap:wrap;">
-                    <div>
-                        <div class="section-label" style="margin:0;">Preliminary Verdict</div>
-                        <span id="pv-verdict" class="badge-status bg-green" style="font-size:15px;">HIGH ACTIVITY</span>
-                        <span class="preview-badge" style="margin-left:8px;">Free Preview</span>
-                        <div style="font-size:13px; color:var(--text-muted); margin-top:6px;" id="pv-location">—</div>
+                <div class="preview-header">
+                    <div class="verdict-col">
+                        <div class="section-label">Preliminary Verdict</div>
+                        <div class="verdict-row">
+                            <span id="pv-verdict" class="badge-status bg-green" style="font-size:15px;">HIGH ACTIVITY</span>
+                            <span class="preview-badge">Free Preview</span>
+                        </div>
+                        <div class="pv-location" id="pv-location">—</div>
                     </div>
-                    <div style="text-align:right;">
-                        <div class="section-label" style="margin:0;">Score</div>
-                        <span id="pv-score" style="font-family:'IBM Plex Mono', monospace; font-size:28px; font-weight:900; color:var(--cyber-green);">Up to 85%</span>
-                        <div style="font-size:10px; color:var(--text-detail); margin-top:2px;">Exact score locked</div>
+                    <div class="score-col">
+                        <div class="section-label">Score</div>
+                        <div class="pv-score-value" id="pv-score">Up to 85%</div>
+                        <div class="pv-score-note" id="pv-score-note">Exact % unlocked at report</div>
                     </div>
                 </div>
 
@@ -673,7 +777,7 @@
                     <div class="loss-item">🔒 Labor &amp; material readiness</div>
                     <div class="loss-item">🔒 Margin forecast</div>
                     <div class="loss-item">🔒 Deployment exit signals</div>
-                    <div style="margin-top:12px; padding-top:12px; border-top:1px solid rgba(255,82,82,0.4);">
+                    <div style="margin-top:12px; padding-top:12px; border-top:1px solid rgba(255,107,107,0.4);">
                         <div style="font-size:14px; color:#fff;">💰 Value at stake: <span id="loss-gross" style="color:var(--cyber-amber);">Up to $550K+</span></div>
                         <div class="loss-big">📉 Cost of deploying blind: <span id="loss-amount" style="color:var(--cyber-red);">$250K+ at risk</span></div>
                         <div style="font-size:14px; color:var(--cyber-green); font-weight:800;">✅ Cost of knowing: $7,000</div>
@@ -708,8 +812,20 @@
                 </div>
                 <div class="upsell-box">
                     <h4 style="font-size:16px; font-weight:900; color:var(--cyber-blue); margin-bottom:12px;">📊 Weekly Deployment Tracking</h4>
-                    <div class="phase-box"><div class="phase-title">⚡ Phase 1: Days 1-15 — DAILY</div><div class="phase-text">Competitors mobilize Days 1-7. Adjusters assign Days 2-5. Materials deplete Day 10.<br><strong>Cost: $18,750 ($1,250/day)</strong></div></div>
-                    <div class="phase-box"><div class="phase-title">✅ Phase 2: Days 16+ — WEEKLY</div><div class="phase-text"><strong>$8,750/week</strong></div></div>
+                    <div class="phase-box">
+                        <div class="phase-title">⚡ Phase 1: Days 1-15 — DAILY</div>
+                        <div class="phase-text">
+                            The first 15 days decide everything. Competitors mobilize Days 1-7. Adjusters assign Days 2-5. Materials deplete Day 10.<br>
+                            <strong>Charged daily because the market moves daily — $18,750 ($1,250/day)</strong>
+                        </div>
+                    </div>
+                    <div class="phase-box">
+                        <div class="phase-title">✅ Phase 2: Days 16+ — WEEKLY</div>
+                        <div class="phase-text">
+                            After Day 15, the market stabilizes. Weekly cadence is sufficient.<br>
+                            <strong>$8,750/week</strong>
+                        </div>
+                    </div>
                     <div class="loss-box">
                         <div class="loss-title">⚠️ WITHOUT DAILY TRACKING:</div>
                         <div class="loss-item">Day 3: Competitors undetected → <strong>$150K-$250K</strong></div>
@@ -726,7 +842,7 @@
             <div id="weekly-payment-screen" class="card" style="display:none; border-top:4px solid var(--cyber-blue);">
                 <h3 class="section-label" style="margin:0; color:var(--cyber-blue);">💳 Payment — Weekly Tracking</h3>
                 <div class="price-breakdown">
-                    <div class="price-line"><span>Phase 1: Days 1-15</span><span>$18,750</span></div>
+                    <div class="price-line"><span>Phase 1: Days 1-15 (daily)</span><span>$18,750</span></div>
                     <div class="price-line total"><span>Due Today</span><span style="color:var(--cyber-blue);">$18,750</span></div>
                 </div>
                 <div class="payment-toggle">
@@ -873,6 +989,7 @@
     </main>
 </div>
 
+<!-- POPUP 1 -->
 <div class="cat-popup-overlay" id="popup-post-payment" role="dialog" aria-modal="true">
     <div class="cat-popup">
         <span class="pop-corner tl"></span><span class="pop-corner tr"></span>
@@ -910,12 +1027,12 @@
                 <div class="pop-phase">
                     <div class="pop-phase-label">Phase 1 · Days 1–15</div>
                     <div class="pop-phase-amount">$18,750</div>
-                    <div class="pop-phase-note">Daily tracking · $1,250/day</div>
+                    <div class="pop-phase-note">Charged <b style="color:#fff;">daily</b> because the market moves daily — $1,250/day</div>
                 </div>
                 <div class="pop-phase">
                     <div class="pop-phase-label">Phase 2 · Days 16+</div>
                     <div class="pop-phase-amount">$8,750<span style="font-size:0.7em;">/wk</span></div>
-                    <div class="pop-phase-note">Weekly cadence · retainer continues</div>
+                    <div class="pop-phase-note">Market stabilizes after Day 15 — weekly cadence is sufficient</div>
                 </div>
             </div>
             <div class="pop-offer-total"><span class="lbl">Due today to start Phase 1</span><span class="val">$18,750</span></div>
@@ -932,6 +1049,7 @@
     </div>
 </div>
 
+<!-- POPUP 2 -->
 <div class="cat-popup-overlay" id="popup-post-weekly" role="dialog" aria-modal="true">
     <div class="cat-popup">
         <span class="pop-corner tl"></span><span class="pop-corner tr"></span>
@@ -981,6 +1099,7 @@
     </div>
 </div>
 
+<!-- POPUP 3 -->
 <div class="cat-popup-overlay" id="popup-final" role="dialog" aria-modal="true">
     <div class="cat-popup">
         <span class="pop-corner tl"></span><span class="pop-corner tr"></span>
@@ -1300,6 +1419,7 @@
         var totalScore = Math.round((data.rainScore * 0.15 + data.densityScore * 0.10 + data.techScore * 0.10) / 0.35);
         var ceiling = Math.min(100, totalScore + 5);
         document.getElementById("pv-score").textContent = "Up to " + ceiling + "%";
+        document.getElementById("pv-score-note").textContent = "Exact % unlocked at report";
 
         document.getElementById("pv-rain-desc").textContent = "Event signal detected";
         document.getElementById("pv-density-desc").textContent = "Competition increasing daily";
