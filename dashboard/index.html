@@ -920,38 +920,71 @@ document.getElementById('triage-form').addEventListener('submit', function(e) {
 
   state.currentZip = zip;
 
-  // Lookup city/state from ZIP
-  var zipMap = {
-    '75062': { city: 'Irving', state: 'TX', density: 'High', rainScore: 85, densityScore: 78, techScore: tech === 'PRO_TECH' ? 92 : 65 },
-    '75201': { city: 'Dallas', state: 'TX', density: 'Very High', rainScore: 72, densityScore: 90, techScore: tech === 'PRO_TECH' ? 88 : 60 },
-    '77001': { city: 'Houston', state: 'TX', density: 'High', rainScore: 95, densityScore: 82, techScore: tech === 'PRO_TECH' ? 85 : 55 },
-    '78701': { city: 'Austin', state: 'TX', density: 'Moderate', rainScore: 62, densityScore: 70, techScore: tech === 'PRO_TECH' ? 90 : 58 }
-  };
-  var data = zipMap[zip] || { city: 'Unknown', state: 'XX', density: 'Moderate', rainScore: 50, densityScore: 60, techScore: tech === 'PRO_TECH' ? 75 : 50 };
-  state.currentCity = data.city;
-  state.currentState = data.state;
-  state.triageData = data;
+  // Show loading state
+  var btn = document.getElementById('btn-triage');
+  btn.disabled = true;
+  btn.textContent = '⚡ Analyzing zone...';
 
-  // Log prospect event
-  var prospPayload = {
-    action: 'writeProspect',
-    email: state.incoming_email || '',
-    ref_code: state.ref_code || '',
+  // Call Webapp for real Shovels data
+  apiGet({
+    action: 'runTriage',
     zip: zip,
-    city: data.city,
-    state: data.state
-  };
-  apiPost(prospPayload, function() {});
+    ref: state.ref_code || ''
+  }, function(res) {
+    btn.disabled = false;
+    btn.textContent = '⚡ Run Analysis';
 
-  // Show email capture if we don't already have an email
-  if (!state.incoming_email) {
-    document.getElementById('email-capture-block').style.display = 'block';
-    document.getElementById('email-zip-display').textContent = zip;
-  }
+    if (!res.success) {
+      // Handle coverage-expanding case
+      if (res.code === 'COVERAGE_EXPANDING') {
+        showCoverageExpanding(zip, res.cached_zips || []);
+        return;
+      }
+      alert('Triage failed: ' + (res.error || 'unknown error'));
+      return;
+    }
 
-  showPreview(data, tech);
+    state.triageData = res.data;
+    state.currentCity = res.data.city;
+    state.currentState = res.data.state;
+
+    // Log prospect event to backend
+    apiPost({
+      action: 'writeProspect',
+      email: state.incoming_email || '',
+      ref_code: state.ref_code || '',
+      zip: zip,
+      city: res.data.city,
+      state: res.data.state
+    }, function() {});
+
+    // Show email capture if we don't already have an email
+    if (!state.incoming_email) {
+      document.getElementById('email-capture-block').style.display = 'block';
+      document.getElementById('email-zip-display').textContent = zip;
+    }
+
+    showPreview(res.data, tech);
+  });
 });
 
+function showCoverageExpanding(zip, cachedZips) {
+  var previewCard = document.getElementById('preview-card');
+  previewCard.style.display = 'block';
+  previewCard.innerHTML = 
+    '<div style="padding:20px 0; text-align:center;">' +
+      '<div style="font-size:48px; margin-bottom:16px;">🛰️</div>' +
+      '<h2 style="font-size:22px; font-weight:800; margin-bottom:12px;">Zone ' + zip + ' is not yet in our active coverage set</h2>' +
+      '<p style="font-size:14px; color:var(--text-muted); max-width:520px; margin:0 auto 20px; line-height:1.6;">' +
+        'We\'re expanding coverage weekly. Reply to your outreach email and we\'ll prioritize this zone in our next batch pull.' +
+      '</p>' +
+      '<p style="font-size:12px; color:var(--text-detail);">' +
+        'Currently cached zones: ' + cachedZips.slice(0, 8).join(', ') + (cachedZips.length > 8 ? '…' : '') +
+      '</p>' +
+    '</div>';
+  previewCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+  
 function showPreview(data, tech) {
   tech = tech || 'PRO_TECH';
   var previewCard = document.getElementById('preview-card');
