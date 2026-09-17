@@ -3,1450 +3,1286 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Optima Workflows | CAT Intelligence Dashboard</title>
+<title>Optima Workflows | Commercial CAT Operations</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-    :root {
-        --bg-deep: #05080f;
-        --bg-card: linear-gradient(145deg, #0b101b, #070b13);
-        --border-hairline: #1c2536;
-        --text-primary: #ffffff;
-        --text-muted: #cfd8dc;      /* brighter than before */
-        --text-detail: #90a4ae;     /* brighter than before */
-        --text-soft: #dde4e9;       /* new — for body copy */
-        --cyber-green: #00ffa3;
-        --cyber-amber: #ffb800;
-        --cyber-red: #ff6b6b;       /* refined, warmer red */
-        --cyber-red-deep: #e5484d;  /* alternative accent */
-        --cyber-blue: #40c4ff;
-        --pop-ease: cubic-bezier(.19,1,.22,1);
-    }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --bg-deep: #05080f;
+  --bg-card: linear-gradient(145deg, #0b101b, #070b13);
+  --border-hairline: #1c2536;
+  --text-primary: #ffffff;
+  --text-muted: #cfd8dc;
+  --text-detail: #90a4ae;
+  --text-soft: #dde4e9;
+  --cyber-green: #00ffa3;
+  --cyber-amber: #ffb800;
+  --cyber-red: #ff6b6b;
+  --cyber-blue: #40c4ff;
+  --pop-ease: cubic-bezier(.19,1,.22,1);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+body {
+  background-color: var(--bg-deep);
+  color: var(--text-primary);
+  font-family: 'Inter', sans-serif;
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+}
+.mono { font-family: 'IBM Plex Mono', monospace; }
 
-    html {
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        text-rendering: optimizeLegibility;
-    }
-    body {
-        background-color: var(--bg-deep);
-        color: var(--text-primary);
-        font-family: 'Inter', sans-serif;
-        display: flex;
-        height: 100vh;
-        overflow: hidden;
-        font-size: 15px;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        text-rendering: optimizeLegibility;
-    }
-    .mono { font-family: 'IBM Plex Mono', monospace; }
+/* ============ SIDEBAR ============ */
+.sidebar { width: 280px; min-width: 280px; background: #070a12; border-right: 1px solid var(--border-hairline); display: flex; flex-direction: column; justify-content: space-between; padding: 20px 14px; overflow-y: auto; }
+.logo { font-weight: 900; font-size: 13px; color: #fff; display: flex; align-items: center; gap: 6px; text-transform: uppercase; margin-bottom: 20px; letter-spacing: 0.02em; }
+.logo-icon { display:flex; align-items:center; justify-content:center; height: 24px; width: 24px; background: var(--cyber-green); color: #05080f; border-radius: 5px; font-size: 13px; font-weight: 900; }
+.section-label { font-family: 'IBM Plex Mono', monospace; font-size: 9px; font-weight: 700; text-transform: uppercase; color: var(--text-detail); letter-spacing: 0.12em; margin: 14px 0 5px 4px; }
+.nav-item { padding: 8px 10px; border-radius: 5px; color: var(--text-muted); font-size: 12px; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; border-left: 2px solid transparent; }
+.nav-item:hover { background: rgba(255,255,255,0.03); color: #fff; }
+.nav-item.active { background: rgba(0, 255, 163, 0.05); color: var(--cyber-green); border-left: 2px solid var(--cyber-green); font-weight: 700; }
+.nav-item.hidden-service { display: none; }
+.status-dot { height: 5px; width: 5px; background-color: var(--cyber-green); border-radius: 50%; }
+.user-block { border-top: 1px solid var(--border-hairline); padding-top: 12px; font-size: 11px; color: var(--text-muted); }
+.user-name { color: #fff; font-weight: 800; }
+.user-tier { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--cyber-amber); }
+.logout-btn { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--cyber-red); cursor: pointer; margin-top: 8px; }
+.admin-toggle { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--cyber-blue); cursor: pointer; margin-top: 8px; text-transform: uppercase; letter-spacing: 0.05em; }
 
-    /* ============ SIDEBAR ============ */
-    .sidebar { width: 280px; min-width: 280px; background: #070a12; border-right: 1px solid var(--border-hairline); display: flex; flex-direction: column; justify-content: space-between; padding: 20px 14px; overflow-y: auto; }
-    .logo { font-weight: 900; font-size: 13px; color: #fff; display: flex; align-items: center; gap: 6px; text-transform: uppercase; margin-bottom: 20px; letter-spacing: 0.02em; }
-    .logo-icon { display:flex; align-items:center; justify-content:center; height: 24px; width: 24px; background: var(--cyber-green); color: #05080f; border-radius: 5px; font-size: 13px; font-weight: 900; }
-    .section-label { font-family: 'IBM Plex Mono', monospace; font-size: 9px; font-weight: 700; text-transform: uppercase; color: var(--text-detail); letter-spacing: 0.12em; margin: 14px 0 5px 4px; }
-    .nav-item { padding: 8px 10px; border-radius: 5px; color: var(--text-muted); font-size: 12px; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; border-left: 2px solid transparent; }
-    .nav-item:hover { background: rgba(255,255,255,0.03); color: #fff; }
-    .nav-item.active { background: rgba(0, 255, 163, 0.05); color: var(--cyber-green); border-left: 2px solid var(--cyber-green); font-weight: 700; }
-    .nav-item.hidden-service { display: none; }
-    .status-dot { height: 5px; width: 5px; background-color: var(--cyber-green); border-radius: 50%; }
-    .user-block { border-top: 1px solid var(--border-hairline); padding-top: 12px; font-size: 11px; color: var(--text-muted); }
-    .user-name { color: #fff; font-weight: 800; }
-    .user-tier { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--cyber-amber); }
-    .logout-btn { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--cyber-red); cursor: pointer; margin-top: 8px; }
-    .admin-toggle { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--cyber-blue); cursor: pointer; margin-top: 8px; text-transform: uppercase; letter-spacing: 0.05em; }
+/* ============ MAIN ============ */
+.main-viewport { flex: 1; padding: 24px 32px; overflow-y: auto; background: radial-gradient(circle at 80% 20%, rgba(0, 255, 163, 0.02), transparent 40%), var(--bg-deep); width: 100%; }
+h1 { font-size: 24px; font-weight: 900; margin-bottom: 4px; letter-spacing: -0.01em; }
+.lead { font-size: 14px; color: var(--text-muted); margin-bottom: 20px; }
+.card { background: var(--bg-card); border: 1px solid var(--border-hairline); border-radius: 12px; padding: 22px; margin-bottom: 20px; width: 100%; }
+.dashboard-tab { display: none; width: 100%; }
+.dashboard-tab.active { display: block; width: 100%; }
 
-    /* ============ MAIN VIEWPORT ============ */
-    .main-viewport { flex: 1; padding: 24px 32px; overflow-y: auto; background: radial-gradient(circle at 80% 20%, rgba(0, 255, 163, 0.02), transparent 40%), var(--bg-deep); width: 100%; }
-    h1 { font-size: 24px; font-weight: 900; margin-bottom: 4px; letter-spacing: -0.01em; }
-    .lead { font-size: 14px; color: var(--text-muted); margin-bottom: 20px; }
-    .card { background: var(--bg-card); border: 1px solid var(--border-hairline); border-radius: 12px; padding: 22px; margin-bottom: 20px; width: 100%; }
-    .dashboard-tab { display: none; width: 100%; }
-    .dashboard-tab.active { display: block; width: 100%; }
+.btn-primary { border: none; color: #05080f; padding: 14px 20px; border-radius: 7px; font-weight: 800; cursor: pointer; text-transform: uppercase; background: var(--cyber-green); font-size: 12px; width: 100%; letter-spacing: 0.02em; }
+.btn-primary:hover { background: #00cc82; }
+.btn-primary:disabled { opacity: 0.5; cursor: wait; }
+.btn-blue { background: var(--cyber-blue); color: #05080f; }
+.btn-amber { background: var(--cyber-amber); color: #05080f; }
+.btn-secondary { border: 1px solid var(--border-hairline); color: var(--text-muted); padding: 12px 16px; border-radius: 7px; font-weight: 700; cursor: pointer; background: transparent; font-size: 11px; width: 100%; }
 
-    .btn-primary { border: none; color: #05080f; padding: 14px 20px; border-radius: 7px; font-weight: 800; cursor: pointer; text-transform: uppercase; background: var(--cyber-green); font-size: 12px; width: 100%; letter-spacing: 0.02em; }
-    .btn-primary:hover { background: #00cc82; }
-    .btn-primary:disabled { opacity: 0.5; cursor: wait; }
-    .btn-blue { background: var(--cyber-blue); color: #05080f; }
-    .btn-amber { background: var(--cyber-amber); color: #05080f; }
-    .btn-secondary { border: 1px solid var(--border-hairline); color: var(--text-muted); padding: 12px 16px; border-radius: 7px; font-weight: 700; cursor: pointer; background: transparent; font-size: 11px; width: 100%; }
+.form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; width: 100%; }
+.form-group { display: flex; flex-direction: column; gap: 5px; margin-bottom: 12px; width: 100%; }
+label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 700; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.04em; }
+input, select, textarea { width: 100%; background-color: #03060c; border: 1px solid #2a3a55; border-radius: 7px; padding: 12px 14px; color: #fff; font-size: 13px; font-family: 'IBM Plex Mono', monospace; outline: none; }
+input:focus, select:focus, textarea:focus { border-color: var(--cyber-green); }
+textarea { min-height: 80px; resize: vertical; }
 
-    .form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; width: 100%; }
-    .form-group { display: flex; flex-direction: column; gap: 5px; margin-bottom: 12px; width: 100%; }
-    label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 700; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.04em; }
-    input, select, textarea { width: 100%; background-color: #03060c; border: 1px solid #2a3a55; border-radius: 7px; padding: 12px 14px; color: #fff; font-size: 13px; font-family: 'IBM Plex Mono', monospace; outline: none; }
-    input:focus, select:focus, textarea:focus { border-color: var(--cyber-green); }
-    textarea { min-height: 80px; resize: vertical; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th { font-size: 10px; text-transform: uppercase; color: var(--text-muted); padding: 10px 8px; border-bottom: 2px solid var(--border-hairline); text-align: left; background: rgba(255,255,255,0.02); letter-spacing: 0.06em; }
+td { padding: 12px 8px; border-bottom: 1px solid #111827; font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; line-height: 1.65; vertical-align: top; }
+.badge-status { padding: 5px 12px; border-radius: 4px; font-size: 11px; font-weight: 800; font-family: 'IBM Plex Mono', monospace; text-transform: uppercase; letter-spacing: 0.03em; }
+.bg-green { background: rgba(0, 255, 163, 0.15); color: var(--cyber-green); border: 1px solid rgba(0,255,163,0.4); }
+.bg-amber { background: rgba(255, 184, 0, 0.15); color: var(--cyber-amber); border: 1px solid rgba(255,184,0,0.4); }
+.bg-red { background: rgba(255, 107, 107, 0.15); color: var(--cyber-red); border: 1px solid rgba(255,107,107,0.4); }
+.bg-blue { background: rgba(64, 196, 255, 0.15); color: var(--cyber-blue); border: 1px solid rgba(64,196,255,0.4); }
 
-    table { width: 100%; border-collapse: collapse; font-size: 13px; }
-    th { font-size: 10px; text-transform: uppercase; color: var(--text-muted); padding: 10px 8px; border-bottom: 2px solid var(--border-hairline); text-align: left; background: rgba(255,255,255,0.02); letter-spacing: 0.06em; }
-    td { padding: 12px 8px; border-bottom: 1px solid #111827; font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; line-height: 1.65; vertical-align: top; }
-    .badge-status { padding: 5px 12px; border-radius: 4px; font-size: 11px; font-weight: 800; font-family: 'IBM Plex Mono', monospace; text-transform: uppercase; letter-spacing: 0.03em; }
-    .bg-green { background: rgba(0, 255, 163, 0.15); color: var(--cyber-green); border: 1px solid rgba(0,255,163,0.4); }
-    .bg-amber { background: rgba(255, 184, 0, 0.15); color: var(--cyber-amber); border: 1px solid rgba(255,184,0,0.4); }
-    .bg-red { background: rgba(255, 107, 107, 0.15); color: var(--cyber-red); border: 1px solid rgba(255,107,107,0.4); }
-    .bg-blue { background: rgba(64, 196, 255, 0.15); color: var(--cyber-blue); border: 1px solid rgba(64,196,255,0.4); }
+.financial-line { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #1a2332; }
+.loss-box { background: rgba(255, 107, 107, 0.06); border: 2px solid rgba(255, 107, 107, 0.5); border-radius: 9px; padding: 20px; margin-bottom: 20px; width: 100%; overflow: visible; height: auto; }
+.loss-title { font-size: 16px; color: var(--cyber-red); font-weight: 900; margin-bottom: 12px; letter-spacing: 0.01em; }
+.loss-item { font-size: 13px; color: var(--text-muted); padding: 6px 0; line-height: 1.7; }
+.loss-item strong { color: #fff; }
+.loss-big { font-size: 20px; font-weight: 900; color: var(--cyber-red); margin-top: 8px; }
 
-    .financial-line { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #1a2332; }
-    .financial-label { font-size: 13px; color: var(--text-muted); font-weight: 600; }
-    .financial-value { font-family: 'IBM Plex Mono', monospace; font-size: 15px; font-weight: 700; }
+.preview-badge { display: inline-block; background: rgba(255,184,0,0.15); border: 1px solid rgba(255,184,0,0.4); color: var(--cyber-amber); padding: 4px 10px; border-radius: 4px; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; }
 
-    .loss-box { background: rgba(255, 107, 107, 0.06); border: 2px solid rgba(255, 107, 107, 0.5); border-radius: 9px; padding: 20px; margin-bottom: 20px; width: 100%; overflow: visible; height: auto; }
-    .loss-title { font-size: 16px; color: var(--cyber-red); font-weight: 900; margin-bottom: 12px; letter-spacing: 0.01em; }
-    .loss-item { font-size: 13px; color: var(--text-muted); padding: 6px 0; line-height: 1.7; }
-    .loss-item strong { color: #fff; }
-    .loss-big { font-size: 20px; font-weight: 900; color: var(--cyber-red); margin-top: 8px; }
+#preview-card { overflow: visible; height: auto; min-height: 400px; }
+#preview-card table { width: 100%; margin-bottom: 16px; }
+#preview-card .btn-primary { margin-top: 16px; }
+#preview-card .loss-box { overflow: visible; height: auto; }
 
-    .preview-badge { display: inline-block; background: rgba(255,184,0,0.15); border: 1px solid rgba(255,184,0,0.4); color: var(--cyber-amber); padding: 4px 10px; border-radius: 4px; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; }
-    .payment-toggle { display: flex; gap: 8px; margin-bottom: 16px; }
-    .payment-toggle button { flex: 1; padding: 10px; border-radius: 6px; font-weight: 700; cursor: pointer; font-size: 12px; border: 1px solid var(--border-hairline); background: transparent; color: var(--text-muted); }
-    .payment-toggle button.active { border-color: var(--cyber-green); color: var(--cyber-green); background: rgba(0,255,163,0.05); }
-    .payment-card { background: #03060c; border: 1px solid var(--border-hairline); border-radius: 8px; padding: 16px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; line-height: 1.8; margin-bottom: 12px; cursor: pointer; }
-    .payment-card h4 { font-size: 12px; font-weight: 800; text-transform: uppercase; color: var(--cyber-amber); margin-bottom: 8px; letter-spacing: 0.05em; }
+.preview-header { display: flex; justify-content: space-between; gap: 20px; border-bottom: 1px solid var(--border-hairline); padding-bottom: 18px; margin-bottom: 20px; flex-wrap: wrap; align-items: flex-start; }
+.verdict-col { display: flex; flex-direction: column; gap: 8px; }
+.verdict-col .section-label { margin: 0; color: var(--text-detail); font-size: 10px; letter-spacing: 0.12em; }
+.verdict-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.pv-location { font-size: 13px; color: var(--text-muted); letter-spacing: 0.01em; }
+.score-col { text-align: right; display: flex; flex-direction: column; gap: 4px; }
+.score-col .section-label { margin: 0; color: var(--text-detail); font-size: 10px; letter-spacing: 0.12em; }
+.pv-score-value { font-family: 'IBM Plex Mono', monospace; font-size: 30px; font-weight: 900; color: var(--cyber-green); letter-spacing: -0.02em; line-height: 1.05; }
+.pv-score-note { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--text-detail); letter-spacing: 0.06em; text-transform: uppercase; }
 
-    .upsell-box { background: rgba(64,196,255,0.03); border: 1px solid rgba(64,196,255,0.3); border-radius: 9px; padding: 20px; margin-bottom: 20px; }
-    .phase-box { background: rgba(64,196,255,0.05); border: 1px solid rgba(64,196,255,0.3); border-radius: 8px; padding: 16px; margin-bottom: 16px; }
-    .phase-title { font-size: 13px; font-weight: 800; color: var(--cyber-blue); margin-bottom: 8px; letter-spacing: 0.02em; }
-    .phase-text { font-size: 12.5px; color: var(--text-muted); line-height: 1.65; }
-    .price-breakdown { background: #03060c; border: 1px solid var(--border-hairline); border-radius: 8px; padding: 16px; margin-bottom: 16px; }
-    .price-line { display: flex; justify-content: space-between; padding: 6px 0; font-size: 13px; }
-    .price-line.total { border-top: 1px solid var(--border-hairline); margin-top: 8px; padding-top: 12px; font-weight: 800; font-size: 16px; }
-    .deliverable-list { list-style: none; padding: 0; margin-bottom: 12px; }
-    .deliverable-list li { font-size: 13px; color: var(--text-muted); padding: 6px 0; border-bottom: 1px solid #1a2332; }
-    .deliverable-list li strong { color: #fff; }
+/* ============ STORM INTAKE ============ */
+.intake-form-card { background: var(--bg-card); border: 1px solid var(--border-hairline); border-radius: 12px; padding: 36px; margin-top: 20px; }
+.intake-form-card .form-group { margin-bottom: 20px; }
+.intake-form-card label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--text-muted); margin-bottom: 8px; }
+.intake-form-card input, .intake-form-card textarea { width: 100%; background: #020617; border: 1px solid var(--border-hairline); border-radius: 6px; padding: 13px; color: #fff; font-family: 'Inter', sans-serif; font-size: 14px; }
+.intake-form-card input:focus, .intake-form-card textarea:focus { outline: none; border-color: var(--cyber-blue); }
+.intake-form-card .form-hint { font-size: 12px; color: var(--text-muted); margin-top: 6px; }
+.intake-form-card .doc-checklist { background: #020617; border: 1px solid var(--border-hairline); border-radius: 10px; padding: 18px 20px; margin-top: 14px; }
+.intake-form-card .doc-item { display: flex; gap: 12px; padding: 12px 0; border-top: 1px solid var(--border-hairline); }
+.intake-form-card .doc-item:first-child { border-top: none; padding-top: 2px; }
+.intake-form-card .doc-num { flex: 0 0 22px; height: 22px; border-radius: 6px; background: rgba(251,191,36,.12); border: 1px solid rgba(251,191,36,.3); color: var(--cyber-amber); font-size: 11.5px; font-weight: 800; font-family: monospace; display: flex; align-items: center; justify-content: center; margin-top: 1px; }
+.intake-form-card .doc-title { font-size: 13.5px; font-weight: 700; color: #f1f5f9; margin-bottom: 3px; }
+.intake-form-card .doc-title .tag { font-size: 10px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; margin-left: 8px; padding: 2px 7px; border-radius: 9999px; background: rgba(251,191,36,.12); border: 1px solid rgba(251,191,36,.3); color: var(--cyber-amber); }
+.intake-form-card .doc-desc { font-size: 12.5px; color: var(--text-muted); line-height: 1.55; }
+.intake-form-card .consent { display: flex; gap: 10px; align-items: flex-start; font-size: 13px; color: var(--text-muted); margin: 22px 0; }
+.intake-form-card .consent input { width: auto; margin-top: 3px; }
+.intake-form-card .submit-btn { width: 100%; background: var(--cyber-blue); color: #020617; padding: 15px; border: none; border-radius: 6px; font-weight: 800; font-size: 14.5px; cursor: pointer; letter-spacing: 0.02em; }
+.intake-form-card .submit-btn:hover { background: #7dd3fc; }
+.intake-form-card .data-note { background: rgba(52,211,153,.06); border: 1px solid rgba(52,211,153,.25); border-radius: 10px; padding: 18px 22px; font-size: 13.5px; color: #d1fae5; margin-top: 8px; line-height: 1.6; }
 
-    /* ============ PREVIEW CARD FIX ============ */
-    #preview-card { overflow: visible; height: auto; min-height: 400px; }
-    #preview-card table { width: 100%; margin-bottom: 16px; }
-    #preview-card .btn-primary { margin-top: 16px; }
-    #preview-card .loss-box { overflow: visible; height: auto; }
+.thank-you-card { background: var(--bg-card); border: 1px solid rgba(52,211,153,.35); border-radius: 12px; padding: 48px 36px; text-align: center; display: none; }
+.thank-you-icon { width: 52px; height: 52px; border-radius: 50%; background: rgba(52,211,153,.15); border: 1px solid rgba(52,211,153,.4); color: var(--cyber-green); font-size: 26px; font-weight: 800; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; }
+.thank-you-card h3 { font-size: 20px; margin-bottom: 12px; color: #fff; }
+.thank-you-card p { font-size: 14px; color: var(--text-muted); max-width: 440px; margin: 0 auto; line-height: 1.6; }
 
-    /* Preview card header — verdict + score alignment fix */
-    #preview-card .preview-header {
-        display: flex;
-        justify-content: space-between;
-        gap: 20px;
-        border-bottom: 1px solid var(--border-hairline);
-        padding-bottom: 18px;
-        margin-bottom: 20px;
-        flex-wrap: wrap;
-        align-items: flex-start;
-    }
-    #preview-card .verdict-col {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-    }
-    #preview-card .verdict-col .section-label {
-        margin: 0;
-        color: var(--text-detail);
-        font-size: 10px;
-        letter-spacing: 0.12em;
-    }
-    #preview-card .verdict-row {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        flex-wrap: wrap;
-    }
-    #preview-card .pv-location {
-        font-size: 13px;
-        color: var(--text-muted);
-        letter-spacing: 0.01em;
-    }
-    #preview-card .score-col {
-        text-align: right;
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
-    }
-    #preview-card .score-col .section-label {
-        margin: 0;
-        color: var(--text-detail);
-        font-size: 10px;
-        letter-spacing: 0.12em;
-    }
-    #preview-card .pv-score-value {
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 30px;
-        font-weight: 900;
-        color: var(--cyber-green);
-        letter-spacing: -0.02em;
-        line-height: 1.05;
-    }
-    #preview-card .pv-score-note {
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 10px;
-        color: var(--text-detail);
-        letter-spacing: 0.06em;
-        text-transform: uppercase;
-    }
+/* ============ ADMIN CONSOLE ============ */
+.admin-console {
+  background: linear-gradient(145deg, #0d1424, #080d17);
+  border: 1px solid #25324a;
+  border-radius: 12px;
+  padding: 20px 24px;
+  margin-bottom: 20px;
+  display: none;
+}
+.admin-console.active { display: block; }
+.admin-console-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--border-hairline); }
+.admin-console-title { font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 800; color: var(--cyber-blue); letter-spacing: 0.1em; text-transform: uppercase; }
+.admin-exit { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--cyber-red); cursor: pointer; padding: 6px 12px; border: 1px solid var(--border-hairline); border-radius: 5px; }
+.admin-exit:hover { border-color: var(--cyber-red); }
+.admin-controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
+.admin-control-group { display: flex; flex-direction: column; gap: 6px; }
+.admin-control-group label { color: var(--cyber-blue); font-size: 9.5px; letter-spacing: 0.12em; }
+.admin-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; }
+.admin-btn { padding: 8px 14px; border-radius: 5px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; cursor: pointer; border: 1px solid var(--border-hairline); background: transparent; color: var(--text-muted); }
+.admin-btn:hover { border-color: var(--cyber-blue); color: var(--cyber-blue); }
+.admin-btn.warn:hover { border-color: var(--cyber-amber); color: var(--cyber-amber); }
+.admin-btn.danger:hover { border-color: var(--cyber-red); color: var(--cyber-red); }
+.admin-btn.active { border-color: var(--cyber-green); color: var(--cyber-green); background: rgba(0, 255, 163, 0.05); }
 
-    /* ============ STORM INTAKE FORM ============ */
-    .intake-form-card { background: var(--bg-card); border: 1px solid var(--border-hairline); border-radius: 12px; padding: 36px; margin-top: 20px; }
-    .intake-form-card .form-group { margin-bottom: 20px; }
-    .intake-form-card label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--text-muted); margin-bottom: 8px; }
-    .intake-form-card input, .intake-form-card textarea { width: 100%; background: #020617; border: 1px solid var(--border-hairline); border-radius: 6px; padding: 13px; color: #fff; font-family: 'Inter', sans-serif; font-size: 14px; }
-    .intake-form-card input:focus, .intake-form-card textarea:focus { outline: none; border-color: var(--cyber-blue); }
-    .intake-form-card .form-hint { font-size: 12px; color: var(--text-muted); margin-top: 6px; }
-    .intake-form-card .doc-checklist { background: #020617; border: 1px solid var(--border-hairline); border-radius: 10px; padding: 18px 20px; margin-top: 14px; }
-    .intake-form-card .doc-item { display: flex; gap: 12px; padding: 12px 0; border-top: 1px solid var(--border-hairline); }
-    .intake-form-card .doc-item:first-child { border-top: none; padding-top: 2px; }
-    .intake-form-card .doc-num { flex: 0 0 22px; height: 22px; border-radius: 6px; background: rgba(251,191,36,.12); border: 1px solid rgba(251,191,36,.3); color: var(--cyber-amber); font-size: 11.5px; font-weight: 800; font-family: monospace; display: flex; align-items: center; justify-content: center; margin-top: 1px; }
-    .intake-form-card .doc-title { font-size: 13.5px; font-weight: 700; color: #f1f5f9; margin-bottom: 3px; }
-    .intake-form-card .doc-title .tag { font-size: 10px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; margin-left: 8px; padding: 2px 7px; border-radius: 9999px; background: rgba(251,191,36,.12); border: 1px solid rgba(251,191,36,.3); color: var(--cyber-amber); }
-    .intake-form-card .doc-desc { font-size: 12.5px; color: var(--text-muted); line-height: 1.55; }
-    .intake-form-card .consent { display: flex; gap: 10px; align-items: flex-start; font-size: 13px; color: var(--text-muted); margin: 22px 0; }
-    .intake-form-card .consent input { width: auto; margin-top: 3px; }
-    .intake-form-card .submit-btn { width: 100%; background: var(--cyber-blue); color: #020617; padding: 15px; border: none; border-radius: 6px; font-weight: 800; font-size: 14.5px; cursor: pointer; letter-spacing: 0.02em; }
-    .intake-form-card .submit-btn:hover { background: #7dd3fc; }
-    .intake-form-card .data-note { background: rgba(52,211,153,.06); border: 1px solid rgba(52,211,153,.25); border-radius: 10px; padding: 18px 22px; font-size: 13.5px; color: #d1fae5; margin-top: 8px; line-height: 1.6; }
-    .intake-form-card .data-note strong { color: #fff; }
-    .thank-you-card { background: var(--bg-card); border: 1px solid rgba(52,211,153,.35); border-radius: 12px; padding: 48px 36px; text-align: center; display: none; }
-    .thank-you-icon { width: 52px; height: 52px; border-radius: 50%; background: rgba(52,211,153,.15); border: 1px solid rgba(52,211,153,.4); color: var(--cyber-green); font-size: 26px; font-weight: 800; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; }
-    .thank-you-card h3 { font-size: 20px; margin-bottom: 12px; color: #fff; }
-    .thank-you-card p { font-size: 14px; color: var(--text-muted); max-width: 440px; margin: 0 auto; line-height: 1.6; }
+/* ============ CLIENT DIRECTORY (admin) ============ */
+.client-directory { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+.client-card { background: #0b101b; border: 1px solid var(--border-hairline); border-radius: 10px; padding: 16px 18px; cursor: pointer; transition: all 0.25s ease; }
+.client-card:hover { border-color: var(--cyber-blue); background: #0d1424; }
+.client-card-name { font-size: 14px; font-weight: 800; color: #fff; margin-bottom: 4px; }
+.client-card-meta { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: var(--text-muted); margin-bottom: 2px; letter-spacing: 0.01em; }
+.client-card-services { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 10px; }
+.service-chip { font-family: 'IBM Plex Mono', monospace; font-size: 9px; padding: 3px 7px; border-radius: 3px; background: rgba(64,196,255,0.12); color: var(--cyber-blue); border: 1px solid rgba(64,196,255,0.3); text-transform: uppercase; letter-spacing: 0.04em; }
+.service-chip.cat { background: rgba(0,255,163,0.12); color: var(--cyber-green); border-color: rgba(0,255,163,0.3); }
+.service-chip.weekly { background: rgba(64,196,255,0.12); color: var(--cyber-blue); border-color: rgba(64,196,255,0.3); }
+.service-chip.storm { background: rgba(255,184,0,0.12); color: var(--cyber-amber); border-color: rgba(255,184,0,0.3); }
 
-    /* ============================================================
-       POP-UP — Dashboard theme (dark + cyan + amber + mono)
-       Brighter, sharper text; refined red; better hierarchy.
-       ============================================================ */
-    .cat-popup-overlay {
-        position: fixed; inset: 0; z-index: 10000;
-        background: rgba(3, 6, 10, 0.9);
-        display: none;
-        align-items: flex-start;
-        justify-content: center;
-        padding: 60px 24px;
-        overflow-y: auto;
-        opacity: 0;
-        transition: opacity 0.35s var(--pop-ease);
-        -webkit-backdrop-filter: blur(10px);
-        backdrop-filter: blur(10px);
-    }
-    .cat-popup-overlay.is-open { display: flex; }
-    .cat-popup-overlay.is-visible { opacity: 1; }
-    .cat-popup-overlay::before {
-        content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 1; opacity: 0.025; mix-blend-mode: overlay;
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    }
-    .cat-popup-overlay::after {
-        content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 1;
-        background: radial-gradient(ellipse at 50% 40%, transparent 45%, rgba(3,6,10,0.6) 100%);
-    }
+/* ============ ROLLOVER POOL WIDGET ============ */
+.pool-widget { background: #03060c; border: 1px solid var(--border-hairline); border-radius: 10px; padding: 18px 22px; margin-top: 16px; }
+.pool-header { display: flex; justify-content: space-between; align-items: baseline; padding-bottom: 12px; margin-bottom: 12px; border-bottom: 1px solid var(--border-hairline); }
+.pool-title { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-detail); }
+.pool-total { font-family: 'IBM Plex Mono', monospace; font-size: 20px; font-weight: 900; color: var(--cyber-green); }
+.pool-batch { display: grid; grid-template-columns: 1fr 80px 160px 80px; gap: 12px; padding: 9px 0; border-bottom: 1px solid #111827; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; align-items: center; }
+.pool-batch:last-child { border-bottom: none; }
+.pool-batch.expiring { color: var(--cyber-amber); }
+.pool-batch.expiring .batch-expiry { color: var(--cyber-amber); font-weight: 800; }
+.pool-batch.critical { color: var(--cyber-red); }
+.pool-batch.critical .batch-expiry { color: var(--cyber-red); font-weight: 800; }
+.batch-credits { font-weight: 800; color: #fff; }
+.batch-expiry { color: var(--text-detail); }
+.batch-days { color: var(--text-muted); }
 
-    .cat-popup {
-        position: relative;
-        z-index: 2;
-        width: 100%;
-        max-width: 720px;
-        background: linear-gradient(165deg, #0d1424 0%, #080d17 100%);
-        border: 1px solid #25324a;
-        border-radius: 14px;
-        padding: 44px 48px 40px;
-        color: #fff;
-        box-shadow:
-            0 40px 90px -30px rgba(0, 0, 0, 0.85),
-            0 0 0 1px rgba(255, 255, 255, 0.02) inset,
-            0 0 80px -30px rgba(0, 255, 163, 0.1);
-        transform: scale(0.94) translateY(12px);
-        opacity: 0;
-        transition: transform 0.5s var(--pop-ease), opacity 0.4s var(--pop-ease);
-        font-family: 'Inter', system-ui, sans-serif;
-        overflow: hidden;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        text-rendering: optimizeLegibility;
-    }
-    .cat-popup-overlay.is-visible .cat-popup {
-        transform: scale(1) translateY(0);
-        opacity: 1;
-    }
-    .cat-popup::before {
-        content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-        background: linear-gradient(90deg, var(--cyber-amber), rgba(255, 184, 0, 0.2) 60%, transparent);
-    }
-    .cat-popup .pop-corner {
-        position: absolute; width: 18px; height: 18px;
-        border-color: var(--cyber-blue); opacity: 0.6; pointer-events: none; z-index: 3;
-    }
-    .cat-popup .pop-corner.tl { top: 10px; left: 10px; border-top: 1.5px solid; border-left: 1.5px solid; }
-    .cat-popup .pop-corner.tr { top: 10px; right: 10px; border-top: 1.5px solid; border-right: 1.5px solid; }
-    .cat-popup .pop-corner.bl { bottom: 10px; left: 10px; border-bottom: 1.5px solid; border-left: 1.5px solid; }
-    .cat-popup .pop-corner.br { bottom: 10px; right: 10px; border-bottom: 1.5px solid; border-right: 1.5px solid; }
+/* ============ POP-UP ============ */
+.cat-popup-overlay { position: fixed; inset: 0; z-index: 10000; background: rgba(3, 6, 10, 0.9); display: none; align-items: flex-start; justify-content: center; padding: 60px 24px; overflow-y: auto; opacity: 0; transition: opacity 0.35s var(--pop-ease); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+.cat-popup-overlay.is-open { display: flex; }
+.cat-popup-overlay.is-visible { opacity: 1; }
+.cat-popup { position: relative; z-index: 2; width: 100%; max-width: 720px; background: linear-gradient(165deg, #0d1424 0%, #080d17 100%); border: 1px solid #25324a; border-radius: 14px; padding: 44px 48px 40px; color: #fff; box-shadow: 0 40px 90px -30px rgba(0, 0, 0, 0.85), 0 0 80px -30px rgba(0, 255, 163, 0.1); transform: scale(0.94) translateY(12px); opacity: 0; transition: transform 0.5s var(--pop-ease), opacity 0.4s var(--pop-ease); overflow: hidden; }
+.cat-popup-overlay.is-visible .cat-popup { transform: scale(1) translateY(0); opacity: 1; }
+.cat-popup::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--cyber-amber), rgba(255, 184, 0, 0.2) 60%, transparent); }
+.cat-popup-close { position: absolute; top: 16px; right: 16px; width: 34px; height: 34px; border: 1px solid #2a3852; color: var(--text-muted); background: transparent; font-size: 14px; border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 4; }
+.cat-popup-close:hover { border-color: var(--cyber-amber); color: var(--cyber-amber); }
+.pop-kicker { display: flex; align-items: center; gap: 12px; color: var(--cyber-green); font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.18em; font-weight: 700; text-transform: uppercase; margin-bottom: 22px; }
+.pop-kicker .line { background: var(--cyber-green); width: 28px; height: 1px; opacity: 0.8; }
+.pop-check { width: 44px; height: 44px; background: rgba(0, 255, 163, 0.1); border: 1px solid rgba(0, 255, 163, 0.45); color: var(--cyber-green); font-size: 20px; font-weight: 700; margin-bottom: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 24px -8px rgba(0, 255, 163, 0.55); }
+.pop-headline { font-size: clamp(1.9rem, 4.2vw, 2.55rem); font-weight: 800; line-height: 1.12; letter-spacing: -0.028em; color: #fff; margin: 0 0 16px; }
+.pop-headline .accent { color: var(--cyber-amber); background: linear-gradient(135deg, #ffb800, #ff9248); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.pop-sub { font-size: 15px; color: var(--text-soft); line-height: 1.7; margin: 0 0 26px; max-width: 62ch; }
+.pop-sub b { color: #fff; font-weight: 600; }
+.pop-truth { border-left: 2px solid var(--cyber-amber); background: linear-gradient(90deg, rgba(255, 184, 0, 0.09), rgba(255, 184, 0, 0.02)); padding: 20px 24px; margin: 0 0 26px; border-radius: 0 8px 8px 0; }
+.pop-truth .truth-label { color: var(--cyber-amber); font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.16em; font-weight: 800; margin-bottom: 10px; text-transform: uppercase; }
+.pop-truth p { color: var(--text-soft); font-size: 14.5px; line-height: 1.7; margin: 0; }
+.pop-truth p b { color: #fff; font-weight: 600; }
+.pop-loss { border: 1px solid rgba(255, 107, 107, 0.4); background: rgba(255, 107, 107, 0.06); border-radius: 10px; padding: 22px 26px; margin: 0 0 26px; }
+.pop-loss-title { color: var(--cyber-red); font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; font-weight: 800; margin-bottom: 16px; text-transform: uppercase; }
+.pop-loss-item { color: var(--text-soft); font-size: 14px; padding: 10px 0; border-bottom: 1px solid rgba(255, 107, 107, 0.15); display: flex; justify-content: space-between; gap: 12px; }
+.pop-loss-item:last-of-type { border-bottom: none; }
+.pop-loss-item .num { font-family: 'IBM Plex Mono', monospace; font-weight: 800; color: var(--cyber-red); font-size: 15px; white-space: nowrap; }
+.pop-loss-total { margin-top: 14px; padding-top: 14px; border-top: 1px solid rgba(255, 107, 107, 0.4); display: flex; justify-content: space-between; align-items: baseline; }
+.pop-loss-total .val { font-family: 'IBM Plex Mono', monospace; font-weight: 900; font-size: 1.65rem; color: var(--cyber-red); letter-spacing: -0.015em; }
+.pop-offer { border: 1px solid rgba(64, 196, 255, 0.32); background: linear-gradient(165deg, rgba(64, 196, 255, 0.07), rgba(11, 16, 27, 0.4)); padding: 26px 28px; margin: 0 0 26px; border-radius: 10px; position: relative; overflow: hidden; }
+.pop-offer::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--cyber-blue), transparent); }
+.pop-offer-label { color: var(--cyber-blue); font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.16em; font-weight: 800; margin-bottom: 8px; text-transform: uppercase; }
+.pop-offer-title { font-size: 1.65rem; font-weight: 800; color: #fff; margin: 0 0 10px; letter-spacing: -0.025em; }
+.pop-offer-desc { color: var(--text-soft); font-size: 14px; line-height: 1.65; margin: 0 0 18px; }
+.pop-offer-phases { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 18px; }
+.pop-phase { border: 1px solid rgba(64, 196, 255, 0.22); background: rgba(3, 6, 12, 0.55); padding: 16px 18px; border-radius: 8px; }
+.pop-phase-label { color: var(--cyber-blue); font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.12em; font-weight: 800; text-transform: uppercase; margin-bottom: 6px; }
+.pop-phase-amount { font-family: 'IBM Plex Mono', monospace; font-weight: 900; font-size: 1.5rem; color: var(--cyber-amber); line-height: 1; letter-spacing: -0.02em; }
+.pop-phase-note { color: var(--text-detail); font-size: 11.5px; margin-top: 8px; line-height: 1.5; }
+.pop-offer-total { padding-top: 16px; border-top: 1px solid rgba(64, 196, 255, 0.22); display: flex; justify-content: space-between; align-items: baseline; }
+.pop-offer-total .val { font-family: 'IBM Plex Mono', monospace; font-weight: 900; font-size: 1.65rem; color: var(--cyber-amber); letter-spacing: -0.02em; }
+.pop-disclaimer { color: var(--text-detail); font-size: 12px; line-height: 1.65; padding: 16px 20px; border: 1px solid var(--border-hairline); background: rgba(3, 6, 12, 0.4); border-radius: 8px; margin: 0 0 26px; }
+.pop-disclaimer b { color: var(--text-muted); font-weight: 600; }
+.pop-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+.pop-btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 15px 26px; font-size: 13.5px; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; border-radius: 8px; cursor: pointer; border: 1px solid transparent; flex: 1 1 auto; min-width: 220px; }
+.pop-btn-primary { background: var(--cyber-amber); color: #05080f; border-color: var(--cyber-amber); box-shadow: 0 10px 30px -12px rgba(255, 184, 0, 0.65); }
+.pop-btn-primary:hover { background: #ffc933; transform: translateY(-2px); }
+.pop-btn-ghost { background: transparent; color: var(--text-muted); border-color: var(--border-hairline); }
+.pop-btn-ghost:hover { border-color: var(--cyber-blue); color: var(--cyber-blue); }
 
-    .cat-popup-close {
-        position: absolute;
-        top: 16px; right: 16px;
-        width: 34px; height: 34px;
-        border: 1px solid #2a3852;
-        color: #b8c4d0;
-        background: transparent;
-        font-size: 14px;
-        border-radius: 6px;
-        transition: all 0.25s ease;
-        z-index: 4;
-        cursor: pointer;
-        display: flex; align-items: center; justify-content: center;
-        font-family: 'Inter', sans-serif;
-    }
-    .cat-popup-close:hover {
-        border-color: var(--cyber-amber);
-        color: var(--cyber-amber);
-        background: rgba(255, 184, 0, 0.08);
-    }
+/* ============ EMAIL CAPTURE BLOCK ============ */
+.email-value-block { border-top: 1px solid var(--border-hairline); padding-top: 22px; margin-top: 24px; }
+.email-value-block .block-title { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--cyber-blue); margin-bottom: 8px; }
+.email-value-block p { font-size: 13.5px; color: var(--text-muted); margin-bottom: 14px; line-height: 1.6; }
+.email-value-block input { margin-bottom: 10px; }
+.email-value-block .privacy-note { font-size: 11px; color: var(--text-detail); margin-top: 8px; letter-spacing: 0.01em; }
 
-    .pop-kicker {
-        display: flex; align-items: center; gap: 12px;
-        color: var(--cyber-green);
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 11px;
-        letter-spacing: 0.18em;
-        font-weight: 700;
-        text-transform: uppercase;
-        margin-bottom: 22px;
-    }
-    .pop-kicker .line { background: var(--cyber-green); width: 28px; height: 1px; opacity: 0.8; }
-
-    .pop-check {
-        width: 44px; height: 44px;
-        background: rgba(0, 255, 163, 0.1);
-        border: 1px solid rgba(0, 255, 163, 0.45);
-        color: var(--cyber-green);
-        font-size: 20px;
-        font-weight: 700;
-        margin-bottom: 22px;
-        border-radius: 50%;
-        display: flex; align-items: center; justify-content: center;
-        box-shadow: 0 0 24px -8px rgba(0, 255, 163, 0.55);
-    }
-
-    .pop-headline {
-        font-size: clamp(1.9rem, 4.2vw, 2.55rem);
-        font-weight: 800;
-        line-height: 1.12;
-        letter-spacing: -0.028em;
-        color: #fff;
-        margin: 0 0 16px;
-        font-family: 'Inter', sans-serif;
-    }
-    .pop-headline .accent {
-        color: var(--cyber-amber);
-        background: linear-gradient(135deg, #ffb800, #ff9248);
-        -webkit-background-clip: text;
-        background-clip: text;
-        -webkit-text-fill-color: transparent;
-    }
-
-    .pop-sub {
-        font-size: 15px;
-        color: var(--text-soft);
-        line-height: 1.7;
-        margin: 0 0 26px;
-        max-width: 62ch;
-        letter-spacing: 0.005em;
-    }
-    .pop-sub b { color: #fff; font-weight: 600; }
-
-    .pop-truth {
-        border-left: 2px solid var(--cyber-amber);
-        background: linear-gradient(90deg, rgba(255, 184, 0, 0.09), rgba(255, 184, 0, 0.02));
-        padding: 20px 24px;
-        margin: 0 0 26px;
-        border-radius: 0 8px 8px 0;
-    }
-    .pop-truth .truth-label {
-        color: var(--cyber-amber);
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 10.5px;
-        letter-spacing: 0.16em;
-        font-weight: 800;
-        margin-bottom: 10px;
-        text-transform: uppercase;
-    }
-    .pop-truth p {
-        color: var(--text-soft);
-        font-size: 14.5px;
-        line-height: 1.7;
-        margin: 0;
-        letter-spacing: 0.005em;
-    }
-    .pop-truth p b { color: #fff; font-weight: 600; }
-
-    .pop-loss {
-        border: 1px solid rgba(255, 107, 107, 0.4);
-        background: rgba(255, 107, 107, 0.06);
-        border-radius: 10px;
-        padding: 22px 26px;
-        margin: 0 0 26px;
-    }
-    .pop-loss-title {
-        color: var(--cyber-red);
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 11px;
-        letter-spacing: 0.16em;
-        font-weight: 800;
-        margin-bottom: 16px;
-        text-transform: uppercase;
-    }
-    .pop-loss-item {
-        color: var(--text-soft);
-        font-size: 14px;
-        padding: 10px 0;
-        border-bottom: 1px solid rgba(255, 107, 107, 0.15);
-        display: flex;
-        justify-content: space-between;
-        gap: 12px;
-        letter-spacing: 0.005em;
-    }
-    .pop-loss-item:last-of-type { border-bottom: none; }
-    .pop-loss-item .num {
-        font-family: 'IBM Plex Mono', monospace;
-        font-weight: 800;
-        color: var(--cyber-red);
-        font-size: 15px;
-        white-space: nowrap;
-        letter-spacing: -0.005em;
-    }
-    .pop-loss-total {
-        margin-top: 14px;
-        padding-top: 14px;
-        border-top: 1px solid rgba(255, 107, 107, 0.4);
-        display: flex;
-        justify-content: space-between;
-        align-items: baseline;
-    }
-    .pop-loss-total .lbl {
-        color: var(--text-muted);
-        font-size: 13.5px;
-        letter-spacing: 0.005em;
-    }
-    .pop-loss-total .val {
-        font-family: 'IBM Plex Mono', monospace;
-        font-weight: 900;
-        font-size: 1.65rem;
-        color: var(--cyber-red);
-        letter-spacing: -0.015em;
-    }
-
-    .pop-offer {
-        border: 1px solid rgba(64, 196, 255, 0.32);
-        background: linear-gradient(165deg, rgba(64, 196, 255, 0.07), rgba(11, 16, 27, 0.4));
-        padding: 26px 28px;
-        margin: 0 0 26px;
-        border-radius: 10px;
-        position: relative;
-        overflow: hidden;
-    }
-    .pop-offer::before {
-        content: '';
-        position: absolute;
-        top: 0; left: 0; right: 0;
-        height: 2px;
-        background: linear-gradient(90deg, var(--cyber-blue), transparent);
-    }
-    .pop-offer-label {
-        color: var(--cyber-blue);
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 10.5px;
-        letter-spacing: 0.16em;
-        font-weight: 800;
-        margin-bottom: 8px;
-        text-transform: uppercase;
-    }
-    .pop-offer-title {
-        font-size: 1.65rem;
-        font-weight: 800;
-        color: #fff;
-        margin: 0 0 10px;
-        letter-spacing: -0.025em;
-    }
-    .pop-offer-desc {
-        color: var(--text-soft);
-        font-size: 14px;
-        line-height: 1.65;
-        margin: 0 0 18px;
-        letter-spacing: 0.005em;
-    }
-    .pop-offer-phases {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 12px;
-        margin-bottom: 18px;
-    }
-    .pop-phase {
-        border: 1px solid rgba(64, 196, 255, 0.22);
-        background: rgba(3, 6, 12, 0.55);
-        padding: 16px 18px;
-        border-radius: 8px;
-    }
-    .pop-phase-label {
-        color: var(--cyber-blue);
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 10px;
-        letter-spacing: 0.12em;
-        font-weight: 800;
-        text-transform: uppercase;
-        margin-bottom: 6px;
-    }
-    .pop-phase-amount {
-        font-family: 'IBM Plex Mono', monospace;
-        font-weight: 900;
-        font-size: 1.5rem;
-        color: var(--cyber-amber);
-        line-height: 1;
-        letter-spacing: -0.02em;
-    }
-    .pop-phase-note {
-        color: var(--text-detail);
-        font-size: 11.5px;
-        margin-top: 8px;
-        line-height: 1.5;
-        letter-spacing: 0.01em;
-    }
-    .pop-offer-total {
-        padding-top: 16px;
-        border-top: 1px solid rgba(64, 196, 255, 0.22);
-        display: flex;
-        justify-content: space-between;
-        align-items: baseline;
-    }
-    .pop-offer-total .lbl {
-        color: var(--text-muted);
-        font-size: 13.5px;
-        letter-spacing: 0.005em;
-    }
-    .pop-offer-total .val {
-        font-family: 'IBM Plex Mono', monospace;
-        font-weight: 900;
-        font-size: 1.65rem;
-        color: var(--cyber-amber);
-        letter-spacing: -0.02em;
-    }
-
-    .pop-zone-def {
-        border: 1px solid var(--border-hairline);
-        border-left: 2px solid var(--cyber-blue);
-        background: rgba(64, 196, 255, 0.05);
-        padding: 20px 24px;
-        margin: 0 0 26px;
-        border-radius: 0 8px 8px 0;
-    }
-    .pop-zone-def .zd-label {
-        color: var(--cyber-blue);
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 10.5px;
-        letter-spacing: 0.16em;
-        font-weight: 800;
-        margin-bottom: 8px;
-        text-transform: uppercase;
-    }
-    .pop-zone-def p {
-        color: var(--text-soft);
-        font-size: 14px;
-        line-height: 1.7;
-        margin: 0;
-        letter-spacing: 0.005em;
-    }
-    .pop-zone-def b { color: #fff; font-weight: 600; }
-
-    .pop-checklist { list-style: none; padding: 0; margin: 0 0 26px; }
-    .pop-checklist li {
-        color: var(--text-soft);
-        font-size: 14.5px;
-        padding: 12px 0 12px 34px;
-        position: relative;
-        border-bottom: 1px solid var(--border-hairline);
-        line-height: 1.6;
-        letter-spacing: 0.005em;
-    }
-    .pop-checklist li:last-child { border-bottom: none; }
-    .pop-checklist li::before {
-        content: '✓';
-        position: absolute;
-        left: 0; top: 11px;
-        color: var(--cyber-green);
-        font-weight: 800;
-        font-size: 15px;
-    }
-    .pop-checklist li b { color: #fff; font-weight: 600; }
-
-    .pop-disclaimer {
-        color: var(--text-detail);
-        font-size: 12px;
-        line-height: 1.65;
-        padding: 16px 20px;
-        border: 1px solid var(--border-hairline);
-        background: rgba(3, 6, 12, 0.4);
-        border-radius: 8px;
-        margin: 0 0 26px;
-        letter-spacing: 0.005em;
-    }
-    .pop-disclaimer b { color: var(--text-muted); font-weight: 600; }
-
-    .pop-actions {
-        display: flex;
-        gap: 12px;
-        flex-wrap: wrap;
-        margin-top: 4px;
-    }
-    .pop-btn {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-        padding: 15px 26px;
-        font-family: 'Inter', sans-serif;
-        font-size: 13.5px;
-        font-weight: 800;
-        letter-spacing: 0.04em;
-        text-transform: uppercase;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: all 0.3s cubic-bezier(.19,1,.22,1);
-        border: 1px solid transparent;
-        flex: 1 1 auto;
-        min-width: 220px;
-        text-decoration: none;
-    }
-    .pop-btn-primary {
-        background: var(--cyber-amber);
-        color: #05080f;
-        border-color: var(--cyber-amber);
-        box-shadow: 0 10px 30px -12px rgba(255, 184, 0, 0.65);
-    }
-    .pop-btn-primary:hover {
-        background: #ffc933;
-        border-color: #ffc933;
-        transform: translateY(-2px);
-        box-shadow: 0 16px 40px -12px rgba(255, 184, 0, 0.8);
-    }
-    .pop-btn-primary svg {
-        width: 14px; height: 14px;
-        transition: transform 0.3s cubic-bezier(.19,1,.22,1);
-    }
-    .pop-btn-primary:hover svg { transform: translateX(4px); }
-
-    .pop-btn-ghost {
-        background: transparent;
-        color: var(--text-muted);
-        border-color: var(--border-hairline);
-    }
-    .pop-btn-ghost:hover {
-        border-color: var(--cyber-blue);
-        color: var(--cyber-blue);
-        background: rgba(64, 196, 255, 0.06);
-    }
-
-    @media(max-width: 640px) {
-        .cat-popup-overlay { padding: 32px 16px; }
-        .cat-popup { padding: 36px 26px 30px; border-radius: 10px; }
-        .cat-popup-close { top: 12px; right: 12px; width: 30px; height: 30px; }
-        .cat-popup .pop-corner { display: none; }
-        .pop-headline { font-size: clamp(1.5rem, 6vw, 2rem); }
-        .pop-offer-phases { grid-template-columns: 1fr; }
-        .pop-btn { min-width: 0; flex: 1 1 100%; font-size: 12.5px; }
-    }
+/* Responsive */
+@media(max-width: 720px) {
+  .sidebar { width: 240px; min-width: 240px; }
+  .main-viewport { padding: 16px 18px; }
+  .cat-popup { padding: 36px 26px 30px; }
+  .pop-offer-phases { grid-template-columns: 1fr; }
+  .pop-btn { min-width: 0; flex: 1 1 100%; }
+  .pool-batch { grid-template-columns: 1fr 60px 100px; font-size: 10.5px; }
+  .pool-batch .batch-days { display: none; }
+}
 </style>
 </head>
 <body>
 
 <div id="dashboard-wrapper" style="display:flex; width:100%;">
-    <aside class="sidebar">
-        <div>
-            <div class="logo"><span class="logo-icon">◈</span> Optima Workflows</div>
-            
-            <div class="section-label">Executive</div>
-            <div class="nav-item active" onclick="switchTab('view-home', this)"><span>🏠 Command</span></div>
-            
-            <div class="section-label">CAT Operations</div>
-            <div class="nav-item" id="nav-cat-intel" onclick="switchTab('view-cat-intel', this)"><span>🛰️ CAT Intelligence</span><span class="status-dot"></span></div>
-            <div class="nav-item" id="nav-storm-audit" onclick="switchTab('view-storm-audit', this)"><span>🌪️ Storm Audit</span></div>
-            
-            <div class="section-label">Back Office</div>
-            <div class="nav-item" id="nav-appointments" onclick="switchTab('view-appointments', this)"><span>📅 Appointments</span></div>
-            <div class="nav-item" id="nav-vendor-audit" onclick="switchTab('view-vendor-audit', this)"><span>🛡️ Vendor Audit</span></div>
-            <div class="nav-item" id="nav-freight-audit" onclick="switchTab('view-freight-audit', this)"><span>📦 Freight Audit</span></div>
-            <div class="nav-item" id="nav-chargeback" onclick="switchTab('view-chargeback', this)"><span>💳 Chargebacks</span></div>
-            
-            <div class="section-label">Billing</div>
-            <div class="nav-item" id="nav-billing" onclick="switchTab('view-billing', this)"><span>💳 Payment Center</span></div>
-            
-            <div class="section-label">Account</div>
-            <div class="nav-item" onclick="switchTab('view-settings', this)"><span>🔐 Settings</span></div>
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar">
+    <div>
+      <div class="logo"><span class="logo-icon">◈</span> Optima Workflows</div>
+
+      <div class="section-label">Executive</div>
+      <div class="nav-item active" id="nav-home" onclick="switchTab('view-home', this)"><span>🏠 Command</span></div>
+
+      <div class="section-label">CAT Operations</div>
+      <div class="nav-item" id="nav-cat-intel" onclick="switchTab('view-cat-intel', this)"><span>🛰️ CAT Intelligence</span><span class="status-dot"></span></div>
+      <div class="nav-item" id="nav-weekly" onclick="switchTab('view-weekly', this)"><span>📅 Weekly Review</span></div>
+      <div class="nav-item" id="nav-storm-audit" onclick="switchTab('view-storm-audit', this)"><span>🌪️ Storm Audit</span></div>
+
+      <div class="section-label">Billing</div>
+      <div class="nav-item" id="nav-billing" onclick="switchTab('view-billing', this)"><span>💳 Payment Center</span></div>
+
+      <div class="section-label">Account</div>
+      <div class="nav-item" onclick="switchTab('view-settings', this)"><span>🔐 Settings</span></div>
+
+      <div class="section-label" id="admin-section" style="display:none;">Admin</div>
+      <div class="nav-item" id="nav-clients" onclick="switchTab('view-clients', this)" style="display:none;"><span>📊 Client Directory</span></div>
+      <div class="nav-item" id="nav-prospects" onclick="switchTab('view-prospects', this)" style="display:none;"><span>🎯 Prospect Activity</span></div>
+    </div>
+
+    <div class="user-block">
+      <div class="user-name" id="user-name-display">—</div>
+      <div class="user-tier" id="user-tier-label">—</div>
+      <div class="admin-toggle" onclick="toggleAdminMode()">🔓 Toggle Admin View</div>
+      <div class="logout-btn" onclick="logout()">⏻ Logout</div>
+    </div>
+  </aside>
+
+  <!-- ============ MAIN VIEWPORT ============ -->
+  <main class="main-viewport">
+
+    <!-- ADMIN CONSOLE -->
+    <div class="admin-console" id="admin-console">
+      <div class="admin-console-header">
+        <span class="admin-console-title">🔓 Admin Console — Simulation Mode</span>
+        <span class="admin-exit" onclick="toggleAdminMode()">Exit Admin</span>
+      </div>
+      <div class="admin-controls">
+        <div class="admin-control-group">
+          <label>Active Client</label>
+          <select id="admin-client-select" onchange="adminSelectClient(this.value)">
+            <option value="">— Select client —</option>
+          </select>
         </div>
-        <div class="user-block">
-            <div class="user-name" id="user-name-display">Vanguard Restoration</div>
-            <div class="user-tier" id="user-tier-label">Enterprise Retainer</div>
-            <div class="admin-toggle" onclick="toggleAdminMode()">🔓 Toggle Admin View</div>
-            <div class="logout-btn" onclick="logout()">⏻ Logout</div>
+        <div class="admin-control-group">
+          <label>Simulation State</label>
+          <select id="admin-sim-select" onchange="adminSetSimState(this.value)">
+            <option value="fresh_prospect">Fresh Prospect</option>
+            <option value="preview_shown">Preview Shown</option>
+            <option value="post_payment">Post-Payment Pop-up</option>
+            <option value="weekly_payment">Weekly Payment Screen</option>
+            <option value="post_weekly">Post-Weekly Pop-up</option>
+            <option value="storm_intake">Storm Audit Intake</option>
+            <option value="storm_findings">Storm Audit Findings Ready</option>
+            <option value="retainer_active">Retainer — Active</option>
+            <option value="retainer_ending">Retainer — Term Ending</option>
+          </select>
         </div>
-    </aside>
+        <div class="admin-control-group">
+          <label>Admin Key</label>
+          <input type="password" id="admin-key-input" placeholder="Enter admin key" onchange="saveAdminKey(this.value)">
+        </div>
+      </div>
+      <div class="admin-actions">
+        <button class="admin-btn" onclick="adminTriggerPopup('post-payment')">Trigger Post-Payment Pop-up</button>
+        <button class="admin-btn" onclick="adminTriggerPopup('post-weekly')">Trigger Post-Weekly Pop-up</button>
+        <button class="admin-btn" onclick="adminTriggerPopup('final')">Trigger Final Pop-up</button>
+        <button class="admin-btn warn" onclick="adminResetSim()">Reset Simulation</button>
+        <button class="admin-btn danger" onclick="adminRefreshClients()">Refresh Client List</button>
+      </div>
+    </div>
 
-    <main class="main-viewport">
-        <section id="view-home" class="dashboard-tab active" style="width:100%;">
-            <h1>Executive Command</h1>
-            <p class="lead">Live operational overview.</p>
-            <div class="card"><h3 class="section-label">Active Deployments</h3><p style="font-size:14px; color:var(--text-muted);">No active deployments. Run a Triage to begin.</p></div>
-        </section>
+    <!-- HOME -->
+    <section id="view-home" class="dashboard-tab active" style="width:100%;">
+      <h1>Executive Command</h1>
+      <p class="lead">Live operational overview.</p>
+      <div class="card"><h3 class="section-label">Active Deployments</h3><p style="font-size:14px; color:var(--text-muted);">No active deployments. Run a Triage to begin.</p></div>
+    </section>
 
-        <section id="view-cat-intel" class="dashboard-tab" style="width:100%;">
-            <h1>Cat Intelligence Triage Terminal</h1>
-            <p class="lead">Pre-deployment zone scoring for commercial CAT roofing.</p>
-            <div class="card">
-                <form id="triage-form">
-                    <div class="form-row">
-                        <div class="form-group"><label>Target ZIP</label><input type="text" id="frm-zip" placeholder="e.g., 75062" required></div>
-                        <div class="form-group"><label>Intent</label>
-                            <select id="frm-intent" required>
-                                <option value="">Select...</option>
-                                <option value="MAX_CASH">Maximum Gross Cash</option>
-                                <option value="MAX_ROI">Maximum Net ROI</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group"><label>Tech Stack</label>
-                            <select id="frm-tech" required>
-                                <option value="">Select...</option>
-                                <option value="PRO_TECH">Tier 1: Drone Scans</option>
-                                <option value="LEGACY_LOW_TECH">Tier 2: Manual</option>
-                            </select>
-                        </div>
-                        <div class="form-group"><label>Rain Inches (0 = auto)</label>
-                            <input type="number" step="0.1" id="frm-rain" value="0" required>
-                        </div>
-                    </div>
-                    <button type="submit" class="btn-primary" id="btn-triage" style="margin-top:16px;">⚡ Run Analysis</button>
-                </form>
+    <!-- CAT INTELLIGENCE -->
+    <section id="view-cat-intel" class="dashboard-tab" style="width:100%;">
+      <h1>CAT Intelligence Triage Terminal</h1>
+      <p class="lead">Pre-deployment zone scoring for commercial CAT roofing.</p>
+      <div class="card">
+        <form id="triage-form">
+          <div class="form-row">
+            <div class="form-group"><label>Target ZIP</label><input type="text" id="frm-zip" placeholder="e.g., 75062" required></div>
+            <div class="form-group"><label>Intent</label>
+              <select id="frm-intent" required>
+                <option value="">Select...</option>
+                <option value="MAX_CASH">Maximum Gross Cash</option>
+                <option value="MAX_ROI">Maximum Net ROI</option>
+              </select>
             </div>
-
-            <!-- PREVIEW CARD — restructured header -->
-            <div id="preview-card" class="card" style="display:none; border-top:4px solid var(--cyber-amber);">
-                <div class="preview-header">
-                    <div class="verdict-col">
-                        <div class="section-label">Preliminary Verdict</div>
-                        <div class="verdict-row">
-                            <span id="pv-verdict" class="badge-status bg-green" style="font-size:15px;">HIGH ACTIVITY</span>
-                            <span class="preview-badge">Free Preview</span>
-                        </div>
-                        <div class="pv-location" id="pv-location">—</div>
-                    </div>
-                    <div class="score-col">
-                        <div class="section-label">Score</div>
-                        <div class="pv-score-value" id="pv-score">Up to 85%</div>
-                        <div class="pv-score-note" id="pv-score-note">Exact % unlocked at report</div>
-                    </div>
-                </div>
-
-                <p style="font-size:13px; color:var(--cyber-amber); margin-bottom:16px; padding:12px; background:rgba(255,184,0,0.05); border-radius:6px; border:1px solid rgba(255,184,0,0.2);">
-                    ⚠️ <strong>ACTIVITY DETECTED — DO NOT DEPLOY BLIND</strong><br>
-                    <span style="color:var(--text-muted);">This market is showing strong signals. But deployment without full intel is where roofers lose money. Unlock before you move.</span>
-                </p>
-
-                <table>
-                    <tr><th>Factor</th><th>Signal</th><th>Weight</th></tr>
-                    <tr>
-                        <td><strong>Rain Saturation</strong><br><span class="factor-explanation" id="pv-rain-desc">Detected</span></td>
-                        <td style="color:var(--cyber-green); font-weight:800;">Event signal detected</td>
-                        <td>15%</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Market Activity</strong><br><span class="factor-explanation" id="pv-density-desc">Detected</span></td>
-                        <td style="color:var(--cyber-amber); font-weight:800;">Competition increasing daily</td>
-                        <td>10%</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Tech Stack</strong><br><span class="factor-explanation" id="pv-tech-desc">Detected</span></td>
-                        <td style="color:var(--cyber-green); font-weight:800;">🟢 Pro Tech ready</td>
-                        <td>10%</td>
-                    </tr>
-                </table>
-
-                <div class="loss-box" style="margin-top:20px;">
-                    <div class="loss-title">⚠️ 9 HIDDEN FACTORS — YOU'RE FLYING BLIND</div>
-                    <div class="loss-item">🔒 Mobilization risk analysis</div>
-                    <div class="loss-item">🔒 Claim-worthiness assessment</div>
-                    <div class="loss-item">🔒 Adjuster approval probability</div>
-                    <div class="loss-item">🔒 Carrier payment timeline</div>
-                    <div class="loss-item">🔒 Per-roof cost model</div>
-                    <div class="loss-item">🔒 Labor &amp; material readiness</div>
-                    <div class="loss-item">🔒 Margin forecast</div>
-                    <div class="loss-item">🔒 Deployment exit signals</div>
-                    <div style="margin-top:12px; padding-top:12px; border-top:1px solid rgba(255,107,107,0.4);">
-                        <div style="font-size:14px; color:#fff;">💰 Value at stake: <span id="loss-gross" style="color:var(--cyber-amber);">Up to $550K+</span></div>
-                        <div class="loss-big">📉 Cost of deploying blind: <span id="loss-amount" style="color:var(--cyber-red);">$250K+ at risk</span></div>
-                        <div style="font-size:14px; color:var(--cyber-green); font-weight:800;">✅ Cost of knowing: $7,000</div>
-                    </div>
-                </div>
-
-                <div style="margin-top:16px; padding:14px; background:rgba(0,255,163,0.03); border:1px solid rgba(0,255,163,0.2); border-radius:8px;">
-                    <div style="font-size:13px; color:var(--cyber-green); font-weight:800; margin-bottom:4px;">⚡ Every day you wait, the mobilization window narrows.</div>
-                    <div style="font-size:12px; color:var(--text-muted);">Days 1–7 are when CAT markets get claimed. After Day 10, materials are gone and margins collapse.</div>
-                </div>
-
-                <button class="btn-primary" onclick="showPaymentScreen()" style="margin-top:16px;">🔓 Unlock Full Intel — $7,000</button>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>Tech Stack</label>
+              <select id="frm-tech" required>
+                <option value="">Select...</option>
+                <option value="PRO_TECH">Drone Scans</option>
+                <option value="LEGACY_LOW_TECH">Manual Assessment</option>
+              </select>
             </div>
-
-            <div id="payment-screen" class="card" style="display:none; border-top:4px solid var(--cyber-green);">
-                <h3 class="section-label" style="margin:0; color:var(--cyber-green);">💳 Payment — Full Report</h3>
-                <p style="font-size:14px; margin-bottom:16px;"><strong>$7,000</strong> · one-time · per standard zone</p>
-                <div class="payment-toggle">
-                    <button id="btn-ach" class="active" onclick="togglePayment('ACH')">💳 ACH</button>
-                    <button id="btn-fedwire" onclick="togglePayment('FEDWIRE')">⚡ FEDWIRE</button>
-                </div>
-                <div id="pay-ach" class="payment-card" onclick="copyPayment('ACH')"><h4>ACH — Click to Copy</h4><div>Bank: JPMORGAN CHASE</div><div>Account: 20000045856166</div><div>Routing: 028000024</div><div>Ref: OPT-77421-REPORT</div></div>
-                <div id="pay-fedwire" class="payment-card" style="display:none;" onclick="copyPayment('FEDWIRE')"><h4>FEDWIRE — Click to Copy</h4><div>Bank: JPMORGAN CHASE</div><div>Account: 20000045856166</div><div>Routing: 021000021</div><div>Ref: OPT-77421-REPORT</div></div>
-                <button class="btn-primary" onclick="showVerificationPending()">✅ I've Made Payment — Confirm</button>
+            <div class="form-group"><label>Rain Inches (0 = auto)</label>
+              <input type="number" step="0.1" id="frm-rain" value="0" required>
             </div>
+          </div>
+          <button type="submit" class="btn-primary" id="btn-triage" style="margin-top:16px;">⚡ Run Analysis</button>
+        </form>
+      </div>
 
-            <div id="verification-pending" class="card" style="display:none; border-top:4px solid var(--cyber-amber);">
-                <div style="text-align:center; padding:20px;">
-                    <div style="font-size:48px;">⏳</div>
-                    <h3 style="font-size:18px; font-weight:900; color:var(--cyber-amber);">Verification Pending</h3>
-                    <p style="font-size:13px; color:var(--text-muted);">We verify within 2 business hours.</p>
-                </div>
-                <div class="upsell-box">
-                    <h4 style="font-size:16px; font-weight:900; color:var(--cyber-blue); margin-bottom:12px;">📊 Weekly Deployment Tracking</h4>
-                    <div class="phase-box">
-                        <div class="phase-title">⚡ Phase 1: Days 1-15 — DAILY</div>
-                        <div class="phase-text">
-                            The first 15 days decide everything. Competitors mobilize Days 1-7. Adjusters assign Days 2-5. Materials deplete Day 10.<br>
-                            <strong>Charged daily because the market moves daily — $18,750 ($1,250/day)</strong>
-                        </div>
-                    </div>
-                    <div class="phase-box">
-                        <div class="phase-title">✅ Phase 2: Days 16+ — WEEKLY</div>
-                        <div class="phase-text">
-                            After Day 15, the market stabilizes. Weekly cadence is sufficient.<br>
-                            <strong>$8,750/week</strong>
-                        </div>
-                    </div>
-                    <div class="loss-box">
-                        <div class="loss-title">⚠️ WITHOUT DAILY TRACKING:</div>
-                        <div class="loss-item">Day 3: Competitors undetected → <strong>$150K-$250K</strong></div>
-                        <div class="loss-item">Day 5: Adjuster denials → <strong>$50K-$100K</strong></div>
-                        <div class="loss-item">Day 10: Materials gone → <strong>$30K-$50K</strong></div>
-                        <div class="loss-big">TOTAL: $230K-$400K GONE</div>
-                        <div style="font-size:14px; color:var(--cyber-green); font-weight:800;">✅ Cost to prevent: $18,750</div>
-                    </div>
-                    <button class="btn-primary btn-blue" onclick="showWeeklyPayment()">✅ Proceed to Weekly Payment</button>
-                    <button class="btn-secondary" style="margin-top:8px;">Not Now</button>
-                </div>
+      <!-- PREVIEW CARD -->
+      <div id="preview-card" class="card" style="display:none; border-top:4px solid var(--cyber-amber);">
+        <div class="preview-header">
+          <div class="verdict-col">
+            <div class="section-label">Preliminary Verdict</div>
+            <div class="verdict-row">
+              <span id="pv-verdict" class="badge-status bg-green" style="font-size:15px;">HIGH ACTIVITY</span>
+              <span class="preview-badge">Free Preview</span>
             </div>
+            <div class="pv-location" id="pv-location">—</div>
+          </div>
+          <div class="score-col">
+            <div class="section-label">Score</div>
+            <div class="pv-score-value" id="pv-score">—</div>
+            <div class="pv-score-note" id="pv-score-note">Up to X% · exact at unlock</div>
+          </div>
+        </div>
 
-            <div id="weekly-payment-screen" class="card" style="display:none; border-top:4px solid var(--cyber-blue);">
-                <h3 class="section-label" style="margin:0; color:var(--cyber-blue);">💳 Payment — Weekly Tracking</h3>
-                <div class="price-breakdown">
-                    <div class="price-line"><span>Phase 1: Days 1-15 (daily)</span><span>$18,750</span></div>
-                    <div class="price-line total"><span>Due Today</span><span style="color:var(--cyber-blue);">$18,750</span></div>
-                </div>
-                <div class="payment-toggle">
-                    <button id="btn-wach" class="active" onclick="toggleWeeklyPayment('ACH')">💳 ACH</button>
-                    <button id="btn-wfedwire" onclick="toggleWeeklyPayment('FEDWIRE')">⚡ FEDWIRE</button>
-                </div>
-                <div id="wpay-ach" class="payment-card" onclick="copyPayment('ACH')"><h4>ACH</h4><div>Bank: JPMORGAN CHASE</div><div>Account: 20000045856166</div><div>Routing: 028000024</div><div>Ref: OPT-77421-WEEKLY</div></div>
-                <div id="wpay-fedwire" class="payment-card" style="display:none;" onclick="copyPayment('FEDWIRE')"><h4>FEDWIRE</h4><div>Bank: JPMORGAN CHASE</div><div>Account: 20000045856166</div><div>Routing: 021000021</div><div>Ref: OPT-77421-WEEKLY</div></div>
-                <button class="btn-primary btn-blue" onclick="showWeeklyVerification()">✅ I've Made Payment — Confirm</button>
+        <p style="font-size:13px; color:var(--cyber-amber); margin-bottom:16px; padding:12px; background:rgba(255,184,0,0.05); border-radius:6px; border:1px solid rgba(255,184,0,0.2);">
+          ⚠️ <strong>ACTIVITY DETECTED — DO NOT DEPLOY BLIND</strong><br>
+          <span style="color:var(--text-muted);">This market is showing strong signals. But deployment without full intel is where roofers lose money. Unlock before you move.</span>
+        </p>
+
+        <table>
+          <tr><th>Factor</th><th>Signal</th><th>Weight</th></tr>
+          <tr><td><strong>Rain Saturation</strong><br><span id="pv-rain-desc">Detected</span></td><td style="color:var(--cyber-green); font-weight:800;">Event signal detected</td><td>15%</td></tr>
+          <tr><td><strong>Market Activity</strong><br><span id="pv-density-desc">Detected</span></td><td style="color:var(--cyber-amber); font-weight:800;">Competition increasing daily</td><td>10%</td></tr>
+          <tr><td><strong>Tech Stack</strong><br><span id="pv-tech-desc">Detected</span></td><td style="color:var(--cyber-green); font-weight:800;">🟢 Pro Tech ready</td><td>10%</td></tr>
+        </table>
+
+        <div id="admin-factor-panel" style="display:none; margin-top:20px; padding:16px; background:#03060c; border:1px solid var(--border-hairline); border-radius:8px;">
+          <div class="section-label" style="margin:0 0 10px 0; color:var(--cyber-blue);">⚙ Admin — All 12 Factors</div>
+          <table id="admin-factor-table">
+            <tr><th>Factor</th><th>Score</th><th>Weight</th><th>Reasoning</th></tr>
+          </table>
+        </div>
+
+        <div class="loss-box" style="margin-top:20px;">
+          <div class="loss-title">⚠️ 9 HIDDEN FACTORS — YOU'RE FLYING BLIND</div>
+          <div class="loss-item">🔒 Mobilization risk analysis</div>
+          <div class="loss-item">🔒 Claim-worthiness assessment</div>
+          <div class="loss-item">🔒 Adjuster approval probability</div>
+          <div class="loss-item">🔒 Carrier payment timeline</div>
+          <div class="loss-item">🔒 Per-roof cost model</div>
+          <div class="loss-item">🔒 Labor &amp; material readiness</div>
+          <div class="loss-item">🔒 Margin forecast</div>
+          <div class="loss-item">🔒 Deployment exit signals</div>
+          <div style="margin-top:12px; padding-top:12px; border-top:1px solid rgba(255,107,107,0.4);">
+            <div style="font-size:14px; color:#fff;">💰 Value at stake: <span id="loss-gross" style="color:var(--cyber-amber);">Up to $550K+</span></div>
+            <div class="loss-big">📉 Cost of deploying blind: <span id="loss-amount" style="color:var(--cyber-red);">$250K+ at risk</span></div>
+            <div style="font-size:14px; color:var(--cyber-green); font-weight:800;">✅ Cost of knowing: $7,000</div>
+          </div>
+        </div>
+
+        <div style="margin-top:16px; padding:14px; background:rgba(0,255,163,0.03); border:1px solid rgba(0,255,163,0.2); border-radius:8px;">
+          <div style="font-size:13px; color:var(--cyber-green); font-weight:800; margin-bottom:4px;">⚡ Every day you wait, the mobilization window narrows.</div>
+          <div style="font-size:12px; color:var(--text-muted);">Days 1–7 are when CAT markets get claimed. After Day 10, materials are gone and margins collapse.</div>
+        </div>
+
+        <button class="btn-primary" onclick="unlockFullReport()" style="margin-top:16px;">🔓 Unlock Full Intel — $7,000</button>
+
+        <!-- EMAIL CAPTURE (only for organic visitors without email) -->
+        <div class="email-value-block" id="email-capture-block" style="display:none;">
+          <div class="block-title">Stay Ahead of Your Zone</div>
+          <p>Get the last 30 days of roofing permit activity for <b id="email-zip-display">your ZIP</b>, plus alerts whenever your zone crosses a critical threshold.</p>
+          <input type="email" id="prospect-email" placeholder="your@email.com">
+          <button class="btn-secondary" onclick="captureProspectEmail()">Send &amp; Subscribe</button>
+          <div class="privacy-note">Two things. Free. No spam. Unsubscribe anytime.</div>
+        </div>
+      </div>
+
+      <!-- PAYMENT SCREEN (CAT) -->
+      <div id="payment-screen" class="card" style="display:none; border-top:4px solid var(--cyber-green);">
+        <h3 class="section-label" style="margin:0; color:var(--cyber-green);">💳 Payment — Full Report</h3>
+        <p style="font-size:14px; margin-bottom:16px;"><strong>$7,000</strong> · one-time · per standard zone</p>
+        <div class="payment-toggle" style="display:flex; gap:8px; margin-bottom:16px;">
+          <button id="btn-ach" class="active" onclick="togglePayment('ACH')" style="flex:1; padding:10px; border-radius:6px; font-weight:700; cursor:pointer; font-size:12px; border:1px solid var(--border-hairline); background:transparent; color:var(--text-muted);">💳 ACH</button>
+          <button id="btn-fedwire" onclick="togglePayment('FEDWIRE')" style="flex:1; padding:10px; border-radius:6px; font-weight:700; cursor:pointer; font-size:12px; border:1px solid var(--border-hairline); background:transparent; color:var(--text-muted);">⚡ FEDWIRE</button>
+          <button id="btn-card" onclick="togglePayment('CARD')" style="flex:1; padding:10px; border-radius:6px; font-weight:700; cursor:pointer; font-size:12px; border:1px solid var(--border-hairline); background:transparent; color:var(--text-muted);">💳 CARD</button>
+        </div>
+        <div id="pay-ach" class="payment-card" style="background:#03060c; border:1px solid var(--border-hairline); border-radius:8px; padding:16px; font-family:'IBM Plex Mono',monospace; font-size:13px; line-height:1.8; margin-bottom:12px; cursor:pointer;" onclick="copyPayment('ACH')"><h4 style="font-size:12px; font-weight:800; text-transform:uppercase; color:var(--cyber-amber); margin-bottom:8px;">ACH — Click to Copy</h4><div>Bank: JPMORGAN CHASE</div><div>Account: 20000045856166</div><div>Routing: 028000024</div><div>Ref: OPT-77421-REPORT</div></div>
+        <div id="pay-fedwire" class="payment-card" style="display:none; background:#03060c; border:1px solid var(--border-hairline); border-radius:8px; padding:16px; font-family:'IBM Plex Mono',monospace; font-size:13px; line-height:1.8; margin-bottom:12px; cursor:pointer;" onclick="copyPayment('FEDWIRE')"><h4 style="font-size:12px; font-weight:800; text-transform:uppercase; color:var(--cyber-amber); margin-bottom:8px;">FEDWIRE — Click to Copy</h4><div>Bank: JPMORGAN CHASE</div><div>Account: 20000045856166</div><div>Routing: 021000021</div><div>Ref: OPT-77421-REPORT</div></div>
+        <div id="pay-card" class="payment-card" style="display:none; background:#03060c; border:1px solid var(--border-hairline); border-radius:8px; padding:16px; font-family:'IBM Plex Mono',monospace; font-size:13px; line-height:1.8; margin-bottom:12px;"><h4 style="font-size:12px; font-weight:800; text-transform:uppercase; color:var(--cyber-amber); margin-bottom:8px;">Card Payment</h4><div>Base: $7,000.00</div><div>Card processing fee (2.9% + $0.30): $203.30</div><div style="color:var(--cyber-amber); font-weight:800;">Total: $7,203.30</div><div style="font-size:11px; color:var(--text-detail); margin-top:8px;">Debit cards not accepted.</div></div>
+        <div id="card-type-check" style="display:none; margin-bottom:12px;">
+          <label style="font-size:10px; color:var(--text-muted);">Card Type</label>
+          <select id="frm-card-type" onchange="updateCardFee()"><option value="CREDIT">Credit Card</option><option value="DEBIT">Debit Card (rejected)</option></select>
+        </div>
+        <button class="btn-primary" onclick="showPaymentConfirm()">✅ I've Made Payment — Confirm</button>
+        <p style="font-size:11px; color:var(--text-detail); margin-top:10px; line-height:1.6;">All pricing is stated in USD. Prepaid retainers are term-based commitments — not auto-renewing subscriptions. Unused review credits expire per tier rules. Card payments incur a 2.9% + $0.30 processing fee, passed through at exact processor cost. ACH transfers incur a flat $5 fee, absorbed by Optima Workflows. Debit cards are not accepted.</p>
+      </div>
+
+      <!-- ACCOUNT CREATION -->
+      <div id="account-creation" class="card" style="display:none; border-top:4px solid var(--cyber-blue);">
+        <h3 class="section-label" style="margin:0; color:var(--cyber-blue);">Create Your Account</h3>
+        <p style="font-size:14px; margin-bottom:20px; color:var(--text-muted);">We need a few details to deliver your report and give you access to the dashboard.</p>
+        <div class="form-row">
+          <div class="form-group"><label>Business Name</label><input type="text" id="acct-business" required></div>
+          <div class="form-group"><label>Your Name</label><input type="text" id="acct-contact" required></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Corporate Email</label><input type="email" id="acct-email" required></div>
+          <div class="form-group"><label>Phone</label><input type="tel" id="acct-phone" required></div>
+        </div>
+        <button class="btn-primary" onclick="createAccountAndProceed()" style="margin-top:16px;">Create Account &amp; Continue</button>
+      </div>
+    </section>
+
+    <!-- WEEKLY REVIEW -->
+    <section id="view-weekly" class="dashboard-tab" style="width:100%;">
+      <h1>Weekly Review</h1>
+      <p class="lead">Post-deployment zone intelligence — daily for Days 1–15, then weekly.</p>
+
+      <div class="card" id="weekly-term-card" style="display:none;">
+        <div class="section-label">Current Term</div>
+        <div class="financial-line"><span style="color:var(--text-muted);">Plan</span><span id="weekly-plan">—</span></div>
+        <div class="financial-line"><span style="color:var(--text-muted);">Term Start</span><span id="weekly-term-start">—</span></div>
+        <div class="financial-line"><span style="color:var(--text-muted);">Term End</span><span id="weekly-term-end">—</span></div>
+        <div class="financial-line" style="border-bottom:none;"><span style="color:var(--text-muted);">Status</span><span id="weekly-status" class="badge-status bg-green">Active</span></div>
+
+        <div class="pool-widget" id="weekly-pool-widget">
+          <div class="pool-header">
+            <span class="pool-title">Rollover Pool</span>
+            <span class="pool-total" id="weekly-pool-total">0</span>
+          </div>
+          <div id="weekly-pool-batches"></div>
+        </div>
+      </div>
+
+      <div class="card" id="weekly-empty-card">
+        <h3 class="section-label">Phase 1 — Days 1–15 (Daily)</h3>
+        <p style="font-size:14px; color:var(--text-muted); margin-bottom:16px;">Daily zone intelligence while the market is moving fastest.</p>
+        <div class="financial-line"><span>Phase 1 prepaid</span><span style="color:var(--cyber-amber); font-weight:800;">$18,750</span></div>
+        <div style="margin-top:16px; font-size:13px; color:var(--text-muted); line-height:1.65;">Phase 2 (Days 16+) continues at $8,750/week on a prepaid term basis.</div>
+        <button class="btn-primary" style="margin-top:16px;">Enroll in Weekly Review</button>
+      </div>
+    </section>
+
+    <!-- STORM AUDIT -->
+    <section id="view-storm-audit" class="dashboard-tab" style="width:100%;">
+      <h1>Storm Audit</h1>
+      <p class="lead">Commercial code-compliance review of your prepared scope.</p>
+
+      <div class="card">
+        <h3 class="section-label">What We Audit</h3>
+        <div class="financial-line"><span>IBC 1507.2.8.1 — Ice &amp; Water Underlayment</span><span>Line-by-line review</span></div>
+        <div class="financial-line"><span>IBC 1503.2 — Drip Edge</span><span>Line-by-line review</span></div>
+        <div class="financial-line"><span>IBC 1507.2.8.2 — Valley Lining</span><span>Line-by-line review</span></div>
+        <div class="financial-line"><span>FM 1-28 / UL 580 — Wind Uplift</span><span>Commercial compliance</span></div>
+        <div class="financial-line"><span>IPC 1101 — Roof Drain / Scupper</span><span>Commercial compliance</span></div>
+        <div class="financial-line"><span>+ 7 more commercial items</span><span>12-factor audit</span></div>
+        <div class="financial-line" style="border-bottom:none;"><span>Cost</span><span style="color:var(--cyber-amber); font-weight:800;">$3,500/roof · $1,650–$2,475 on retainer</span></div>
+      </div>
+
+      <div class="card">
+        <h2 style="font-size: 22px; font-weight: 800; margin-bottom: 8px;">Submit Your Scope Documents</h2>
+        <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 20px;">Share the documents below to begin your Storm Audit. Code-compliance cross-referencing starts the moment your files land.</p>
+
+        <div id="intake-form-wrap" class="intake-form-card">
+          <form id="intakeForm" onsubmit="submitStormAudit(event)">
+            <div class="form-group">
+              <label for="intake-company">Company Name</label>
+              <input type="text" id="intake-company" required>
             </div>
-
-            <div id="weekly-verification" class="card" style="display:none; border-top:4px solid var(--cyber-amber);">
-                <div style="text-align:center; padding:20px;">
-                    <div style="font-size:48px;">⏳</div>
-                    <h3 style="font-size:18px; font-weight:900; color:var(--cyber-amber);">Weekly Tracking — Verification Pending</h3>
-                </div>
-                <div class="upsell-box" style="background:rgba(255,184,0,0.03); border-color:rgba(255,184,0,0.3);">
-                    <h4 style="font-size:16px; font-weight:900; color:var(--cyber-amber); margin-bottom:12px;">🌪️ Storm Audit — $3,500/roof</h4>
-                    <div class="loss-box">
-                        <div class="loss-title">💰 WITHOUT AUDIT:</div>
-                        <div class="loss-item">Undocumented: <strong>$15K-$40K/roof</strong></div>
-                        <div class="loss-item">Wrong codes: <strong>30-50% reduction</strong></div>
-                        <div class="loss-big">$33K-$95K PER ROOF LOST</div>
-                    </div>
-                    <button class="btn-primary btn-amber" onclick="showStormIntake()">🌪️ Proceed to Storm Audit</button>
-                </div>
-
-                <div id="storm-intake-section" style="display:none; margin-top: 30px; border-top: 1px solid var(--border-hairline); padding-top: 30px;">
-                    <h2 style="font-size: 22px; font-weight: 800; margin-bottom: 8px;">Submit Your Scope Documents</h2>
-                    <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 20px;">Share the documents below to begin your Storm Audit. Code-compliance cross-referencing starts the moment your files land.</p>
-                    
-                    <div id="intake-form-wrap" class="intake-form-card">
-                        <form id="intakeForm" action="https://docs.google.com/forms/d/e/1FAIpQLSdr7bQSqWc9vQnWawKujiAmaVDOsXC_fTmWPQlqYKRSdHCi0w/formResponse" method="POST" target="hidden_iframe_storm" onsubmit="stormSubmitted=true;">
-                            <div class="form-group">
-                                <label for="intake-company">Company Name</label>
-                                <input type="text" id="intake-company" name="entry.476800857" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="intake-contact">Your Name</label>
-                                <input type="text" id="intake-contact" name="entry.1944912808" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="intake-email">Corporate Email Address</label>
-                                <input type="email" id="intake-email" name="entry.2021031500" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="intake-state">Target Property State</label>
-                                <input type="text" id="intake-state" name="entry.2131427226" placeholder="e.g. TX" maxlength="2" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="intake-city">Local Municipality / City</label>
-                                <input type="text" id="intake-city" name="entry.327565592" placeholder="e.g. Irving" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="intake-zip">ZIP Code <span style="text-transform:none;font-weight:400;">(optional — sharpens jurisdiction lookup)</span></label>
-                                <input type="text" id="intake-zip" name="entry.654630999" placeholder="e.g. 75061">
-                            </div>
-                            <div class="form-group">
-                                <label for="intake-claimref">Claim / Reference Number <span style="text-transform:none;font-weight:400;">(optional)</span></label>
-                                <input type="text" id="intake-claimref" name="entry.513867674" placeholder="Internal claim or job reference">
-                            </div>
-                            <div class="form-group">
-                                <label for="intake-structcount">Number of Structures Covered by This Scope <span style="text-transform:none;font-weight:400;">(optional)</span></label>
-                                <input type="text" id="intake-structcount" name="entry.69411161" placeholder="e.g. 1">
-                                <div class="form-hint">Up to 3 structures under one claim number counts as a single review; each additional structure is billed at 50% of a standard review.</div>
-                            </div>
-                            <div class="form-group">
-                                <label for="intake-scopelink">Secure Scope Document Link (Google Drive)</label>
-                                <input type="text" id="intake-scopelink" name="entry.89385988" placeholder="https://drive.google.com/..." required>
-                                <div class="form-hint">Set sharing to "anyone with the link can view" before pasting it here.</div>
-                                <div class="doc-checklist">
-                                    <div class="doc-item"><div class="doc-num">1</div><div><div class="doc-title">Preliminary Carrier Scope of Loss<span class="tag">Required</span></div><div class="doc-desc">The initial adjuster summary PDF — the raw estimate written right after the storm, before any code review.</div></div></div>
-                                    <div class="doc-item"><div class="doc-num">2</div><div><div class="doc-title">Contractor's Draft Estimate<span class="tag">Required</span></div><div class="doc-desc">Your own team's scope of work (Xactimate PDF or export) — the document we cross-reference line by line.</div></div></div>
-                                    <div class="doc-item"><div class="doc-num">3</div><div><div class="doc-title">Local Jurisdiction Photographic Evidence<span class="tag">Required</span></div><div class="doc-desc">High-resolution photos of roof eaves, gutters, and structural valleys — supports the documented case for code items like drip edge or ice-and-water underlayment.</div></div></div>
-                                </div>
-                            </div>
-                            <label class="consent">
-                                <input type="checkbox" name="entry.1477953076" value="I confirm I have the right to share this data and understand it will be used only to run this review." required>
-                                I confirm I have the right to share this data and understand it will be used only to run this review.
-                            </label>
-                            <button type="submit" class="submit-btn">Submit Scope Documents</button>
-                        </form>
-                    </div>
-                    <div id="intake-thankyou" class="thank-you-card">
-                        <div class="thank-you-icon">✓</div>
-                        <h3>Got it — your scope is in the queue.</h3>
-                        <p>Cross‑referencing against current municipal and IRC code begins from here. You'll hear back by email with your findings snapshot.</p>
-                    </div>
-                    <iframe name="hidden_iframe_storm" id="hidden_iframe_storm" style="display:none;" onload="if(stormSubmitted){document.getElementById('intake-form-wrap').style.display='none';document.getElementById('intake-thankyou').style.display='block';}"></iframe>
-                    <div class="data-note"><strong>What happens next:</strong> your scope documents are logged the moment you hit submit, and code-compliance cross-referencing begins from there. Findings are returned by email.</div>
-                </div>
+            <div class="form-group">
+              <label for="intake-contact">Your Name</label>
+              <input type="text" id="intake-contact" required>
             </div>
-        </section>
-
-        <section id="view-storm-audit" class="dashboard-tab" style="width:100%;">
-            <h1>Storm Audit</h1>
-            <p class="lead">Flat-fee Xactimate code audit before submission.</p>
-            <div class="card">
-                <h3 class="section-label">What We Audit</h3>
-                <div class="financial-line"><span>Xactimate Code Accuracy</span><span>Line-by-line review</span></div>
-                <div class="financial-line"><span>Missing Line Items</span><span>Undocumented work detection</span></div>
-                <div class="financial-line"><span>Depreciation Errors</span><span>Calculation verification</span></div>
-                <div class="financial-line"><span>O&amp;P Documentation</span><span>Overhead justification</span></div>
-                <div class="financial-line"><span>Cost</span><span style="color:var(--cyber-amber); font-weight:800;">$3,500/roof</span></div>
+            <div class="form-group">
+              <label for="intake-email">Corporate Email Address</label>
+              <input type="email" id="intake-email" required>
             </div>
-        </section>
-
-        <section id="view-appointments" class="dashboard-tab" style="width:100%;">
-            <h1>Insurance Appointment Booking</h1>
-            <p class="lead">For insurance agents — automated lead-to-appointment conversion.</p>
-            <div class="card">
-                <h3 class="section-label">CRM Integration</h3>
-                <div class="financial-line"><span>CRM Connected</span><span style="color:var(--cyber-green);">✅ ACTIVE</span></div>
-                <div class="financial-line"><span>Response Time</span><span style="color:var(--cyber-amber);">Under 60 seconds</span></div>
-                <div style="margin-top:16px; padding:16px; background:#03060c; border-radius:8px; border:1px solid var(--border-hairline);">
-                    <p style="font-size:13px; color:var(--text-muted);">📋 <strong>200 old leads</strong> being converted to appointments as proof of concept.<br>
-                    <span style="font-size:12px; color:var(--text-detail);">Full service: real-time CRM integration for new lead booking.</span></p>
-                </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="intake-state">Target Property State</label>
+                <input type="text" id="intake-state" placeholder="e.g. TX" maxlength="2" required>
+              </div>
+              <div class="form-group">
+                <label for="intake-city">Local Municipality / City</label>
+                <input type="text" id="intake-city" placeholder="e.g. Irving" required>
+              </div>
+              <div class="form-group">
+                <label for="intake-zip">ZIP Code <span style="text-transform:none;font-weight:400;">(optional)</span></label>
+                <input type="text" id="intake-zip" placeholder="e.g. 75061">
+              </div>
             </div>
-        </section>
-
-        <section id="view-vendor-audit" class="dashboard-tab" style="width:100%;"><h1>Vendor Audit</h1><p class="lead">Coming soon.</p></section>
-        <section id="view-freight-audit" class="dashboard-tab" style="width:100%;"><h1>Freight Audit</h1><p class="lead">Coming soon.</p></section>
-        <section id="view-chargeback" class="dashboard-tab" style="width:100%;"><h1>Chargebacks</h1><p class="lead">Coming soon.</p></section>
-
-        <section id="view-billing" class="dashboard-tab" style="width:100%;">
-            <h1>Payment Center</h1>
-            <div class="card">
-                <div class="financial-line"><span>Bank</span><span>JPMORGAN CHASE</span></div>
-                <div class="financial-line"><span>Account</span><span>20000045856166</span></div>
-                <div class="financial-line"><span>Routing ACH</span><span>028000024</span></div>
-                <div class="financial-line"><span>Routing FEDWIRE</span><span>021000021</span></div>
+            <div class="form-group">
+              <label for="intake-scopelink">Secure Scope Document Link (Google Drive)</label>
+              <input type="text" id="intake-scopelink" placeholder="https://drive.google.com/..." required>
+              <div class="form-hint">Set sharing to "anyone with the link can view" before pasting it here.</div>
+              <div class="doc-checklist">
+                <div class="doc-item"><div class="doc-num">1</div><div><div class="doc-title">Preliminary Carrier Scope of Loss<span class="tag">Required</span></div><div class="doc-desc">The initial adjuster summary PDF — the raw estimate written right after the storm, before any code review.</div></div></div>
+                <div class="doc-item"><div class="doc-num">2</div><div><div class="doc-title">Contractor's Draft Estimate<span class="tag">Required</span></div><div class="doc-desc">Your own team's scope of work (Xactimate PDF or export) — the document we cross-reference line by line.</div></div></div>
+                <div class="doc-item"><div class="doc-num">3</div><div><div class="doc-title">Local Jurisdiction Photographic Evidence<span class="tag">Required</span></div><div class="doc-desc">High-resolution photos of roof eaves, gutters, and structural valleys — supports the documented case for code items like drip edge or ice-and-water underlayment.</div></div></div>
+              </div>
             </div>
-        </section>
+            <label class="consent">
+              <input type="checkbox" id="intake-consent" required>
+              I confirm I have the right to share this data and understand it will be used only to run this review.
+            </label>
+            <button type="submit" class="submit-btn">Submit Scope Documents</button>
+          </form>
+        </div>
+        <div id="intake-thankyou" class="thank-you-card">
+          <div class="thank-you-icon">✓</div>
+          <h3>Got it — your scope is in the queue.</h3>
+          <p>Cross-referencing against current municipal and IBC code begins from here. Findings will appear in your dashboard.</p>
+        </div>
+        <div class="data-note" id="intake-data-note"><strong>What happens next:</strong> your scope documents are logged the moment you hit submit, and code-compliance cross-referencing begins from there. Findings are returned to your dashboard.</div>
+      </div>
 
-        <section id="view-settings" class="dashboard-tab" style="width:100%;">
-            <h1>Settings</h1>
-            <div class="card">
-                <div class="financial-line"><span>Client</span><span id="settings-client">Vanguard Restoration Corp</span></div>
-                <div class="financial-line"><span>Account Key</span><span>OPT-77421</span></div>
-                <div class="financial-line"><span>Email</span><span id="settings-email">operations@vanguard.com</span></div>
-            </div>
-        </section>
-    </main>
+      <div class="card">
+        <h3 class="section-label">My Submissions</h3>
+        <div id="submissions-list">
+          <p style="font-size:13px; color:var(--text-muted);">No submissions yet.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- BILLING -->
+    <section id="view-billing" class="dashboard-tab" style="width:100%;">
+      <h1>Payment Center</h1>
+      <div class="card">
+        <div class="financial-line"><span>Bank</span><span>JPMORGAN CHASE</span></div>
+        <div class="financial-line"><span>Account</span><span>20000045856166</span></div>
+        <div class="financial-line"><span>Routing ACH</span><span>028000024</span></div>
+        <div class="financial-line"><span>Routing FEDWIRE</span><span>021000021</span></div>
+      </div>
+    </section>
+
+    <!-- SETTINGS -->
+    <section id="view-settings" class="dashboard-tab" style="width:100%;">
+      <h1>Settings</h1>
+      <div class="card">
+        <div class="financial-line"><span>Client</span><span id="settings-client">—</span></div>
+        <div class="financial-line"><span>Email</span><span id="settings-email">—</span></div>
+        <div class="financial-line"><span>Account Key</span><span id="settings-account">—</span></div>
+      </div>
+    </section>
+
+    <!-- CLIENTS (admin only) -->
+    <section id="view-clients" class="dashboard-tab" style="width:100%;">
+      <h1>Client Directory</h1>
+      <p class="lead">All active commercial CAT accounts. Click any client to simulate their view.</p>
+      <div class="client-directory" id="client-directory">
+        <p style="color:var(--text-muted); font-size:13px;">Loading...</p>
+      </div>
+    </section>
+
+    <!-- PROSPECTS (admin only) -->
+    <section id="view-prospects" class="dashboard-tab" style="width:100%;">
+      <h1>Prospect Activity</h1>
+      <p class="lead">Triage events with ref code attribution.</p>
+      <div class="card">
+        <div id="prospects-list" style="font-size:13px; color:var(--text-muted);">Prospect activity loads from the backend once wired.</div>
+      </div>
+    </section>
+
+  </main>
 </div>
 
-<!-- POPUP 1 -->
+<!-- ============ POP-UPS ============ -->
 <div class="cat-popup-overlay" id="popup-post-payment" role="dialog" aria-modal="true">
-    <div class="cat-popup">
-        <span class="pop-corner tl"></span><span class="pop-corner tr"></span>
-        <span class="pop-corner bl"></span><span class="pop-corner br"></span>
-        <button class="cat-popup-close" onclick="closePopup('popup-post-payment')" aria-label="Close">✕</button>
-
-        <div class="pop-kicker"><span class="line"></span>Payment received · Full report unlocked</div>
-        <div class="pop-check">✓</div>
-        <h2 class="pop-headline">Thank you. Your report is <span class="accent">being built.</span></h2>
-        <p class="pop-sub">We've received your $7,000 for the full Commercial CAT Intelligence report on <b id="pop1-zone-label">this zone</b>. Our team verifies within 2 business hours — then the full scored intel lands in your dashboard.</p>
-
-        <div class="pop-zone-def">
-            <div class="zd-label">What counts as a standard zone</div>
-            <p>One contiguous storm-impact area that forms a single logical deployment decision — typically one metro area or a cluster of up to <b>8–12 contiguous ZIP codes</b>, roughly 15–25 miles across the core impact area. Example: core DFW impact area (North Dallas, Richardson, Plano) is one standard zone at $7,000.</p>
-        </div>
-
-        <div class="pop-truth">
-            <div class="truth-label">— While you wait · A hard truth</div>
-            <p>Intel without daily tracking is a report that sits on a shelf. <b>The zone is scored, but the situation on the ground changes every day.</b> Competitors move. Adjusters get assigned. Materials get consumed.</p>
-        </div>
-
-        <div class="pop-loss">
-            <div class="pop-loss-title">Without weekly tracking, this is what you'll lose</div>
-            <div class="pop-loss-item"><span>Day 3 — Competitors undetected</span><span class="num">$150K–$250K</span></div>
-            <div class="pop-loss-item"><span>Day 5 — Adjuster denials</span><span class="num">$50K–$100K</span></div>
-            <div class="pop-loss-item"><span>Day 10 — Materials depleted</span><span class="num">$30K–$50K</span></div>
-            <div class="pop-loss-total"><span class="lbl">Total value exposed</span><span class="val">$230K–$400K</span></div>
-        </div>
-
-        <div class="pop-offer">
-            <div class="pop-offer-label">The solution — 2-phase coverage</div>
-            <div class="pop-offer-title">Weekly Deployment Tracking</div>
-            <p class="pop-offer-desc">Continuous, zone-specific monitoring so you know the exact moment the situation shifts — and can act before competitors do.</p>
-            <div class="pop-offer-phases">
-                <div class="pop-phase">
-                    <div class="pop-phase-label">Phase 1 · Days 1–15</div>
-                    <div class="pop-phase-amount">$18,750</div>
-                    <div class="pop-phase-note">Charged <b style="color:#fff;">daily</b> because the market moves daily — $1,250/day</div>
-                </div>
-                <div class="pop-phase">
-                    <div class="pop-phase-label">Phase 2 · Days 16+</div>
-                    <div class="pop-phase-amount">$8,750<span style="font-size:0.7em;">/wk</span></div>
-                    <div class="pop-phase-note">Market stabilizes after Day 15 — weekly cadence is sufficient</div>
-                </div>
-            </div>
-            <div class="pop-offer-total"><span class="lbl">Due today to start Phase 1</span><span class="val">$18,750</span></div>
-        </div>
-
-        <div class="pop-disclaimer">
-            <b>Disclaimer:</b> Optima Workflows provides data-driven intelligence based on current and historical weather and market conditions. The final deployment decision — where, when, and how much capital to commit — always rests with your roofing company. We assist with analysis; we do not make deployment decisions on your behalf.
-        </div>
-
-        <div class="pop-actions">
-            <button class="pop-btn pop-btn-primary" onclick="proceedToWeeklyFromPopup()">Proceed to Weekly Payment<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h10M9 4l4 4-4 4"/></svg></button>
-            <button class="pop-btn pop-btn-ghost" onclick="closePopup('popup-post-payment')">Not Now</button>
-        </div>
+  <div class="cat-popup">
+    <button class="cat-popup-close" onclick="closePopup('popup-post-payment')">✕</button>
+    <div class="pop-kicker"><span class="line"></span>Payment received · Full report unlocked</div>
+    <div class="pop-check">✓</div>
+    <h2 class="pop-headline">Thank you. Your report is <span class="accent">being built.</span></h2>
+    <p class="pop-sub">We've received your $7,000 for the full Commercial CAT Intelligence report on <b id="pop1-zone-label">this zone</b>. Our team verifies within 2 business hours — then the full scored intel lands in your dashboard.</p>
+    <div class="pop-truth">
+      <div class="truth-label">— While you wait · A hard truth</div>
+      <p>Intel without daily tracking is a report that sits on a shelf. <b>The zone is scored, but the situation on the ground changes every day.</b> Competitors move. Adjusters get assigned. Materials get consumed.</p>
     </div>
+    <div class="pop-loss">
+      <div class="pop-loss-title">Without weekly tracking, this is what you'll lose</div>
+      <div class="pop-loss-item"><span>Day 3 — Competitors undetected</span><span class="num">$150K–$250K</span></div>
+      <div class="pop-loss-item"><span>Day 5 — Adjuster denials</span><span class="num">$50K–$100K</span></div>
+      <div class="pop-loss-item"><span>Day 10 — Materials depleted</span><span class="num">$30K–$50K</span></div>
+      <div class="pop-loss-total"><span>Total value exposed</span><span class="val">$230K–$400K</span></div>
+    </div>
+    <div class="pop-offer">
+      <div class="pop-offer-label">The solution — 2-phase coverage</div>
+      <div class="pop-offer-title">Weekly Deployment Tracking</div>
+      <p class="pop-offer-desc">Continuous, zone-specific monitoring so you know the exact moment the situation shifts — and can act before competitors do.</p>
+      <div class="pop-offer-phases">
+        <div class="pop-phase"><div class="pop-phase-label">Phase 1 · Days 1–15</div><div class="pop-phase-amount">$18,750</div><div class="pop-phase-note">Charged daily because the market moves daily — $1,250/day</div></div>
+        <div class="pop-phase"><div class="pop-phase-label">Phase 2 · Days 16+</div><div class="pop-phase-amount">$8,750<span style="font-size:0.7em;">/wk</span></div><div class="pop-phase-note">Market stabilizes after Day 15 — weekly cadence is sufficient</div></div>
+      </div>
+      <div class="pop-offer-total"><span>Due today to start Phase 1</span><span class="val">$18,750</span></div>
+    </div>
+    <div class="pop-disclaimer"><b>Disclaimer:</b> Optima Workflows provides data-driven intelligence based on current and historical weather and market conditions. The final deployment decision — where, when, and how much capital to commit — always rests with your roofing company. We assist with analysis; we do not make deployment decisions on your behalf.</div>
+    <div class="pop-actions">
+      <button class="pop-btn pop-btn-primary" onclick="proceedToWeeklyFromPopup()">Proceed to Weekly Payment</button>
+      <button class="pop-btn pop-btn-ghost" onclick="closePopup('popup-post-payment')">Not Now</button>
+    </div>
+  </div>
 </div>
 
-<!-- POPUP 2 -->
 <div class="cat-popup-overlay" id="popup-post-weekly" role="dialog" aria-modal="true">
-    <div class="cat-popup">
-        <span class="pop-corner tl"></span><span class="pop-corner tr"></span>
-        <span class="pop-corner bl"></span><span class="pop-corner br"></span>
-        <button class="cat-popup-close" onclick="closePopup('popup-post-weekly')" aria-label="Close">✕</button>
-
-        <div class="pop-kicker"><span class="line"></span>Payment received · Weekly tracking live</div>
-        <div class="pop-check">✓</div>
-        <h2 class="pop-headline">Thank you. Your weekly tracking is <span class="accent">now active.</span></h2>
-        <p class="pop-sub">Phase 1 daily tracking begins now. You'll receive zone updates every 24 hours through Day 15, then weekly from Day 16 onward at $8,750/week retainer.</p>
-
-        <div class="pop-truth">
-            <div class="truth-label">— One more thing · A hard truth</div>
-            <p>Tracking without auditing is watching a hole get bigger. <b>You'll see the zone shift. You'll know when competitors move.</b> But if your claims get submitted with the wrong Xactimate codes, missing line items, or unjustified O&amp;P — the carrier will reduce the payout regardless of how well you tracked.</p>
-        </div>
-
-        <div class="pop-loss">
-            <div class="pop-loss-title">Without a Storm Audit, carriers commonly reduce claims by</div>
-            <div class="pop-loss-item"><span>Missing Xactimate line items</span><span class="num">15–25%</span></div>
-            <div class="pop-loss-item"><span>Wrong depreciation codes</span><span class="num">10–20%</span></div>
-            <div class="pop-loss-item"><span>Undocumented code-required items</span><span class="num">$15K–$40K/roof</span></div>
-            <div class="pop-loss-item"><span>Unjustified O&amp;P</span><span class="num">5–15%</span></div>
-            <div class="pop-loss-total"><span class="lbl">Effective reduction per roof</span><span class="val">30–50%</span></div>
-        </div>
-
-        <div class="pop-offer">
-            <div class="pop-offer-label">The solution — before you submit</div>
-            <div class="pop-offer-title">Storm Audit — $3,500/roof</div>
-            <p class="pop-offer-desc">A line-by-line Xactimate code audit before submission. Every roof. Every claim. So carriers approve at full scope — not at a reduced one.</p>
-            <div class="pop-offer-phases" style="grid-template-columns:1fr;">
-                <div class="pop-phase" style="text-align:left;">
-                    <div class="pop-phase-label">Per roof · flat fee</div>
-                    <div class="pop-phase-amount">$3,500</div>
-                    <div class="pop-phase-note">Xactimate code accuracy · Missing line items · Depreciation errors · O&amp;P documentation</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="pop-disclaimer">
-            <b>Disclaimer:</b> Optima Workflows provides data-driven intelligence based on current and historical weather and market conditions. The final deployment decision — where, when, and how much capital to commit — always rests with your roofing company. We assist with analysis; we do not make deployment decisions on your behalf.
-        </div>
-
-        <div class="pop-actions">
-            <button class="pop-btn pop-btn-primary" onclick="proceedToStormFromPopup()">Proceed to Storm Audit<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h10M9 4l4 4-4 4"/></svg></button>
-            <button class="pop-btn pop-btn-ghost" onclick="closePopup('popup-post-weekly')">Not Now</button>
-        </div>
+  <div class="cat-popup">
+    <button class="cat-popup-close" onclick="closePopup('popup-post-weekly')">✕</button>
+    <div class="pop-kicker"><span class="line"></span>Payment received · Weekly tracking live</div>
+    <div class="pop-check">✓</div>
+    <h2 class="pop-headline">Thank you. Your weekly tracking is <span class="accent">now active.</span></h2>
+    <p class="pop-sub">Phase 1 daily tracking begins now. You'll receive zone updates every 24 hours through Day 15, then weekly from Day 16 onward.</p>
+    <div class="pop-truth">
+      <div class="truth-label">— One more thing · A hard truth</div>
+      <p>Tracking without auditing is watching a hole get bigger. <b>You'll see the zone shift. You'll know when competitors move.</b> But if your claims get submitted with the wrong Xactimate codes or missing line items — the carrier will reduce the payout regardless of how well you tracked.</p>
     </div>
+    <div class="pop-loss">
+      <div class="pop-loss-title">Without a Storm Audit, carriers commonly reduce claims by</div>
+      <div class="pop-loss-item"><span>Missing Xactimate line items</span><span class="num">15–25%</span></div>
+      <div class="pop-loss-item"><span>Wrong depreciation codes</span><span class="num">10–20%</span></div>
+      <div class="pop-loss-item"><span>Undocumented code-required items</span><span class="num">$15K–$40K/roof</span></div>
+      <div class="pop-loss-total"><span>Effective reduction per roof</span><span class="val">30–50%</span></div>
+    </div>
+    <div class="pop-offer">
+      <div class="pop-offer-label">The solution — before you submit</div>
+      <div class="pop-offer-title">Storm Audit — $3,500/roof</div>
+      <p class="pop-offer-desc">A 12-item commercial code audit before submission. Every roof. Every claim. So carriers approve at full scope.</p>
+    </div>
+    <div class="pop-disclaimer"><b>Disclaimer:</b> Optima Workflows provides data-driven intelligence based on current and historical weather and market conditions. The final deployment decision — where, when, and how much capital to commit — always rests with your roofing company. We assist with analysis; we do not make deployment decisions on your behalf.</div>
+    <div class="pop-actions">
+      <button class="pop-btn pop-btn-primary" onclick="proceedToStormFromPopup()">Proceed to Storm Audit</button>
+      <button class="pop-btn pop-btn-ghost" onclick="closePopup('popup-post-weekly')">Not Now</button>
+    </div>
+  </div>
 </div>
 
-<!-- POPUP 3 -->
 <div class="cat-popup-overlay" id="popup-final" role="dialog" aria-modal="true">
-    <div class="cat-popup">
-        <span class="pop-corner tl"></span><span class="pop-corner tr"></span>
-        <span class="pop-corner bl"></span><span class="pop-corner br"></span>
-        <button class="cat-popup-close" onclick="closePopup('popup-final')" aria-label="Close">✕</button>
-
-        <div class="pop-kicker"><span class="line"></span>Submission received</div>
-        <div class="pop-check">✓</div>
-        <h2 class="pop-headline">Thank you. Your scope is <span class="accent">in the queue.</span></h2>
-        <p class="pop-sub">Cross-referencing against current municipal and IRC code begins from here. You'll hear back by email with your findings snapshot.</p>
-
-        <div class="pop-truth">
-            <div class="truth-label">— What you've unlocked</div>
-            <p>Three coordinated layers of commercial CAT intelligence, all running in your dashboard:</p>
-        </div>
-
-        <ul class="pop-checklist">
-            <li><b>CAT Intelligence Full Report</b> — 12-factor scoring, historical outcomes, and deployment verdict for your target zone.</li>
-            <li><b>Weekly Deployment Tracking</b> — Daily zone intelligence for Days 1–15, then weekly retainer from Day 16 onward.</li>
-            <li><b>Storm Audit</b> — Line-by-line Xactimate code review of your submitted scope documents.</li>
-        </ul>
-
-        <div class="pop-disclaimer">
-            <b>Disclaimer:</b> Optima Workflows provides data-driven intelligence based on current and historical weather and market conditions. The final deployment decision — where, when, and how much capital to commit — always rests with your roofing company. We assist with analysis; we do not make deployment decisions on your behalf.
-        </div>
-
-        <div class="pop-actions">
-            <button class="pop-btn pop-btn-primary" onclick="returnToDashboard()">Return to Dashboard<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h10M9 4l4 4-4 4"/></svg></button>
-        </div>
+  <div class="cat-popup">
+    <button class="cat-popup-close" onclick="closePopup('popup-final')">✕</button>
+    <div class="pop-kicker"><span class="line"></span>Submission received</div>
+    <div class="pop-check">✓</div>
+    <h2 class="pop-headline">Thank you. Your scope is <span class="accent">in the queue.</span></h2>
+    <p class="pop-sub">Cross-referencing against current municipal and IBC code begins from here. Findings will appear in your dashboard.</p>
+    <div class="pop-truth">
+      <div class="truth-label">— What you've unlocked</div>
+      <p>Three coordinated layers of commercial CAT intelligence, all running in your dashboard:</p>
     </div>
+    <ul style="list-style:none; padding:0; margin:0 0 26px;">
+      <li style="padding:12px 0 12px 34px; position:relative; border-bottom:1px solid var(--border-hairline); color:var(--text-soft); font-size:14.5px; line-height:1.6;">✓ <b style="color:#fff;">CAT Intelligence Full Report</b> — 12-factor zone scoring with deployment verdict.</li>
+      <li style="padding:12px 0 12px 34px; position:relative; border-bottom:1px solid var(--border-hairline); color:var(--text-soft); font-size:14.5px; line-height:1.6;">✓ <b style="color:#fff;">Weekly Review</b> — Daily zone intelligence for Days 1–15, then weekly.</li>
+      <li style="padding:12px 0; color:var(--text-soft); font-size:14.5px; line-height:1.6;">✓ <b style="color:#fff;">Storm Audit</b> — 12-item commercial code review of your submitted scope.</li>
+    </ul>
+    <div class="pop-disclaimer"><b>Disclaimer:</b> Optima Workflows provides data-driven intelligence based on current and historical weather and market conditions. The final deployment decision — where, when, and how much capital to commit — always rests with your roofing company. We assist with analysis; we do not make deployment decisions on your behalf.</div>
+    <div class="pop-actions">
+      <button class="pop-btn pop-btn-primary" onclick="returnToDashboard()">Return to Dashboard</button>
+    </div>
+  </div>
 </div>
 
 <script>
-    var currentClient = "Vanguard Restoration Corp";
-    var currentEmail = "operations@vanguard.com";
-    var currentZip = "";
-    var currentCity = "";
-    var currentState = "";
-    var stormSubmitted = false;
-    var adminMode = false;
+// ====================================================================
+// CONFIG
+// ====================================================================
+var OPTIMA_API = 'https://script.google.com/macros/s/AKfycbyxAEK2zWgqjNDboU0v-fiCCXDQbULcGyzlXL5M076YlGQPeFSlG3syMvKVIuwK8m5U/exec';
+var OPTIMA_ADMIN_KEY = 'P34Zf2XgNHh5ZH2n1MGZalLSHCw1IOJQ';
 
-    var subscribedServices = {
-        cat_intel: true,
-        storm_audit: true,
-        appointment_booking: true,
-        vendor_audit: false,
-        freight_audit: false,
-        chargebacks: false
-    };
+// ====================================================================
+// STATE
+// ====================================================================
+var state = {
+  currentClient: null,
+  adminMode: false,
+  adminKey: localStorage.getItem('optima_admin_key') || '',
+  activeSimClient: null,
+  currentZip: '',
+  currentCity: '',
+  currentState: '',
+  triageData: null,
+  prospectEmail: '',
+  subscribedServices: { cat: true, weekly: false, storm: false },
+  ref_code: new URLSearchParams(location.search).get('ref') || '',
+  incoming_email: new URLSearchParams(location.search).get('email') || ''
+};
 
-    function renderSidebar() {
-        var services = {
-            "nav-cat-intel": subscribedServices.cat_intel,
-            "nav-storm-audit": subscribedServices.storm_audit,
-            "nav-appointments": subscribedServices.appointment_booking,
-            "nav-vendor-audit": subscribedServices.vendor_audit,
-            "nav-freight-audit": subscribedServices.freight_audit,
-            "nav-chargeback": subscribedServices.chargebacks,
-            "nav-billing": true
-        };
+// ====================================================================
+// API
+// ====================================================================
+function apiPost(payload, cb) {
+  fetch(OPTIMA_API, {
+    method: 'POST',
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+    body: JSON.stringify(payload)
+  }).then(function(r) { return r.json(); }).then(cb).catch(function(e) {
+    console.error(e);
+    if (cb) cb({ success: false, error: String(e) });
+  });
+}
 
-        for (var id in services) {
-            var el = document.getElementById(id);
-            if (el) {
-                if (adminMode) {
-                    el.style.display = "flex";
-                    el.classList.remove("hidden-service");
-                } else {
-                    el.style.display = services[id] ? "flex" : "none";
-                    if (!services[id]) el.classList.add("hidden-service");
-                    else el.classList.remove("hidden-service");
-                }
-            }
-        }
-        document.getElementById("user-tier-label").textContent = adminMode ? "🔓 ADMIN VIEW" : "Enterprise Retainer";
-    }
-
-    function toggleAdminMode() {
-        adminMode = !adminMode;
-        renderSidebar();
-    }
-
-    function switchTab(tabId, navElement) {
-        var tabs = document.querySelectorAll(".dashboard-tab");
-        for (var i = 0; i < tabs.length; i++) tabs[i].classList.remove("active");
-        var navs = document.querySelectorAll(".nav-item");
-        for (var j = 0; j < navs.length; j++) navs[j].classList.remove("active");
-        document.getElementById(tabId).classList.add("active");
-        if (navElement) navElement.classList.add("active");
-
-        var hashMap = {
-            'view-home': 'command',
-            'view-cat-intel': 'cat-intel',
-            'view-storm-audit': 'storm-audit',
-            'view-appointments': 'appointments',
-            'view-vendor-audit': 'vendor-audit',
-            'view-freight-audit': 'freight-audit',
-            'view-chargeback': 'chargebacks',
-            'view-billing': 'billing',
-            'view-settings': 'settings'
-        };
-        var newHash = hashMap[tabId];
-        if (newHash && window.location.hash !== '#' + newHash) {
-            history.replaceState(null, '', '#' + newHash);
-        }
-    }
-
-    function handleDeepLink() {
-        var hash = window.location.hash.replace('#', '').trim();
-
-        var params = new URLSearchParams(window.location.search);
-        var refZip = params.get('zip');
-
-        if (refZip) {
-            setTimeout(function() {
-                var zipInput = document.getElementById('frm-zip');
-                if (zipInput) {
-                    zipInput.value = refZip;
-                    document.getElementById('frm-intent').value = 'MAX_CASH';
-                    document.getElementById('frm-tech').value = 'PRO_TECH';
-                    document.getElementById('frm-rain').value = '0';
-                    switchTab('view-cat-intel', document.querySelector('#nav-cat-intel'));
-                    setTimeout(function() {
-                        document.getElementById('triage-form').dispatchEvent(new Event('submit'));
-                    }, 400);
-                }
-            }, 600);
-        }
-
-        if (!hash) {
-            if (refZip) {
-                switchTab('view-cat-intel', document.querySelector('#nav-cat-intel'));
-            }
-            return;
-        }
-
-        var tabMap = {
-            'command': 'view-home',
-            'home': 'view-home',
-            'cat-intel': 'view-cat-intel',
-            'cat': 'view-cat-intel',
-            'storm-audit': 'view-storm-audit',
-            'storm': 'view-storm-audit',
-            'appointments': 'view-appointments',
-            'vendor-audit': 'view-vendor-audit',
-            'freight-audit': 'view-freight-audit',
-            'chargebacks': 'view-chargeback',
-            'chargeback': 'view-chargeback',
-            'billing': 'view-billing',
-            'settings': 'view-settings'
-        };
-
-        var targetTab = tabMap[hash];
-        if (!targetTab) return;
-
-        var navs = document.querySelectorAll('.nav-item');
-        var matchingNav = null;
-        for (var i = 0; i < navs.length; i++) {
-            var onclick = navs[i].getAttribute('onclick') || '';
-            if (onclick.indexOf("'" + targetTab + "'") !== -1) {
-                matchingNav = navs[i];
-                break;
-            }
-        }
-
-        var tabs = document.querySelectorAll(".dashboard-tab");
-        for (var k = 0; k < tabs.length; k++) tabs[k].classList.remove("active");
-        var allNavs = document.querySelectorAll(".nav-item");
-        for (var m = 0; m < allNavs.length; m++) allNavs[m].classList.remove("active");
-        document.getElementById(targetTab).classList.add("active");
-        if (matchingNav) matchingNav.classList.add("active");
-    }
-
-    function logout() { alert("Logged out."); }
-
-    function showPaymentScreen() {
-        document.getElementById("preview-card").style.display = "none";
-        document.getElementById("payment-screen").style.display = "block";
-    }
-
-    function togglePayment(m) {
-        document.getElementById("btn-ach").classList.toggle("active", m === "ACH");
-        document.getElementById("btn-fedwire").classList.toggle("active", m === "FEDWIRE");
-        document.getElementById("pay-ach").style.display = m === "ACH" ? "block" : "none";
-        document.getElementById("pay-fedwire").style.display = m === "FEDWIRE" ? "block" : "none";
-    }
-
-    function copyPayment(m) {
-        var t = m === "ACH" ? "Bank: JPMORGAN CHASE\nAccount: 20000045856166\nRouting: 028000024" : "Bank: JPMORGAN CHASE\nAccount: 20000045856166\nRouting: 021000021";
-        navigator.clipboard.writeText(t).then(function(){ alert("Copied."); });
-    }
-
-    function showVerificationPending() {
-        document.getElementById("payment-screen").style.display = "none";
-        document.getElementById("verification-pending").style.display = "block";
-        setTimeout(function() { openPopup('popup-post-payment'); }, 300);
-    }
-
-    function showWeeklyPayment() {
-        document.getElementById("verification-pending").style.display = "none";
-        document.getElementById("weekly-payment-screen").style.display = "block";
-    }
-
-    function toggleWeeklyPayment(m) {
-        document.getElementById("btn-wach").classList.toggle("active", m === "ACH");
-        document.getElementById("btn-wfedwire").classList.toggle("active", m === "FEDWIRE");
-        document.getElementById("wpay-ach").style.display = m === "ACH" ? "block" : "none";
-        document.getElementById("wpay-fedwire").style.display = m === "FEDWIRE" ? "block" : "none";
-    }
-
-    function showWeeklyVerification() {
-        document.getElementById("weekly-payment-screen").style.display = "none";
-        document.getElementById("weekly-verification").style.display = "block";
-        setTimeout(function() { openPopup('popup-post-weekly'); }, 300);
-    }
-
-    function openPopup(id) {
-        var el = document.getElementById(id);
-        if (!el) return;
-        el.classList.add('is-open');
-        requestAnimationFrame(function() {
-            requestAnimationFrame(function() { el.classList.add('is-visible'); });
-        });
-        document.body.style.overflow = 'hidden';
-    }
-
-    function closePopup(id) {
-        var el = document.getElementById(id);
-        if (!el) return;
-        el.classList.remove('is-visible');
-        setTimeout(function() {
-            el.classList.remove('is-open');
-            var anyOpen = document.querySelector('.cat-popup-overlay.is-open');
-            if (!anyOpen) document.body.style.overflow = '';
-        }, 400);
-    }
-
-    function proceedToWeeklyFromPopup() {
-        closePopup('popup-post-payment');
-        setTimeout(function() {
-            showWeeklyPayment();
-            document.getElementById('weekly-payment-screen').scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }, 300);
-    }
-
-    function proceedToStormFromPopup() {
-        closePopup('popup-post-weekly');
-        setTimeout(function() {
-            var upsellBox = document.querySelector('#weekly-verification .upsell-box');
-            if (upsellBox) upsellBox.style.display = 'none';
-            document.getElementById('storm-intake-section').style.display = 'block';
-            document.getElementById('storm-intake-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 300);
-    }
-
-    function returnToDashboard() {
-        closePopup('popup-final');
-        setTimeout(function() {
-            document.querySelector('.main-viewport').scrollTo({ top: 0, behavior: 'smooth' });
-        }, 300);
-    }
-
-    function showStormIntake() {
-        var upsellBox = document.querySelector('#weekly-verification .upsell-box');
-        if (upsellBox) upsellBox.style.display = 'none';
-        document.getElementById('storm-intake-section').style.display = 'block';
-        document.getElementById('storm-intake-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
-            var openPop = document.querySelector('.cat-popup-overlay.is-open');
-            if (openPop) closePopup(openPop.id);
-        }
+function apiGet(params, cb) {
+  var qs = Object.keys(params).map(function(k) {
+    return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]);
+  }).join('&');
+  fetch(OPTIMA_API + '?' + qs)
+    .then(function(r) { return r.json(); })
+    .then(cb)
+    .catch(function(e) {
+      console.error(e);
+      if (cb) cb({ success: false, error: String(e) });
     });
+}
 
-    document.getElementById("triage-form").addEventListener("submit", function(e) {
-        e.preventDefault();
-        var zip = document.getElementById("frm-zip").value.trim();
-        var intent = document.getElementById("frm-intent").value;
-        var tech = document.getElementById("frm-tech").value;
-        var rain = parseFloat(document.getElementById("frm-rain").value) || 0;
+// ====================================================================
+// TAB SWITCHING
+// ====================================================================
+function switchTab(tabId, navEl) {
+  var tabs = document.querySelectorAll('.dashboard-tab');
+  for (var i = 0; i < tabs.length; i++) tabs[i].classList.remove('active');
+  var navs = document.querySelectorAll('.nav-item');
+  for (var j = 0; j < navs.length; j++) navs[j].classList.remove('active');
+  var el = document.getElementById(tabId);
+  if (el) el.classList.add('active');
+  if (navEl) navEl.classList.add('active');
+  if (tabId === 'view-clients' && state.adminMode) loadClientDirectory();
+}
 
-        if (!zip || zip.length < 5) { alert("Please enter a valid ZIP code."); return; }
-        if (!intent) { alert("Please select an intent."); return; }
-        if (!tech) { alert("Please select a tech stack."); return; }
+// ====================================================================
+// ADMIN MODE
+// ====================================================================
+function toggleAdminMode() {
+  state.adminMode = !state.adminMode;
 
-        currentZip = zip;
+  document.getElementById('admin-console').classList.toggle('active', state.adminMode);
+  document.getElementById('admin-section').style.display = state.adminMode ? 'block' : 'none';
+  document.getElementById('nav-clients').style.display = state.adminMode ? 'flex' : 'none';
+  document.getElementById('nav-prospects').style.display = state.adminMode ? 'flex' : 'none';
+  document.getElementById('admin-factor-panel').style.display = state.adminMode ? 'block' : 'none';
+  document.getElementById('user-tier-label').textContent = state.adminMode ? '🔓 ADMIN VIEW' : (state.currentClient ? state.currentClient.tier : '—');
 
-        var locationData = {
-            "75062": { city: "Irving", state: "TX", density: "High", rainScore: 85, densityScore: 78, techScore: tech === "PRO_TECH" ? 92 : 65 },
-            "75201": { city: "Dallas", state: "TX", density: "Very High", rainScore: 72, densityScore: 90, techScore: tech === "PRO_TECH" ? 88 : 60 },
-            "77001": { city: "Houston", state: "TX", density: "High", rainScore: 95, densityScore: 82, techScore: tech === "PRO_TECH" ? 85 : 55 },
-            "78701": { city: "Austin", state: "TX", density: "Moderate", rainScore: 62, densityScore: 70, techScore: tech === "PRO_TECH" ? 90 : 58 },
-            "90210": { city: "Beverly Hills", state: "CA", density: "Low", rainScore: 25, densityScore: 55, techScore: tech === "PRO_TECH" ? 95 : 62 }
-        };
+  if (state.adminMode) {
+    if (state.adminKey) document.getElementById('admin-key-input').value = state.adminKey;
+    loadAdminClientList();
+  }
+}
 
-        var data = locationData[zip] || { city: "Unknown", state: "XX", density: "Moderate", rainScore: 50, densityScore: 60, techScore: tech === "PRO_TECH" ? 75 : 50 };
-        currentCity = data.city;
-        currentState = data.state;
+function saveAdminKey(v) {
+  state.adminKey = v;
+  localStorage.setItem('optima_admin_key', v);
+  if (state.adminMode) loadAdminClientList();
+}
 
-        document.getElementById("intake-zip").value = zip;
-        document.getElementById("intake-city").value = data.city;
-        document.getElementById("intake-state").value = data.state;
-        document.getElementById("intake-company").value = currentClient;
-        document.getElementById("intake-contact").value = "Operations Team";
-        document.getElementById("intake-email").value = currentEmail;
+function loadAdminClientList() {
+  if (!state.adminKey) return;
+  apiGet({ action: 'listClients', admin_key: state.adminKey }, function(res) {
+    var sel = document.getElementById('admin-client-select');
+    sel.innerHTML = '<option value="">— Select client —</option>';
+    if (res.success && res.clients) {
+      res.clients.forEach(function(c) {
+        var opt = document.createElement('option');
+        opt.value = c.client_id;
+        opt.textContent = c.business_name + ' (' + c.services_owned + ')';
+        sel.appendChild(opt);
+      });
+    }
+  });
+}
 
-        var previewCard = document.getElementById("preview-card");
-        previewCard.style.display = "block";
-        document.getElementById("pv-location").textContent = data.city + ", " + data.state + " (" + zip + ")";
-        document.getElementById("pop1-zone-label").textContent = data.city + ", " + data.state;
+function adminRefreshClients() { loadAdminClientList(); }
+function adminResetSim() { location.reload(); }
 
-        document.getElementById("pv-verdict").textContent = data.density.toUpperCase() + " ACTIVITY";
-        document.getElementById("pv-verdict").className = "badge-status " + (data.density === "High" || data.density === "Very High" ? "bg-green" : "bg-amber");
+function adminSelectClient(clientId) {
+  state.activeSimClient = clientId;
+  apiGet({ action: 'getClient', client_id: clientId, admin_key: state.adminKey }, function(res) {
+    if (res.success && res.client) {
+      state.currentClient = res.client;
+      applyClientToUI(res.client);
+    }
+  });
+}
 
-        var totalScore = Math.round((data.rainScore * 0.15 + data.densityScore * 0.10 + data.techScore * 0.10) / 0.35);
-        var ceiling = Math.min(100, totalScore + 5);
-        document.getElementById("pv-score").textContent = "Up to " + ceiling + "%";
-        document.getElementById("pv-score-note").textContent = "Exact % unlocked at report";
+function adminSetSimState(sim) {
+  // Sim is a visual state indicator — actions below drive the actual UI.
+  var action = {
+    fresh_prospect: function() { switchTab('view-cat-intel', document.getElementById('nav-cat-intel')); },
+    preview_shown: function() { switchTab('view-cat-intel', document.getElementById('nav-cat-intel')); if (state.triageData) showPreview(state.triageData); },
+    post_payment: function() { adminTriggerPopup('post-payment'); },
+    weekly_payment: function() { showWeeklyPaymentScreen(); },
+    post_weekly: function() { adminTriggerPopup('post-weekly'); },
+    storm_intake: function() { switchTab('view-storm-audit', document.getElementById('nav-storm-audit')); },
+    storm_findings: function() { switchTab('view-storm-audit', document.getElementById('nav-storm-audit')); },
+    retainer_active: function() { switchTab('view-weekly', document.getElementById('nav-weekly')); },
+    retainer_ending: function() { switchTab('view-weekly', document.getElementById('nav-weekly')); }
+  };
+  if (action[sim]) action[sim]();
+}
 
-        document.getElementById("pv-rain-desc").textContent = "Event signal detected";
-        document.getElementById("pv-density-desc").textContent = "Competition increasing daily";
-        document.getElementById("pv-tech-desc").textContent = tech === "PRO_TECH" ? "🟢 Pro Tech ready" : "🟡 Manual — slower";
+function adminTriggerPopup(which) {
+  var map = {
+    'post-payment': 'popup-post-payment',
+    'post-weekly': 'popup-post-weekly',
+    'final': 'popup-final'
+  };
+  openPopup(map[which]);
+}
 
-        var gross = Math.round(400000 + Math.random() * 150000);
-        var grossCeiling = Math.round(gross / 10000) * 10000;
-        document.getElementById("loss-gross").textContent = "Up to $" + (grossCeiling/1000).toFixed(0) + "K+";
-        document.getElementById("loss-amount").textContent = "$" + Math.round(grossCeiling * 0.45 / 1000) + "K+ at risk";
+// ====================================================================
+// POP-UP CONTROL
+// ====================================================================
+function openPopup(id) {
+  var el = document.getElementById(id);
+  if (!el) return;
+  el.classList.add('is-open');
+  requestAnimationFrame(function() {
+    requestAnimationFrame(function() { el.classList.add('is-visible'); });
+  });
+  document.body.style.overflow = 'hidden';
+}
 
-        previewCard.scrollIntoView({ behavior: "smooth", block: "center" });
+function closePopup(id) {
+  var el = document.getElementById(id);
+  if (!el) return;
+  el.classList.remove('is-visible');
+  setTimeout(function() {
+    el.classList.remove('is-open');
+    if (!document.querySelector('.cat-popup-overlay.is-open')) {
+      document.body.style.overflow = '';
+    }
+  }, 400);
+}
+
+function proceedToWeeklyFromPopup() {
+  closePopup('popup-post-payment');
+  showWeeklyPaymentScreen();
+}
+
+function proceedToStormFromPopup() {
+  closePopup('popup-post-weekly');
+  switchTab('view-storm-audit', document.getElementById('nav-storm-audit'));
+}
+
+function returnToDashboard() {
+  closePopup('popup-final');
+  switchTab('view-home', document.getElementById('nav-home'));
+}
+
+// ====================================================================
+// TRIAGE
+// ====================================================================
+document.getElementById('triage-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  var zip = document.getElementById('frm-zip').value.trim();
+  var intent = document.getElementById('frm-intent').value;
+  var tech = document.getElementById('frm-tech').value;
+  var rain = parseFloat(document.getElementById('frm-rain').value) || 0;
+
+  if (!zip || zip.length < 5) { alert('Enter a valid ZIP.'); return; }
+  if (!intent || !tech) { alert('Select intent and tech stack.'); return; }
+
+  state.currentZip = zip;
+
+  // Lookup city/state from ZIP
+  var zipMap = {
+    '75062': { city: 'Irving', state: 'TX', density: 'High', rainScore: 85, densityScore: 78, techScore: tech === 'PRO_TECH' ? 92 : 65 },
+    '75201': { city: 'Dallas', state: 'TX', density: 'Very High', rainScore: 72, densityScore: 90, techScore: tech === 'PRO_TECH' ? 88 : 60 },
+    '77001': { city: 'Houston', state: 'TX', density: 'High', rainScore: 95, densityScore: 82, techScore: tech === 'PRO_TECH' ? 85 : 55 },
+    '78701': { city: 'Austin', state: 'TX', density: 'Moderate', rainScore: 62, densityScore: 70, techScore: tech === 'PRO_TECH' ? 90 : 58 }
+  };
+  var data = zipMap[zip] || { city: 'Unknown', state: 'XX', density: 'Moderate', rainScore: 50, densityScore: 60, techScore: tech === 'PRO_TECH' ? 75 : 50 };
+  state.currentCity = data.city;
+  state.currentState = data.state;
+  state.triageData = data;
+
+  // Log prospect event
+  var prospPayload = {
+    action: 'writeProspect',
+    email: state.incoming_email || '',
+    ref_code: state.ref_code || '',
+    zip: zip,
+    city: data.city,
+    state: data.state
+  };
+  apiPost(prospPayload, function() {});
+
+  // Show email capture if we don't already have an email
+  if (!state.incoming_email) {
+    document.getElementById('email-capture-block').style.display = 'block';
+    document.getElementById('email-zip-display').textContent = zip;
+  }
+
+  showPreview(data, tech);
+});
+
+function showPreview(data, tech) {
+  tech = tech || 'PRO_TECH';
+  var previewCard = document.getElementById('preview-card');
+  previewCard.style.display = 'block';
+
+  document.getElementById('pv-location').textContent = data.city + ', ' + data.state + ' (' + state.currentZip + ')';
+  document.getElementById('pop1-zone-label').textContent = data.city + ', ' + data.state;
+
+  document.getElementById('pv-verdict').textContent = data.density.toUpperCase() + ' ACTIVITY';
+  document.getElementById('pv-verdict').className = 'badge-status ' + (data.density === 'High' || data.density === 'Very High' ? 'bg-green' : 'bg-amber');
+
+  var total = Math.round((data.rainScore * 0.15 + data.densityScore * 0.10 + data.techScore * 0.10) / 0.35);
+  var ceiling = Math.min(100, total + 5);
+  document.getElementById('pv-score').textContent = 'Up to ' + ceiling + '%';
+  document.getElementById('pv-score-note').textContent = 'Up to ' + ceiling + '% · exact at unlock';
+
+  document.getElementById('pv-rain-desc').textContent = 'Event signal detected';
+  document.getElementById('pv-density-desc').textContent = 'Competition increasing daily';
+  document.getElementById('pv-tech-desc').textContent = tech === 'PRO_TECH' ? '🟢 Pro Tech ready' : '🟡 Manual — slower';
+
+  // Admin: full 12-factor panel
+  if (state.adminMode) {
+    var tbl = document.getElementById('admin-factor-table');
+    tbl.innerHTML = '<tr><th>Factor</th><th>Score</th><th>Weight</th><th>Reasoning</th></tr>';
+    var factors = [
+      ['Rain Saturation', 85, '15%', '2.4" event detected'],
+      ['Market Activity', 78, '10%', 'Competition increasing daily'],
+      ['Tech Stack', tech === 'PRO_TECH' ? 92 : 65, '10%', tech === 'PRO_TECH' ? 'Drone capable' : 'Manual assessment'],
+      ['Commercial Envelope Density', 88, '12%', '82% of 200K sq ft ceiling'],
+      ['Permit Office Speed', 74, '8%', 'Irving avg 4.2 days'],
+      ['Building Code Rigidity', 82, '7%', '2024 IBC adopted'],
+      ['Insurance Endorsement Mix', 71, '8%', '68% RCV policies'],
+      ['Specialty Labor', 68, '6%', '12 crews within 25 mi'],
+      ['Crane Operator Avail.', 76, '5%', '3 certified operators'],
+      ['Historical Outcome', 81, '7%', '78% approval in past events'],
+      ['Local Crew Saturation', 55, '6%', '8 active (53% of cap)'],
+      ['Cash Conversion', 79, '6%', '32 days avg claim-to-cash']
+    ];
+    factors.forEach(function(f) {
+      var tr = document.createElement('tr');
+      tr.innerHTML = '<td>' + f[0] + '</td><td style="color:var(--cyber-green);font-weight:800;">' + f[1] + '</td><td>' + f[2] + '</td><td style="color:var(--text-muted);">' + f[3] + '</td>';
+      tbl.appendChild(tr);
     });
+  }
 
-    document.getElementById("intakeForm").addEventListener("submit", function() {
-        stormSubmitted = true;
-    });
-    document.getElementById("hidden_iframe_storm").addEventListener("load", function() {
-        if (!stormSubmitted) return;
-        stormSubmitted = false;
-        document.getElementById('intake-form-wrap').style.display = 'none';
-        document.getElementById('intake-thankyou').style.display = 'block';
-        setTimeout(function() { openPopup('popup-final'); }, 500);
-    });
+  var gross = Math.round(400000 + Math.random() * 150000);
+  var ceil = Math.round(gross / 10000) * 10000;
+  document.getElementById('loss-gross').textContent = 'Up to $' + (ceil/1000).toFixed(0) + 'K+';
+  document.getElementById('loss-amount').textContent = '$' + Math.round(ceil * 0.45 / 1000) + 'K+ at risk';
 
-    renderSidebar();
-    handleDeepLink();
-    window.addEventListener('hashchange', handleDeepLink);
+  previewCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+function captureProspectEmail() {
+  var email = document.getElementById('prospect-email').value.trim();
+  if (!email || email.indexOf('@') === -1) { alert('Enter a valid email.'); return; }
+  state.prospectEmail = email;
+  apiPost({
+    action: 'captureEmail',
+    email: email,
+    ref_code: state.ref_code,
+    zip: state.currentZip,
+    city: state.currentCity,
+    state: state.currentState
+  }, function() {});
+  document.getElementById('email-capture-block').innerHTML = '<div class="block-title">✓ Subscribed</div><p>Check your inbox — permit activity report incoming.</p>';
+}
+
+// ====================================================================
+// PAYMENT FLOW
+// ====================================================================
+function unlockFullReport() {
+  document.getElementById('preview-card').style.display = 'none';
+  document.getElementById('payment-screen').style.display = 'block';
+}
+
+function togglePayment(method) {
+  ['ACH', 'FEDWIRE', 'CARD'].forEach(function(m) {
+    var btn = document.getElementById('btn-' + m.toLowerCase());
+    if (btn) btn.classList.toggle('active', m === method);
+    var card = document.getElementById('pay-' + m.toLowerCase());
+    if (card) card.style.display = m === method ? 'block' : 'none';
+  });
+  document.getElementById('card-type-check').style.display = method === 'CARD' ? 'block' : 'none';
+}
+
+function updateCardFee() {
+  var type = document.getElementById('frm-card-type').value;
+  var card = document.getElementById('pay-card');
+  if (type === 'DEBIT') {
+    card.innerHTML = '<h4 style="color:var(--cyber-red);">Card Rejected</h4><div style="color:var(--cyber-red);">Debit cards not accepted. Please use ACH or a credit card.</div>';
+  } else {
+    card.innerHTML = '<h4>Card Payment</h4><div>Base: $7,000.00</div><div>Card processing fee (2.9% + $0.30): $203.30</div><div style="color:var(--cyber-amber); font-weight:800;">Total: $7,203.30</div><div style="font-size:11px; color:var(--text-detail); margin-top:8px;">Debit cards not accepted.</div>';
+  }
+}
+
+function copyPayment(m) {
+  var t = m === 'ACH' ? 'Bank: JPMORGAN CHASE\nAccount: 20000045856166\nRouting: 028000024'
+        : 'Bank: JPMORGAN CHASE\nAccount: 20000045856166\nRouting: 021000021';
+  navigator.clipboard.writeText(t).then(function() { alert('Copied.'); });
+}
+
+function showPaymentConfirm() {
+  document.getElementById('payment-screen').style.display = 'none';
+  document.getElementById('account-creation').style.display = 'block';
+}
+
+function createAccountAndProceed() {
+  var business = document.getElementById('acct-business').value.trim();
+  var contact = document.getElementById('acct-contact').value.trim();
+  var email = document.getElementById('acct-email').value.trim();
+  var phone = document.getElementById('acct-phone').value.trim();
+
+  if (!business || !contact || !email) { alert('Complete required fields.'); return; }
+
+  apiPost({
+    action: 'createClient',
+    business_name: business,
+    contact_name: contact,
+    email: email,
+    phone: phone,
+    services_owned: 'cat',
+    tier: 'per_zone',
+    payment_method: 'ach',
+    ref_code: state.ref_code
+  }, function(res) {
+    if (!res.success) { alert('Account creation failed: ' + res.error); return; }
+    var clientId = res.client.client_id;
+
+    apiPost({
+      action: 'logPayment',
+      client_id: clientId,
+      service: 'CAT',
+      tier: 'per_zone',
+      amount: 7000,
+      method: 'ACH',
+      reference: 'OPT-77421-' + clientId
+    }, function(payRes) {
+      state.currentClient = res.client;
+      applyClientToUI(res.client);
+      document.getElementById('account-creation').style.display = 'none';
+      document.getElementById('nav-home').click();
+      setTimeout(function() { openPopup('popup-post-payment'); }, 400);
+    });
+  });
+}
+
+// ====================================================================
+// WEEKLY PAYMENT
+// ====================================================================
+function showWeeklyPaymentScreen() {
+  switchTab('view-cat-intel', document.getElementById('nav-cat-intel'));
+  // For now, simulate the weekly payment flow inline
+  openPopup('popup-post-weekly');
+}
+
+// ====================================================================
+// STORM AUDIT SUBMISSION
+// ====================================================================
+function submitStormAudit(e) {
+  e.preventDefault();
+  if (!state.currentClient) { alert('Sign in required.'); return; }
+  var payload = {
+    action: 'submitStormAudit',
+    client_id: state.currentClient.client_id,
+    target_zip: document.getElementById('intake-zip').value.trim(),
+    city: document.getElementById('intake-city').value.trim(),
+    state: document.getElementById('intake-state').value.trim(),
+    scope_link: document.getElementById('intake-scopelink').value.trim(),
+    tier: state.currentClient.tier
+  };
+  apiPost(payload, function(res) {
+    if (!res.success) { alert('Submission failed: ' + res.error); return; }
+    document.getElementById('intake-form-wrap').style.display = 'none';
+    document.getElementById('intake-thankyou').style.display = 'block';
+    setTimeout(function() { openPopup('popup-final'); }, 500);
+  });
+}
+
+// ====================================================================
+// CLIENT DIRECTORY (admin)
+// ====================================================================
+function loadClientDirectory() {
+  apiGet({ action: 'listClients', admin_key: state.adminKey }, function(res) {
+    var wrap = document.getElementById('client-directory');
+    wrap.innerHTML = '';
+    if (!res.success || !res.clients || !res.clients.length) {
+      wrap.innerHTML = '<p style="color:var(--text-muted); font-size:13px;">No clients yet.</p>';
+      return;
+    }
+    res.clients.forEach(function(c) {
+      var card = document.createElement('div');
+      card.className = 'client-card';
+      card.onclick = function() { adminSelectClient(c.client_id); };
+      var services = String(c.services_owned || '').split(',').map(function(s) {
+        var key = s.trim().toLowerCase();
+        var cls = key === 'cat' ? 'cat' : (key === 'weekly' ? 'weekly' : (key === 'storm' ? 'storm' : ''));
+        return '<span class="service-chip ' + cls + '">' + key.toUpperCase() + '</span>';
+      }).join('');
+      card.innerHTML = '<div class="client-card-name">' + c.business_name + '</div>' +
+                       '<div class="client-card-meta">' + c.email + '</div>' +
+                       '<div class="client-card-meta">' + (c.tier || 'per-unit') + '</div>' +
+                       '<div class="client-card-services">' + services + '</div>';
+      wrap.appendChild(card);
+    });
+  });
+}
+
+// ====================================================================
+// CLIENT UI APPLY
+// ====================================================================
+function applyClientToUI(client) {
+  document.getElementById('user-name-display').textContent = client.business_name;
+  document.getElementById('user-tier-label').textContent = state.adminMode ? '🔓 ADMIN VIEW' : (client.tier || '—');
+  document.getElementById('settings-client').textContent = client.business_name;
+  document.getElementById('settings-email').textContent = client.email;
+  document.getElementById('settings-account').textContent = client.client_id;
+
+  var services = String(client.services_owned || '').split(',').map(function(s) { return s.trim().toLowerCase(); });
+
+  document.getElementById('nav-cat-intel').style.display = services.indexOf('cat') >= 0 ? 'flex' : 'none';
+  document.getElementById('nav-weekly').style.display = services.indexOf('weekly') >= 0 ? 'flex' : 'none';
+  document.getElementById('nav-storm-audit').style.display = services.indexOf('storm') >= 0 ? 'flex' : 'none';
+  document.getElementById('nav-billing').style.display = 'flex';
+
+  // Populate weekly term if retainer
+  if (services.indexOf('weekly') >= 0 && client.term_end) {
+    document.getElementById('weekly-empty-card').style.display = 'none';
+    document.getElementById('weekly-term-card').style.display = 'block';
+    document.getElementById('weekly-plan').textContent = client.tier;
+    document.getElementById('weekly-term-start').textContent = client.term_start || '—';
+    document.getElementById('weekly-term-end').textContent = client.term_end || '—';
+    loadWeeklyPool();
+  }
+
+  // Prefill storm intake with client data
+  document.getElementById('intake-company').value = client.business_name || '';
+  document.getElementById('intake-contact').value = client.contact_name || '';
+  document.getElementById('intake-email').value = client.email || '';
+  document.getElementById('intake-state').value = state.currentState || '';
+  document.getElementById('intake-city').value = state.currentCity || '';
+  document.getElementById('intake-zip').value = state.currentZip || '';
+}
+
+function loadWeeklyPool() {
+  if (!state.currentClient) return;
+  apiGet({
+    action: 'getUsage',
+    client_id: state.currentClient.client_id,
+    service: 'WEEKLY',
+    tier: state.currentClient.tier
+  }, function(res) {
+    if (!res.success || !res.rollover_pool) return;
+    var pool = res.rollover_pool;
+    document.getElementById('weekly-pool-total').textContent = pool.total_active;
+    var wrap = document.getElementById('weekly-pool-batches');
+    wrap.innerHTML = '';
+    if (!pool.batches || !pool.batches.length) {
+      wrap.innerHTML = '<div style="padding:12px 0; color:var(--text-detail); font-size:12px;">No active batches.</div>';
+      return;
+    }
+    pool.batches.forEach(function(b) {
+      var cls = '';
+      if (b.days_remaining !== null && b.days_remaining <= 7) cls = 'critical';
+      else if (b.days_remaining !== null && b.days_remaining <= 30) cls = 'expiring';
+      var row = document.createElement('div');
+      row.className = 'pool-batch ' + cls;
+      row.innerHTML = '<span>' + b.batch_id + '</span>' +
+                      '<span class="batch-credits">' + b.credits_remaining + '</span>' +
+                      '<span class="batch-expiry">Expires ' + formatDate(b.expiry_date) + '</span>' +
+                      '<span class="batch-days">' + (b.days_remaining !== null ? b.days_remaining + 'd' : '—') + '</span>';
+      wrap.appendChild(row);
+    });
+  });
+}
+
+function formatDate(iso) {
+  if (!iso) return '—';
+  try {
+    var d = new Date(iso);
+    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+  } catch (e) { return '—'; }
+}
+
+// ====================================================================
+// DEEP LINK + INIT
+// ====================================================================
+function initFromURL() {
+  var params = new URLSearchParams(location.search);
+  var zip = params.get('zip');
+  var email = params.get('email');
+  var hash = location.hash.replace('#', '');
+
+  if (email) state.incoming_email = email;
+
+  if (zip) {
+    document.getElementById('frm-zip').value = zip;
+    document.getElementById('frm-intent').value = 'MAX_CASH';
+    document.getElementById('frm-tech').value = 'PRO_TECH';
+    document.getElementById('frm-rain').value = '0';
+    setTimeout(function() {
+      document.getElementById('triage-form').dispatchEvent(new Event('submit'));
+    }, 400);
+  }
+
+  if (hash) {
+    var map = { 'cat-intel': 'view-cat-intel', 'storm-audit': 'view-storm-audit', 'weekly': 'view-weekly' };
+    if (map[hash]) {
+      var navId = 'nav-' + hash;
+      switchTab(map[hash], document.getElementById(navId));
+    }
+  }
+}
+
+function logout() {
+  localStorage.removeItem('optima_admin_key');
+  location.reload();
+}
+
+// ESC closes any open pop-up
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    var open = document.querySelector('.cat-popup-overlay.is-open');
+    if (open) closePopup(open.id);
+  }
+});
+
+// Init
+document.getElementById('user-name-display').textContent = 'Vanguard Restoration';
+document.getElementById('user-tier-label').textContent = 'Enterprise Retainer';
+initFromURL();
 </script>
 </body>
 </html>
