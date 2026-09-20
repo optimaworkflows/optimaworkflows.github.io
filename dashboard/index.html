@@ -917,7 +917,7 @@ td { padding: 12px 8px; border-bottom: 1px solid #111827; font-family: 'IBM Plex
 // CONFIG
 // ====================================================================
 var OPTIMA_API = 'https://script.google.com/macros/s/AKfycbyxAEK2zWgqjNDboU0v-fiCCXDQbULcGyzlXL5M076YlGQPeFSlG3syMvKVIuwK8m5U/exec';
-var OPTIMA_DASHBOARD_VERSION = '3.15.6';
+var OPTIMA_DASHBOARD_VERSION = '3.15.7';
 
 // ====================================================================
 // STATE
@@ -996,7 +996,7 @@ function resetTriageButton_(){var btn=document.getElementById('btn-triage');if(b
 function showBackendMismatch_(detectedVersion){
   resetTriageButton_();
   var detected=detectedVersion?' Detected live backend version: '+detectedVersion+'.':'';
-  alert('Backend deployment update required.'+detected+' The dashboard requires the matched v'+OPTIMA_DASHBOARD_VERSION+' Apps Script backend with Execution.gs and Hail + Wind + Rain preview support. Deploy Code.gs, Execution.gs and Webapp.gs together, then create/redeploy the Apps Script web-app version.');
+  alert('Backend deployment update required.'+detected+' The dashboard requires a compatible Apps Script backend with Execution.gs and Hail + Wind + Rain preview support. Deploy the matched Code.gs, Execution.gs and Webapp.gs backend files together, then create/redeploy the Apps Script web-app version.');
 }
 function checkTriageBackendCompatibility_(cb){
   apiGet({action:'deploymentHealth'},function(res){
@@ -1908,7 +1908,7 @@ function initFromURL() {
   var email = params.get('email');
   var preview = String(params.get('preview') || '').toLowerCase();
   var portalToken=params.get('portal_login_token');
-  var hash = location.hash.replace('#', '');
+  var hash = location.hash.replace('#', '').toLowerCase();
 
   if (email) state.incoming_email = email;
   if(portalToken){exchangePortalLoginToken_(portalToken);return;}
@@ -1922,7 +1922,7 @@ function initFromURL() {
     }, 400);
   }
 
-  if (preview === 'free' || preview === 'cat' || hash === 'free-preview') {
+  if (preview === 'free' || preview === 'cat' || hash === 'freepreview' || hash === 'free-preview') {
     switchTab('view-cat-intel', document.getElementById('nav-cat-intel'));
   } else if (hash) {
     var map = { 'cat-intel': 'view-cat-intel', 'storm-audit': 'view-storm-audit', 'weekly': 'view-weekly' };
