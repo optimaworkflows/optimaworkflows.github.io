@@ -917,7 +917,7 @@ td { padding: 12px 8px; border-bottom: 1px solid #111827; font-family: 'IBM Plex
 // CONFIG
 // ====================================================================
 var OPTIMA_API = 'https://script.google.com/macros/s/AKfycby8RZcH8_JIelkM4j5ZsZ5SaVEify0zmuyUEk6nXk1F7bHruXbZq9Ie-acY5_Duj5nc/exec';
-var OPTIMA_DASHBOARD_VERSION = '3.15.8';
+var OPTIMA_DASHBOARD_VERSION = '3.16.0';
 
 // ====================================================================
 // STATE
@@ -958,7 +958,11 @@ var state = {
   incoming_email: new URLSearchParams(location.search).get('email') || '',
   report_token: new URLSearchParams(location.search).get('report_token') || '',
   paymentMethod: 'ACH',
-  cardType: 'CREDIT'
+  cardType: 'CREDIT',
+  previewRetryTimer: null,
+  previewRetryCount: 0,
+  previewRetryStartedAt: 0,
+  previewRetryPayload: null
 };
 
 // ====================================================================
@@ -1192,6 +1196,95 @@ function renderPortalReport_(entry,r){var service=String(entry.service||'').toUp
 // ====================================================================
 // TRIAGE
 // ====================================================================
+function clearPreviewRetry_() {
+  if (state.previewRetryTimer) clearTimeout(state.previewRetryTimer);
+  state.previewRetryTimer = null;
+}
+
+function previewRetryDelay_(requested) {
+  var elapsed = state.previewRetryStartedAt ? (Date.now() - state.previewRetryStartedAt) : 0;
+  if (elapsed < 30000) return Math.max(2500, Number(requested || 4000));
+  if (elapsed < 120000) return 10000;
+  return 30000;
+}
+
+function schedulePreviewRetry_(delayMs) {
+  clearPreviewRetry_();
+  if (!state.previewRetryPayload || !state.currentZip) return;
+  var delay = previewRetryDelay_(delayMs);
+  state.previewRetryTimer = setTimeout(function() {
+    state.previewRetryTimer = null;
+    state.previewRetryCount += 1;
+    requestTriagePreview_(true);
+  }, delay);
+}
+
+function renderPreviewPending_(data) {
+  var previewCard = document.getElementById('preview-card');
+  previewCard.style.display = 'block';
+  document.getElementById('full-report-card').style.display = 'none';
+  var pending = (data && data.pending_signals) || [];
+  var status = {};
+  ((data && data.signal_status) || []).forEach(function(x){ status[String(x.id||'')] = String(x.status||''); });
+  var label = function(id,name){ return '<div style="display:flex;justify-content:space-between;gap:16px;padding:8px 0;border-bottom:1px solid var(--border);"><span>'+name+'</span><strong style="color:'+(status[id]==='VERIFIED'?'var(--cyber-green)':'var(--cyber-amber)')+'">'+(status[id]==='VERIFIED'?'VERIFIED':'REFRESHING')+'</strong></div>'; };
+  previewCard.innerHTML = '<div style="padding:28px 12px;max-width:680px;margin:0 auto;">' +
+    '<div style="font-size:34px;text-align:center;margin-bottom:10px;">↻</div>' +
+    '<h2 style="font-size:20px;text-align:center;margin-bottom:8px;">Finalizing live weather intelligence</h2>' +
+    '<p style="text-align:center;max-width:620px;margin:0 auto 18px;color:var(--text-muted);line-height:1.7;">' +
+    'The system is automatically retrying any weather signal that has not completed verification. No placeholder value is being substituted.' +
+    '</p>' + label('hail','Hail') + label('wind','Wind') + label('rain','Rain') +
+    '<p style="font-size:12px;text-align:center;color:var(--text-detail);margin:16px 0 0;">Keep this tab open. No action is required'+(pending.length?' while '+pending.join(', ')+' refreshes':'')+'.</p></div>';
+  previewCard.scrollIntoView({ behavior:'smooth', block:'center' });
+  schedulePreviewRetry_((data && data.retry_after_ms) || 4000);
+}
+
+function requestTriagePreview_(isRetry) {
+  var payload = state.previewRetryPayload;
+  if (!payload) return;
+  var btn = document.getElementById('btn-triage');
+  if (btn) { btn.disabled = true; btn.textContent = isRetry ? '⚡ Refreshing live signals...' : '⚡ Analyzing zone...'; }
+
+  apiGet({
+    action:'runTriage',
+    zip:payload.zip,
+    intent:payload.intent,
+    ref:state.ref_code || '',
+    email:state.incoming_email || ''
+  }, function(res) {
+    if (!res || !res.success) {
+      var err = String((res && res.error) || '');
+      if (err.indexOf('BACKEND_DEPLOYMENT_MISMATCH') >= 0) {
+        clearPreviewRetry_();
+        resetTriageButton_();
+        alert('Backend deployment update required. Deploy the matched Code.gs, Execution.gs and Webapp.gs files together, then redeploy the Apps Script web app.');
+        return;
+      }
+      // A premium preview absorbs transient transport/source errors internally.
+      // Keep retrying rather than surfacing a raw failure to the prospect.
+      renderPreviewPending_({preview_status:'VERIFYING_LIVE_INTELLIGENCE',pending_signals:['live weather intelligence'],signal_status:[],retry_after_ms:5000});
+      return;
+    }
+
+    state.triageData = res.data;
+    state.currentCity = res.data.city;
+    state.currentState = res.data.state;
+
+    if (!state.incoming_email) {
+      document.getElementById('email-capture-block').style.display = 'block';
+      document.getElementById('email-zip-display').textContent = payload.zip;
+    }
+
+    if (!res.data || res.data.preview_status !== 'VERIFIED') {
+      renderPreviewPending_(res.data || {});
+      return;
+    }
+
+    clearPreviewRetry_();
+    resetTriageButton_();
+    showPreview(res.data);
+  });
+}
+
 document.getElementById('triage-form').addEventListener('submit', function(e) {
   e.preventDefault();
   var zip = document.getElementById('frm-zip').value.trim();
@@ -1200,47 +1293,17 @@ document.getElementById('triage-form').addEventListener('submit', function(e) {
   if (!zip || zip.length < 5) { alert('Enter a valid ZIP.'); return; }
   if (!intent) { alert('Select deployment intent.'); return; }
 
+  clearPreviewRetry_();
   state.currentZip = zip;
+  state.previewRetryCount = 0;
+  state.previewRetryStartedAt = Date.now();
+  state.previewRetryPayload = {zip:zip,intent:intent};
 
-  // Show loading state
   var btn = document.getElementById('btn-triage');
   btn.disabled = true;
   btn.textContent = '⚡ Analyzing zone...';
 
-  // Confirm the deployed Apps Script release matches this dashboard before requesting intelligence.
-  checkTriageBackendCompatibility_(function(){
-    apiGet({
-      action: 'runTriage',
-      zip: zip,
-      intent: intent,
-      ref: state.ref_code || '',
-      email: state.incoming_email || ''
-    }, function(res) {
-      resetTriageButton_();
-
-      if (!res.success) {
-        var err=String(res.error || 'unknown error');
-        if(err.indexOf('BACKEND_DEPLOYMENT_MISMATCH')>=0){
-          alert('Backend deployment update required. Deploy the matched Code.gs, Execution.gs and Webapp.gs files together, then redeploy the Apps Script web app.');
-        }else{
-          alert('Triage failed: ' + err);
-        }
-        return;
-      }
-
-      state.triageData = res.data;
-      state.currentCity = res.data.city;
-      state.currentState = res.data.state;
-
-      // Show email capture if we don't already have an email
-      if (!state.incoming_email) {
-        document.getElementById('email-capture-block').style.display = 'block';
-        document.getElementById('email-zip-display').textContent = zip;
-      }
-
-      showPreview(res.data);
-    });
-  });
+  checkTriageBackendCompatibility_(function(){ requestTriagePreview_(false); });
 });
 
 function showCoverageExpanding(zip, cachedZips) {
@@ -1266,13 +1329,7 @@ function showPreview(data) {
   document.getElementById('full-report-card').style.display = 'none';
 
   if (!data || data.preview_status !== 'VERIFIED') {
-    previewCard.innerHTML = '<div style="padding:28px 10px;text-align:center;">' +
-      '<div style="font-size:38px;margin-bottom:12px;">↻</div>' +
-      '<h2 style="font-size:20px;margin-bottom:10px;">Refreshing current ZIP intelligence</h2>' +
-      '<p style="max-width:620px;margin:0 auto;color:var(--text-muted);line-height:1.7;">' +
-      'The preview is released only after all three live preview signals pass verification. No fallback or placeholder value will be shown. Please retry shortly.' +
-      '</p></div>';
-    previewCard.scrollIntoView({ behavior:'smooth', block:'center' });
+    renderPreviewPending_(data || {});
     return;
   }
 
