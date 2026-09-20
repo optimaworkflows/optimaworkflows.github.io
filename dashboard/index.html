@@ -258,6 +258,10 @@ td { padding: 12px 8px; border-bottom: 1px solid #111827; font-family: 'IBM Plex
 
 /* ============ CAT LIVE INTELLIGENCE ============ */
 .auto-intel-box { min-height:44px; display:flex; align-items:center; gap:10px; background:#03060c; border:1px solid #2a3a55; border-radius:7px; padding:12px 14px; color:var(--cyber-green); font-family:'IBM Plex Mono',monospace; font-size:12px; }
+.auto-intel-stack { align-items:stretch; flex-direction:column; gap:8px; }
+.auto-intel-signal { display:flex; align-items:center; justify-content:space-between; gap:14px; width:100%; }
+.auto-intel-signal strong { color:var(--text-soft); font-weight:700; }
+.auto-intel-tag { color:var(--cyber-green); font-size:10px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; white-space:nowrap; }
 .preview-factor-value { font-family:'IBM Plex Mono',monospace; font-weight:800; color:#fff; }
 .preview-factor-status { font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--text-detail); margin-top:3px; }
 .locked-factor-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:8px; margin:14px 0 6px; }
@@ -416,7 +420,11 @@ td { padding: 12px 8px; border-bottom: 1px solid #111827; font-family: 'IBM Plex
           </div>
           <div class="form-row">
             <div class="form-group"><label>Live Hazard Intelligence</label>
-              <div class="auto-intel-box">✓ Hail and wind evidence acquired automatically from Target ZIP</div>
+              <div class="auto-intel-box auto-intel-stack" aria-label="Automatically detected live hazard signals">
+                <div class="auto-intel-signal"><strong>✓ Hail</strong><span class="auto-intel-tag">Auto Detected</span></div>
+                <div class="auto-intel-signal"><strong>✓ Wind</strong><span class="auto-intel-tag">Auto Detected</span></div>
+                <div class="auto-intel-signal"><strong>✓ Rain</strong><span class="auto-intel-tag">Auto Detected</span></div>
+              </div>
             </div>
             <div class="form-group"><label>Market Intelligence</label>
               <div class="auto-intel-box">✓ Building, permit, code, labor and competition evidence acquired automatically</div>
@@ -445,7 +453,7 @@ td { padding: 12px 8px; border-bottom: 1px solid #111827; font-family: 'IBM Plex
 
         <p style="font-size:13px; color:var(--cyber-amber); margin-bottom:16px; padding:12px; background:rgba(255,184,0,0.05); border-radius:6px; border:1px solid rgba(255,184,0,0.2); line-height:1.65;">
           <strong>FREE PREVIEW — CURRENT ZONE SIGNALS</strong><br>
-          <span style="color:var(--text-muted);">These three factors are calculated from current retrieved hazard and commercial-envelope evidence. They are intentionally not treated as a full deployment decision.</span>
+          <span style="color:var(--text-muted);">These three factors are calculated from current retrieved hail, wind and precipitation evidence. They are intentionally not treated as a full deployment decision.</span>
         </p>
 
         <table>
@@ -909,6 +917,7 @@ td { padding: 12px 8px; border-bottom: 1px solid #111827; font-family: 'IBM Plex
 // CONFIG
 // ====================================================================
 var OPTIMA_API = 'https://script.google.com/macros/s/AKfycbyxAEK2zWgqjNDboU0v-fiCCXDQbULcGyzlXL5M076YlGQPeFSlG3syMvKVIuwK8m5U/exec';
+var OPTIMA_DASHBOARD_VERSION = '3.15.5';
 
 // ====================================================================
 // STATE
@@ -981,6 +990,20 @@ function apiGet(params, cb) {
       console.error(e);
       if (cb) cb({ success: false, error: String(e) });
     });
+}
+
+function resetTriageButton_(){var btn=document.getElementById('btn-triage');if(btn){btn.disabled=false;btn.textContent='⚡ Run Free Preview';}}
+function checkTriageBackendCompatibility_(cb){
+  apiGet({action:'deploymentHealth'},function(res){
+    var factors=(res&&res.preview_factors)||[];
+    var ready=!!(res&&res.success&&res.execution_ready&&Number(res.canonical_factor_count)===13&&factors.indexOf('hail')>=0&&factors.indexOf('wind')>=0&&factors.indexOf('rain')>=0);
+    if(!ready){
+      resetTriageButton_();
+      alert('Backend deployment update required. The dashboard expects the matched v'+OPTIMA_DASHBOARD_VERSION+' Apps Script release with Execution.gs and Hail + Wind + Rain preview support. Deploy Code.gs, Execution.gs and Webapp.gs together, then create/redeploy the Apps Script web-app version.');
+      return;
+    }
+    if(cb)cb();
+  });
 }
 
 // ====================================================================
@@ -1179,34 +1202,39 @@ document.getElementById('triage-form').addEventListener('submit', function(e) {
   btn.disabled = true;
   btn.textContent = '⚡ Analyzing zone...';
 
-  // Request current backend intelligence
-  apiGet({
-    action: 'runTriage',
-    zip: zip,
-    intent: intent,
-    ref: state.ref_code || '',
-    email: state.incoming_email || ''
-  }, function(res) {
-    btn.disabled = false;
-    btn.textContent = '⚡ Run Free Preview';
+  // Confirm the deployed Apps Script release matches this dashboard before requesting intelligence.
+  checkTriageBackendCompatibility_(function(){
+    apiGet({
+      action: 'runTriage',
+      zip: zip,
+      intent: intent,
+      ref: state.ref_code || '',
+      email: state.incoming_email || ''
+    }, function(res) {
+      resetTriageButton_();
 
-    if (!res.success) {
-      alert('Triage failed: ' + (res.error || 'unknown error'));
-      return;
-    }
+      if (!res.success) {
+        var err=String(res.error || 'unknown error');
+        if(err.indexOf('BACKEND_DEPLOYMENT_MISMATCH')>=0){
+          alert('Backend deployment update required. Deploy the matched Code.gs, Execution.gs and Webapp.gs files together, then redeploy the Apps Script web app.');
+        }else{
+          alert('Triage failed: ' + err);
+        }
+        return;
+      }
 
-    state.triageData = res.data;
-    state.currentCity = res.data.city;
-    state.currentState = res.data.state;
+      state.triageData = res.data;
+      state.currentCity = res.data.city;
+      state.currentState = res.data.state;
 
+      // Show email capture if we don't already have an email
+      if (!state.incoming_email) {
+        document.getElementById('email-capture-block').style.display = 'block';
+        document.getElementById('email-zip-display').textContent = zip;
+      }
 
-    // Show email capture if we don't already have an email
-    if (!state.incoming_email) {
-      document.getElementById('email-capture-block').style.display = 'block';
-      document.getElementById('email-zip-display').textContent = zip;
-    }
-
-    showPreview(res.data);
+      showPreview(res.data);
+    });
   });
 });
 
