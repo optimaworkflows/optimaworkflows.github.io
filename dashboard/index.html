@@ -13,9 +13,9 @@
   --bg-card: linear-gradient(145deg, #0b101b, #070b13);
   --border-hairline: #1c2536;
   --text-primary: #ffffff;
-  --text-muted: #cfd8dc;
-  --text-detail: #90a4ae;
-  --text-soft: #dde4e9;
+  --text-muted: #edf2f7;
+  --text-detail: #c7d2dc;
+  --text-soft: #f5f7fa;
   --cyber-green: #00ffa3;
   --cyber-amber: #ffb800;
   --cyber-red: #ff6b6b;
@@ -379,7 +379,7 @@ td { padding: 12px 8px; border-bottom: 1px solid #111827; font-family: 'IBM Plex
         <button class="admin-btn warn" onclick="adminResetSim()">Reset Simulation</button>
         <button class="admin-btn danger" onclick="adminRefreshClients()">Refresh Client List</button>
         <button class="admin-btn" onclick="adminVerifyPayment()">Verify Payment &amp; Issue Report Access</button>
-        <button class="admin-btn" onclick="adminSourceHealth()">Check 12-Factor Source Health</button>
+        <button class="admin-btn" onclick="adminSourceHealth()">Check 13-Factor Source Health</button>
       </div>
     </div>
 
@@ -388,7 +388,7 @@ td { padding: 12px 8px; border-bottom: 1px solid #111827; font-family: 'IBM Plex
       <h1>Executive Command</h1>
       <p class="lead">Live operational overview.</p>
       <div class="card"><h3 class="section-label">Active Deployments</h3><p style="font-size:14px; color:var(--text-muted);">No active deployments. Run a Triage to begin.</p></div>
-      <div class="card" id="dashboard-messages-card"><h3 class="section-label">Messages &amp; Report Notifications</h3><p style="font-size:12px;color:var(--text-muted);margin-bottom:12px;">Custom-package updates and one-line report delivery notices appear here. Each report notice includes its exact dashboard location.</p><div id="dashboard-messages-list"><p style="font-size:13px;color:var(--text-muted);">No messages yet.</p></div></div>
+      <div class="card" id="dashboard-messages-card"><h3 class="section-label">Messages &amp; Report Notifications</h3><div id="dashboard-messages-list"><p style="font-size:13px;color:var(--text-muted);">No new notifications.</p></div></div>
     </section>
 
     <!-- SECURE REPORT LIBRARY -->
@@ -432,7 +432,7 @@ td { padding: 12px 8px; border-bottom: 1px solid #111827; font-family: 'IBM Plex
           <div class="verdict-col">
             <div class="section-label">CAT Intelligence Lead Preview</div>
             <div class="verdict-row">
-              <span class="preview-badge">Free Preview · 3 of 12 Factors</span>
+              <span class="preview-badge">Free Preview · 3 of 13 Factors</span>
             </div>
             <div class="pv-location" id="pv-location">—</div>
           </div>
@@ -452,11 +452,11 @@ td { padding: 12px 8px; border-bottom: 1px solid #111827; font-family: 'IBM Plex
           <tr><th>Factor</th><th>Current Signal</th><th>What It Means</th></tr>
           <tr><td><strong>Hail Diameter &amp; Impact Energy</strong><div class="preview-factor-status" id="pv-hail-status">—</div></td><td class="preview-factor-value" id="pv-hail-value">—</td><td id="pv-hail-desc">—</td></tr>
           <tr><td><strong>Wind Velocity &amp; Lift Exposure</strong><div class="preview-factor-status" id="pv-wind-status">—</div></td><td class="preview-factor-value" id="pv-wind-value">—</td><td id="pv-wind-desc">—</td></tr>
-          <tr><td><strong>Commercial Envelope Square Footage Density</strong><div class="preview-factor-status" id="pv-envelope_density-status">—</div></td><td class="preview-factor-value" id="pv-envelope_density-value">—</td><td id="pv-envelope_density-desc">—</td></tr>
+          <tr><td><strong>Recent Rainfall &amp; Water-Intrusion Exposure</strong><div class="preview-factor-status" id="pv-rain-status">—</div></td><td class="preview-factor-value" id="pv-rain-value">—</td><td id="pv-rain-desc">—</td></tr>
         </table>
 
         <div id="admin-factor-panel" style="display:none; margin-top:20px; padding:16px; background:#03060c; border:1px solid var(--border-hairline); border-radius:8px;">
-          <div class="section-label" style="margin:0 0 10px 0; color:var(--cyber-blue);">⚙ Admin — Live 12-Factor Diagnostic</div>
+          <div class="section-label" style="margin:0 0 10px 0; color:var(--cyber-blue);">⚙ Admin — Live 13-Factor Diagnostic</div>
           <table id="admin-factor-table">
             <tr><th>Factor</th><th>Status</th><th>Current Signal</th><th>Guidance</th></tr>
           </table>
@@ -479,7 +479,7 @@ td { padding: 12px 8px; border-bottom: 1px solid #111827; font-family: 'IBM Plex
           <div style="margin-top:14px; padding-top:14px; border-top:1px solid rgba(255,107,107,0.35); line-height:1.7; color:var(--text-soft);">
             <strong style="color:var(--cyber-red);">The exposure:</strong> without those nine checks, crew mobilization, travel, material commitments and working capital can be committed before roof vulnerability, permitting, code exposure, labor capacity, competitive pressure, claim economics and cash timing have been verified.
           </div>
-          <div style="font-size:14px; color:var(--cyber-green); font-weight:800; margin-top:12px;">Unlock all 12 verified factors before committing deployment capital.</div>
+          <div style="font-size:14px; color:var(--cyber-green); font-weight:800; margin-top:12px;">Unlock all 13 verified factors before committing deployment capital.</div>
         </div>
 
         <div style="margin-top:16px; padding:14px; background:rgba(0,255,163,0.03); border:1px solid rgba(0,255,163,0.2); border-radius:8px;">
@@ -487,7 +487,7 @@ td { padding: 12px 8px; border-bottom: 1px solid #111827; font-family: 'IBM Plex
           <div style="font-size:12px; color:var(--text-muted);">The paid report is rebuilt from current data and is released only when all required factors pass verification. Missing data is never replaced with a default.</div>
         </div>
 
-        <button class="btn-primary" id="btn-unlock-full" onclick="unlockFullReport()" style="margin-top:16px;">🔓 Unlock Full 12-Factor Intel — $7,000</button>
+        <button class="btn-primary" id="btn-unlock-full" onclick="unlockFullReport()" style="margin-top:16px;">🔓 Unlock Full 13-Factor Intel — $7,000</button>
 
         <!-- EMAIL CAPTURE (only for organic visitors without email) -->
         <div class="email-value-block" id="email-capture-block" style="display:none;">
@@ -750,8 +750,8 @@ td { padding: 12px 8px; border-bottom: 1px solid #111827; font-family: 'IBM Plex
     <div class="pop-kicker"><span class="line"></span>CAT Intelligence payment notice submitted</div>
     <div class="pop-check">✓</div>
     <h2 class="pop-headline">Your $7,000 payment is <span class="accent">pending verification.</span></h2>
-    <p class="pop-sub">Payment confirmation is a server-side step. Once verified, you receive secure onboarding access for CRM + finance/accounting integration. The full report remains locked until client-data readiness and all 12 factor checks pass.</p>
-    <div class="pop-truth"><div class="truth-label">— Next sequence</div><p><b>Payment verification → CRM/Finance integration → 12/12 verification → Full report delivery.</b> Missing evidence is never filled with a default score.</p></div>
+    <p class="pop-sub">Payment confirmation is a server-side step. Once verified, you receive secure onboarding access for CRM + finance/accounting integration. The full report remains locked until client-data readiness and all 13 factor checks pass.</p>
+    <div class="pop-truth"><div class="truth-label">— Next sequence</div><p><b>Payment verification → CRM/Finance integration → 13/13 verification → Full report delivery.</b> Missing evidence is never filled with a default score.</p></div>
     <div class="pop-disclaimer"><b>Privacy:</b> the client report does not expose proprietary source identities, provider relationships, competitor identities, model weights or scoring formulas.</div>
     <div class="pop-actions"><button class="pop-btn pop-btn-primary" onclick="checkCatPayment()">Check Payment Status</button><button class="pop-btn pop-btn-ghost" onclick="closePopup('popup-post-payment')">Return to Dashboard</button></div>
   </div>
@@ -763,7 +763,7 @@ td { padding: 12px 8px; border-bottom: 1px solid #111827; font-family: 'IBM Plex
     <div class="pop-kicker"><span class="line"></span>Full CAT Intelligence report delivered</div>
     <div class="pop-check">✓</div>
     <h2 class="pop-headline">Thank you for using <span class="accent">CAT Intelligence.</span></h2>
-    <p class="pop-sub">Your 12-factor report is now available in the dashboard. That report is a verified deployment decision snapshot. The market does not stop moving after the report is delivered.</p>
+    <p class="pop-sub">Your 13-factor report is now available in the dashboard. That report is a verified deployment decision snapshot. The market does not stop moving after the report is delivered.</p>
     <div class="pop-truth"><div class="truth-label">— Why Weekly Tracking comes next</div><p>Once crews and capital are committed, the risk changes from <b>“Should we enter?”</b> to <b>“Has the market changed enough that we should react?”</b> Weekly Deployment Tracking exists for that second question.</p></div>
     <div class="pop-loss">
       <div class="pop-loss-title">If you deploy without continuing intelligence</div>
@@ -1094,7 +1094,7 @@ function adminSourceHealth() {
     if (!res.success) { alert('Source-health check failed: ' + (res.error || 'unknown error')); return; }
     var ready = (res.factors || []).filter(function(f){ return f.ready; }).length;
     var actionRequired = (res.factors || []).filter(function(f){ return !f.ready; }).map(function(f){ return f.label; });
-    var msg = '12-factor preflight: ' + ready + '/12 ready. Model: ' + (res.model_status || '—') + '.';
+    var msg = '13-factor preflight: ' + ready + '/13 ready. Model: ' + (res.model_status || '—') + '.';
     if (actionRequired.length) msg += '\n\nAction required: ' + actionRequired.join(', ') + '.';
     else msg += '\n\nPremium report preflight passed.';
     alert(msg);
@@ -1245,14 +1245,14 @@ function showPreview(data) {
 
   document.getElementById('pv-location').textContent = (data.city || 'ZIP') + (data.state ? ', ' + data.state : '') + ' (' + state.currentZip + ')';
   document.getElementById('pop1-zone-label').textContent = (data.city || 'ZIP ' + state.currentZip) + (data.state ? ', ' + data.state : '');
-  document.getElementById('pv-score').textContent = '3 OF 12';
+  document.getElementById('pv-score').textContent = '3 OF 13';
   document.getElementById('pv-score-note').textContent = 'NO FINAL SCORE OR VERDICT FROM FREE PREVIEW';
 
   var byId = {};
   (data.factors || []).forEach(function(f) { byId[f.id] = f; });
   renderPreviewFactor_('hail', byId.hail);
   renderPreviewFactor_('wind', byId.wind);
-  renderPreviewFactor_('envelope_density', byId.envelope_density);
+  renderPreviewFactor_('rain', byId.rain);
 
   var unlockBtn = document.getElementById('btn-unlock-full');
   if (unlockBtn) {
@@ -1356,7 +1356,7 @@ function loadFullReport(token) {
 function loadVerifiedFullReport_(token) {
   var card = document.getElementById('full-report-card');
   card.style.display = 'block';
-  document.getElementById('full-report-message').textContent = 'Verifying all 12 factors against current data...';
+  document.getElementById('full-report-message').textContent = 'Verifying all 13 factors against current data...';
   document.getElementById('full-factor-list').innerHTML = '';
   apiGet({
     action:'getFullReport', zip:state.currentZip,
@@ -1374,7 +1374,7 @@ function loadVerifiedFullReport_(token) {
       document.getElementById('full-verdict').className='badge-status bg-amber';
       document.getElementById('full-score').textContent='—';
       document.getElementById('full-status').textContent='REPORT NOT RELEASED';
-      document.getElementById('full-report-message').textContent=d.message || 'The full report will render only after all 12 current intelligence checks pass.';
+      document.getElementById('full-report-message').textContent=d.message || 'The full report will render only after all 13 current intelligence checks pass.';
       document.getElementById('full-factor-list').innerHTML='';
       return;
     }
@@ -1385,7 +1385,7 @@ function loadVerifiedFullReport_(token) {
 
 function renderCatReportData_(d,zip,showThankYou){
   var card=document.getElementById('full-report-card');card.style.display='block';document.getElementById('full-location').textContent=(d.city||'ZIP')+(d.state?', '+d.state:'')+' ('+(zip||d.zip||'')+')';
-  if(d.report_status!=='VERIFIED'){document.getElementById('full-verdict').textContent='LIVE VERIFICATION IN PROGRESS';document.getElementById('full-verdict').className='badge-status bg-amber';document.getElementById('full-score').textContent='—';document.getElementById('full-status').textContent='REPORT NOT RELEASED';document.getElementById('full-report-message').textContent=d.message||'The full report will render only after all 12 current intelligence checks pass.';document.getElementById('full-factor-list').innerHTML='';return;}
+  if(d.report_status!=='VERIFIED'){document.getElementById('full-verdict').textContent='LIVE VERIFICATION IN PROGRESS';document.getElementById('full-verdict').className='badge-status bg-amber';document.getElementById('full-score').textContent='—';document.getElementById('full-status').textContent='REPORT NOT RELEASED';document.getElementById('full-report-message').textContent=d.message||'The full report will render only after all 13 current intelligence checks pass.';document.getElementById('full-factor-list').innerHTML='';return;}
   document.getElementById('full-verdict').textContent=d.verdict||'VERIFIED';document.getElementById('full-verdict').className='badge-status bg-green';document.getElementById('full-score').textContent=d.score===null||d.score===undefined?'—':d.score;document.getElementById('full-status').textContent='12 / 12 FACTORS VERIFIED';document.getElementById('full-report-message').textContent=d.guidance||'';var wrap=document.getElementById('full-factor-list');wrap.innerHTML='';(d.factors||[]).forEach(function(f){var item=document.createElement('div');item.className='full-report-factor';var h=document.createElement('h4');h.textContent=f.label||f.id;var meta=document.createElement('div');meta.className='full-report-meta';meta.textContent=humanStatus_(f.data_status)+' · '+formatFactorValue_(f)+(f.score===null||f.score===undefined?'':' · Factor score '+f.score);var sm=document.createElement('div');sm.className='full-report-summary';sm.textContent=f.summary||'';var gd=document.createElement('div');gd.className='full-report-guidance';gd.textContent=f.guidance||'';item.appendChild(h);item.appendChild(meta);item.appendChild(sm);item.appendChild(gd);wrap.appendChild(item);});card.scrollIntoView({behavior:'smooth',block:'start'});loadRetainerOffer('CAT','cat-retainer-offer');
   if(showThankYou){var k='optima_cat_report_thanked_'+String(state.report_token||'').slice(-12);if(!sessionStorage.getItem(k)){sessionStorage.setItem(k,'1');setTimeout(function(){openPopup('popup-post-cat-report');},650);}}
 }
@@ -1715,7 +1715,7 @@ function startCustomOfferPayment(offerId,service,total){
   document.getElementById('retainer-payment-title').innerHTML=service+' CUSTOM — <span class="accent">'+money_(state.pendingRetainerTotal)+' prepaid.</span>';document.getElementById('retainer-payment-desc').textContent='You accepted this private Custom offer. Activation occurs only after independent payment verification; monthly credits are then released according to the finalized private terms.';openPopup('popup-retainer-payment');
 }
 function loadDashboardMessages(){
-  var clientId=getClientId_(),wrap=document.getElementById('dashboard-messages-list');if(!clientId||!wrap){renderReportAnnouncement_([]);return;}apiGet({action:'getDashboardMessages',client_id:clientId,limit:50},function(res){if(!res.success)return;var messages=res.messages||[];wrap.innerHTML='';if(!messages.length){wrap.innerHTML='<p style="font-size:13px;color:var(--text-muted);">No messages yet.</p>';}else{messages.forEach(function(m){var d=document.createElement('div');d.className='full-report-factor';var btn='';if(String(m.category)==='REPORT_AVAILABLE'&&String(m.status).toUpperCase()==='UNREAD')btn='<button class="admin-btn" style="margin-top:10px;" onclick="openReportAnnouncementById(\''+String(m.message_id)+'\')">Open Report</button>';d.innerHTML='<h4>'+String(m.title||'Update')+'</h4><div class="full-report-meta">'+formatDate(m.created_at)+' · '+String(m.status||'')+'</div><div class="full-report-summary">'+String(m.body||'')+'</div>'+(m.dashboard_path?'<div style="font-size:11px;color:var(--cyber-blue);margin-top:8px;">Location: '+String(m.dashboard_path)+'</div>':'')+btn;d.dataset.messageId=String(m.message_id||'');wrap.appendChild(d);});}
+  var clientId=getClientId_(),wrap=document.getElementById('dashboard-messages-list');if(!clientId||!wrap){renderReportAnnouncement_([]);return;}apiGet({action:'getDashboardMessages',client_id:clientId,limit:50},function(res){if(!res.success)return;var messages=res.messages||[];wrap.innerHTML='';if(!messages.length){wrap.innerHTML='<p style="font-size:13px;color:var(--text-muted);">No new notifications.</p>';}else{messages.forEach(function(m){var d=document.createElement('div');d.className='full-report-factor';var btn='';if(String(m.category)==='REPORT_AVAILABLE'&&String(m.status).toUpperCase()==='UNREAD')btn='<button class="admin-btn" style="margin-top:10px;" onclick="openReportAnnouncementById(\''+String(m.message_id)+'\')">Open Report</button>';d.innerHTML='<h4>'+String(m.title||'Update')+'</h4><div class="full-report-meta">'+formatDate(m.created_at)+' · '+String(m.status||'')+'</div><div class="full-report-summary">'+String(m.body||'')+'</div>'+(m.dashboard_path?'<div style="font-size:11px;color:var(--cyber-blue);margin-top:8px;">Location: '+String(m.dashboard_path)+'</div>':'')+btn;d.dataset.messageId=String(m.message_id||'');wrap.appendChild(d);});}
     state.dashboardMessages=messages;renderReportAnnouncement_(messages);
   });
 }
