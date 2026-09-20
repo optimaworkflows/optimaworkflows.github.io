@@ -50,10 +50,27 @@ body {
 .user-name { color: #fff; font-weight: 800; }
 .user-tier { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--cyber-amber); }
 .logout-btn { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--cyber-red); cursor: pointer; margin-top: 8px; }
+.portal-login-btn { font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--cyber-green); cursor:pointer; margin-top:8px; }
+.portal-auth-note { font-size:10px; color:var(--text-detail); margin-top:5px; line-height:1.45; }
+.report-library-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:12px; }
+.report-library-card { background:#080d17; border:1px solid var(--border-hairline); border-radius:9px; padding:16px; }
+.report-library-card h4 { font-size:13px; margin-bottom:6px; }
+.report-library-meta { font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--text-detail); line-height:1.6; margin-bottom:10px; }
 .admin-toggle { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--cyber-blue); cursor: pointer; margin-top: 8px; text-transform: uppercase; letter-spacing: 0.05em; }
 
 /* ============ MAIN ============ */
 .main-viewport { flex: 1; padding: 24px 32px; overflow-y: auto; background: radial-gradient(circle at 80% 20%, rgba(0, 255, 163, 0.02), transparent 40%), var(--bg-deep); width: 100%; }
+.report-announcement-banner { display:none; position:sticky; top:0; z-index:60; margin:-6px 0 18px; border:1px solid rgba(255,184,0,.55); border-left:4px solid var(--cyber-amber); border-radius:10px; background:rgba(11,16,27,.97); box-shadow:0 14px 34px rgba(0,0,0,.34); padding:14px 16px; backdrop-filter:blur(10px); }
+.report-announcement-banner.active { display:block; }
+.report-announcement-head { display:flex; justify-content:space-between; align-items:flex-start; gap:16px; }
+.report-announcement-kicker { font-family:'IBM Plex Mono',monospace; font-size:9px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; color:var(--cyber-amber); margin-bottom:5px; }
+.report-announcement-title { font-size:14px; font-weight:900; color:#fff; }
+.report-announcement-meta { margin-top:5px; font-size:11px; color:var(--text-muted); line-height:1.55; }
+.report-announcement-actions { display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end; }
+.report-announcement-btn { border:1px solid rgba(255,184,0,.5); background:var(--cyber-amber); color:#06090f; border-radius:6px; padding:9px 12px; font-size:10px; font-weight:900; cursor:pointer; text-transform:uppercase; white-space:nowrap; }
+.report-announcement-count { font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--text-detail); margin-top:8px; }
+.report-announcement-banner.reminder { animation:reportAttention 2.2s ease-in-out infinite; }
+@keyframes reportAttention { 0%,100%{box-shadow:0 14px 34px rgba(0,0,0,.34)} 50%{box-shadow:0 14px 42px rgba(255,184,0,.18)} }
 h1 { font-size: 24px; font-weight: 900; margin-bottom: 4px; letter-spacing: -0.01em; }
 .lead { font-size: 14px; color: var(--text-muted); margin-bottom: 20px; }
 .card { background: var(--bg-card); border: 1px solid var(--border-hairline); border-radius: 12px; padding: 22px; margin-bottom: 20px; width: 100%; }
@@ -238,6 +255,22 @@ td { padding: 12px 8px; border-bottom: 1px solid #111827; font-family: 'IBM Plex
 .email-value-block input { margin-bottom: 10px; }
 .email-value-block .privacy-note { font-size: 11px; color: var(--text-detail); margin-top: 8px; letter-spacing: 0.01em; }
 
+
+/* ============ CAT LIVE INTELLIGENCE ============ */
+.auto-intel-box { min-height:44px; display:flex; align-items:center; gap:10px; background:#03060c; border:1px solid #2a3a55; border-radius:7px; padding:12px 14px; color:var(--cyber-green); font-family:'IBM Plex Mono',monospace; font-size:12px; }
+.preview-factor-value { font-family:'IBM Plex Mono',monospace; font-weight:800; color:#fff; }
+.preview-factor-status { font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--text-detail); margin-top:3px; }
+.locked-factor-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:8px; margin:14px 0 6px; }
+.locked-factor { border:1px solid rgba(255,107,107,.25); background:rgba(255,107,107,.035); border-radius:7px; padding:10px 12px; color:var(--text-muted); font-size:12px; }
+.full-report-card { display:none; border-top:4px solid var(--cyber-green); }
+.full-report-factor { border-bottom:1px solid #111827; padding:16px 0; }
+.full-report-factor:last-child { border-bottom:none; }
+.full-report-factor h4 { font-size:14px; margin-bottom:7px; }
+.full-report-meta { font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:var(--text-detail); margin-bottom:7px; }
+.full-report-summary { font-size:13px; color:var(--text-soft); line-height:1.65; }
+.full-report-guidance { margin-top:7px; font-size:12.5px; color:var(--text-muted); line-height:1.6; }
+.privacy-safe-note { font-size:11px; color:var(--text-detail); line-height:1.6; margin-top:10px; }
+
 /* Responsive */
 @media(max-width: 720px) {
   .sidebar { width: 240px; min-width: 240px; }
@@ -269,6 +302,7 @@ td { padding: 12px 8px; border-bottom: 1px solid #111827; font-family: 'IBM Plex
 
       <div class="section-label">Billing</div>
       <div class="nav-item" id="nav-billing" onclick="switchTab('view-billing', this)"><span>💳 Payment Center</span></div>
+      <div class="nav-item hidden-service" id="nav-report-library" onclick="switchTab('view-report-library', this)"><span>📚 Report Library</span></div>
 
       <div class="section-label">Account</div>
       <div class="nav-item" onclick="switchTab('view-settings', this)"><span>🔐 Settings</span></div>
@@ -281,6 +315,8 @@ td { padding: 12px 8px; border-bottom: 1px solid #111827; font-family: 'IBM Plex
     <div class="user-block">
       <div class="user-name" id="user-name-display">—</div>
       <div class="user-tier" id="user-tier-label">—</div>
+      <div class="portal-login-btn" id="portal-auth-action" onclick="openPortalLogin()">Secure Client Sign In</div>
+      <div class="portal-auth-note" id="portal-auth-note">Passwordless access to your private reports and service history.</div>
       <div class="admin-toggle" onclick="toggleAdminMode()">🔓 Toggle Admin View</div>
       <div class="logout-btn" onclick="logout()">⏻ Logout</div>
     </div>
@@ -288,6 +324,13 @@ td { padding: 12px 8px; border-bottom: 1px solid #111827; font-family: 'IBM Plex
 
   <!-- ============ MAIN VIEWPORT ============ -->
   <main class="main-viewport">
+
+    <div class="report-announcement-banner" id="report-announcement-banner" role="status" aria-live="polite">
+      <div class="report-announcement-head">
+        <div><div class="report-announcement-kicker" id="report-announcement-kicker">REPORT AVAILABLE</div><div class="report-announcement-title" id="report-announcement-title">A new report is ready in your dashboard.</div><div class="report-announcement-meta" id="report-announcement-meta"></div><div class="report-announcement-count" id="report-announcement-count"></div></div>
+        <div class="report-announcement-actions"><button class="report-announcement-btn" id="report-announcement-open" type="button">Open Report</button></div>
+      </div>
+    </div>
 
     <!-- ADMIN CONSOLE -->
     <div class="admin-console" id="admin-console">
@@ -320,6 +363,14 @@ td { padding: 12px 8px; border-bottom: 1px solid #111827; font-family: 'IBM Plex
           <label>Admin Key</label>
           <input type="password" id="admin-key-input" placeholder="Enter admin key" onchange="saveAdminKey(this.value)">
         </div>
+        <div class="admin-control-group">
+          <label>Payment ID to Verify</label>
+          <input type="text" id="admin-payment-id" placeholder="PAY-XXXXXXXX">
+        </div>
+        <div class="admin-control-group">
+          <label>Verified Amount</label>
+          <input type="number" id="admin-verified-amount" min="0" step="0.01" placeholder="7000.00">
+        </div>
       </div>
       <div class="admin-actions">
         <button class="admin-btn" onclick="adminTriggerPopup('post-payment')">Trigger Post-Payment Pop-up</button>
@@ -327,6 +378,8 @@ td { padding: 12px 8px; border-bottom: 1px solid #111827; font-family: 'IBM Plex
         <button class="admin-btn" onclick="adminTriggerPopup('final')">Trigger Final Pop-up</button>
         <button class="admin-btn warn" onclick="adminResetSim()">Reset Simulation</button>
         <button class="admin-btn danger" onclick="adminRefreshClients()">Refresh Client List</button>
+        <button class="admin-btn" onclick="adminVerifyPayment()">Verify Payment &amp; Issue Report Access</button>
+        <button class="admin-btn" onclick="adminSourceHealth()">Check 12-Factor Source Health</button>
       </div>
     </div>
 
@@ -335,6 +388,14 @@ td { padding: 12px 8px; border-bottom: 1px solid #111827; font-family: 'IBM Plex
       <h1>Executive Command</h1>
       <p class="lead">Live operational overview.</p>
       <div class="card"><h3 class="section-label">Active Deployments</h3><p style="font-size:14px; color:var(--text-muted);">No active deployments. Run a Triage to begin.</p></div>
+      <div class="card" id="dashboard-messages-card"><h3 class="section-label">Messages &amp; Report Notifications</h3><p style="font-size:12px;color:var(--text-muted);margin-bottom:12px;">Custom-package updates and one-line report delivery notices appear here. Each report notice includes its exact dashboard location.</p><div id="dashboard-messages-list"><p style="font-size:13px;color:var(--text-muted);">No messages yet.</p></div></div>
+    </section>
+
+    <!-- SECURE REPORT LIBRARY -->
+    <section id="view-report-library" class="dashboard-tab" style="width:100%;">
+      <h1>Secure Report Library</h1>
+      <p class="lead">Private, client-scoped access to delivered CAT Intelligence, Weekly Review and Storm Audit reports.</p>
+      <div class="card"><div class="section-label">Your Reports</div><div id="report-library-list" class="report-library-grid"><p style="font-size:13px;color:var(--text-muted);">Sign in to load your private report library.</p></div></div>
     </section>
 
     <!-- CAT INTELLIGENCE -->
@@ -354,18 +415,14 @@ td { padding: 12px 8px; border-bottom: 1px solid #111827; font-family: 'IBM Plex
             </div>
           </div>
           <div class="form-row">
-            <div class="form-group"><label>Tech Stack</label>
-              <select id="frm-tech" required>
-                <option value="">Select...</option>
-                <option value="PRO_TECH">Drone Scans</option>
-                <option value="LEGACY_LOW_TECH">Manual Assessment</option>
-              </select>
+            <div class="form-group"><label>Live Hazard Intelligence</label>
+              <div class="auto-intel-box">✓ Hail and wind evidence acquired automatically from Target ZIP</div>
             </div>
-            <div class="form-group"><label>Rain Inches (0 = auto)</label>
-              <input type="number" step="0.1" id="frm-rain" value="0" required>
+            <div class="form-group"><label>Market Intelligence</label>
+              <div class="auto-intel-box">✓ Building, permit, code, labor and competition evidence acquired automatically</div>
             </div>
           </div>
-          <button type="submit" class="btn-primary" id="btn-triage" style="margin-top:16px;">⚡ Run Analysis</button>
+          <button type="submit" class="btn-primary" id="btn-triage" style="margin-top:16px;">⚡ Run Free Preview</button>
         </form>
       </div>
 
@@ -373,72 +430,125 @@ td { padding: 12px 8px; border-bottom: 1px solid #111827; font-family: 'IBM Plex
       <div id="preview-card" class="card" style="display:none; border-top:4px solid var(--cyber-amber);">
         <div class="preview-header">
           <div class="verdict-col">
-            <div class="section-label">Preliminary Verdict</div>
+            <div class="section-label">CAT Intelligence Lead Preview</div>
             <div class="verdict-row">
-              <span id="pv-verdict" class="badge-status bg-green" style="font-size:15px;">HIGH ACTIVITY</span>
-              <span class="preview-badge">Free Preview</span>
+              <span class="preview-badge">Free Preview · 3 of 12 Factors</span>
             </div>
             <div class="pv-location" id="pv-location">—</div>
           </div>
           <div class="score-col">
-            <div class="section-label">Score</div>
-            <div class="pv-score-value" id="pv-score">—</div>
-            <div class="pv-score-note" id="pv-score-note">Up to X% · exact at unlock</div>
+            <div class="section-label">Data Check</div>
+            <div class="pv-score-value" id="pv-score" style="font-size:18px;">3 SIGNALS</div>
+            <div class="pv-score-note" id="pv-score-note">NO DEPLOYMENT VERDICT FROM PREVIEW</div>
           </div>
         </div>
 
-        <p style="font-size:13px; color:var(--cyber-amber); margin-bottom:16px; padding:12px; background:rgba(255,184,0,0.05); border-radius:6px; border:1px solid rgba(255,184,0,0.2);">
-          ⚠️ <strong>ACTIVITY DETECTED — DO NOT DEPLOY BLIND</strong><br>
-          <span style="color:var(--text-muted);">This market is showing strong signals. But deployment without full intel is where roofers lose money. Unlock before you move.</span>
+        <p style="font-size:13px; color:var(--cyber-amber); margin-bottom:16px; padding:12px; background:rgba(255,184,0,0.05); border-radius:6px; border:1px solid rgba(255,184,0,0.2); line-height:1.65;">
+          <strong>FREE PREVIEW — CURRENT ZONE SIGNALS</strong><br>
+          <span style="color:var(--text-muted);">These three factors are calculated from current retrieved hazard and commercial-envelope evidence. They are intentionally not treated as a full deployment decision.</span>
         </p>
 
         <table>
-          <tr><th>Factor</th><th>Signal</th><th>Weight</th></tr>
-          <tr><td><strong>Rain Saturation</strong><br><span id="pv-rain-desc">Detected</span></td><td style="color:var(--cyber-green); font-weight:800;">Event signal detected</td><td>15%</td></tr>
-          <tr><td><strong>Market Activity</strong><br><span id="pv-density-desc">Detected</span></td><td style="color:var(--cyber-amber); font-weight:800;">Competition increasing daily</td><td>10%</td></tr>
-          <tr><td><strong>Tech Stack</strong><br><span id="pv-tech-desc">Detected</span></td><td style="color:var(--cyber-green); font-weight:800;">🟢 Pro Tech ready</td><td>10%</td></tr>
+          <tr><th>Factor</th><th>Current Signal</th><th>What It Means</th></tr>
+          <tr><td><strong>Hail Diameter &amp; Impact Energy</strong><div class="preview-factor-status" id="pv-hail-status">—</div></td><td class="preview-factor-value" id="pv-hail-value">—</td><td id="pv-hail-desc">—</td></tr>
+          <tr><td><strong>Wind Velocity &amp; Lift Exposure</strong><div class="preview-factor-status" id="pv-wind-status">—</div></td><td class="preview-factor-value" id="pv-wind-value">—</td><td id="pv-wind-desc">—</td></tr>
+          <tr><td><strong>Commercial Envelope Square Footage Density</strong><div class="preview-factor-status" id="pv-envelope_density-status">—</div></td><td class="preview-factor-value" id="pv-envelope_density-value">—</td><td id="pv-envelope_density-desc">—</td></tr>
         </table>
 
         <div id="admin-factor-panel" style="display:none; margin-top:20px; padding:16px; background:#03060c; border:1px solid var(--border-hairline); border-radius:8px;">
-          <div class="section-label" style="margin:0 0 10px 0; color:var(--cyber-blue);">⚙ Admin — All 12 Factors</div>
+          <div class="section-label" style="margin:0 0 10px 0; color:var(--cyber-blue);">⚙ Admin — Live 12-Factor Diagnostic</div>
           <table id="admin-factor-table">
-            <tr><th>Factor</th><th>Score</th><th>Weight</th><th>Reasoning</th></tr>
+            <tr><th>Factor</th><th>Status</th><th>Current Signal</th><th>Guidance</th></tr>
           </table>
         </div>
 
         <div class="loss-box" style="margin-top:20px;">
-          <div class="loss-title">⚠️ 9 HIDDEN FACTORS — YOU'RE FLYING BLIND</div>
-          <div class="loss-item">🔒 Mobilization risk analysis</div>
-          <div class="loss-item">🔒 Claim-worthiness assessment</div>
-          <div class="loss-item">🔒 Adjuster approval probability</div>
-          <div class="loss-item">🔒 Carrier payment timeline</div>
-          <div class="loss-item">🔒 Per-roof cost model</div>
-          <div class="loss-item">🔒 Labor &amp; material readiness</div>
-          <div class="loss-item">🔒 Margin forecast</div>
-          <div class="loss-item">🔒 Deployment exit signals</div>
-          <div style="margin-top:12px; padding-top:12px; border-top:1px solid rgba(255,107,107,0.4);">
-            <div style="font-size:14px; color:#fff;">💰 Value at stake: <span id="loss-gross" style="color:var(--cyber-amber);">Up to $550K+</span></div>
-            <div class="loss-big">📉 Cost of deploying blind: <span id="loss-amount" style="color:var(--cyber-red);">$250K+ at risk</span></div>
-            <div style="font-size:14px; color:var(--cyber-green); font-weight:800;">✅ Cost of knowing: $7,000</div>
+          <div class="loss-title">🔒 9 FACTORS REMAIN LOCKED</div>
+          <div class="loss-item">The free preview can identify current signals, but it cannot tell you whether the zone clears the operational risks that determine whether a deployment should proceed.</div>
+          <div class="locked-factor-grid">
+            <div class="locked-factor">🔒 Commercial Building Envelope Age</div>
+            <div class="locked-factor">🔒 Building Construction Material Grid</div>
+            <div class="locked-factor">🔒 Permit Processing Latency</div>
+            <div class="locked-factor">🔒 Municipal Building Code Rigidity</div>
+            <div class="locked-factor">🔒 Insurance Coverage &amp; Claim Economics</div>
+            <div class="locked-factor">🔒 Specialty Labor Infrastructure</div>
+            <div class="locked-factor">🔒 Competitor Saturation</div>
+            <div class="locked-factor">🔒 Historical Claim / Repair Outcomes</div>
+            <div class="locked-factor">🔒 Cash Conversion / Payment Timing</div>
           </div>
+          <div style="margin-top:14px; padding-top:14px; border-top:1px solid rgba(255,107,107,0.35); line-height:1.7; color:var(--text-soft);">
+            <strong style="color:var(--cyber-red);">The exposure:</strong> without those nine checks, crew mobilization, travel, material commitments and working capital can be committed before roof vulnerability, permitting, code exposure, labor capacity, competitive pressure, claim economics and cash timing have been verified.
+          </div>
+          <div style="font-size:14px; color:var(--cyber-green); font-weight:800; margin-top:12px;">Unlock all 12 verified factors before committing deployment capital.</div>
         </div>
 
         <div style="margin-top:16px; padding:14px; background:rgba(0,255,163,0.03); border:1px solid rgba(0,255,163,0.2); border-radius:8px;">
-          <div style="font-size:13px; color:var(--cyber-green); font-weight:800; margin-bottom:4px;">⚡ Every day you wait, the mobilization window narrows.</div>
-          <div style="font-size:12px; color:var(--text-muted);">Days 1–7 are when CAT markets get claimed. After Day 10, materials are gone and margins collapse.</div>
+          <div style="font-size:13px; color:var(--cyber-green); font-weight:800; margin-bottom:4px;">Current conditions can change.</div>
+          <div style="font-size:12px; color:var(--text-muted);">The paid report is rebuilt from current data and is released only when all required factors pass verification. Missing data is never replaced with a default.</div>
         </div>
 
-        <button class="btn-primary" onclick="unlockFullReport()" style="margin-top:16px;">🔓 Unlock Full Intel — $7,000</button>
+        <button class="btn-primary" id="btn-unlock-full" onclick="unlockFullReport()" style="margin-top:16px;">🔓 Unlock Full 12-Factor Intel — $7,000</button>
 
         <!-- EMAIL CAPTURE (only for organic visitors without email) -->
         <div class="email-value-block" id="email-capture-block" style="display:none;">
           <div class="block-title">Stay Ahead of Your Zone</div>
-          <p>Get the last 30 days of roofing permit activity for <b id="email-zip-display">your ZIP</b>, plus alerts whenever your zone crosses a critical threshold.</p>
+          <p>Get current activity updates for <b id="email-zip-display">your ZIP</b> and alerts when your zone intelligence changes materially.</p>
           <input type="email" id="prospect-email" placeholder="your@email.com">
           <button class="btn-secondary" onclick="captureProspectEmail()">Send &amp; Subscribe</button>
-          <div class="privacy-note">Two things. Free. No spam. Unsubscribe anytime.</div>
+          <div class="privacy-note">Free. No spam. Unsubscribe anytime.</div>
         </div>
       </div>
+
+      <!-- CLIENT DATA ONBOARDING — POST PAYMENT -->
+      <div id="client-data-onboarding" class="card" style="display:none; border-top:4px solid var(--cyber-blue);">
+        <div class="section-label" style="color:var(--cyber-blue);">Post-Payment Personalization</div>
+        <h2 style="font-size:24px; margin:6px 0 10px;">Make the recommendation specific to your business.</h2>
+        <p style="font-size:14px; color:var(--text-soft); line-height:1.75; max-width:850px;">
+          Weather tells us what happened in the market. Public market and regulatory data tell us what opportunity may exist. Your own operating history tells us whether <strong>your company</strong> has converted comparable opportunities successfully. That is why CAT Intelligence asks for a secure CRM connection after payment before releasing the personalized recommendation.
+        </p>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:10px; margin:16px 0;">
+          <div style="padding:14px; border:1px solid var(--border-hairline); border-radius:8px;"><b style="color:#fff;">Factor 11</b><div style="font-size:12px;color:var(--text-muted);margin-top:5px;line-height:1.6;">Uses normalized historical deployments, opportunities, wins and comparable-market outcomes.</div></div>
+          <div style="padding:14px; border:1px solid var(--border-hairline); border-radius:8px;"><b style="color:#fff;">Factor 12</b><div style="font-size:12px;color:var(--text-muted);margin-top:5px;line-height:1.6;">Uses verified cash-conversion timing. If your CRM lacks reliable payment dates, we request an accounting/ERP connection.</div></div>
+          <div style="padding:14px; border:1px solid var(--border-hairline); border-radius:8px;"><b style="color:#fff;">Learning</b><div style="font-size:12px;color:var(--text-muted);margin-top:5px;line-height:1.6;">Actual outcomes feed supervised calibration proposals. Production model changes still require explicit approval.</div></div>
+        </div>
+        <div style="padding:12px 14px; background:rgba(0,255,163,0.03); border:1px solid rgba(0,255,163,0.18); border-radius:8px; font-size:12px; color:var(--text-muted); line-height:1.65;">
+          <strong style="color:var(--cyber-green);">Data minimization:</strong> the factor engine requires normalized operating/outcome fields, not salesperson notes, passwords or unrelated contact records. Read-only access is requested wherever the connected system supports it.
+        </div>
+        <div id="client-data-readiness" style="margin:14px 0; font-size:13px; color:var(--text-muted);">Checking data readiness…</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>CRM / Operating System</label>
+            <select id="crm-provider">
+              <option value="ACCULYNX">AccuLynx</option><option value="JOBNIMBUS">JobNimbus</option><option value="SALESFORCE">Salesforce</option><option value="HUBSPOT">HubSpot</option><option value="SERVICETITAN">ServiceTitan</option><option value="ROOFR">Roofr</option><option value="OTHER">Other / Assisted Secure Import</option>
+            </select>
+          </div>
+          <div class="form-group"><label>Connection Type</label><select id="crm-system-type"><option value="CRM">CRM</option><option value="ERP">ERP / Operations</option><option value="ASSISTED_IMPORT">Assisted Secure Import</option></select></div>
+        </div>
+        <button class="btn-primary" onclick="beginClientIntegration('CRM')">🔐 Connect CRM &amp; Continue</button>
+        <button class="btn-secondary" id="btn-connect-accounting" onclick="beginClientIntegration('ACCOUNTING')" style="margin-top:8px;">Connect Accounting / ERP for Payment Timing</button>
+        <div id="integration-message" style="margin-top:12px; font-size:12px; color:var(--text-muted); line-height:1.6;"></div>
+      </div>
+
+      <!-- FULL REPORT -->
+      <div id="full-report-card" class="card full-report-card">
+        <div class="preview-header">
+          <div class="verdict-col">
+            <div class="section-label">Full CAT Intelligence</div>
+            <div class="verdict-row"><span id="full-verdict" class="badge-status bg-green">—</span></div>
+            <div class="pv-location" id="full-location">—</div>
+          </div>
+          <div class="score-col">
+            <div class="section-label">Decision Score</div>
+            <div class="pv-score-value" id="full-score">—</div>
+            <div class="pv-score-note" id="full-status">VERIFICATION REQUIRED</div>
+          </div>
+        </div>
+        <div id="full-report-message" style="font-size:13px; color:var(--text-muted); line-height:1.7;"></div>
+        <div id="full-factor-list" style="margin-top:14px;"></div>
+        <div class="privacy-safe-note">Client output contains operational intelligence only. Proprietary sources, provider identities, competitor identities, weights and calculation methods are not displayed.</div>
+      </div>
+
+      <div id="cat-retainer-offer" class="card" style="display:none; border-left:3px solid var(--cyber-green);"></div>
 
       <!-- PAYMENT SCREEN (CAT) -->
       <div id="payment-screen" class="card" style="display:none; border-top:4px solid var(--cyber-green);">
@@ -478,118 +588,121 @@ td { padding: 12px 8px; border-bottom: 1px solid #111827; font-family: 'IBM Plex
 
     <!-- WEEKLY REVIEW -->
     <section id="view-weekly" class="dashboard-tab" style="width:100%;">
-      <h1>Weekly Review</h1>
-      <p class="lead">Post-deployment zone intelligence — daily for Days 1–15, then weekly.</p>
+      <h1>Weekly Deployment Tracking</h1>
+      <p class="lead">Daily zone intelligence for Days 1–15, then weekly monitoring from Day 16 onward.</p>
 
-      <div class="card" id="weekly-term-card" style="display:none;">
-        <div class="section-label">Current Term</div>
-        <div class="financial-line"><span style="color:var(--text-muted);">Plan</span><span id="weekly-plan">—</span></div>
-        <div class="financial-line"><span style="color:var(--text-muted);">Term Start</span><span id="weekly-term-start">—</span></div>
-        <div class="financial-line"><span style="color:var(--text-muted);">Term End</span><span id="weekly-term-end">—</span></div>
-        <div class="financial-line" style="border-bottom:none;"><span style="color:var(--text-muted);">Status</span><span id="weekly-status" class="badge-status bg-green">Active</span></div>
-
-        <div class="pool-widget" id="weekly-pool-widget">
-          <div class="pool-header">
-            <span class="pool-title">Rollover Pool</span>
-            <span class="pool-total" id="weekly-pool-total">0</span>
-          </div>
-          <div id="weekly-pool-batches"></div>
+      <div class="card" id="weekly-education-card">
+        <h3 class="section-label">Why this exists</h3>
+        <p style="font-size:14px;color:var(--text-soft);line-height:1.75;">The $7,000 CAT Intelligence report is a deployment decision at a point in time. Once crews, materials and capital move into a market, the conditions around that decision keep changing. Weekly Deployment Tracking monitors those changes after deployment so you can see when competitive pressure, permit conditions, labor availability, hazard evidence or other verified zone signals materially shift.</p>
+        <div class="loss-box" style="margin-top:16px;">
+          <div class="loss-title">WITHOUT CONTINUING MONITORING</div>
+          <div class="loss-item">A market can deteriorate after you mobilize, leaving crews and working capital committed against stale assumptions.</div>
+          <div class="loss-item">Competitive intensity, permit friction or labor constraints can change before the next strategic review.</div>
+          <div class="loss-item">The practical exposure is avoidable idle cost, slower conversion, missed response windows and capital tied up in a zone whose conditions have changed.</div>
+          <div style="font-size:11px;color:var(--text-detail);margin-top:10px;line-height:1.6;">No fixed dollar-loss claim is made. Actual loss depends on your deployment size, cost structure, sales conversion and market conditions.</div>
         </div>
+        <div class="financial-line"><span>Phase 1 · Days 1–15</span><span style="color:var(--cyber-amber);font-weight:800;">$18,750 prepaid · daily</span></div>
+        <div class="financial-line"><span>Phase 2 · Day 16 onward</span><span style="color:var(--cyber-blue);font-weight:800;">$8,750 per prepaid week</span></div>
+        <p style="font-size:11px;color:var(--text-detail);margin-top:12px;line-height:1.6;">Weekly Deployment Tracking is a phase-based monitoring service, not a retainer. Reports are delivered in this dashboard. It does not guarantee claim approval, payment timing, competitive outcomes, material availability or a specific financial result.</p>
+      </div>
+
+      <div class="card" id="weekly-enrollment-card" style="display:none;">
+        <h3 class="section-label">Current Service</h3>
+        <div class="financial-line"><span>Status</span><span id="weekly-status" class="badge-status bg-green">—</span></div>
+        <div class="financial-line"><span>Phase</span><span id="weekly-phase">—</span></div>
+        <div class="financial-line"><span>Started</span><span id="weekly-term-start">—</span></div>
+        <div class="financial-line"><span>Paid Through</span><span id="weekly-paid-through">—</span></div>
+        <button class="btn-primary" id="btn-weekly-phase2" onclick="startWeeklyPhase2Purchase()" style="display:none;margin-top:16px;">Continue Weekly Monitoring — $8,750</button>
       </div>
 
       <div class="card" id="weekly-empty-card">
-        <h3 class="section-label">Phase 1 — Days 1–15 (Daily)</h3>
-        <p style="font-size:14px; color:var(--text-muted); margin-bottom:16px;">Daily zone intelligence while the market is moving fastest.</p>
-        <div class="financial-line"><span>Phase 1 prepaid</span><span style="color:var(--cyber-amber); font-weight:800;">$18,750</span></div>
-        <div style="margin-top:16px; font-size:13px; color:var(--text-muted); line-height:1.65;">Phase 2 (Days 16+) continues at $8,750/week on a prepaid term basis.</div>
-        <button class="btn-primary" style="margin-top:16px;">Enroll in Weekly Review</button>
+        <h3 class="section-label">Start Phase 1</h3>
+        <p style="font-size:14px;color:var(--text-muted);margin-bottom:16px;line-height:1.65;">Phase 1 begins only after a full CAT Intelligence report has been delivered for the zone. Payment is independently verified before monitoring is activated.</p>
+        <button class="btn-primary" onclick="startWeeklyPurchase()">Start 15-Day Daily Tracking — $18,750</button>
+      </div>
+
+      <div class="card" id="weekly-reports-card">
+        <h3 class="section-label">Weekly Service Reports</h3>
+        <p style="font-size:12px;color:var(--text-muted);margin-bottom:14px;">Current monitoring reports are retained here for dashboard access.</p>
+        <div id="weekly-reports-list"><p style="font-size:13px;color:var(--text-muted);">No monitoring reports yet.</p></div>
+      </div>
+
+      <div class="card" id="weekly-retainer-rule" style="border-left:3px solid var(--cyber-blue);">
+        <h3 class="section-label">Commercial Rule</h3>
+        <p style="font-size:13px;color:var(--text-muted);line-height:1.65;">Weekly Deployment Tracking does not convert to a retainer. Retainer offers apply only to CAT Intelligence and Storm Audit, and are surfaced when the client returns for a second distinct service zone.</p>
       </div>
     </section>
 
     <!-- STORM AUDIT -->
     <section id="view-storm-audit" class="dashboard-tab" style="width:100%;">
       <h1>Storm Audit</h1>
-      <p class="lead">Commercial code-compliance review of your prepared scope.</p>
+      <p class="lead">Current-rule commercial scope review before you rely on the submitted estimate.</p>
 
-      <div class="card">
-        <h3 class="section-label">What We Audit</h3>
-        <div class="financial-line"><span>IBC 1507.2.8.1 — Ice &amp; Water Underlayment</span><span>Line-by-line review</span></div>
-        <div class="financial-line"><span>IBC 1503.2 — Drip Edge</span><span>Line-by-line review</span></div>
-        <div class="financial-line"><span>IBC 1507.2.8.2 — Valley Lining</span><span>Line-by-line review</span></div>
-        <div class="financial-line"><span>FM 1-28 / UL 580 — Wind Uplift</span><span>Commercial compliance</span></div>
-        <div class="financial-line"><span>IPC 1101 — Roof Drain / Scupper</span><span>Commercial compliance</span></div>
-        <div class="financial-line"><span>+ 7 more commercial items</span><span>12-factor audit</span></div>
-        <div class="financial-line" style="border-bottom:none;"><span>Cost</span><span style="color:var(--cyber-amber); font-weight:800;">$3,500/roof · $1,650–$2,475 on retainer</span></div>
+      <div class="card" id="storm-education-card">
+        <h3 class="section-label">Why a separate scope audit matters</h3>
+        <p style="font-size:14px;color:var(--text-soft);line-height:1.75;">CAT Intelligence answers whether a zone is attractive for your company. Weekly Tracking monitors how that zone changes after deployment. Storm Audit answers a different question: whether the roof scope you are about to rely on contains the current, documentable items that can be verified from the submitted scope and jurisdiction rules.</p>
+        <div class="financial-line"><span>Current jurisdiction requirements</span><span>Verified at audit time</span></div>
+        <div class="financial-line"><span>Scope omissions and documentation gaps</span><span>Line-by-line review</span></div>
+        <div class="financial-line"><span>Commercial roof assembly requirements</span><span>Jurisdiction-specific</span></div>
+        <div class="financial-line"><span>Drainage, flashing, attachment and envelope details</span><span>Current rule set</span></div>
+        <div class="loss-box" style="margin-top:16px;">
+          <div class="loss-title">WITHOUT A CURRENT SCOPE AUDIT</div>
+          <div class="loss-item">Documentable required items can remain absent from the working scope.</div>
+          <div class="loss-item">Unresolved scope gaps can create rework, supplement delay, unrecovered project cost or margin erosion.</div>
+          <div class="loss-item">The exposure increases when the team relies on old rules, assumptions or an incomplete carrier/contractor estimate.</div>
+          <div style="font-size:11px;color:var(--text-detail);margin-top:10px;line-height:1.6;">No dollar recovery is promised. A dollar impact is shown only where the submitted documents and current pricing/rule evidence support it.</div>
+        </div>
+        <div class="financial-line" style="border-bottom:none;"><span>First purchase</span><span style="color:var(--cyber-amber);font-weight:800;">$3,500 per roof</span></div>
+        <p style="font-size:11px;color:var(--text-detail);margin-top:12px;line-height:1.6;">A Storm retainer offer is presented when the client returns for a second distinct service zone, before another per-roof purchase. Findings are delivered in this dashboard. This is a clerical, document-based code-compliance review—not a field inspection, damage verification or carrier negotiation.</p>
       </div>
 
-      <div class="card">
-        <h2 style="font-size: 22px; font-weight: 800; margin-bottom: 8px;">Submit Your Scope Documents</h2>
-        <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 20px;">Share the documents below to begin your Storm Audit. Code-compliance cross-referencing starts the moment your files land.</p>
+      <div class="card" id="storm-purchase-card">
+        <h3 class="section-label">Purchase One Roof Audit</h3>
+        <p style="font-size:13px;color:var(--text-muted);line-height:1.65;">Each per-roof payment creates one verified Storm Audit entitlement. Scope submission remains locked until payment confirmation.</p>
+        <button class="btn-primary" onclick="startStormPurchase()">Purchase Storm Audit — $3,500/roof</button>
+      </div>
 
+      <div class="card" id="storm-retainer-offer" style="display:none;"></div>
+
+      <div class="card" id="storm-intake-card" style="display:none;">
+        <h2 style="font-size:22px;font-weight:800;margin-bottom:8px;">Submit Your Scope Documents</h2>
+        <p style="font-size:14px;color:var(--text-muted);margin-bottom:20px;">A verified per-roof entitlement or Storm retainer credit is available. Submit the scope to begin the audit.</p>
         <div id="intake-form-wrap" class="intake-form-card">
           <form id="intakeForm" onsubmit="submitStormAudit(event)">
-            <div class="form-group">
-              <label for="intake-company">Company Name</label>
-              <input type="text" id="intake-company" required>
+            <div class="form-group"><label for="intake-company">Company Name</label><input type="text" id="intake-company" required></div>
+            <div class="form-group"><label for="intake-contact">Your Name</label><input type="text" id="intake-contact" required></div>
+            <div class="form-group"><label for="intake-email">Corporate Email Address</label><input type="email" id="intake-email" required></div>
+            <div class="form-row"><div class="form-group"><label for="intake-state">State</label><input type="text" id="intake-state" maxlength="2" required></div><div class="form-group"><label for="intake-city">City</label><input type="text" id="intake-city" required></div></div>
+            <div class="form-row"><div class="form-group"><label for="intake-zip">ZIP Code</label><input type="text" id="intake-zip" required></div><div class="form-group"><label for="intake-scopelink">Secure Scope Document Link (Google Drive)</label><input type="text" id="intake-scopelink" placeholder="https://drive.google.com/..." required></div></div>
+            <div class="doc-list">
+              <div class="doc-item"><div class="doc-num">1</div><div><div class="doc-title">Preliminary Carrier Scope of Loss<span class="tag">Required</span></div><div class="doc-desc">Initial adjuster summary/estimate.</div></div></div>
+              <div class="doc-item"><div class="doc-num">2</div><div><div class="doc-title">Contractor Draft Estimate<span class="tag">Required</span></div><div class="doc-desc">Your team's current working scope for line-by-line comparison.</div></div></div>
             </div>
-            <div class="form-group">
-              <label for="intake-contact">Your Name</label>
-              <input type="text" id="intake-contact" required>
-            </div>
-            <div class="form-group">
-              <label for="intake-email">Corporate Email Address</label>
-              <input type="email" id="intake-email" required>
-            </div>
-            <div class="form-row">
-              <div class="form-group">
-                <label for="intake-state">Target Property State</label>
-                <input type="text" id="intake-state" placeholder="e.g. TX" maxlength="2" required>
-              </div>
-              <div class="form-group">
-                <label for="intake-city">Local Municipality / City</label>
-                <input type="text" id="intake-city" placeholder="e.g. Irving" required>
-              </div>
-              <div class="form-group">
-                <label for="intake-zip">ZIP Code <span style="text-transform:none;font-weight:400;">(optional)</span></label>
-                <input type="text" id="intake-zip" placeholder="e.g. 75061">
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="intake-scopelink">Secure Scope Document Link (Google Drive)</label>
-              <input type="text" id="intake-scopelink" placeholder="https://drive.google.com/..." required>
-              <div class="form-hint">Set sharing to "anyone with the link can view" before pasting it here.</div>
-              <div class="doc-checklist">
-                <div class="doc-item"><div class="doc-num">1</div><div><div class="doc-title">Preliminary Carrier Scope of Loss<span class="tag">Required</span></div><div class="doc-desc">The initial adjuster summary PDF — the raw estimate written right after the storm, before any code review.</div></div></div>
-                <div class="doc-item"><div class="doc-num">2</div><div><div class="doc-title">Contractor's Draft Estimate<span class="tag">Required</span></div><div class="doc-desc">Your own team's scope of work (Xactimate PDF or export) — the document we cross-reference line by line.</div></div></div>
-                <div class="doc-item"><div class="doc-num">3</div><div><div class="doc-title">Local Jurisdiction Photographic Evidence<span class="tag">Required</span></div><div class="doc-desc">High-resolution photos of roof eaves, gutters, and structural valleys — supports the documented case for code items like drip edge or ice-and-water underlayment.</div></div></div>
-              </div>
-            </div>
-            <label class="consent">
-              <input type="checkbox" id="intake-consent" required>
-              I confirm I have the right to share this data and understand it will be used only to run this review.
-            </label>
+            <label class="consent-row"><input type="checkbox" id="intake-consent" required><span>I understand this is a document-based commercial code-compliance review, not a field inspection, damage verification or carrier negotiation.</span></label>
             <button type="submit" class="submit-btn">Submit Scope Documents</button>
           </form>
         </div>
-        <div id="intake-thankyou" class="thank-you-card">
-          <div class="thank-you-icon">✓</div>
-          <h3>Got it — your scope is in the queue.</h3>
-          <p>Cross-referencing against current municipal and IBC code begins from here. Findings will appear in your dashboard.</p>
-        </div>
-        <div class="data-note" id="intake-data-note"><strong>What happens next:</strong> your scope documents are logged the moment you hit submit, and code-compliance cross-referencing begins from there. Findings are returned to your dashboard.</div>
+        <div id="intake-thankyou" class="thank-you-card"><div class="thank-you-icon">✓</div><h3>Got it — your scope is in the queue.</h3><p>Current jurisdiction-rule verification begins from here. Findings will appear in your dashboard.</p></div>
       </div>
 
       <div class="card">
-        <h3 class="section-label">My Submissions</h3>
-        <div id="submissions-list">
-          <p style="font-size:13px; color:var(--text-muted);">No submissions yet.</p>
-        </div>
+        <h3 class="section-label">My Storm Audit Reports</h3>
+        <div id="submissions-list"><p style="font-size:13px;color:var(--text-muted);">No submissions yet.</p></div>
+      </div>
+      <div class="card" id="storm-findings-detail" style="display:none;">
+        <h3 class="section-label">Storm Audit Findings</h3>
+        <div id="storm-findings-content"></div>
       </div>
     </section>
 
     <!-- BILLING -->
     <section id="view-billing" class="dashboard-tab" style="width:100%;">
       <h1>Payment Center</h1>
+      <div class="card" id="custom-offers-card">
+        <h3 class="section-label">Private Custom Offers</h3>
+        <p style="font-size:13px;color:var(--text-muted);line-height:1.65;margin-bottom:12px;">Custom quota, term, price, rollover and overage details are never shown on the public tier card. Finalized terms appear here only after you request a Custom package.</p>
+        <div id="custom-offers-list"><p style="font-size:13px;color:var(--text-muted);">No private Custom offers.</p></div>
+      </div>
       <div class="card">
         <div class="financial-line"><span>Bank</span><span>JPMORGAN CHASE</span></div>
         <div class="financial-line"><span>Account</span><span>20000045856166</span></div>
@@ -615,6 +728,7 @@ td { padding: 12px 8px; border-bottom: 1px solid #111827; font-family: 'IBM Plex
       <div class="client-directory" id="client-directory">
         <p style="color:var(--text-muted); font-size:13px;">Loading...</p>
       </div>
+      <div class="card" style="margin-top:16px;"><h3 class="section-label">Custom Package Requests</h3><p style="font-size:12px;color:var(--text-muted);margin-bottom:12px;">Admin-only queue. Finalize each Custom request with client-specific terms; no Custom economics are published on client-facing generic tier cards.</p><div id="admin-custom-requests"><p style="font-size:13px;color:var(--text-muted);">No requests loaded.</p></div></div>
     </section>
 
     <!-- PROSPECTS (admin only) -->
@@ -633,90 +747,160 @@ td { padding: 12px 8px; border-bottom: 1px solid #111827; font-family: 'IBM Plex
 <div class="cat-popup-overlay" id="popup-post-payment" role="dialog" aria-modal="true">
   <div class="cat-popup">
     <button class="cat-popup-close" onclick="closePopup('popup-post-payment')">✕</button>
-    <div class="pop-kicker"><span class="line"></span>Payment received · Full report unlocked</div>
+    <div class="pop-kicker"><span class="line"></span>CAT Intelligence payment notice submitted</div>
     <div class="pop-check">✓</div>
-    <h2 class="pop-headline">Thank you. Your report is <span class="accent">being built.</span></h2>
-    <p class="pop-sub">We've received your $7,000 for the full Commercial CAT Intelligence report on <b id="pop1-zone-label">this zone</b>. Our team verifies within 2 business hours — then the full scored intel lands in your dashboard.</p>
-    <div class="pop-truth">
-      <div class="truth-label">— While you wait · A hard truth</div>
-      <p>Intel without daily tracking is a report that sits on a shelf. <b>The zone is scored, but the situation on the ground changes every day.</b> Competitors move. Adjusters get assigned. Materials get consumed.</p>
-    </div>
+    <h2 class="pop-headline">Your $7,000 payment is <span class="accent">pending verification.</span></h2>
+    <p class="pop-sub">Payment confirmation is a server-side step. Once verified, you receive secure onboarding access for CRM + finance/accounting integration. The full report remains locked until client-data readiness and all 12 factor checks pass.</p>
+    <div class="pop-truth"><div class="truth-label">— Next sequence</div><p><b>Payment verification → CRM/Finance integration → 12/12 verification → Full report delivery.</b> Missing evidence is never filled with a default score.</p></div>
+    <div class="pop-disclaimer"><b>Privacy:</b> the client report does not expose proprietary source identities, provider relationships, competitor identities, model weights or scoring formulas.</div>
+    <div class="pop-actions"><button class="pop-btn pop-btn-primary" onclick="checkCatPayment()">Check Payment Status</button><button class="pop-btn pop-btn-ghost" onclick="closePopup('popup-post-payment')">Return to Dashboard</button></div>
+  </div>
+</div>
+
+<div class="cat-popup-overlay" id="popup-post-cat-report" role="dialog" aria-modal="true">
+  <div class="cat-popup">
+    <button class="cat-popup-close" onclick="closePopup('popup-post-cat-report')">✕</button>
+    <div class="pop-kicker"><span class="line"></span>Full CAT Intelligence report delivered</div>
+    <div class="pop-check">✓</div>
+    <h2 class="pop-headline">Thank you for using <span class="accent">CAT Intelligence.</span></h2>
+    <p class="pop-sub">Your 12-factor report is now available in the dashboard. That report is a verified deployment decision snapshot. The market does not stop moving after the report is delivered.</p>
+    <div class="pop-truth"><div class="truth-label">— Why Weekly Tracking comes next</div><p>Once crews and capital are committed, the risk changes from <b>“Should we enter?”</b> to <b>“Has the market changed enough that we should react?”</b> Weekly Deployment Tracking exists for that second question.</p></div>
     <div class="pop-loss">
-      <div class="pop-loss-title">Without weekly tracking, this is what you'll lose</div>
-      <div class="pop-loss-item"><span>Day 3 — Competitors undetected</span><span class="num">$150K–$250K</span></div>
-      <div class="pop-loss-item"><span>Day 5 — Adjuster denials</span><span class="num">$50K–$100K</span></div>
-      <div class="pop-loss-item"><span>Day 10 — Materials depleted</span><span class="num">$30K–$50K</span></div>
-      <div class="pop-loss-total"><span>Total value exposed</span><span class="val">$230K–$400K</span></div>
+      <div class="pop-loss-title">If you deploy without continuing intelligence</div>
+      <div class="pop-loss-item"><span>Competitive pressure can increase after mobilization</span><span class="num">Margin risk</span></div>
+      <div class="pop-loss-item"><span>Permit, labor or material conditions can deteriorate</span><span class="num">Idle-cost risk</span></div>
+      <div class="pop-loss-item"><span>Capital can remain committed to assumptions that are no longer current</span><span class="num">Working-capital risk</span></div>
     </div>
     <div class="pop-offer">
-      <div class="pop-offer-label">The solution — 2-phase coverage</div>
-      <div class="pop-offer-title">Weekly Deployment Tracking</div>
-      <p class="pop-offer-desc">Continuous, zone-specific monitoring so you know the exact moment the situation shifts — and can act before competitors do.</p>
-      <div class="pop-offer-phases">
-        <div class="pop-phase"><div class="pop-phase-label">Phase 1 · Days 1–15</div><div class="pop-phase-amount">$18,750</div><div class="pop-phase-note">Charged daily because the market moves daily — $1,250/day</div></div>
-        <div class="pop-phase"><div class="pop-phase-label">Phase 2 · Days 16+</div><div class="pop-phase-amount">$8,750<span style="font-size:0.7em;">/wk</span></div><div class="pop-phase-note">Market stabilizes after Day 15 — weekly cadence is sufficient</div></div>
-      </div>
-      <div class="pop-offer-total"><span>Due today to start Phase 1</span><span class="val">$18,750</span></div>
+      <div class="pop-offer-label">Weekly Deployment Tracking</div>
+      <div class="pop-offer-title">Days 1–15: $18,750 prepaid</div>
+      <p class="pop-offer-desc">Daily dashboard monitoring during the fastest-moving 15-day window. From Day 16 onward, continuation is $8,750 per prepaid week. Weekly Tracking does not convert to a retainer.</p>
     </div>
-    <div class="pop-disclaimer"><b>Disclaimer:</b> Optima Workflows provides data-driven intelligence based on current and historical weather and market conditions. The final deployment decision — where, when, and how much capital to commit — always rests with your roofing company. We assist with analysis; we do not make deployment decisions on your behalf.</div>
-    <div class="pop-actions">
-      <button class="pop-btn pop-btn-primary" onclick="proceedToWeeklyFromPopup()">Proceed to Weekly Payment</button>
-      <button class="pop-btn pop-btn-ghost" onclick="closePopup('popup-post-payment')">Not Now</button>
-    </div>
+    <div class="pop-disclaimer"><b>Disclaimer:</b> Tracking reduces reliance on stale market assumptions; it does not guarantee revenue, claim approval, competitive outcomes, material availability or a specific dollar result. Reports are delivered in your dashboard.</div>
+    <div class="pop-actions"><button class="pop-btn pop-btn-primary" onclick="startWeeklyPurchase()">Start Weekly Tracking — $18,750</button><button class="pop-btn pop-btn-ghost" onclick="closePopup('popup-post-cat-report')">Not Now</button></div>
+  </div>
+</div>
+
+<div class="cat-popup-overlay" id="popup-weekly-payment" role="dialog" aria-modal="true">
+  <div class="cat-popup">
+    <button class="cat-popup-close" onclick="closePopup('popup-weekly-payment')">✕</button>
+    <div class="pop-kicker"><span class="line"></span>Weekly Deployment Tracking · Phase 1</div>
+    <h2 class="pop-headline">15 days of daily monitoring — <span class="accent">$18,750.</span></h2>
+    <p class="pop-sub">This payment activates daily zone reports through Day 15. From Day 16, each additional week is separately prepaid at $8,750. There is no Weekly retainer conversion.</p>
+    <div class="pop-offer"><div class="pop-offer-label">Payment rail</div><div class="pop-actions"><button class="pop-btn pop-btn-primary" onclick="setUpsellPaymentMethod('WEEKLY','ACH')">ACH</button><button class="pop-btn pop-btn-ghost" onclick="setUpsellPaymentMethod('WEEKLY','FEDWIRE')">Fedwire</button></div><p class="pop-offer-desc" id="weekly-pay-details">ACH · JPMORGAN CHASE · Account 20000045856166 · Routing 028000024</p></div>
+    <div class="pop-disclaimer">Payment submission does not activate monitoring. Activation occurs only after independent payment verification. Reports are then generated on the Phase 1/Phase 2 cadence and retained in the dashboard.</div>
+    <div class="pop-actions"><button class="pop-btn pop-btn-primary" onclick="submitWeeklyPayment('phase1')">I've Made Payment — Confirm</button></div>
+  </div>
+</div>
+
+<div class="cat-popup-overlay" id="popup-weekly-pending" role="dialog" aria-modal="true">
+  <div class="cat-popup">
+    <button class="cat-popup-close" onclick="closePopup('popup-weekly-pending')">✕</button>
+    <div class="pop-kicker"><span class="line"></span>Weekly payment notice submitted</div>
+    <h2 class="pop-headline">Payment confirmation <span class="accent">awaited.</span></h2>
+    <p class="pop-sub">Daily monitoring will not start from a browser click. Use the status check after the transfer has been independently verified.</p>
+    <div class="pop-actions"><button class="pop-btn pop-btn-primary" onclick="checkWeeklyPayment()">Check Payment Status</button><button class="pop-btn pop-btn-ghost" onclick="closePopup('popup-weekly-pending')">Return to Dashboard</button></div>
   </div>
 </div>
 
 <div class="cat-popup-overlay" id="popup-post-weekly" role="dialog" aria-modal="true">
   <div class="cat-popup">
     <button class="cat-popup-close" onclick="closePopup('popup-post-weekly')">✕</button>
-    <div class="pop-kicker"><span class="line"></span>Payment received · Weekly tracking live</div>
+    <div class="pop-kicker"><span class="line"></span>Weekly Tracking activated</div>
     <div class="pop-check">✓</div>
-    <h2 class="pop-headline">Thank you. Your weekly tracking is <span class="accent">now active.</span></h2>
-    <p class="pop-sub">Phase 1 daily tracking begins now. You'll receive zone updates every 24 hours through Day 15, then weekly from Day 16 onward.</p>
-    <div class="pop-truth">
-      <div class="truth-label">— One more thing · A hard truth</div>
-      <p>Tracking without auditing is watching a hole get bigger. <b>You'll see the zone shift. You'll know when competitors move.</b> But if your claims get submitted with the wrong Xactimate codes or missing line items — the carrier will reduce the payout regardless of how well you tracked.</p>
-    </div>
+    <h2 class="pop-headline">Thank you. Your daily tracking is <span class="accent">now active.</span></h2>
+    <p class="pop-sub">Phase 1 reports are generated daily through Day 15 and retained in your dashboard. From Day 16, continued monitoring is $8,750 per prepaid week.</p>
+    <div class="pop-truth"><div class="truth-label">— Why Storm Audit is separate</div><p>Market monitoring tells you what is changing around the deployment. It does <b>not</b> tell you whether a specific roof scope is complete against current jurisdiction requirements. That is a separate document-verification problem.</p></div>
     <div class="pop-loss">
-      <div class="pop-loss-title">Without a Storm Audit, carriers commonly reduce claims by</div>
-      <div class="pop-loss-item"><span>Missing Xactimate line items</span><span class="num">15–25%</span></div>
-      <div class="pop-loss-item"><span>Wrong depreciation codes</span><span class="num">10–20%</span></div>
-      <div class="pop-loss-item"><span>Undocumented code-required items</span><span class="num">$15K–$40K/roof</span></div>
-      <div class="pop-loss-total"><span>Effective reduction per roof</span><span class="val">30–50%</span></div>
+      <div class="pop-loss-title">What an unaudited scope can cost operationally</div>
+      <div class="pop-loss-item"><span>Documentable required items remain absent</span><span class="num">Unrecovered cost</span></div>
+      <div class="pop-loss-item"><span>Rule gaps are found after work or submission</span><span class="num">Rework / delay</span></div>
+      <div class="pop-loss-item"><span>Incomplete scope becomes the operating baseline</span><span class="num">Margin erosion</span></div>
     </div>
-    <div class="pop-offer">
-      <div class="pop-offer-label">The solution — before you submit</div>
-      <div class="pop-offer-title">Storm Audit — $3,500/roof</div>
-      <p class="pop-offer-desc">A 12-item commercial code audit before submission. Every roof. Every claim. So carriers approve at full scope.</p>
-    </div>
-    <div class="pop-disclaimer"><b>Disclaimer:</b> Optima Workflows provides data-driven intelligence based on current and historical weather and market conditions. The final deployment decision — where, when, and how much capital to commit — always rests with your roofing company. We assist with analysis; we do not make deployment decisions on your behalf.</div>
-    <div class="pop-actions">
-      <button class="pop-btn pop-btn-primary" onclick="proceedToStormFromPopup()">Proceed to Storm Audit</button>
-      <button class="pop-btn pop-btn-ghost" onclick="closePopup('popup-post-weekly')">Not Now</button>
-    </div>
+    <div class="pop-offer"><div class="pop-offer-label">Storm Audit · first purchase is per roof</div><div class="pop-offer-title">$3,500 / roof</div><p class="pop-offer-desc">Current-rule, document-based commercial scope review. A Storm retainer is offered when the client returns for a second distinct service zone, before another per-roof purchase.</p></div>
+    <div class="pop-disclaimer"><b>Disclaimer:</b> Storm Audit is not a field inspection, damage verification or carrier negotiation. No recovery amount is promised; findings and any supported dollar effect are limited to verified documents, current rules and available pricing. Reports are delivered in the dashboard.</div>
+    <div class="pop-actions"><button class="pop-btn pop-btn-primary" onclick="startStormPurchase()">Purchase Storm Audit — $3,500</button><button class="pop-btn pop-btn-ghost" onclick="closePopup('popup-post-weekly')">Not Now</button></div>
+  </div>
+</div>
+
+<div class="cat-popup-overlay" id="popup-storm-payment" role="dialog" aria-modal="true">
+  <div class="cat-popup">
+    <button class="cat-popup-close" onclick="closePopup('popup-storm-payment')">✕</button>
+    <div class="pop-kicker"><span class="line"></span>Storm Audit · one roof</div>
+    <h2 class="pop-headline">Purchase one audit — <span class="accent">$3,500.</span></h2>
+    <p class="pop-sub">One verified payment creates one scope-submission entitlement. Additional roofs remain $3,500 each unless the account reaches its second distinct service zone, when retainer pricing is presented before the next per-roof purchase.</p>
+    <div class="pop-offer"><div class="pop-offer-label">Payment rail</div><div class="pop-actions"><button class="pop-btn pop-btn-primary" onclick="setUpsellPaymentMethod('STORM','ACH')">ACH</button><button class="pop-btn pop-btn-ghost" onclick="setUpsellPaymentMethod('STORM','FEDWIRE')">Fedwire</button></div><p class="pop-offer-desc" id="storm-pay-details">ACH · JPMORGAN CHASE · Account 20000045856166 · Routing 028000024</p></div>
+    <div class="pop-disclaimer">Scope submission remains locked until independent payment verification. Findings are delivered in the Storm Audit dashboard module.</div>
+    <div class="pop-actions"><button class="pop-btn pop-btn-primary" onclick="submitStormPayment()">I've Made Payment — Confirm</button></div>
+  </div>
+</div>
+
+<div class="cat-popup-overlay" id="popup-storm-pending" role="dialog" aria-modal="true">
+  <div class="cat-popup">
+    <button class="cat-popup-close" onclick="closePopup('popup-storm-pending')">✕</button>
+    <div class="pop-kicker"><span class="line"></span>Storm Audit payment notice submitted</div>
+    <h2 class="pop-headline">Payment confirmation <span class="accent">awaited.</span></h2>
+    <p class="pop-sub">Your scope-submission entitlement activates only after payment verification.</p>
+    <div class="pop-actions"><button class="pop-btn pop-btn-primary" onclick="checkStormPayment()">Check Payment Status</button><button class="pop-btn pop-btn-ghost" onclick="closePopup('popup-storm-pending')">Return to Dashboard</button></div>
   </div>
 </div>
 
 <div class="cat-popup-overlay" id="popup-final" role="dialog" aria-modal="true">
   <div class="cat-popup">
     <button class="cat-popup-close" onclick="closePopup('popup-final')">✕</button>
-    <div class="pop-kicker"><span class="line"></span>Submission received</div>
+    <div class="pop-kicker"><span class="line"></span>Storm Audit payment confirmed</div>
     <div class="pop-check">✓</div>
-    <h2 class="pop-headline">Thank you. Your scope is <span class="accent">in the queue.</span></h2>
-    <p class="pop-sub">Cross-referencing against current municipal and IBC code begins from here. Findings will appear in your dashboard.</p>
-    <div class="pop-truth">
-      <div class="truth-label">— What you've unlocked</div>
-      <p>Three coordinated layers of commercial CAT intelligence, all running in your dashboard:</p>
-    </div>
-    <ul style="list-style:none; padding:0; margin:0 0 26px;">
-      <li style="padding:12px 0 12px 34px; position:relative; border-bottom:1px solid var(--border-hairline); color:var(--text-soft); font-size:14.5px; line-height:1.6;">✓ <b style="color:#fff;">CAT Intelligence Full Report</b> — 12-factor zone scoring with deployment verdict.</li>
-      <li style="padding:12px 0 12px 34px; position:relative; border-bottom:1px solid var(--border-hairline); color:var(--text-soft); font-size:14.5px; line-height:1.6;">✓ <b style="color:#fff;">Weekly Review</b> — Daily zone intelligence for Days 1–15, then weekly.</li>
-      <li style="padding:12px 0; color:var(--text-soft); font-size:14.5px; line-height:1.6;">✓ <b style="color:#fff;">Storm Audit</b> — 12-item commercial code review of your submitted scope.</li>
-    </ul>
-    <div class="pop-disclaimer"><b>Disclaimer:</b> Optima Workflows provides data-driven intelligence based on current and historical weather and market conditions. The final deployment decision — where, when, and how much capital to commit — always rests with your roofing company. We assist with analysis; we do not make deployment decisions on your behalf.</div>
-    <div class="pop-actions">
-      <button class="pop-btn pop-btn-primary" onclick="returnToDashboard()">Return to Dashboard</button>
-    </div>
+    <h2 class="pop-headline">Thank you. Your Storm Audit is <span class="accent">ready for intake.</span></h2>
+    <p class="pop-sub">One roof-audit entitlement is active. Submit the scope documents now; when the audit is complete, the findings will be available in your dashboard.</p>
+    <div class="pop-truth"><div class="truth-label">— Delivery</div><p>Scope submission → current jurisdiction-rule verification → document review → findings stored in the Storm Audit dashboard.</p></div>
+    <div class="pop-disclaimer">A Storm retainer is surfaced when you return for a second distinct service zone, before another per-roof purchase is taken.</div>
+    <div class="pop-actions"><button class="pop-btn pop-btn-primary" onclick="openStormIntakeAfterPayment()">Submit Scope Documents</button><button class="pop-btn pop-btn-ghost" onclick="closePopup('popup-final')">Return to Dashboard</button></div>
+  </div>
+</div>
+
+<div class="cat-popup-overlay" id="popup-retainer-offer" role="dialog" aria-modal="true">
+  <div class="cat-popup">
+    <button class="cat-popup-close" onclick="closePopup('popup-retainer-offer')">✕</button>
+    <div class="pop-kicker"><span class="line"></span>Second-zone retainer option</div>
+    <h2 class="pop-headline" id="retainer-offer-title">Your usage now qualifies for <span class="accent">retainer pricing.</span></h2>
+    <p class="pop-sub" id="retainer-offer-desc"></p>
+    <div id="retainer-offer-tier-list"></div>
+    <div class="pop-disclaimer"><b>How published-tier rollover works:</b> Starter and Growth credits are monthly and do not carry forward. Volume can hold up to 2× its monthly quota, with each batch expiring after 90 days. Oldest eligible credits are used first. Custom terms are not public and are shown only in a finalized client-specific offer. Retainers are prepaid minimum-term commitments, not auto-renewing subscriptions.</div>
+    <div class="pop-actions"><button class="pop-btn pop-btn-ghost" id="retainer-continue-unit" onclick="continuePerUnitAfterRetainerOffer()">Continue per-unit purchase</button></div>
+  </div>
+</div>
+
+<div class="cat-popup-overlay" id="popup-retainer-payment" role="dialog" aria-modal="true">
+  <div class="cat-popup">
+    <button class="cat-popup-close" onclick="closePopup('popup-retainer-payment')">✕</button>
+    <div class="pop-kicker"><span class="line"></span>Prepaid retainer conversion</div>
+    <h2 class="pop-headline" id="retainer-payment-title">Retainer</h2>
+    <p class="pop-sub" id="retainer-payment-desc"></p>
+    <div class="pop-offer"><div class="pop-offer-label">Payment rail</div><div class="pop-actions"><button class="pop-btn pop-btn-primary" onclick="setRetainerPaymentMethod('ACH')">ACH</button><button class="pop-btn pop-btn-ghost" onclick="setRetainerPaymentMethod('FEDWIRE')">Fedwire</button></div><p class="pop-offer-desc" id="retainer-pay-details">ACH · JPMORGAN CHASE · Account 20000045856166 · Routing 028000024</p></div>
+    <div class="pop-disclaimer">This is a prepaid minimum-term commitment, not an auto-renewing subscription. Published Starter, Growth and Volume terms are enforced as displayed. A Custom payment screen is available only after a private client-specific offer has been accepted, and the accepted negotiated terms control activation.</div>
+    <div class="pop-actions"><button class="pop-btn pop-btn-primary" onclick="submitRetainerPayment()">I've Made Retainer Payment — Confirm</button></div>
+  </div>
+</div>
+<div class="cat-popup-overlay" id="popup-retainer-pending" role="dialog" aria-modal="true">
+  <div class="cat-popup">
+    <button class="cat-popup-close" onclick="closePopup('popup-retainer-pending')">✕</button>
+    <div class="pop-kicker"><span class="line"></span>Retainer payment notice submitted</div>
+    <h2 class="pop-headline">Payment confirmation <span class="accent">awaited.</span></h2>
+    <p class="pop-sub">The retainer term and first monthly credit batch activate only after independent payment verification.</p>
+    <div class="pop-actions"><button class="pop-btn pop-btn-primary" onclick="checkRetainerPayment()">Check Payment Status</button><button class="pop-btn pop-btn-ghost" onclick="closePopup('popup-retainer-pending')">Return to Dashboard</button></div>
+  </div>
+</div>
+
+<div class="cat-popup-overlay" id="popup-portal-login" role="dialog" aria-modal="true">
+  <div class="cat-popup">
+    <button class="cat-popup-close" onclick="closePopup('popup-portal-login')">✕</button>
+    <div class="pop-kicker"><span class="line"></span>Secure client portal</div>
+    <h2 class="pop-headline">Passwordless <span class="accent">dashboard access.</span></h2>
+    <p class="pop-sub">Enter the corporate email on your Optima Workflows account. If it matches an active client account, we will send a single-use secure sign-in link.</p>
+    <div class="form-group"><label>Corporate Email</label><input type="email" id="portal-login-email" placeholder="operations@company.com"></div>
+    <div class="pop-disclaimer">For security, the confirmation message does not reveal whether an email address is registered. Sign-in links are single-use and time-limited.</div>
+    <div class="pop-actions"><button class="pop-btn pop-btn-primary" onclick="requestPortalLogin()">Send Secure Sign-In Link</button></div>
+    <div id="portal-login-message" style="margin-top:14px;font-size:12px;color:var(--text-muted);line-height:1.6;"></div>
   </div>
 </div>
 
@@ -725,15 +909,35 @@ td { padding: 12px 8px; border-bottom: 1px solid #111827; font-family: 'IBM Plex
 // CONFIG
 // ====================================================================
 var OPTIMA_API = 'https://script.google.com/macros/s/AKfycbyxAEK2zWgqjNDboU0v-fiCCXDQbULcGyzlXL5M076YlGQPeFSlG3syMvKVIuwK8m5U/exec';
-var OPTIMA_ADMIN_KEY = 'P34Zf2XgNHh5ZH2n1MGZalLSHCw1IOJQ';
 
 // ====================================================================
 // STATE
 // ====================================================================
 var state = {
   currentClient: null,
+  clientId: '',
+  portalSession: localStorage.getItem('optima_portal_session') || '',
+  portalSessionExpiresAt: localStorage.getItem('optima_portal_session_expires_at') || '',
+  reportLibrary: [],
+  pendingCatPaymentId: sessionStorage.getItem('optima_cat_payment_id') || '',
+  pendingCatStatusToken: sessionStorage.getItem('optima_cat_payment_status_token') || '',
+  pendingWeeklyPaymentId: sessionStorage.getItem('optima_weekly_payment_id') || '',
+  pendingWeeklyStatusToken: sessionStorage.getItem('optima_weekly_payment_status_token') || '',
+  pendingStormPaymentId: sessionStorage.getItem('optima_storm_payment_id') || '',
+  pendingStormStatusToken: sessionStorage.getItem('optima_storm_payment_status_token') || '',
+  pendingRetainerPaymentId: sessionStorage.getItem('optima_retainer_payment_id') || '',
+  pendingRetainerStatusToken: sessionStorage.getItem('optima_retainer_payment_status_token') || '',
+  pendingRetainerService: sessionStorage.getItem('optima_retainer_service') || '',
+  pendingRetainerTier: sessionStorage.getItem('optima_retainer_tier') || '',
+  pendingRetainerTotal: Number(sessionStorage.getItem('optima_retainer_total') || 0),
+  pendingCustomOfferId: sessionStorage.getItem('optima_custom_offer_id') || '',
+  dashboardMessages: [],
+  pendingRetainerOfferService: '',
+  pendingRetainerOfferZone: '',
+  retainerPaymentMethod: 'ACH',
+  upsellPaymentMethod: { WEEKLY:'ACH', STORM:'ACH' },
   adminMode: false,
-  adminKey: localStorage.getItem('optima_admin_key') || '',
+  adminKey: sessionStorage.getItem('optima_admin_key') || '',
   activeSimClient: null,
   currentZip: '',
   currentCity: '',
@@ -742,30 +946,37 @@ var state = {
   prospectEmail: '',
   subscribedServices: { cat: true, weekly: false, storm: false },
   ref_code: new URLSearchParams(location.search).get('ref') || '',
-  incoming_email: new URLSearchParams(location.search).get('email') || ''
+  incoming_email: new URLSearchParams(location.search).get('email') || '',
+  report_token: new URLSearchParams(location.search).get('report_token') || '',
+  paymentMethod: 'ACH',
+  cardType: 'CREDIT'
 };
 
 // ====================================================================
 // API
 // ====================================================================
+function portalAttach_(obj){obj=obj||{};if(state.portalSession&&!obj.portal_session)obj.portal_session=state.portalSession;return obj;}
+function handlePortalAuthError_(res){if(res&&String(res.error||'').indexOf('Portal session required')>=0){clearPortalSession_();openPortalLogin();return true;}return false;}
 function apiPost(payload, cb) {
+  payload=portalAttach_(payload||{});
   fetch(OPTIMA_API, {
     method: 'POST',
     headers: { 'Content-Type': 'text/plain;charset=utf-8' },
     body: JSON.stringify(payload)
-  }).then(function(r) { return r.json(); }).then(cb).catch(function(e) {
+  }).then(function(r) { return r.json(); }).then(function(res){handlePortalAuthError_(res);if(cb)cb(res);}).catch(function(e) {
     console.error(e);
     if (cb) cb({ success: false, error: String(e) });
   });
 }
 
 function apiGet(params, cb) {
+  params=portalAttach_(params||{});
   var qs = Object.keys(params).map(function(k) {
     return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]);
   }).join('&');
   fetch(OPTIMA_API + '?' + qs)
     .then(function(r) { return r.json(); })
-    .then(cb)
+    .then(function(res){handlePortalAuthError_(res);if(cb)cb(res);})
     .catch(function(e) {
       console.error(e);
       if (cb) cb({ success: false, error: String(e) });
@@ -783,7 +994,12 @@ function switchTab(tabId, navEl) {
   var el = document.getElementById(tabId);
   if (el) el.classList.add('active');
   if (navEl) navEl.classList.add('active');
-  if (tabId === 'view-clients' && state.adminMode) loadClientDirectory();
+  if (tabId === 'view-clients' && state.adminMode) { loadClientDirectory(); loadAdminCustomRequests(); }
+  if (tabId === 'view-weekly') loadWeeklyDelivery();
+  if (tabId === 'view-storm-audit') loadStormDelivery();
+  if (tabId === 'view-home') loadDashboardMessages();
+  if (tabId === 'view-billing') loadCustomOffers();
+  if (tabId === 'view-report-library') loadReportLibrary();
 }
 
 // ====================================================================
@@ -807,7 +1023,7 @@ function toggleAdminMode() {
 
 function saveAdminKey(v) {
   state.adminKey = v;
-  localStorage.setItem('optima_admin_key', v);
+  sessionStorage.setItem('optima_admin_key', v);
   if (state.adminMode) loadAdminClientList();
 }
 
@@ -846,12 +1062,12 @@ function adminSetSimState(sim) {
     fresh_prospect: function() { switchTab('view-cat-intel', document.getElementById('nav-cat-intel')); },
     preview_shown: function() { switchTab('view-cat-intel', document.getElementById('nav-cat-intel')); if (state.triageData) showPreview(state.triageData); },
     post_payment: function() { adminTriggerPopup('post-payment'); },
-    weekly_payment: function() { showWeeklyPaymentScreen(); },
+    weekly_payment: function() { startWeeklyPurchase(); },
     post_weekly: function() { adminTriggerPopup('post-weekly'); },
     storm_intake: function() { switchTab('view-storm-audit', document.getElementById('nav-storm-audit')); },
     storm_findings: function() { switchTab('view-storm-audit', document.getElementById('nav-storm-audit')); },
-    retainer_active: function() { switchTab('view-weekly', document.getElementById('nav-weekly')); },
-    retainer_ending: function() { switchTab('view-weekly', document.getElementById('nav-weekly')); }
+    retainer_active: function() { switchTab('view-cat-intel', document.getElementById('nav-cat-intel')); },
+    retainer_ending: function() { switchTab('view-cat-intel', document.getElementById('nav-cat-intel')); }
   };
   if (action[sim]) action[sim]();
 }
@@ -859,10 +1075,48 @@ function adminSetSimState(sim) {
 function adminTriggerPopup(which) {
   var map = {
     'post-payment': 'popup-post-payment',
+    'post-cat-report': 'popup-post-cat-report',
+    'weekly-payment': 'popup-weekly-payment',
+    'weekly-pending': 'popup-weekly-pending',
     'post-weekly': 'popup-post-weekly',
+    'storm-payment': 'popup-storm-payment',
+    'storm-pending': 'popup-storm-pending',
     'final': 'popup-final'
   };
   openPopup(map[which]);
+}
+
+function adminSourceHealth() {
+  if (!state.adminKey) { alert('Enter the admin key first.'); return; }
+  var zip = (document.getElementById('frm-zip').value || state.currentZip || '').trim();
+  if (!/^\d{5}$/.test(zip)) { alert('Enter a valid ZIP in CAT Intelligence first.'); return; }
+  apiGet({ action:'sourceHealth', zip:zip, admin_key:state.adminKey }, function(res) {
+    if (!res.success) { alert('Source-health check failed: ' + (res.error || 'unknown error')); return; }
+    var ready = (res.factors || []).filter(function(f){ return f.ready; }).length;
+    var actionRequired = (res.factors || []).filter(function(f){ return !f.ready; }).map(function(f){ return f.label; });
+    var msg = '12-factor preflight: ' + ready + '/12 ready. Model: ' + (res.model_status || '—') + '.';
+    if (actionRequired.length) msg += '\n\nAction required: ' + actionRequired.join(', ') + '.';
+    else msg += '\n\nPremium report preflight passed.';
+    alert(msg);
+  });
+}
+
+function adminVerifyPayment() {
+  if (!state.adminKey) { alert('Enter the admin key first.'); return; }
+  var paymentId=document.getElementById('admin-payment-id').value.trim();
+  var amount=Number(document.getElementById('admin-verified-amount').value);
+  if(!paymentId||!isFinite(amount)||amount<=0){alert('Enter a valid payment ID and independently verified amount.');return;}
+  apiPost({action:'verifyPayment',admin_key:state.adminKey,payment_id:paymentId,verified_amount:amount},function(res){
+    if(!res.success){alert('Verification failed: '+(res.error||'unknown error'));return;}
+    if(String(res.service||'').toUpperCase()==='CAT'){
+      if(!res.report_access||!res.report_access.access_token){alert(res.warning||'CAT payment verified. Secure onboarding/report access was not issued; check serviceability.');return;}
+      var base=location.origin+location.pathname;
+      var link=base+'?zip='+encodeURIComponent(res.report_access.zip)+'&report_token='+encodeURIComponent(res.report_access.access_token)+'#cat-intel';
+      navigator.clipboard.writeText(link).then(function(){alert('CAT payment verified. Secure CRM/Finance onboarding link copied to clipboard.');}).catch(function(){prompt('CAT payment verified. Copy this secure onboarding link:',link);});
+      return;
+    }
+    alert('Payment verified for '+(res.service||'service')+'. Next step: '+(res.next_step||'SERVICE_ACTIVE')+'.');
+  });
 }
 
 // ====================================================================
@@ -890,20 +1144,22 @@ function closePopup(id) {
   }, 400);
 }
 
-function proceedToWeeklyFromPopup() {
-  closePopup('popup-post-payment');
-  showWeeklyPaymentScreen();
-}
+function proceedToWeeklyFromPopup(){closePopup('popup-post-cat-report');startWeeklyPurchase();}
+function proceedToStormFromPopup(){closePopup('popup-post-weekly');startStormPurchase();}
+function returnToDashboard(){closePopup('popup-final');switchTab('view-home',document.getElementById('nav-home'));}
 
-function proceedToStormFromPopup() {
-  closePopup('popup-post-weekly');
-  switchTab('view-storm-audit', document.getElementById('nav-storm-audit'));
-}
 
-function returnToDashboard() {
-  closePopup('popup-final');
-  switchTab('view-home', document.getElementById('nav-home'));
-}
+// ====================================================================
+// SECURE CLIENT PORTAL + REPORT LIBRARY
+// ====================================================================
+function openPortalLogin(){var email=state.incoming_email||'';var el=document.getElementById('portal-login-email');if(el&&email)el.value=email;openPopup('popup-portal-login');}
+function clearPortalSession_(){state.portalSession='';state.portalSessionExpiresAt='';localStorage.removeItem('optima_portal_session');localStorage.removeItem('optima_portal_session_expires_at');state.currentClient=null;state.clientId='';state.reportLibrary=[];document.getElementById('nav-report-library').style.display='none';document.getElementById('user-name-display').textContent='Visitor';document.getElementById('user-tier-label').textContent='Free Preview';var a=document.getElementById('portal-auth-action');if(a){a.textContent='Secure Client Sign In';a.setAttribute('onclick','openPortalLogin()');}}
+function requestPortalLogin(){var email=(document.getElementById('portal-login-email').value||'').trim(),out=document.getElementById('portal-login-message');if(!email||email.indexOf('@')<1){if(out)out.textContent='Enter a valid corporate email.';return;}if(out)out.textContent='Preparing secure sign-in…';apiPost({action:'requestPortalLogin',email:email,portal_session:''},function(res){if(out)out.textContent=res.message||'If the address is authorized, a secure link will be sent.';});}
+function exchangePortalLoginToken_(token){if(!token)return;apiPost({action:'exchangePortalLogin',login_token:token,portal_session:''},function(res){if(!res.success||!res.session_token){alert(res.error||'Secure sign-in link could not be used.');return;}state.portalSession=res.session_token;state.portalSessionExpiresAt=res.expires_at||'';localStorage.setItem('optima_portal_session',state.portalSession);localStorage.setItem('optima_portal_session_expires_at',state.portalSessionExpiresAt);var u=new URL(location.href);u.searchParams.delete('portal_login_token');history.replaceState(null,'',u.pathname+(u.searchParams.toString()?'?'+u.searchParams.toString():'')+u.hash);closePopup('popup-portal-login');loadPortalBootstrap_();});}
+function loadPortalBootstrap_(){if(!state.portalSession)return;apiGet({action:'getPortalBootstrap'},function(res){if(!res.success||!res.client){clearPortalSession_();return;}state.clientId=res.client.client_id;state.reportLibrary=res.reports||[];applyClientToUI(res.client);document.getElementById('nav-report-library').style.display='flex';var a=document.getElementById('portal-auth-action');if(a){a.textContent='Secure Portal Active';a.setAttribute('onclick',"switchTab('view-report-library',document.getElementById('nav-report-library'))");}var note=document.getElementById('portal-auth-note');if(note)note.textContent='Authenticated · session expires '+formatDate(res.session_expires_at);state.dashboardMessages=res.messages||[];renderReportAnnouncement_(state.dashboardMessages);loadReportLibrary();loadDashboardMessages();});}
+function loadReportLibrary(){var wrap=document.getElementById('report-library-list');if(!wrap)return;if(!state.portalSession){wrap.innerHTML='<p style="font-size:13px;color:var(--text-muted);">Secure client sign-in is required.</p>';return;}apiGet({action:'getReportLibrary'},function(res){if(!res.success){wrap.innerHTML='<p style="font-size:13px;color:var(--cyber-red);">'+String(res.error||'Report library unavailable.')+'</p>';return;}state.reportLibrary=res.reports||[];wrap.innerHTML='';if(!state.reportLibrary.length){wrap.innerHTML='<p style="font-size:13px;color:var(--text-muted);">No delivered reports are in your library yet.</p>';return;}state.reportLibrary.forEach(function(r){var d=document.createElement('div');d.className='report-library-card';var available=String(r.status)==='AVAILABLE';d.innerHTML='<h4>'+String(r.title||r.service+' report')+'</h4><div class="report-library-meta">'+String(r.service||'')+(r.zone_zip?' · '+String(r.zone_zip):'')+'<br>Delivered '+formatDate(r.created_at)+(r.accessed_at?'<br>Opened '+formatDate(r.accessed_at):'<br><span style="color:var(--cyber-amber);">Unread</span>')+'</div><div style="font-size:11px;color:var(--cyber-blue);margin-bottom:10px;">'+String(r.dashboard_path||'')+'</div><button class="admin-btn" '+(available?'':'disabled')+' onclick="openPortalLibraryReport(\''+String(r.library_id)+'\')">'+(available?'Open Secure Report':'Reissue Required')+'</button>';wrap.appendChild(d);});});}
+function openPortalLibraryReport(libraryId){apiGet({action:'getPortalReport',library_id:libraryId},function(res){if(!res.success||!res.report){alert(res.error||'Report could not be opened.');return;}renderPortalReport_(res.entry||{},res.report);loadDashboardMessages();loadReportLibrary();});}
+function renderPortalReport_(entry,r){var service=String(entry.service||'').toUpperCase();if(service==='CAT'){state.currentZip=entry.zone_zip||r.zip||state.currentZip;var z=document.getElementById('frm-zip');if(z)z.value=state.currentZip;switchTab('view-cat-intel',document.getElementById('nav-cat-intel'));renderCatReportData_(r,state.currentZip,false);return;}if(service==='WEEKLY'){switchTab('view-weekly',document.getElementById('nav-weekly'));renderWeeklyReportData_(r);return;}if(service==='STORM'){switchTab('view-storm-audit',document.getElementById('nav-storm-audit'));renderStormReportData_(r);return;}alert('Unsupported report type.');}
 
 // ====================================================================
 // TRIAGE
@@ -912,11 +1168,9 @@ document.getElementById('triage-form').addEventListener('submit', function(e) {
   e.preventDefault();
   var zip = document.getElementById('frm-zip').value.trim();
   var intent = document.getElementById('frm-intent').value;
-  var tech = document.getElementById('frm-tech').value;
-  var rain = parseFloat(document.getElementById('frm-rain').value) || 0;
 
   if (!zip || zip.length < 5) { alert('Enter a valid ZIP.'); return; }
-  if (!intent || !tech) { alert('Select intent and tech stack.'); return; }
+  if (!intent) { alert('Select deployment intent.'); return; }
 
   state.currentZip = zip;
 
@@ -925,21 +1179,18 @@ document.getElementById('triage-form').addEventListener('submit', function(e) {
   btn.disabled = true;
   btn.textContent = '⚡ Analyzing zone...';
 
-  // Call Webapp for real Shovels data
+  // Request current backend intelligence
   apiGet({
     action: 'runTriage',
     zip: zip,
-    ref: state.ref_code || ''
+    intent: intent,
+    ref: state.ref_code || '',
+    email: state.incoming_email || ''
   }, function(res) {
     btn.disabled = false;
-    btn.textContent = '⚡ Run Analysis';
+    btn.textContent = '⚡ Run Free Preview';
 
     if (!res.success) {
-      // Handle coverage-expanding case
-      if (res.code === 'COVERAGE_EXPANDING') {
-        showCoverageExpanding(zip, res.cached_zips || []);
-        return;
-      }
       alert('Triage failed: ' + (res.error || 'unknown error'));
       return;
     }
@@ -948,15 +1199,6 @@ document.getElementById('triage-form').addEventListener('submit', function(e) {
     state.currentCity = res.data.city;
     state.currentState = res.data.state;
 
-    // Log prospect event to backend
-    apiPost({
-      action: 'writeProspect',
-      email: state.incoming_email || '',
-      ref_code: state.ref_code || '',
-      zip: zip,
-      city: res.data.city,
-      state: res.data.state
-    }, function() {});
 
     // Show email capture if we don't already have an email
     if (!state.incoming_email) {
@@ -964,7 +1206,7 @@ document.getElementById('triage-form').addEventListener('submit', function(e) {
       document.getElementById('email-zip-display').textContent = zip;
     }
 
-    showPreview(res.data, tech);
+    showPreview(res.data);
   });
 });
 
@@ -985,58 +1227,170 @@ function showCoverageExpanding(zip, cachedZips) {
   previewCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
   
-function showPreview(data, tech) {
-  tech = tech || 'PRO_TECH';
+function showPreview(data) {
   var previewCard = document.getElementById('preview-card');
   previewCard.style.display = 'block';
+  document.getElementById('full-report-card').style.display = 'none';
 
-  document.getElementById('pv-location').textContent = data.city + ', ' + data.state + ' (' + state.currentZip + ')';
-  document.getElementById('pop1-zone-label').textContent = data.city + ', ' + data.state;
-
-  document.getElementById('pv-verdict').textContent = data.density.toUpperCase() + ' ACTIVITY';
-  document.getElementById('pv-verdict').className = 'badge-status ' + (data.density === 'High' || data.density === 'Very High' ? 'bg-green' : 'bg-amber');
-
-  var total = Math.round((data.rainScore * 0.15 + data.densityScore * 0.10 + data.techScore * 0.10) / 0.35);
-  var ceiling = Math.min(100, total + 5);
-  document.getElementById('pv-score').textContent = 'Up to ' + ceiling + '%';
-  document.getElementById('pv-score-note').textContent = 'Up to ' + ceiling + '% · exact at unlock';
-
-  document.getElementById('pv-rain-desc').textContent = 'Event signal detected';
-  document.getElementById('pv-density-desc').textContent = 'Competition increasing daily';
-  document.getElementById('pv-tech-desc').textContent = tech === 'PRO_TECH' ? '🟢 Pro Tech ready' : '🟡 Manual — slower';
-
-  // Admin: full 12-factor panel
-  if (state.adminMode) {
-    var tbl = document.getElementById('admin-factor-table');
-    tbl.innerHTML = '<tr><th>Factor</th><th>Score</th><th>Weight</th><th>Reasoning</th></tr>';
-    var factors = [
-      ['Rain Saturation', 85, '15%', '2.4" event detected'],
-      ['Market Activity', 78, '10%', 'Competition increasing daily'],
-      ['Tech Stack', tech === 'PRO_TECH' ? 92 : 65, '10%', tech === 'PRO_TECH' ? 'Drone capable' : 'Manual assessment'],
-      ['Commercial Envelope Density', 88, '12%', '82% of 200K sq ft ceiling'],
-      ['Permit Office Speed', 74, '8%', 'Irving avg 4.2 days'],
-      ['Building Code Rigidity', 82, '7%', '2024 IBC adopted'],
-      ['Insurance Endorsement Mix', 71, '8%', '68% RCV policies'],
-      ['Specialty Labor', 68, '6%', '12 crews within 25 mi'],
-      ['Crane Operator Avail.', 76, '5%', '3 certified operators'],
-      ['Historical Outcome', 81, '7%', '78% approval in past events'],
-      ['Local Crew Saturation', 55, '6%', '8 active (53% of cap)'],
-      ['Cash Conversion', 79, '6%', '32 days avg claim-to-cash']
-    ];
-    factors.forEach(function(f) {
-      var tr = document.createElement('tr');
-      tr.innerHTML = '<td>' + f[0] + '</td><td style="color:var(--cyber-green);font-weight:800;">' + f[1] + '</td><td>' + f[2] + '</td><td style="color:var(--text-muted);">' + f[3] + '</td>';
-      tbl.appendChild(tr);
-    });
+  if (!data || data.preview_status !== 'VERIFIED') {
+    previewCard.innerHTML = '<div style="padding:28px 10px;text-align:center;">' +
+      '<div style="font-size:38px;margin-bottom:12px;">↻</div>' +
+      '<h2 style="font-size:20px;margin-bottom:10px;">Refreshing current ZIP intelligence</h2>' +
+      '<p style="max-width:620px;margin:0 auto;color:var(--text-muted);line-height:1.7;">' +
+      'The preview is released only after all three live preview signals pass verification. No fallback or placeholder value will be shown. Please retry shortly.' +
+      '</p></div>';
+    previewCard.scrollIntoView({ behavior:'smooth', block:'center' });
+    return;
   }
 
-  var gross = Math.round(400000 + Math.random() * 150000);
-  var ceil = Math.round(gross / 10000) * 10000;
-  document.getElementById('loss-gross').textContent = 'Up to $' + (ceil/1000).toFixed(0) + 'K+';
-  document.getElementById('loss-amount').textContent = '$' + Math.round(ceil * 0.45 / 1000) + 'K+ at risk';
+  document.getElementById('pv-location').textContent = (data.city || 'ZIP') + (data.state ? ', ' + data.state : '') + ' (' + state.currentZip + ')';
+  document.getElementById('pop1-zone-label').textContent = (data.city || 'ZIP ' + state.currentZip) + (data.state ? ', ' + data.state : '');
+  document.getElementById('pv-score').textContent = '3 OF 12';
+  document.getElementById('pv-score-note').textContent = 'NO FINAL SCORE OR VERDICT FROM FREE PREVIEW';
 
-  previewCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  var byId = {};
+  (data.factors || []).forEach(function(f) { byId[f.id] = f; });
+  renderPreviewFactor_('hail', byId.hail);
+  renderPreviewFactor_('wind', byId.wind);
+  renderPreviewFactor_('envelope_density', byId.envelope_density);
+
+  var unlockBtn = document.getElementById('btn-unlock-full');
+  if (unlockBtn) {
+    unlockBtn.disabled = !data.purchase_ready;
+    unlockBtn.textContent = data.purchase_ready
+      ? '🔓 Purchase CAT Intelligence — $7,000 · Personalize After Payment'
+      : '↻ Texas Serviceability Preflight In Progress';
+    unlockBtn.title = data.purchase_ready ? 'After payment verification you will be guided through secure CRM onboarding for Factors 11 and 12.' : 'Payment is enabled only after the Texas public/regulatory serviceability preflight passes.';
+  }
+
+  if (state.adminMode && state.adminKey) loadAdminTriage();
+  if (state.report_token) loadFullReport(state.report_token);
+  previewCard.scrollIntoView({ behavior:'smooth', block:'center' });
 }
+
+function renderPreviewFactor_(id, f) {
+  if (!f || f.value === null || f.value === undefined || f.value === '') return;
+  var prefix = id;
+  document.getElementById('pv-' + prefix + '-status').textContent = humanStatus_(f.data_status);
+  document.getElementById('pv-' + prefix + '-value').textContent = formatFactorValue_(f);
+  document.getElementById('pv-' + prefix + '-desc').textContent = f.summary || '—';
+}
+
+function humanStatus_(s) {
+  s = String(s || 'VERIFYING').replace(/_/g, ' ');
+  return s.toLowerCase().replace(/\b\w/g, function(c){ return c.toUpperCase(); });
+}
+
+function formatFactorValue_(f) {
+  if (!f || f.value === null || f.value === undefined || f.value === '') return 'Verifying';
+  return String(f.value) + (f.unit ? ' ' + f.unit : '');
+}
+
+function loadAdminTriage() {
+  if (!state.adminMode || !state.adminKey || !state.currentZip) return;
+  apiGet({
+    action:'runAdminTriage', zip:state.currentZip,
+    intent:document.getElementById('frm-intent').value,
+    ref:state.ref_code || '', admin_key:state.adminKey
+  }, function(res) {
+    var tbl = document.getElementById('admin-factor-table');
+    tbl.innerHTML = '<tr><th>Factor</th><th>Status</th><th>Current Signal</th><th>Guidance</th></tr>';
+    if (!res.success || !res.data || !res.data.factors) {
+      var tr = document.createElement('tr');
+      tr.innerHTML = '<td colspan="4" style="color:var(--cyber-red);">Admin diagnostic could not be loaded.</td>';
+      tbl.appendChild(tr); return;
+    }
+    res.data.factors.forEach(function(f) {
+      var tr = document.createElement('tr');
+      var td1=document.createElement('td'),td2=document.createElement('td'),td3=document.createElement('td'),td4=document.createElement('td');
+      td1.textContent=f.label || f.id; td2.textContent=humanStatus_(f.data_status); td3.textContent=formatFactorValue_(f); td4.textContent=f.guidance || '—';
+      tr.appendChild(td1);tr.appendChild(td2);tr.appendChild(td3);tr.appendChild(td4);tbl.appendChild(tr);
+    });
+  });
+}
+
+function loadClientOnboardingStatus_(token, done) {
+  apiGet({ action:'getClientOnboardingStatus', zip:state.currentZip, report_token:token }, function(res) {
+    if (!res.success || !res.readiness) { var card=document.getElementById('client-data-onboarding'); if (card) card.style.display='block'; var msg=document.getElementById('client-data-readiness'); if (msg) msg.textContent='Client data readiness could not be verified. The personalized report remains locked until verification succeeds.'; if (done) done(false); return; }
+    state.clientId=res.client_id || state.clientId;
+    var r=res.readiness;
+    var card=document.getElementById('client-data-onboarding');
+    var msg=document.getElementById('client-data-readiness');
+    if (r.status === 'READY') {
+      if (card) card.style.display='none';
+      if (done) done(true);
+      return;
+    }
+    if (card) card.style.display='block';
+    document.getElementById('full-report-card').style.display='none';
+    if (msg) msg.innerHTML='<b>Current readiness:</b> ' + (r.outcome_records||0) + ' normalized deployment record(s) · ' + (r.cash_records||0) + ' cash-timing record(s) · ' + (r.permit_records||0) + ' permit-cycle record(s).<br>' + (r.detail||'');
+    var acct=document.getElementById('btn-connect-accounting');
+    if (acct) acct.style.display=r.cash_ready?'none':'block';
+    card.scrollIntoView({behavior:'smooth',block:'start'});
+    if (done) done(false);
+  });
+}
+
+function beginClientIntegration(systemType) {
+  if (!state.report_token || !state.currentZip) { alert('A verified post-payment report link is required.'); return; }
+  var provider=document.getElementById('crm-provider').value || 'OTHER';
+  if (systemType === 'ACCOUNTING') provider='ACCOUNTING_OR_ERP';
+  var selectedType=systemType === 'ACCOUNTING' ? 'ACCOUNTING' : (document.getElementById('crm-system-type').value || 'CRM');
+  var out=document.getElementById('integration-message');
+  if (out) out.textContent='Preparing secure connection…';
+  apiPost({ action:'createDataIntegrationIntent', zip:state.currentZip, report_token:state.report_token, provider_key:provider, system_type:selectedType }, function(res) {
+    if (!res.success) { if (out) out.textContent=res.error || 'Integration could not be prepared.'; return; }
+    if (res.connector_configured && res.redirect_url) { location.href=res.redirect_url; return; }
+    if (out) out.innerHTML='<b>Assisted secure import is enabled for this deployment.</b> The connector broker is not configured yet, so the integration remains pending rather than pretending a CRM is connected. Use the integration ID <code>' + (res.integration_id||'') + '</code> for the secure normalized-data import workflow.';
+  });
+}
+
+function loadFullReport(token) {
+  if (!token || !state.currentZip) return;
+  loadClientOnboardingStatus_(token, function(ready) {
+    if (!ready) return;
+    loadVerifiedFullReport_(token);
+  });
+}
+
+function loadVerifiedFullReport_(token) {
+  var card = document.getElementById('full-report-card');
+  card.style.display = 'block';
+  document.getElementById('full-report-message').textContent = 'Verifying all 12 factors against current data...';
+  document.getElementById('full-factor-list').innerHTML = '';
+  apiGet({
+    action:'getFullReport', zip:state.currentZip,
+    intent:document.getElementById('frm-intent').value, ref:state.ref_code || '', report_token:token
+  }, function(res) {
+    if (!res.success || !res.data) {
+      document.getElementById('full-status').textContent = 'ACCESS / VERIFICATION ISSUE';
+      document.getElementById('full-report-message').textContent = res.error || 'Full report could not be verified.';
+      return;
+    }
+    var d=res.data;
+    document.getElementById('full-location').textContent=(d.city || 'ZIP') + (d.state ? ', ' + d.state : '') + ' (' + state.currentZip + ')';
+    if (d.report_status !== 'VERIFIED') {
+      document.getElementById('full-verdict').textContent='LIVE VERIFICATION IN PROGRESS';
+      document.getElementById('full-verdict').className='badge-status bg-amber';
+      document.getElementById('full-score').textContent='—';
+      document.getElementById('full-status').textContent='REPORT NOT RELEASED';
+      document.getElementById('full-report-message').textContent=d.message || 'The full report will render only after all 12 current intelligence checks pass.';
+      document.getElementById('full-factor-list').innerHTML='';
+      return;
+    }
+    renderCatReportData_(d,state.currentZip,true);
+  });
+}
+
+
+function renderCatReportData_(d,zip,showThankYou){
+  var card=document.getElementById('full-report-card');card.style.display='block';document.getElementById('full-location').textContent=(d.city||'ZIP')+(d.state?', '+d.state:'')+' ('+(zip||d.zip||'')+')';
+  if(d.report_status!=='VERIFIED'){document.getElementById('full-verdict').textContent='LIVE VERIFICATION IN PROGRESS';document.getElementById('full-verdict').className='badge-status bg-amber';document.getElementById('full-score').textContent='—';document.getElementById('full-status').textContent='REPORT NOT RELEASED';document.getElementById('full-report-message').textContent=d.message||'The full report will render only after all 12 current intelligence checks pass.';document.getElementById('full-factor-list').innerHTML='';return;}
+  document.getElementById('full-verdict').textContent=d.verdict||'VERIFIED';document.getElementById('full-verdict').className='badge-status bg-green';document.getElementById('full-score').textContent=d.score===null||d.score===undefined?'—':d.score;document.getElementById('full-status').textContent='12 / 12 FACTORS VERIFIED';document.getElementById('full-report-message').textContent=d.guidance||'';var wrap=document.getElementById('full-factor-list');wrap.innerHTML='';(d.factors||[]).forEach(function(f){var item=document.createElement('div');item.className='full-report-factor';var h=document.createElement('h4');h.textContent=f.label||f.id;var meta=document.createElement('div');meta.className='full-report-meta';meta.textContent=humanStatus_(f.data_status)+' · '+formatFactorValue_(f)+(f.score===null||f.score===undefined?'':' · Factor score '+f.score);var sm=document.createElement('div');sm.className='full-report-summary';sm.textContent=f.summary||'';var gd=document.createElement('div');gd.className='full-report-guidance';gd.textContent=f.guidance||'';item.appendChild(h);item.appendChild(meta);item.appendChild(sm);item.appendChild(gd);wrap.appendChild(item);});card.scrollIntoView({behavior:'smooth',block:'start'});loadRetainerOffer('CAT','cat-retainer-offer');
+  if(showThankYou){var k='optima_cat_report_thanked_'+String(state.report_token||'').slice(-12);if(!sessionStorage.getItem(k)){sessionStorage.setItem(k,'1');setTimeout(function(){openPopup('popup-post-cat-report');},650);}}
+}
+function renderWeeklyReportData_(r){var factors=r.factors||[],html='<div class="card" id="weekly-open-report"><h3 class="section-label">Opened Weekly Report</h3><div class="financial-line"><span>Zone</span><span>'+String(r.zone_zip||'—')+'</span></div><div class="financial-line"><span>Generated</span><span>'+formatDate(r.generated_at)+'</span></div><div class="full-report-summary" style="margin:12px 0 16px;">'+String(r.summary||'')+'</div>';factors.forEach(function(f){html+='<div class="full-report-factor"><h4>'+String(f.label||f.id||'Factor')+'</h4><div class="full-report-meta">'+humanStatus_(f.data_status)+' · '+formatFactorValue_(f)+'</div><div class="full-report-summary">'+String(f.summary||'')+'</div><div class="full-report-guidance">'+String(f.guidance||'')+'</div></div>';});html+='<div style="font-size:11px;color:var(--text-detail);margin-top:12px;line-height:1.6;">'+String(r.disclaimer||'')+'</div></div>';var old=document.getElementById('weekly-open-report');if(old)old.remove();var host=document.getElementById('weekly-reports-card');host.insertAdjacentHTML('afterend',html);document.getElementById('weekly-open-report').scrollIntoView({behavior:'smooth',block:'start'});}
+function renderStormReportData_(r){var card=document.getElementById('storm-findings-detail'),wrap=document.getElementById('storm-findings-content');var html='<div class="financial-line"><span>Audit status</span><span>'+String(r.audit_status||'—')+'</span></div><div class="financial-line"><span>Documented gaps</span><span>'+Number(r.omissions_count||0)+'</span></div>';if(r.total_leakage_formatted)html+='<div class="financial-line"><span>Verified priced effect</span><span>'+r.total_leakage_formatted+'</span></div>'; (r.findings||[]).forEach(function(f){html+='<div class="full-report-factor"><h4>'+String(f.label||f.id||'Finding')+'</h4><div class="full-report-meta">'+String(f.status||'')+(f.reference?' · '+String(f.reference):'')+'</div><div class="full-report-summary">'+String(f.recommendation||'')+'</div></div>';});wrap.innerHTML=html;card.style.display='block';card.scrollIntoView({behavior:'smooth',block:'start'});}
 
 function captureProspectEmail() {
   var email = document.getElementById('prospect-email').value.trim();
@@ -1050,18 +1404,44 @@ function captureProspectEmail() {
     city: state.currentCity,
     state: state.currentState
   }, function() {});
-  document.getElementById('email-capture-block').innerHTML = '<div class="block-title">✓ Subscribed</div><p>Check your inbox — permit activity report incoming.</p>';
+  document.getElementById('email-capture-block').innerHTML = '<div class="block-title">✓ Subscribed</div><p>Your zone-update request has been recorded.</p>';
 }
 
 // ====================================================================
 // PAYMENT FLOW
 // ====================================================================
 function unlockFullReport() {
-  document.getElementById('preview-card').style.display = 'none';
-  document.getElementById('payment-screen').style.display = 'block';
+  var btn = document.getElementById('btn-unlock-full');
+  if (btn && btn.disabled) {
+    alert('The Texas serviceability preflight has not cleared yet. Payment is enabled only after the required public and regulatory checks pass.');
+    return;
+  }
+  var clientId=getClientId_();
+  if(clientId){
+    apiGet({action:'getRetainerOffer',client_id:clientId,service:'CAT',candidate_zone_zip:state.currentZip},function(res){
+      var o=res&&res.offer;
+      if(o&&o.active_retainer&&o.available_units&&Number(o.available_units.total)>0){
+        if(confirm('Your active CAT retainer has '+Number(o.available_units.total)+' zone credit(s) available. Use one credit for '+state.currentZip+' instead of purchasing another $7,000 per-zone report?')){useCatRetainerCredit_();return;}
+      }
+      if(o&&o.eligible){showRetainerChoicePopup_('CAT',state.currentZip,o);return;}
+      openPerZonePayment_();
+    });
+    return;
+  }
+  openPerZonePayment_();
+}
+function openPerZonePayment_(){document.getElementById('preview-card').style.display='none';document.getElementById('payment-screen').style.display='block';}
+function useCatRetainerCredit_(){
+  var clientId=getClientId_();if(!clientId||!state.currentZip)return;
+  apiPost({action:'useCatRetainerCredit',client_id:clientId,zone_zip:state.currentZip,intent:document.getElementById('frm-intent').value},function(res){
+    if(!res.success){alert(res.error||'CAT retainer credit could not be used.');return;}
+    state.report_token=res.report_access.access_token;history.replaceState(null,'',location.pathname+'?report_token='+encodeURIComponent(state.report_token)+'&zip='+encodeURIComponent(state.currentZip));
+    document.getElementById('preview-card').style.display='none';loadFullReport(state.report_token);
+  });
 }
 
 function togglePayment(method) {
+  state.paymentMethod = method;
   ['ACH', 'FEDWIRE', 'CARD'].forEach(function(m) {
     var btn = document.getElementById('btn-' + m.toLowerCase());
     if (btn) btn.classList.toggle('active', m === method);
@@ -1073,6 +1453,7 @@ function togglePayment(method) {
 
 function updateCardFee() {
   var type = document.getElementById('frm-card-type').value;
+  state.cardType = type;
   var card = document.getElementById('pay-card');
   if (type === 'DEBIT') {
     card.innerHTML = '<h4 style="color:var(--cyber-red);">Card Rejected</h4><div style="color:var(--cyber-red);">Debit cards not accepted. Please use ACH or a credit card.</div>';
@@ -1112,6 +1493,7 @@ function createAccountAndProceed() {
     ref_code: state.ref_code
   }, function(res) {
     if (!res.success) { alert('Account creation failed: ' + res.error); return; }
+    if(res.requires_portal_login){state.incoming_email=email;document.getElementById('portal-login-email').value=email;openPortalLogin();alert('This email is already associated with an Optima Workflows client account. Use the secure sign-in link before starting another purchase.');return;}
     var clientId = res.client.client_id;
 
     apiPost({
@@ -1120,10 +1502,19 @@ function createAccountAndProceed() {
       service: 'CAT',
       tier: 'per_zone',
       amount: 7000,
-      method: 'ACH',
-      reference: 'OPT-77421-' + clientId
+      method: state.paymentMethod || 'ACH',
+      card_type: state.cardType || 'CREDIT',
+      reference: 'OPT-77421-' + clientId,
+      zone_zip: state.currentZip,
+      intent: document.getElementById('frm-intent').value
     }, function(payRes) {
+      if (!payRes.success) { alert(payRes.error || 'Payment could not be enabled for this ZIP.'); return; }
       state.currentClient = res.client;
+      state.clientId = clientId;
+      state.pendingCatPaymentId = payRes.payment.payment_id;
+      state.pendingCatStatusToken = payRes.status_check_token || '';
+      sessionStorage.setItem('optima_cat_payment_id',state.pendingCatPaymentId);
+      sessionStorage.setItem('optima_cat_payment_status_token',state.pendingCatStatusToken);
       applyClientToUI(res.client);
       document.getElementById('account-creation').style.display = 'none';
       document.getElementById('nav-home').click();
@@ -1132,13 +1523,251 @@ function createAccountAndProceed() {
   });
 }
 
+function checkCatPayment(){
+  var clientId=getClientId_(),pid=state.pendingCatPaymentId,token=state.pendingCatStatusToken;
+  if(!clientId||!pid||!token){alert('No authorized pending CAT payment is available in this session. If payment was already verified, use the secure onboarding link issued by Optima.');return;}
+  apiGet({action:'getPaymentStatus',client_id:clientId,payment_id:pid,status_token:token},function(res){
+    if(!res.success){alert(res.error||'Payment status could not be checked.');return;}
+    if(String(res.status).toLowerCase()!=='verified'){alert('Payment is still awaiting independent verification.');return;}
+    if(!res.report_access||!res.report_access.access_token){alert(res.warning||'Payment is verified, but secure onboarding access is not available yet.');return;}
+    state.report_token=res.report_access.access_token;
+    sessionStorage.removeItem('optima_cat_payment_id');sessionStorage.removeItem('optima_cat_payment_status_token');state.pendingCatPaymentId='';state.pendingCatStatusToken='';
+    closePopup('popup-post-payment');
+    var q='?report_token='+encodeURIComponent(state.report_token)+'&zip='+encodeURIComponent(state.currentZip)+(state.ref_code?'&ref='+encodeURIComponent(state.ref_code):'');history.replaceState(null,'',location.pathname+q);
+    loadFullReport(state.report_token);
+  });
+}
+
 // ====================================================================
-// WEEKLY PAYMENT
+// WEEKLY + STORM UPSELL PAYMENT / DELIVERY
 // ====================================================================
-function showWeeklyPaymentScreen() {
-  switchTab('view-cat-intel', document.getElementById('nav-cat-intel'));
-  // For now, simulate the weekly payment flow inline
-  openPopup('popup-post-weekly');
+function getClientId_(){return (state.currentClient&&state.currentClient.client_id)||state.clientId||'';}
+
+function setUpsellPaymentMethod(service,method){
+  state.upsellPaymentMethod[service]=method;
+  var id=service==='WEEKLY'?'weekly-pay-details':'storm-pay-details';
+  var el=document.getElementById(id); if(!el)return;
+  el.textContent=method==='FEDWIRE'?'Fedwire · JPMORGAN CHASE · Account 20000045856166 · Routing 021000021':'ACH · JPMORGAN CHASE · Account 20000045856166 · Routing 028000024';
+}
+
+function startWeeklyPurchase(){
+  if(!getClientId_()||!state.currentZip){alert('Weekly Tracking becomes available after a paid CAT Intelligence report is associated with this client and zone.');return;}
+  var h=document.querySelector('#popup-weekly-payment .pop-headline'); if(h)h.innerHTML='15 days of daily monitoring — <span class="accent">$18,750.</span>';
+  var b=document.querySelector('#popup-weekly-payment .pop-actions .pop-btn-primary'); if(b){b.textContent="I've Made Payment — Confirm";b.setAttribute('onclick',"submitWeeklyPayment('phase1')");}
+  closePopup('popup-post-cat-report');openPopup('popup-weekly-payment');
+}
+
+function startWeeklyPhase2Purchase(){
+  if(!getClientId_()){alert('Client account required.');return;}
+  openPopup('popup-weekly-payment');
+  var h=document.querySelector('#popup-weekly-payment .pop-headline'); if(h)h.innerHTML='Continue monitoring — <span class="accent">$8,750 / week.</span>';
+  var b=document.querySelector('#popup-weekly-payment .pop-actions .pop-btn-primary'); if(b){b.textContent="I've Made Weekly Continuation Payment — Confirm";b.setAttribute('onclick',"submitWeeklyPayment('phase2_week')");}
+}
+
+function submitWeeklyPayment(tier){
+  var clientId=getClientId_(); if(!clientId)return;
+  apiPost({action:'logPayment',client_id:clientId,service:'WEEKLY',tier:tier||'phase1',amount:tier==='phase2_week'?8750:18750,method:state.upsellPaymentMethod.WEEKLY||'ACH',reference:'WEEKLY-'+clientId+'-'+Date.now(),zone_zip:state.currentZip},function(res){
+    if(!res.success){alert(res.error||'Weekly payment notice could not be recorded.');return;}
+    state.pendingWeeklyPaymentId=res.payment.payment_id;state.pendingWeeklyStatusToken=res.status_check_token||'';sessionStorage.setItem('optima_weekly_payment_id',state.pendingWeeklyPaymentId);sessionStorage.setItem('optima_weekly_payment_status_token',state.pendingWeeklyStatusToken);closePopup('popup-weekly-payment');openPopup('popup-weekly-pending');
+  });
+}
+
+function checkWeeklyPayment(){
+  var clientId=getClientId_(),pid=state.pendingWeeklyPaymentId;if(!clientId||!pid){alert('No pending Weekly payment found in this session.');return;}
+  apiGet({action:'getPaymentStatus',client_id:clientId,payment_id:pid,status_token:state.pendingWeeklyStatusToken},function(res){
+    if(!res.success){alert(res.error||'Status could not be checked.');return;}
+    if(String(res.status).toLowerCase()!=='verified'){alert('Payment is still awaiting independent verification.');return;}
+    closePopup('popup-weekly-pending');sessionStorage.removeItem('optima_weekly_payment_id');sessionStorage.removeItem('optima_weekly_payment_status_token');state.pendingWeeklyPaymentId='';state.pendingWeeklyStatusToken='';
+    if(state.currentClient){var sv=String(state.currentClient.services_owned||'');if(sv.toLowerCase().indexOf('weekly')<0)state.currentClient.services_owned=sv?(sv+',weekly'):'weekly';applyClientToUI(state.currentClient);}else{document.getElementById('nav-weekly').style.display='flex';}
+    loadWeeklyDelivery();openPopup('popup-post-weekly');
+  });
+}
+
+function loadWeeklyDelivery(){
+  var clientId=getClientId_();if(!clientId)return;
+  apiGet({action:'getWeeklyDelivery',client_id:clientId,limit:20},function(res){
+    if(!res.success)return;var e=res.enrollment;
+    document.getElementById('weekly-empty-card').style.display=e?'none':'block';
+    document.getElementById('weekly-enrollment-card').style.display=e?'block':'none';
+    if(e){document.getElementById('weekly-status').textContent=e.status||'—';document.getElementById('weekly-phase').textContent=e.phase||'—';document.getElementById('weekly-term-start').textContent=formatDate(e.started_at);document.getElementById('weekly-paid-through').textContent=formatDate(e.paid_through_at);document.getElementById('btn-weekly-phase2').style.display=String(e.status)==='PHASE2_PAYMENT_DUE'?'block':'none';}
+    var wrap=document.getElementById('weekly-reports-list');wrap.innerHTML='';
+    if(!res.reports||!res.reports.length){wrap.innerHTML='<p style="font-size:13px;color:var(--text-muted);">No monitoring reports yet.</p>';return;}
+    res.reports.forEach(function(r){var card=document.createElement('div');card.className='full-report-factor';var factors=[];try{factors=JSON.parse(r.factors_json||'[]');}catch(_e){}var verified=factors.filter(function(f){return String(f.data_status).indexOf('VERIFIED')>=0;}).length;card.innerHTML='<h4>'+formatDate(r.generated_at)+' · '+(r.phase||'Monitoring')+'</h4><div class="full-report-meta">'+verified+'/'+factors.length+' factor signals verified in this snapshot</div><div class="full-report-summary">'+(r.summary||'Current zone intelligence snapshot.')+'</div><button class="admin-btn" style="margin-top:10px;" onclick="openWeeklyReport(\''+r.weekly_report_id+'\')">Open Report</button>';wrap.appendChild(card);});
+  });
+}
+
+function openWeeklyReport(reportId){
+  var clientId=getClientId_();if(!clientId||!reportId)return;
+  apiGet({action:'getWeeklyReport',client_id:clientId,report_id:reportId},function(res){
+    if(!res.success||!res.report){alert(res.error||'Weekly report is not available.');return;}
+    renderWeeklyReportData_(res.report);loadDashboardMessages();
+  });
+}
+
+function startStormPurchase(){
+  var clientId=getClientId_();if(!clientId){alert('Client account required.');return;}
+  apiGet({action:'getRetainerOffer',client_id:clientId,service:'STORM',candidate_zone_zip:state.currentZip},function(res){
+    var o=res&&res.offer;
+    if(o&&o.active_retainer&&o.available_units&&Number(o.available_units.total)>0){
+      closePopup('popup-post-weekly');switchTab('view-storm-audit',document.getElementById('nav-storm-audit'));loadStormDelivery();
+      alert('Your active Storm retainer has '+Number(o.available_units.total)+' roof review credit(s) available. Submit the scope without another $3,500 per-roof payment.');return;
+    }
+    if(o&&o.eligible){closePopup('popup-post-weekly');showRetainerChoicePopup_('STORM',state.currentZip,o);return;}
+    openStormPerRoofPayment_();
+  });
+}
+function openStormPerRoofPayment_(){closePopup('popup-post-weekly');openPopup('popup-storm-payment');}
+
+function submitStormPayment(){
+  var clientId=getClientId_();if(!clientId)return;
+  apiPost({action:'logPayment',client_id:clientId,service:'STORM',tier:'per_roof',amount:3500,method:state.upsellPaymentMethod.STORM||'ACH',reference:'STORM-'+clientId+'-'+Date.now(),zone_zip:state.currentZip},function(res){
+    if(!res.success){alert(res.error||'Storm Audit payment notice could not be recorded.');return;}
+    state.pendingStormPaymentId=res.payment.payment_id;state.pendingStormStatusToken=res.status_check_token||'';sessionStorage.setItem('optima_storm_payment_id',state.pendingStormPaymentId);sessionStorage.setItem('optima_storm_payment_status_token',state.pendingStormStatusToken);closePopup('popup-storm-payment');openPopup('popup-storm-pending');
+  });
+}
+
+function checkStormPayment(){
+  var clientId=getClientId_(),pid=state.pendingStormPaymentId;if(!clientId||!pid){alert('No pending Storm payment found in this session.');return;}
+  apiGet({action:'getPaymentStatus',client_id:clientId,payment_id:pid,status_token:state.pendingStormStatusToken},function(res){
+    if(!res.success){alert(res.error||'Status could not be checked.');return;}
+    if(String(res.status).toLowerCase()!=='verified'){alert('Payment is still awaiting independent verification.');return;}
+    closePopup('popup-storm-pending');sessionStorage.removeItem('optima_storm_payment_id');sessionStorage.removeItem('optima_storm_payment_status_token');state.pendingStormPaymentId='';state.pendingStormStatusToken='';document.getElementById('nav-storm-audit').style.display='flex';loadStormDelivery();openPopup('popup-final');
+  });
+}
+
+function openStormIntakeAfterPayment(){closePopup('popup-final');switchTab('view-storm-audit',document.getElementById('nav-storm-audit'));loadStormDelivery();}
+
+function loadStormDelivery(){
+  var clientId=getClientId_();if(!clientId)return;
+  apiGet({action:'getStormDelivery',client_id:clientId},function(res){
+    if(!res.success)return;
+    document.getElementById('storm-intake-card').style.display=res.can_submit?'block':'none';
+    document.getElementById('storm-purchase-card').style.display=res.can_submit?'none':'block';
+    renderRetainerOffer_('STORM','storm-retainer-offer',res.retainer_offer);
+    var wrap=document.getElementById('submissions-list');wrap.innerHTML='';
+    if(!res.submissions||!res.submissions.length){wrap.innerHTML='<p style="font-size:13px;color:var(--text-muted);">No submissions yet.</p>';return;}
+    res.submissions.forEach(function(x){var d=document.createElement('div');d.className='full-report-factor';var f=x.findings_summary;var ready=String(x.status)==='FINDINGS_READY';d.innerHTML='<h4>'+(x.submission_id||'Storm Audit')+' · '+(x.target_zip||'')+'</h4><div class="full-report-meta">'+(x.status||'QUEUED')+' · submitted '+formatDate(x.submitted_at)+'</div><div class="full-report-summary">'+(f?('Findings available · '+(f.omissions_count||0)+' documented gap(s)'): 'Review in progress; verified findings will appear here.')+'</div>'+(ready?'<button class="admin-btn" style="margin-top:10px;" onclick="loadStormFindings(\''+x.submission_id+'\')">View Findings</button>':'');wrap.appendChild(d);});
+  });
+}
+function loadStormFindings(submissionId){
+  var clientId=getClientId_();if(!clientId)return;apiGet({action:'getFindings',client_id:clientId,submission_id:submissionId},function(res){
+    if(!res.success){alert(res.error||'Findings are not available yet.');return;}renderStormReportData_(res);loadDashboardMessages();
+  });
+}
+
+function money_(v){return '$'+Number(v||0).toLocaleString(undefined,{maximumFractionDigits:2});}
+function retainerUnit_(service){return service==='CAT'?'zone':'roof';}
+function retainerRolloverLabel_(t){
+  if(Number(t.rollover_ceiling||0)<=0)return 'No monthly rollover';
+  var mult=Number(t.monthly_quota||0)>0?Number(t.rollover_ceiling)/Number(t.monthly_quota):0;
+  return 'Rollover up to '+mult.toFixed(mult%1?1:0)+'× monthly quota · '+Number(t.rollover_expiry_days||0)+'-day batch expiry';
+}
+function showRetainerChoicePopup_(service,zone,offer){
+  state.pendingRetainerOfferService=service;state.pendingRetainerOfferZone=zone||'';
+  var unit=retainerUnit_(service),base=service==='CAT'?7000:3500;
+  document.getElementById('retainer-offer-title').innerHTML=(service==='CAT'?'CAT Intelligence':'Storm Audit')+' retainer is now <span class="accent">available.</span>';
+  document.getElementById('retainer-offer-desc').textContent='You are entering a second distinct service zone'+(zone?' ('+zone+')':'')+'. Instead of continuing at '+money_(base)+' per '+unit+', you can convert now to a prepaid retainer. Published tiers show their savings; Custom is private and begins with a request.';
+  var wrap=document.getElementById('retainer-offer-tier-list');wrap.innerHTML='';
+  (offer.tiers||[]).forEach(function(t){
+    var d=document.createElement('div');d.className='pop-offer';
+    d.innerHTML='<div class="pop-offer-label">'+String(t.tier||'')+' · '+Number(t.monthly_quota||0)+' '+unit+'(s)/month · '+Number(t.term_months||0)+'-month minimum'+(t.provisional?' · preliminary quantity':'')+'</div>'+ '<div class="pop-offer-title">'+money_(t.effective_rate)+' / '+unit+' <span style="font-size:13px;color:var(--cyber-green);">Save '+money_(t.savings_per_unit)+' / '+unit+' ('+Number(t.savings_percent||0)+'%)</span></div>'+ '<p class="pop-offer-desc">Prepaid: '+money_(t.total_prepaid)+' · Standard per-unit equivalent: '+money_(t.baseline_term_cost)+' · Minimum-term savings: <b style="color:var(--cyber-green);">'+money_(t.term_savings)+'</b><br>'+retainerRolloverLabel_(t)+'</p>'+ '<div class="pop-actions"><button class="pop-btn pop-btn-primary" onclick="startRetainerPurchase(\''+service+'\',\''+String(t.tier||'')+'\','+Number(t.total_prepaid||0)+')">Choose '+String(t.tier||'')+'</button></div>';
+    wrap.appendChild(d);
+  });
+  if(offer.custom_card){var c=document.createElement('div');c.className='pop-offer';c.innerHTML='<div class="pop-offer-label">CUSTOM · PRIVATE OFFER</div><div class="pop-offer-title">Contact us for a Custom package</div><p class="pop-offer-desc">No public quota, term, price, rollover or overage details are displayed. Request a private package and finalized terms will be delivered only to your dashboard and corporate email.</p><div class="pop-actions"><button class="pop-btn pop-btn-primary" onclick="requestCustomPackage(\''+service+'\')">Request Custom Package</button></div>';wrap.appendChild(c);}
+  var cont=document.getElementById('retainer-continue-unit');if(cont)cont.textContent='Continue at '+money_(base)+' per '+unit;
+  openPopup('popup-retainer-offer');
+}
+function continuePerUnitAfterRetainerOffer(){
+  var service=state.pendingRetainerOfferService;closePopup('popup-retainer-offer');state.pendingRetainerOfferService='';state.pendingRetainerOfferZone='';
+  if(service==='CAT')openPerZonePayment_();else if(service==='STORM')openStormPerRoofPayment_();
+}
+function loadRetainerOffer(service,elementId){var clientId=getClientId_(),el=document.getElementById(elementId);if(!clientId||!el)return;apiGet({action:'getRetainerOffer',client_id:clientId,service:service,candidate_zone_zip:state.currentZip},function(res){if(!res.success)return;renderRetainerOffer_(service,elementId,res.offer);});}
+function renderRetainerOffer_(service,elementId,offer){
+  var el=document.getElementById(elementId);if(!el)return;
+  if(offer&&offer.active_retainer){var a=offer.active_retainer,u=offer.available_units||{};el.style.display='block';el.innerHTML='<h3 class="section-label">Active '+service+' Retainer</h3><p style="font-size:13px;color:var(--text-muted);line-height:1.65;">'+a.tier+' · '+a.monthly_quota+' unit(s) per month · term through '+formatDate(a.term_end_at)+'.</p><div class="financial-line"><span>Available current/rollover credits</span><span>'+Number(u.total||0)+'</span></div>';return;}
+  if(!offer||!offer.eligible){el.style.display='none';return;}el.style.display='block';
+  var unit=retainerUnit_(service),html='<h3 class="section-label">Retainer now available</h3><p style="font-size:13px;color:var(--text-muted);line-height:1.65;">A second distinct '+service+' service zone has qualified this account for retainer pricing. Published tiers show exact savings. Custom terms remain private until requested and finalized.</p>';
+  (offer.tiers||[]).forEach(function(t){var total=Number(t.total_prepaid||0);html+='<div class="financial-line" style="align-items:flex-start;gap:18px;"><span>'+t.tier+' · '+t.monthly_quota+' / month · '+t.term_months+' month minimum'+(t.provisional?' · preliminary':'')+'<br><small style="color:var(--text-detail);">'+retainerRolloverLabel_(t)+'</small></span><span style="text-align:right;">'+money_(t.effective_rate)+'/'+unit+' · save '+money_(t.savings_per_unit)+'/'+unit+'<br><small style="color:var(--cyber-green);">'+money_(t.term_savings)+' minimum-term savings</small> <button class="admin-btn" style="margin-left:8px;" onclick="startRetainerPurchase(\''+service+'\',\''+t.tier+'\','+total+')">Select</button></span></div>';});
+  if(offer.custom_card)html+='<div class="financial-line" style="align-items:flex-start;gap:18px;border-top:1px solid var(--border-hairline);padding-top:14px;"><span><b>CUSTOM · PRIVATE OFFER</b><br><small style="color:var(--text-detail);">Quota, term, pricing, rollover and overage remain private until finalized for your account.</small></span><span><button class="admin-btn" onclick="requestCustomPackage(\''+service+'\')">Request Custom Package</button></span></div>';
+  el.innerHTML=html;
+}
+function requestCustomPackage(service){
+  var clientId=getClientId_();if(!clientId){alert('Secure client access is required.');return;}
+  apiPost({action:'requestCustomPackage',client_id:clientId,service:service,candidate_zone_zip:state.pendingRetainerOfferZone||state.currentZip},function(res){
+    if(!res.success){alert(res.error||'Custom request could not be submitted.');return;}closePopup('popup-retainer-offer');alert(res.already_open?'A Custom request is already in progress.':'Custom request received. Finalized private terms will appear in Payment Center → Custom Offers and a one-line email will be sent to your corporate email.');loadCustomOffers();loadDashboardMessages();
+  });
+}
+function loadCustomOffers(){
+  var clientId=getClientId_(),wrap=document.getElementById('custom-offers-list');if(!clientId||!wrap)return;
+  apiGet({action:'listCustomOffers',client_id:clientId},function(res){
+    if(!res.success){wrap.innerHTML='<p style="font-size:13px;color:var(--cyber-red);">Custom offers could not be loaded.</p>';return;}wrap.innerHTML='';
+    if(!res.offers||!res.offers.length){wrap.innerHTML='<p style="font-size:13px;color:var(--text-muted);">No private Custom offers.</p>';return;}
+    res.offers.forEach(function(o){var unit=o.service==='CAT'?'zones':'roof reviews',status=String(o.status||'').toUpperCase(),actions='';if(status==='OFFERED')actions='<button class="admin-btn" onclick="acceptCustomOffer(\''+o.offer_id+'\')">Accept Offer</button>';else if(status==='ACCEPTED')actions='<button class="admin-btn" onclick="startCustomOfferPayment(\''+o.offer_id+'\',\''+o.service+'\','+Number(o.total_prepaid||0)+')">Proceed to Payment</button>';else if(status==='PAYMENT_PENDING')actions='<span style="color:var(--cyber-amber);">Payment confirmation awaited</span>';else if(status==='ACTIVE')actions='<span style="color:var(--cyber-green);font-weight:800;">ACTIVE</span>';
+      var d=document.createElement('div');d.className='full-report-factor';d.innerHTML='<h4>'+o.service+' Custom Package · '+status+'</h4><div class="full-report-meta">'+Number(o.monthly_quota||0)+' '+unit+'/month · '+Number(o.term_months||0)+'-month minimum · '+money_(o.total_prepaid)+' prepaid</div><div class="full-report-summary">Effective rate '+money_(o.effective_rate)+' / '+(o.service==='CAT'?'zone':'roof')+(Number(o.rollover_ceiling||0)>0?' · rollover ceiling '+Number(o.rollover_ceiling)+' · '+Number(o.rollover_expiry_days||0)+'-day batch expiry':'')+'</div><div style="margin-top:10px;">'+actions+'</div>';wrap.appendChild(d);
+    });
+  });
+}
+function acceptCustomOffer(offerId){
+  var clientId=getClientId_();apiPost({action:'acceptCustomOffer',client_id:clientId,offer_id:offerId},function(res){if(!res.success){alert(res.error||'Offer could not be accepted.');return;}loadCustomOffers();loadDashboardMessages();startCustomOfferPayment(res.offer.offer_id,res.offer.service,Number(res.offer.total_prepaid||0));});
+}
+function startCustomOfferPayment(offerId,service,total){
+  state.pendingCustomOfferId=offerId;sessionStorage.setItem('optima_custom_offer_id',offerId);state.pendingRetainerService=service;state.pendingRetainerTier='custom';state.pendingRetainerTotal=Number(total)||0;sessionStorage.setItem('optima_retainer_service',service);sessionStorage.setItem('optima_retainer_tier','custom');sessionStorage.setItem('optima_retainer_total',String(state.pendingRetainerTotal));
+  document.getElementById('retainer-payment-title').innerHTML=service+' CUSTOM — <span class="accent">'+money_(state.pendingRetainerTotal)+' prepaid.</span>';document.getElementById('retainer-payment-desc').textContent='You accepted this private Custom offer. Activation occurs only after independent payment verification; monthly credits are then released according to the finalized private terms.';openPopup('popup-retainer-payment');
+}
+function loadDashboardMessages(){
+  var clientId=getClientId_(),wrap=document.getElementById('dashboard-messages-list');if(!clientId||!wrap){renderReportAnnouncement_([]);return;}apiGet({action:'getDashboardMessages',client_id:clientId,limit:50},function(res){if(!res.success)return;var messages=res.messages||[];wrap.innerHTML='';if(!messages.length){wrap.innerHTML='<p style="font-size:13px;color:var(--text-muted);">No messages yet.</p>';}else{messages.forEach(function(m){var d=document.createElement('div');d.className='full-report-factor';var btn='';if(String(m.category)==='REPORT_AVAILABLE'&&String(m.status).toUpperCase()==='UNREAD')btn='<button class="admin-btn" style="margin-top:10px;" onclick="openReportAnnouncementById(\''+String(m.message_id)+'\')">Open Report</button>';d.innerHTML='<h4>'+String(m.title||'Update')+'</h4><div class="full-report-meta">'+formatDate(m.created_at)+' · '+String(m.status||'')+'</div><div class="full-report-summary">'+String(m.body||'')+'</div>'+(m.dashboard_path?'<div style="font-size:11px;color:var(--cyber-blue);margin-top:8px;">Location: '+String(m.dashboard_path)+'</div>':'')+btn;d.dataset.messageId=String(m.message_id||'');wrap.appendChild(d);});}
+    state.dashboardMessages=messages;renderReportAnnouncement_(messages);
+  });
+}
+function renderReportAnnouncement_(messages){
+  var banner=document.getElementById('report-announcement-banner');if(!banner)return;var unread=(messages||[]).filter(function(m){return String(m.category)==='REPORT_AVAILABLE'&&String(m.status).toUpperCase()==='UNREAD';});
+  if(!unread.length){banner.classList.remove('active','reminder');banner.dataset.messageId='';return;}
+  var m=unread[0],age=(Date.now()-new Date(m.created_at||Date.now()).getTime())/3600000;banner.classList.add('active');banner.classList.toggle('reminder',age>=12);banner.dataset.messageId=String(m.message_id||'');
+  document.getElementById('report-announcement-kicker').textContent=age>=12?'REPORT REMINDER · UNREAD':'REPORT AVAILABLE · UNREAD';document.getElementById('report-announcement-title').textContent=String(m.title||'A report is ready in your dashboard.');document.getElementById('report-announcement-meta').textContent=String(m.dashboard_path||'Open the report from your dashboard.');document.getElementById('report-announcement-count').textContent=unread.length>1?(unread.length+' unread reports are waiting. This banner will remain until each report is opened.'):'This announcement remains visible until the report is opened.';document.getElementById('report-announcement-open').onclick=function(){openReportAnnouncement_(m);};
+}
+function openReportAnnouncementById(messageId){var list=state.dashboardMessages||[];for(var i=0;i<list.length;i++){if(String(list[i].message_id)===String(messageId)){openReportAnnouncement_(list[i]);return;}}}
+function openReportAnnouncementFallback_(type,ref,zip,m){
+  if(type==='REPORT_WEEKLY'){switchTab('view-weekly',document.getElementById('nav-weekly'));openWeeklyReport(ref);return;}
+  if(type==='REPORT_STORM'){switchTab('view-storm-audit',document.getElementById('nav-storm-audit'));loadStormFindings(ref);return;}
+  if(type==='REPORT_CAT'){switchTab('view-cat-intel',document.getElementById('nav-cat-intel'));if(zip){state.currentZip=zip;var z=document.getElementById('frm-zip');if(z)z.value=zip;}if(state.report_token){loadFullReport(state.report_token);}else{openPortalLogin();}return;}
+  alert('Open this report from '+String(m.dashboard_path||'the dashboard')+'.');
+}
+function openReportAnnouncement_(m){
+  var type=String(m.action_type||''),ref=String(m.action_ref||''),zip=String(m.zone_zip||''),service=type.replace('REPORT_','');
+  if(state.portalSession){apiGet({action:'getReportLibrary'},function(res){if(res.success){state.reportLibrary=res.reports||[];for(var i=0;i<state.reportLibrary.length;i++){var r=state.reportLibrary[i];if(String(r.service).toUpperCase()===service&&String(r.report_id)===ref){openPortalLibraryReport(r.library_id);return;}}}openReportAnnouncementFallback_(type,ref,zip,m);});return;}
+  openReportAnnouncementFallback_(type,ref,zip,m);
+}
+function loadAdminCustomRequests(){
+  if(!state.adminMode||!state.adminKey)return;var wrap=document.getElementById('admin-custom-requests');if(!wrap)return;apiGet({action:'listCustomRequests',admin_key:state.adminKey},function(res){if(!res.success)return;wrap.innerHTML='';var open=(res.requests||[]).filter(function(r){return String(r.status).toUpperCase()==='REQUESTED';});if(!open.length){wrap.innerHTML='<p style="font-size:13px;color:var(--text-muted);">No pending Custom requests.</p>';return;}open.forEach(function(r){var d=document.createElement('div');d.className='financial-line';d.innerHTML='<span>'+r.service+' · '+r.client_id+' · zone '+(r.candidate_zone_zip||'—')+'</span><span><button class="admin-btn" onclick="finalizeCustomRequest(\''+r.request_id+'\')">Finalize Private Offer</button></span>';wrap.appendChild(d);});});
+}
+function finalizeCustomRequest(requestId){
+  if(!state.adminKey)return;apiPost({action:'finalizeCustomOffer',request_id:requestId,admin_key:state.adminKey},function(res){if(!res.success){alert(res.error||'Custom offer could not be finalized.');return;}alert('Private Custom offer issued. The client has received a dashboard message and one-line email with the finalized terms.');loadAdminCustomRequests();});
+}
+
+function setRetainerPaymentMethod(method){state.retainerPaymentMethod=method;var el=document.getElementById('retainer-pay-details');if(el)el.textContent=method==='FEDWIRE'?'Fedwire · JPMORGAN CHASE · Account 20000045856166 · Routing 021000021':'ACH · JPMORGAN CHASE · Account 20000045856166 · Routing 028000024';}
+function startRetainerPurchase(service,tier,total){
+  closePopup('popup-retainer-offer');
+  state.pendingRetainerService=service;state.pendingRetainerTier=String(tier||'').toLowerCase();state.pendingRetainerTotal=Number(total)||0;
+  sessionStorage.setItem('optima_retainer_service',state.pendingRetainerService);sessionStorage.setItem('optima_retainer_tier',state.pendingRetainerTier);sessionStorage.setItem('optima_retainer_total',String(state.pendingRetainerTotal));
+  document.getElementById('retainer-payment-title').innerHTML=service+' '+String(tier).toUpperCase()+' — <span class="accent">$'+state.pendingRetainerTotal.toLocaleString()+' prepaid.</span>';
+  document.getElementById('retainer-payment-desc').textContent='This payment activates the minimum-term retainer only after independent verification. Monthly credits are released on schedule; the entire term quantity is not dumped into the account on day one.';
+  openPopup('popup-retainer-payment');
+}
+function submitRetainerPayment(){
+  var clientId=getClientId_();if(!clientId||!state.pendingRetainerService||!state.pendingRetainerTier)return;
+  apiPost({action:'logPayment',client_id:clientId,service:state.pendingRetainerService,tier:state.pendingRetainerTier,custom_offer_id:state.pendingCustomOfferId||'',method:state.retainerPaymentMethod||'ACH',reference:'RETAINER-'+clientId+'-'+Date.now(),zone_zip:state.currentZip},function(res){
+    if(!res.success){alert(res.error||'Retainer payment notice could not be recorded.');return;}
+    state.pendingRetainerPaymentId=res.payment.payment_id;state.pendingRetainerStatusToken=res.status_check_token||'';sessionStorage.setItem('optima_retainer_payment_id',state.pendingRetainerPaymentId);sessionStorage.setItem('optima_retainer_payment_status_token',state.pendingRetainerStatusToken);closePopup('popup-retainer-payment');openPopup('popup-retainer-pending');
+  });
+}
+function checkRetainerPayment(){
+  var clientId=getClientId_(),pid=state.pendingRetainerPaymentId;if(!clientId||!pid){alert('No pending retainer payment found.');return;}
+  apiGet({action:'getPaymentStatus',client_id:clientId,payment_id:pid,status_token:state.pendingRetainerStatusToken},function(res){
+    if(!res.success){alert(res.error||'Status could not be checked.');return;}if(String(res.status).toLowerCase()!=='verified'){alert('Payment is still awaiting independent verification.');return;}
+    closePopup('popup-retainer-pending');sessionStorage.removeItem('optima_retainer_payment_id');sessionStorage.removeItem('optima_retainer_payment_status_token');sessionStorage.removeItem('optima_custom_offer_id');state.pendingRetainerPaymentId='';state.pendingRetainerStatusToken='';state.pendingCustomOfferId='';
+    if(state.pendingRetainerService==='CAT')loadRetainerOffer('CAT','cat-retainer-offer');if(state.pendingRetainerService==='STORM')loadStormDelivery();loadCustomOffers();loadDashboardMessages();
+    alert(state.pendingRetainerService+' retainer activated. Monthly credits will appear in the dashboard according to the prepaid tier schedule.');
+  });
 }
 
 // ====================================================================
@@ -1146,21 +1775,24 @@ function showWeeklyPaymentScreen() {
 // ====================================================================
 function submitStormAudit(e) {
   e.preventDefault();
-  if (!state.currentClient) { alert('Sign in required.'); return; }
+  var clientId=getClientId_();
+  if (!clientId) { alert('Secure client access is required.'); return; }
   var payload = {
     action: 'submitStormAudit',
-    client_id: state.currentClient.client_id,
+    client_id: clientId,
     target_zip: document.getElementById('intake-zip').value.trim(),
     city: document.getElementById('intake-city').value.trim(),
     state: document.getElementById('intake-state').value.trim(),
     scope_link: document.getElementById('intake-scopelink').value.trim(),
-    tier: state.currentClient.tier
+    tier: (state.currentClient&&state.currentClient.tier)||''
   };
   apiPost(payload, function(res) {
     if (!res.success) { alert('Submission failed: ' + res.error); return; }
     document.getElementById('intake-form-wrap').style.display = 'none';
     document.getElementById('intake-thankyou').style.display = 'block';
-    setTimeout(function() { openPopup('popup-final'); }, 500);
+    // Keep the submission confirmation visible. The paid roof entitlement has
+    // just been consumed, so an immediate delivery refresh would hide this card.
+    // Delivery state refreshes on the next Storm tab visit or page refresh.
   });
 }
 
@@ -1197,6 +1829,8 @@ function loadClientDirectory() {
 // CLIENT UI APPLY
 // ====================================================================
 function applyClientToUI(client) {
+  state.currentClient=client;
+  state.clientId=client.client_id || state.clientId;
   document.getElementById('user-name-display').textContent = client.business_name;
   document.getElementById('user-tier-label').textContent = state.adminMode ? '🔓 ADMIN VIEW' : (client.tier || '—');
   document.getElementById('settings-client').textContent = client.business_name;
@@ -1210,15 +1844,10 @@ function applyClientToUI(client) {
   document.getElementById('nav-storm-audit').style.display = services.indexOf('storm') >= 0 ? 'flex' : 'none';
   document.getElementById('nav-billing').style.display = 'flex';
 
-  // Populate weekly term if retainer
-  if (services.indexOf('weekly') >= 0 && client.term_end) {
-    document.getElementById('weekly-empty-card').style.display = 'none';
-    document.getElementById('weekly-term-card').style.display = 'block';
-    document.getElementById('weekly-plan').textContent = client.tier;
-    document.getElementById('weekly-term-start').textContent = client.term_start || '—';
-    document.getElementById('weekly-term-end').textContent = client.term_end || '—';
-    loadWeeklyPool();
-  }
+  if (services.indexOf('weekly') >= 0) loadWeeklyDelivery();
+  if (services.indexOf('storm') >= 0) loadStormDelivery();
+  loadDashboardMessages();
+  loadCustomOffers();
 
   // Prefill storm intake with client data
   document.getElementById('intake-company').value = client.business_name || '';
@@ -1227,38 +1856,6 @@ function applyClientToUI(client) {
   document.getElementById('intake-state').value = state.currentState || '';
   document.getElementById('intake-city').value = state.currentCity || '';
   document.getElementById('intake-zip').value = state.currentZip || '';
-}
-
-function loadWeeklyPool() {
-  if (!state.currentClient) return;
-  apiGet({
-    action: 'getUsage',
-    client_id: state.currentClient.client_id,
-    service: 'WEEKLY',
-    tier: state.currentClient.tier
-  }, function(res) {
-    if (!res.success || !res.rollover_pool) return;
-    var pool = res.rollover_pool;
-    document.getElementById('weekly-pool-total').textContent = pool.total_active;
-    var wrap = document.getElementById('weekly-pool-batches');
-    wrap.innerHTML = '';
-    if (!pool.batches || !pool.batches.length) {
-      wrap.innerHTML = '<div style="padding:12px 0; color:var(--text-detail); font-size:12px;">No active batches.</div>';
-      return;
-    }
-    pool.batches.forEach(function(b) {
-      var cls = '';
-      if (b.days_remaining !== null && b.days_remaining <= 7) cls = 'critical';
-      else if (b.days_remaining !== null && b.days_remaining <= 30) cls = 'expiring';
-      var row = document.createElement('div');
-      row.className = 'pool-batch ' + cls;
-      row.innerHTML = '<span>' + b.batch_id + '</span>' +
-                      '<span class="batch-credits">' + b.credits_remaining + '</span>' +
-                      '<span class="batch-expiry">Expires ' + formatDate(b.expiry_date) + '</span>' +
-                      '<span class="batch-days">' + (b.days_remaining !== null ? b.days_remaining + 'd' : '—') + '</span>';
-      wrap.appendChild(row);
-    });
-  });
 }
 
 function formatDate(iso) {
@@ -1276,15 +1873,16 @@ function initFromURL() {
   var params = new URLSearchParams(location.search);
   var zip = params.get('zip');
   var email = params.get('email');
+  var portalToken=params.get('portal_login_token');
   var hash = location.hash.replace('#', '');
 
   if (email) state.incoming_email = email;
+  if(portalToken){exchangePortalLoginToken_(portalToken);return;}
+  if(state.portalSession)loadPortalBootstrap_();
 
   if (zip) {
     document.getElementById('frm-zip').value = zip;
     document.getElementById('frm-intent').value = 'MAX_CASH';
-    document.getElementById('frm-tech').value = 'PRO_TECH';
-    document.getElementById('frm-rain').value = '0';
     setTimeout(function() {
       document.getElementById('triage-form').dispatchEvent(new Event('submit'));
     }, 400);
@@ -1300,8 +1898,9 @@ function initFromURL() {
 }
 
 function logout() {
-  localStorage.removeItem('optima_admin_key');
-  location.reload();
+  sessionStorage.removeItem('optima_admin_key');
+  if(state.portalSession){apiPost({action:'logoutPortal'},function(){clearPortalSession_();location.reload();});return;}
+  clearPortalSession_();location.reload();
 }
 
 // ESC closes any open pop-up
@@ -1313,8 +1912,9 @@ document.addEventListener('keydown', function(e) {
 });
 
 // Init
-document.getElementById('user-name-display').textContent = 'Vanguard Restoration';
-document.getElementById('user-tier-label').textContent = 'Enterprise Retainer';
+document.getElementById('user-name-display').textContent = 'Visitor';
+document.getElementById('user-tier-label').textContent = 'Free Preview';
+if(state.portalSession){document.getElementById('portal-auth-action').textContent='Validating Secure Session…';}
 initFromURL();
 </script>
 </body>
