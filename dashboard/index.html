@@ -917,7 +917,7 @@ td { padding: 12px 8px; border-bottom: 1px solid #111827; font-family: 'IBM Plex
 // CONFIG
 // ====================================================================
 var OPTIMA_API = 'https://script.google.com/macros/s/AKfycbyxAEK2zWgqjNDboU0v-fiCCXDQbULcGyzlXL5M076YlGQPeFSlG3syMvKVIuwK8m5U/exec';
-var OPTIMA_DASHBOARD_VERSION = '3.15.5';
+var OPTIMA_DASHBOARD_VERSION = '3.15.6';
 
 // ====================================================================
 // STATE
@@ -993,16 +993,21 @@ function apiGet(params, cb) {
 }
 
 function resetTriageButton_(){var btn=document.getElementById('btn-triage');if(btn){btn.disabled=false;btn.textContent='⚡ Run Free Preview';}}
+function showBackendMismatch_(detectedVersion){
+  resetTriageButton_();
+  var detected=detectedVersion?' Detected live backend version: '+detectedVersion+'.':'';
+  alert('Backend deployment update required.'+detected+' The dashboard requires the matched v'+OPTIMA_DASHBOARD_VERSION+' Apps Script backend with Execution.gs and Hail + Wind + Rain preview support. Deploy Code.gs, Execution.gs and Webapp.gs together, then create/redeploy the Apps Script web-app version.');
+}
 function checkTriageBackendCompatibility_(cb){
   apiGet({action:'deploymentHealth'},function(res){
     var factors=(res&&res.preview_factors)||[];
     var ready=!!(res&&res.success&&res.execution_ready&&Number(res.canonical_factor_count)===13&&factors.indexOf('hail')>=0&&factors.indexOf('wind')>=0&&factors.indexOf('rain')>=0);
-    if(!ready){
-      resetTriageButton_();
-      alert('Backend deployment update required. The dashboard expects the matched v'+OPTIMA_DASHBOARD_VERSION+' Apps Script release with Execution.gs and Hail + Wind + Rain preview support. Deploy Code.gs, Execution.gs and Webapp.gs together, then create/redeploy the Apps Script web-app version.');
+    if(ready){if(cb)cb();return;}
+    if(res&&String(res.error||'').toLowerCase().indexOf('unknown action')>=0){
+      apiGet({action:'health'},function(health){showBackendMismatch_(health&&health.success?health.version:'');});
       return;
     }
-    if(cb)cb();
+    showBackendMismatch_(res&&res.version?res.version:'');
   });
 }
 
@@ -1901,6 +1906,7 @@ function initFromURL() {
   var params = new URLSearchParams(location.search);
   var zip = params.get('zip');
   var email = params.get('email');
+  var preview = String(params.get('preview') || '').toLowerCase();
   var portalToken=params.get('portal_login_token');
   var hash = location.hash.replace('#', '');
 
@@ -1916,7 +1922,9 @@ function initFromURL() {
     }, 400);
   }
 
-  if (hash) {
+  if (preview === 'free' || preview === 'cat' || hash === 'free-preview') {
+    switchTab('view-cat-intel', document.getElementById('nav-cat-intel'));
+  } else if (hash) {
     var map = { 'cat-intel': 'view-cat-intel', 'storm-audit': 'view-storm-audit', 'weekly': 'view-weekly' };
     if (map[hash]) {
       var navId = 'nav-' + hash;
