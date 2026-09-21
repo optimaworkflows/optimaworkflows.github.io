@@ -471,11 +471,12 @@ td { padding: 12px 8px; border-bottom: 1px solid #111827; font-family: 'IBM Plex
         </div>
 
         <div class="loss-box" style="margin-top:20px;">
-          <div class="loss-title">🔒 9 FACTORS REMAIN LOCKED</div>
-          <div class="loss-item">The free preview can identify current signals, but it cannot tell you whether the zone clears the operational risks that determine whether a deployment should proceed.</div>
+          <div class="loss-title">🔒 10 FACTORS REMAIN LOCKED</div>
+          <div class="loss-item">The free preview proves current weather exposure. It does not tell you whether committing crews and capital to this ZIP is commercially sound for your company.</div>
           <div class="locked-factor-grid">
             <div class="locked-factor">🔒 Commercial Building Envelope Age</div>
             <div class="locked-factor">🔒 Building Construction Material Grid</div>
+            <div class="locked-factor">🔒 Commercial Envelope Square Footage Density</div>
             <div class="locked-factor">🔒 Permit Processing Latency</div>
             <div class="locked-factor">🔒 Municipal Building Code Rigidity</div>
             <div class="locked-factor">🔒 Insurance Coverage &amp; Claim Economics</div>
@@ -485,9 +486,9 @@ td { padding: 12px 8px; border-bottom: 1px solid #111827; font-family: 'IBM Plex
             <div class="locked-factor">🔒 Cash Conversion / Payment Timing</div>
           </div>
           <div style="margin-top:14px; padding-top:14px; border-top:1px solid rgba(255,107,107,0.35); line-height:1.7; color:var(--text-soft);">
-            <strong style="color:var(--cyber-red);">The exposure:</strong> without those nine checks, crew mobilization, travel, material commitments and working capital can be committed before roof vulnerability, permitting, code exposure, labor capacity, competitive pressure, claim economics and cash timing have been verified.
+            <strong style="color:var(--cyber-red);">The exposure:</strong> stopping at the three weather signals leaves ten decision-critical questions unanswered. A zone can look active while roof vulnerability, permitting friction, code requirements, labor capacity, competitive saturation, claim economics, your own historical outcomes or cash timing make the deployment materially less attractive.
           </div>
-          <div style="font-size:14px; color:var(--cyber-green); font-weight:800; margin-top:12px;">Unlock all 13 verified factors before committing deployment capital.</div>
+          <div style="font-size:14px; color:var(--cyber-green); font-weight:800; margin-top:12px;">Do not let visible storm activity become the reason you commit capital with the commercial risks still hidden. Unlock all 13 verified factors before the deployment decision.</div>
         </div>
 
         <div style="margin-top:16px; padding:14px; background:rgba(0,255,163,0.03); border:1px solid rgba(0,255,163,0.2); border-radius:8px;">
@@ -495,7 +496,7 @@ td { padding: 12px 8px; border-bottom: 1px solid #111827; font-family: 'IBM Plex
           <div style="font-size:12px; color:var(--text-muted);">The paid report is rebuilt from current data and is released only when all required factors pass verification. Missing data is never replaced with a default.</div>
         </div>
 
-        <button class="btn-primary" id="btn-unlock-full" onclick="unlockFullReport()" style="margin-top:16px;">🔓 Unlock Full 13-Factor Intel — $7,000</button>
+        <button class="btn-primary" id="btn-unlock-full" onclick="unlockFullReport()" style="margin-top:16px;">🔓 Protect the Deployment Decision — Unlock 13 Factors — $7,000</button>
 
         <!-- EMAIL CAPTURE (only for organic visitors without email) -->
         <div class="email-value-block" id="email-capture-block" style="display:none;">
@@ -624,9 +625,9 @@ td { padding: 12px 8px; border-bottom: 1px solid #111827; font-family: 'IBM Plex
       </div>
 
       <div class="card" id="weekly-empty-card">
-        <h3 class="section-label">Start Phase 1</h3>
-        <p style="font-size:14px;color:var(--text-muted);margin-bottom:16px;line-height:1.65;">Phase 1 begins only after a full CAT Intelligence report has been delivered for the zone. Payment is independently verified before monitoring is activated.</p>
-        <button class="btn-primary" onclick="startWeeklyPurchase()">Start 15-Day Daily Tracking — $18,750</button>
+        <h3 class="section-label">Phase 1 Activation</h3>
+        <p style="font-size:14px;color:var(--text-muted);margin-bottom:8px;line-height:1.65;">The initial Weekly Tracking activation is presented once, immediately after the verified CAT Intelligence report is delivered.</p>
+        <p style="font-size:12px;color:var(--cyber-amber);line-height:1.65;">If that one-time offer screen is closed or declined, the initial activation is not reissued from this dashboard. Existing Weekly clients can still continue Phase 2 from their active service page.</p>
       </div>
 
       <div class="card" id="weekly-reports-card">
@@ -665,9 +666,9 @@ td { padding: 12px 8px; border-bottom: 1px solid #111827; font-family: 'IBM Plex
       </div>
 
       <div class="card" id="storm-purchase-card">
-        <h3 class="section-label">Purchase One Roof Audit</h3>
-        <p style="font-size:13px;color:var(--text-muted);line-height:1.65;">Each per-roof payment creates one verified Storm Audit entitlement. Scope submission remains locked until payment confirmation.</p>
-        <button class="btn-primary" onclick="startStormPurchase()">Purchase Storm Audit — $3,500/roof</button>
+        <h3 class="section-label">Initial Storm Audit Activation</h3>
+        <p style="font-size:13px;color:var(--text-muted);line-height:1.65;">The first Storm Audit activation is presented once after Weekly Tracking is activated. If that offer screen is closed or declined, the initial activation is not reissued from this dashboard.</p>
+        <p style="font-size:12px;color:var(--cyber-amber);line-height:1.65;margin-top:8px;">Clients who already activated Storm Audit continue to use verified per-roof entitlements or an eligible Storm retainer.</p>
       </div>
 
       <div class="card" id="storm-retainer-offer" style="display:none;"></div>
@@ -767,7 +768,7 @@ td { padding: 12px 8px; border-bottom: 1px solid #111827; font-family: 'IBM Plex
 
 <div class="cat-popup-overlay" id="popup-post-cat-report" role="dialog" aria-modal="true">
   <div class="cat-popup">
-    <button class="cat-popup-close" onclick="closePopup('popup-post-cat-report')">✕</button>
+    <button class="cat-popup-close" onclick="declineUpsellOffer_('WEEKLY','popup-post-cat-report')">✕</button>
     <div class="pop-kicker"><span class="line"></span>Full CAT Intelligence report delivered</div>
     <div class="pop-check">✓</div>
     <h2 class="pop-headline">Thank you for using <span class="accent">CAT Intelligence.</span></h2>
@@ -785,7 +786,7 @@ td { padding: 12px 8px; border-bottom: 1px solid #111827; font-family: 'IBM Plex
       <p class="pop-offer-desc">Daily dashboard monitoring during the fastest-moving 15-day window. From Day 16 onward, continuation is $8,750 per prepaid week. Weekly Tracking does not convert to a retainer.</p>
     </div>
     <div class="pop-disclaimer"><b>Disclaimer:</b> Tracking reduces reliance on stale market assumptions; it does not guarantee revenue, claim approval, competitive outcomes, material availability or a specific dollar result. Reports are delivered in your dashboard.</div>
-    <div class="pop-actions"><button class="pop-btn pop-btn-primary" onclick="startWeeklyPurchase()">Start Weekly Tracking — $18,750</button><button class="pop-btn pop-btn-ghost" onclick="closePopup('popup-post-cat-report')">Not Now</button></div>
+    <div class="pop-disclaimer" style="border-color:rgba(255,184,0,.45);color:var(--text-soft);"><b style="color:var(--cyber-amber);">One-time activation screen:</b> this Weekly Tracking activation offer is available only here. If you close or decline this screen, the initial offer closes and is not reissued from the dashboard.</div><div class="pop-actions"><button class="pop-btn pop-btn-primary" onclick="startWeeklyPurchase()">Start Weekly Tracking — $18,750</button><button class="pop-btn pop-btn-ghost" onclick="declineUpsellOffer_('WEEKLY','popup-post-cat-report')">Decline &amp; Close Offer</button></div>
   </div>
 </div>
 
@@ -813,7 +814,7 @@ td { padding: 12px 8px; border-bottom: 1px solid #111827; font-family: 'IBM Plex
 
 <div class="cat-popup-overlay" id="popup-post-weekly" role="dialog" aria-modal="true">
   <div class="cat-popup">
-    <button class="cat-popup-close" onclick="closePopup('popup-post-weekly')">✕</button>
+    <button class="cat-popup-close" onclick="declineUpsellOffer_('STORM','popup-post-weekly')">✕</button>
     <div class="pop-kicker"><span class="line"></span>Weekly Tracking activated</div>
     <div class="pop-check">✓</div>
     <h2 class="pop-headline">Thank you. Your daily tracking is <span class="accent">now active.</span></h2>
@@ -827,7 +828,7 @@ td { padding: 12px 8px; border-bottom: 1px solid #111827; font-family: 'IBM Plex
     </div>
     <div class="pop-offer"><div class="pop-offer-label">Storm Audit · first purchase is per roof</div><div class="pop-offer-title">$3,500 / roof</div><p class="pop-offer-desc">Current-rule, document-based commercial scope review. A Storm retainer is offered when the client returns for a second distinct service zone, before another per-roof purchase.</p></div>
     <div class="pop-disclaimer"><b>Disclaimer:</b> Storm Audit is not a field inspection, damage verification or carrier negotiation. No recovery amount is promised; findings and any supported dollar effect are limited to verified documents, current rules and available pricing. Reports are delivered in the dashboard.</div>
-    <div class="pop-actions"><button class="pop-btn pop-btn-primary" onclick="startStormPurchase()">Purchase Storm Audit — $3,500</button><button class="pop-btn pop-btn-ghost" onclick="closePopup('popup-post-weekly')">Not Now</button></div>
+    <div class="pop-disclaimer" style="border-color:rgba(255,184,0,.45);color:var(--text-soft);"><b style="color:var(--cyber-amber);">One-time activation screen:</b> this first Storm Audit activation offer is available only here. If you close or decline this screen, the initial offer closes and is not reissued from the dashboard.</div><div class="pop-actions"><button class="pop-btn pop-btn-primary" onclick="startStormPurchase()">Purchase Storm Audit — $3,500</button><button class="pop-btn pop-btn-ghost" onclick="declineUpsellOffer_('STORM','popup-post-weekly')">Decline &amp; Close Offer</button></div>
   </div>
 </div>
 
@@ -917,7 +918,7 @@ td { padding: 12px 8px; border-bottom: 1px solid #111827; font-family: 'IBM Plex
 // CONFIG
 // ====================================================================
 var OPTIMA_API = 'https://script.google.com/macros/s/AKfycby8RZcH8_JIelkM4j5ZsZ5SaVEify0zmuyUEk6nXk1F7bHruXbZq9Ie-acY5_Duj5nc/exec';
-var OPTIMA_DASHBOARD_VERSION = '3.16.0';
+var OPTIMA_DASHBOARD_VERSION = '3.16.1';
 
 // ====================================================================
 // STATE
@@ -962,7 +963,9 @@ var state = {
   previewRetryTimer: null,
   previewRetryCount: 0,
   previewRetryStartedAt: 0,
-  previewRetryPayload: null
+  previewRetryPayload: null,
+  previewMaxWaitMs: 12000,
+  currentUpsellOffer: { WEEKLY:null, STORM:null }
 };
 
 // ====================================================================
@@ -994,6 +997,16 @@ function apiGet(params, cb) {
       console.error(e);
       if (cb) cb({ success: false, error: String(e) });
     });
+}
+
+function apiGetWithTimeout_(params, timeoutMs, cb) {
+  params=portalAttach_(params||{});var qs=Object.keys(params).map(function(k){return encodeURIComponent(k)+'='+encodeURIComponent(params[k]);}).join('&');
+  var controller=typeof AbortController!=='undefined'?new AbortController():null;var timer=null;
+  if(controller)timer=setTimeout(function(){controller.abort();},Math.max(1000,Number(timeoutMs||8000)));
+  fetch(OPTIMA_API+'?'+qs,controller?{signal:controller.signal}:{})
+    .then(function(r){return r.json();})
+    .then(function(res){if(timer)clearTimeout(timer);handlePortalAuthError_(res);if(cb)cb(res);})
+    .catch(function(e){if(timer)clearTimeout(timer);if(cb)cb({success:false,error:(e&&e.name==='AbortError')?'PREVIEW_REQUEST_TIMEOUT':String(e)});});
 }
 
 function resetTriageButton_(){var btn=document.getElementById('btn-triage');if(btn){btn.disabled=false;btn.textContent='⚡ Run Free Preview';}}
@@ -1202,88 +1215,61 @@ function clearPreviewRetry_() {
 }
 
 function previewRetryDelay_(requested) {
-  var elapsed = state.previewRetryStartedAt ? (Date.now() - state.previewRetryStartedAt) : 0;
-  if (elapsed < 30000) return Math.max(2500, Number(requested || 4000));
-  if (elapsed < 120000) return 10000;
-  return 30000;
+  var elapsed=state.previewRetryStartedAt?(Date.now()-state.previewRetryStartedAt):0;
+  var remaining=Math.max(0,Number(state.previewMaxWaitMs||12000)-elapsed);
+  return Math.min(Math.max(500,Number(requested||1000)),Math.max(500,remaining));
+}
+
+function renderPreviewServiceStandardExceeded_(data) {
+  clearPreviewRetry_();resetTriageButton_();
+  var previewCard=document.getElementById('preview-card');previewCard.style.display='block';document.getElementById('full-report-card').style.display='none';
+  var pending=(data&&data.pending_signals)||['one or more live weather signals'];
+  previewCard.innerHTML='<div style="padding:28px 12px;max-width:700px;margin:0 auto;text-align:center;">'+
+    '<div style="font-size:34px;margin-bottom:10px;">⏱</div><h2 style="font-size:20px;margin-bottom:8px;">This ZIP exceeded our 12-second preview standard</h2>'+
+    '<p style="max-width:640px;margin:0 auto 16px;color:var(--text-muted);line-height:1.7;">We stopped the browser wait rather than hold you on a loading screen. No unverified or placeholder value was substituted. The weather cache and source failover continue to protect the next request.</p>'+
+    '<div style="font-size:12px;color:var(--cyber-amber);margin-bottom:16px;">Pending: '+pending.join(', ')+'</div>'+
+    '<button class="btn-primary" onclick="restartPreviewNow_()">⚡ Retry Free Preview Now</button></div>';
+  previewCard.scrollIntoView({behavior:'smooth',block:'center'});
 }
 
 function schedulePreviewRetry_(delayMs) {
-  clearPreviewRetry_();
-  if (!state.previewRetryPayload || !state.currentZip) return;
-  var delay = previewRetryDelay_(delayMs);
-  state.previewRetryTimer = setTimeout(function() {
-    state.previewRetryTimer = null;
-    state.previewRetryCount += 1;
-    requestTriagePreview_(true);
-  }, delay);
+  clearPreviewRetry_();if(!state.previewRetryPayload||!state.currentZip)return;
+  var elapsed=Date.now()-state.previewRetryStartedAt;
+  if(elapsed>=Number(state.previewMaxWaitMs||12000)){renderPreviewServiceStandardExceeded_({pending_signals:['live weather verification']});return;}
+  var delay=previewRetryDelay_(delayMs);
+  state.previewRetryTimer=setTimeout(function(){state.previewRetryTimer=null;state.previewRetryCount+=1;requestTriagePreview_(true);},delay);
 }
 
 function renderPreviewPending_(data) {
-  var previewCard = document.getElementById('preview-card');
-  previewCard.style.display = 'block';
-  document.getElementById('full-report-card').style.display = 'none';
-  var pending = (data && data.pending_signals) || [];
-  var status = {};
-  ((data && data.signal_status) || []).forEach(function(x){ status[String(x.id||'')] = String(x.status||''); });
-  var label = function(id,name){ return '<div style="display:flex;justify-content:space-between;gap:16px;padding:8px 0;border-bottom:1px solid var(--border);"><span>'+name+'</span><strong style="color:'+(status[id]==='VERIFIED'?'var(--cyber-green)':'var(--cyber-amber)')+'">'+(status[id]==='VERIFIED'?'VERIFIED':'REFRESHING')+'</strong></div>'; };
-  previewCard.innerHTML = '<div style="padding:28px 12px;max-width:680px;margin:0 auto;">' +
-    '<div style="font-size:34px;text-align:center;margin-bottom:10px;">↻</div>' +
-    '<h2 style="font-size:20px;text-align:center;margin-bottom:8px;">Finalizing live weather intelligence</h2>' +
-    '<p style="text-align:center;max-width:620px;margin:0 auto 18px;color:var(--text-muted);line-height:1.7;">' +
-    'The system is automatically retrying any weather signal that has not completed verification. No placeholder value is being substituted.' +
-    '</p>' + label('hail','Hail') + label('wind','Wind') + label('rain','Rain') +
-    '<p style="font-size:12px;text-align:center;color:var(--text-detail);margin:16px 0 0;">Keep this tab open. No action is required'+(pending.length?' while '+pending.join(', ')+' refreshes':'')+'.</p></div>';
-  previewCard.scrollIntoView({ behavior:'smooth', block:'center' });
-  schedulePreviewRetry_((data && data.retry_after_ms) || 4000);
+  var elapsed=Date.now()-state.previewRetryStartedAt;
+  if(elapsed>=Number(state.previewMaxWaitMs||12000)){renderPreviewServiceStandardExceeded_(data);return;}
+  var previewCard=document.getElementById('preview-card');previewCard.style.display='block';document.getElementById('full-report-card').style.display='none';
+  var pending=(data&&data.pending_signals)||[],status={};((data&&data.signal_status)||[]).forEach(function(x){status[String(x.id||'')]=String(x.status||'');});
+  var label=function(id,name){return '<div style="display:flex;justify-content:space-between;gap:16px;padding:8px 0;border-bottom:1px solid var(--border);"><span>'+name+'</span><strong style="color:'+(status[id]==='VERIFIED'?'var(--cyber-green)':'var(--cyber-amber)')+'">'+(status[id]==='VERIFIED'?'VERIFIED':'REFRESHING')+'</strong></div>';};
+  var remain=Math.max(1,Math.ceil((Number(state.previewMaxWaitMs||12000)-elapsed)/1000));
+  previewCard.innerHTML='<div style="padding:28px 12px;max-width:680px;margin:0 auto;">'+
+    '<div style="font-size:34px;text-align:center;margin-bottom:10px;">↻</div><h2 style="font-size:20px;text-align:center;margin-bottom:8px;">Finalizing live weather intelligence</h2>'+
+    '<p style="text-align:center;max-width:620px;margin:0 auto 18px;color:var(--text-muted);line-height:1.7;">Only Hail, Wind and Rain are being checked. Missing signals are retried automatically with verified cache/failover. No placeholder value is substituted.</p>'+
+    label('hail','Hail')+label('wind','Wind')+label('rain','Rain')+
+    '<p style="font-size:12px;text-align:center;color:var(--text-detail);margin:16px 0 0;">Service target: a few seconds. This screen will not wait longer than '+remain+' more second'+(remain===1?'':'s')+'.</p></div>';
+  previewCard.scrollIntoView({behavior:'smooth',block:'center'});schedulePreviewRetry_((data&&data.retry_after_ms)||750);
 }
 
 function requestTriagePreview_(isRetry) {
-  var payload = state.previewRetryPayload;
-  if (!payload) return;
-  var btn = document.getElementById('btn-triage');
-  if (btn) { btn.disabled = true; btn.textContent = isRetry ? '⚡ Refreshing live signals...' : '⚡ Analyzing zone...'; }
-
-  apiGet({
-    action:'runTriage',
-    zip:payload.zip,
-    intent:payload.intent,
-    ref:state.ref_code || '',
-    email:state.incoming_email || ''
-  }, function(res) {
-    if (!res || !res.success) {
-      var err = String((res && res.error) || '');
-      if (err.indexOf('BACKEND_DEPLOYMENT_MISMATCH') >= 0) {
-        clearPreviewRetry_();
-        resetTriageButton_();
-        alert('Backend deployment update required. Deploy the matched Code.gs, Execution.gs and Webapp.gs files together, then redeploy the Apps Script web app.');
-        return;
-      }
-      // A premium preview absorbs transient transport/source errors internally.
-      // Keep retrying rather than surfacing a raw failure to the prospect.
-      renderPreviewPending_({preview_status:'VERIFYING_LIVE_INTELLIGENCE',pending_signals:['live weather intelligence'],signal_status:[],retry_after_ms:5000});
-      return;
-    }
-
-    state.triageData = res.data;
-    state.currentCity = res.data.city;
-    state.currentState = res.data.state;
-
-    if (!state.incoming_email) {
-      document.getElementById('email-capture-block').style.display = 'block';
-      document.getElementById('email-zip-display').textContent = payload.zip;
-    }
-
-    if (!res.data || res.data.preview_status !== 'VERIFIED') {
-      renderPreviewPending_(res.data || {});
-      return;
-    }
-
-    clearPreviewRetry_();
-    resetTriageButton_();
-    showPreview(res.data);
+  var payload=state.previewRetryPayload;if(!payload)return;
+  var elapsed=Date.now()-state.previewRetryStartedAt;if(elapsed>=Number(state.previewMaxWaitMs||12000)){renderPreviewServiceStandardExceeded_({pending_signals:['live weather verification']});return;}
+  var btn=document.getElementById('btn-triage');if(btn){btn.disabled=true;btn.textContent=isRetry?'⚡ Refreshing live signals...':'⚡ Analyzing zone...';}
+  var remaining=Math.max(1500,Number(state.previewMaxWaitMs||12000)-elapsed);var requestBudget=Math.min(7000,remaining);
+  apiGetWithTimeout_({action:'runTriage',zip:payload.zip,intent:payload.intent,ref:state.ref_code||'',email:state.incoming_email||''},requestBudget,function(res){
+    if(!res||!res.success){var err=String((res&&res.error)||'');if(err.indexOf('BACKEND_DEPLOYMENT_MISMATCH')>=0){clearPreviewRetry_();resetTriageButton_();alert('Backend deployment update required. Deploy the matched Code.gs, Execution.gs and Webapp.gs files together, then redeploy the Apps Script web app.');return;}renderPreviewPending_({preview_status:'VERIFYING_LIVE_INTELLIGENCE',pending_signals:['live weather verification'],signal_status:[],retry_after_ms:500});return;}
+    state.triageData=res.data;state.currentCity=res.data.city;state.currentState=res.data.state;
+    if(!state.incoming_email){document.getElementById('email-capture-block').style.display='block';document.getElementById('email-zip-display').textContent=payload.zip;}
+    if(!res.data||res.data.preview_status!=='VERIFIED'){renderPreviewPending_(res.data||{});return;}
+    clearPreviewRetry_();resetTriageButton_();showPreview(res.data);
   });
 }
+
+function restartPreviewNow_(){state.previewRetryCount=0;state.previewRetryStartedAt=Date.now();requestTriagePreview_(false);}
 
 document.getElementById('triage-form').addEventListener('submit', function(e) {
   e.preventDefault();
@@ -1468,7 +1454,8 @@ function loadVerifiedFullReport_(token) {
       document.getElementById('full-factor-list').innerHTML='';
       return;
     }
-    renderCatReportData_(d,state.currentZip,true);
+    state.currentUpsellOffer.WEEKLY=(res.upsell_offer&&res.upsell_offer.offer_token)?res.upsell_offer:null;
+    renderCatReportData_(d,state.currentZip,!!state.currentUpsellOffer.WEEKLY);
   });
 }
 
@@ -1476,7 +1463,7 @@ function loadVerifiedFullReport_(token) {
 function renderCatReportData_(d,zip,showThankYou){
   var card=document.getElementById('full-report-card');card.style.display='block';document.getElementById('full-location').textContent=(d.city||'ZIP')+(d.state?', '+d.state:'')+' ('+(zip||d.zip||'')+')';
   if(d.report_status!=='VERIFIED'){document.getElementById('full-verdict').textContent='LIVE VERIFICATION IN PROGRESS';document.getElementById('full-verdict').className='badge-status bg-amber';document.getElementById('full-score').textContent='—';document.getElementById('full-status').textContent='REPORT NOT RELEASED';document.getElementById('full-report-message').textContent=d.message||'The full report will render only after all 13 current intelligence checks pass.';document.getElementById('full-factor-list').innerHTML='';return;}
-  document.getElementById('full-verdict').textContent=d.verdict||'VERIFIED';document.getElementById('full-verdict').className='badge-status bg-green';document.getElementById('full-score').textContent=d.score===null||d.score===undefined?'—':d.score;document.getElementById('full-status').textContent='12 / 12 FACTORS VERIFIED';document.getElementById('full-report-message').textContent=d.guidance||'';var wrap=document.getElementById('full-factor-list');wrap.innerHTML='';(d.factors||[]).forEach(function(f){var item=document.createElement('div');item.className='full-report-factor';var h=document.createElement('h4');h.textContent=f.label||f.id;var meta=document.createElement('div');meta.className='full-report-meta';meta.textContent=humanStatus_(f.data_status)+' · '+formatFactorValue_(f)+(f.score===null||f.score===undefined?'':' · Factor score '+f.score);var sm=document.createElement('div');sm.className='full-report-summary';sm.textContent=f.summary||'';var gd=document.createElement('div');gd.className='full-report-guidance';gd.textContent=f.guidance||'';item.appendChild(h);item.appendChild(meta);item.appendChild(sm);item.appendChild(gd);wrap.appendChild(item);});card.scrollIntoView({behavior:'smooth',block:'start'});loadRetainerOffer('CAT','cat-retainer-offer');
+  document.getElementById('full-verdict').textContent=d.verdict||'VERIFIED';document.getElementById('full-verdict').className='badge-status bg-green';document.getElementById('full-score').textContent=d.score===null||d.score===undefined?'—':d.score;document.getElementById('full-status').textContent='13 / 13 FACTORS VERIFIED';document.getElementById('full-report-message').textContent=d.guidance||'';var wrap=document.getElementById('full-factor-list');wrap.innerHTML='';(d.factors||[]).forEach(function(f){var item=document.createElement('div');item.className='full-report-factor';var h=document.createElement('h4');h.textContent=f.label||f.id;var meta=document.createElement('div');meta.className='full-report-meta';meta.textContent=humanStatus_(f.data_status)+' · '+formatFactorValue_(f)+(f.score===null||f.score===undefined?'':' · Factor score '+f.score);var sm=document.createElement('div');sm.className='full-report-summary';sm.textContent=f.summary||'';var gd=document.createElement('div');gd.className='full-report-guidance';gd.textContent=f.guidance||'';item.appendChild(h);item.appendChild(meta);item.appendChild(sm);item.appendChild(gd);wrap.appendChild(item);});card.scrollIntoView({behavior:'smooth',block:'start'});loadRetainerOffer('CAT','cat-retainer-offer');
   if(showThankYou){var k='optima_cat_report_thanked_'+String(state.report_token||'').slice(-12);if(!sessionStorage.getItem(k)){sessionStorage.setItem(k,'1');setTimeout(function(){openPopup('popup-post-cat-report');},650);}}
 }
 function renderWeeklyReportData_(r){var factors=r.factors||[],html='<div class="card" id="weekly-open-report"><h3 class="section-label">Opened Weekly Report</h3><div class="financial-line"><span>Zone</span><span>'+String(r.zone_zip||'—')+'</span></div><div class="financial-line"><span>Generated</span><span>'+formatDate(r.generated_at)+'</span></div><div class="full-report-summary" style="margin:12px 0 16px;">'+String(r.summary||'')+'</div>';factors.forEach(function(f){html+='<div class="full-report-factor"><h4>'+String(f.label||f.id||'Factor')+'</h4><div class="full-report-meta">'+humanStatus_(f.data_status)+' · '+formatFactorValue_(f)+'</div><div class="full-report-summary">'+String(f.summary||'')+'</div><div class="full-report-guidance">'+String(f.guidance||'')+'</div></div>';});html+='<div style="font-size:11px;color:var(--text-detail);margin-top:12px;line-height:1.6;">'+String(r.disclaimer||'')+'</div></div>';var old=document.getElementById('weekly-open-report');if(old)old.remove();var host=document.getElementById('weekly-reports-card');host.insertAdjacentHTML('afterend',html);document.getElementById('weekly-open-report').scrollIntoView({behavior:'smooth',block:'start'});}
@@ -1633,6 +1620,22 @@ function checkCatPayment(){
 // ====================================================================
 function getClientId_(){return (state.currentClient&&state.currentClient.client_id)||state.clientId||'';}
 
+function acceptUpsellOffer_(service,done){
+  service=String(service||'').toUpperCase();var o=state.currentUpsellOffer[service];
+  if(!o||!o.offer_id||!o.offer_token){alert('This one-time activation offer is no longer available on this screen.');return;}
+  apiPost({action:'respondUpsellOffer',offer_id:o.offer_id,offer_token:o.offer_token,response:'ACCEPT',portal_session:''},function(res){
+    if(!res.success){alert(res.error||'This one-time offer could not be accepted.');return;}o.status='ACCEPTED';if(done)done(o);
+  });
+}
+
+function declineUpsellOffer_(service,popupId){
+  service=String(service||'').toUpperCase();var o=state.currentUpsellOffer[service];
+  if(!o||!o.offer_id||!o.offer_token){closePopup(popupId);return;}
+  var label=service==='WEEKLY'?'Weekly Tracking':'Storm Audit';
+  if(!confirm('This is the only activation screen for '+label+'. If you close it now, the one-time activation offer will close and will not be reissued from the dashboard. Continue?'))return;
+  apiPost({action:'respondUpsellOffer',offer_id:o.offer_id,offer_token:o.offer_token,response:'DECLINE',portal_session:''},function(){state.currentUpsellOffer[service]=null;closePopup(popupId);});
+}
+
 function setUpsellPaymentMethod(service,method){
   state.upsellPaymentMethod[service]=method;
   var id=service==='WEEKLY'?'weekly-pay-details':'storm-pay-details';
@@ -1642,9 +1645,11 @@ function setUpsellPaymentMethod(service,method){
 
 function startWeeklyPurchase(){
   if(!getClientId_()||!state.currentZip){alert('Weekly Tracking becomes available after a paid CAT Intelligence report is associated with this client and zone.');return;}
-  var h=document.querySelector('#popup-weekly-payment .pop-headline'); if(h)h.innerHTML='15 days of daily monitoring — <span class="accent">$18,750.</span>';
-  var b=document.querySelector('#popup-weekly-payment .pop-actions .pop-btn-primary'); if(b){b.textContent="I've Made Payment — Confirm";b.setAttribute('onclick',"submitWeeklyPayment('phase1')");}
-  closePopup('popup-post-cat-report');openPopup('popup-weekly-payment');
+  acceptUpsellOffer_('WEEKLY',function(){
+    var h=document.querySelector('#popup-weekly-payment .pop-headline');if(h)h.innerHTML='15 days of daily monitoring — <span class="accent">$18,750.</span>';
+    var b=document.querySelector('#popup-weekly-payment .pop-actions .pop-btn-primary');if(b){b.textContent="I've Made Payment — Confirm";b.setAttribute('onclick',"submitWeeklyPayment('phase1')");}
+    closePopup('popup-post-cat-report');openPopup('popup-weekly-payment');
+  });
 }
 
 function startWeeklyPhase2Purchase(){
@@ -1656,7 +1661,7 @@ function startWeeklyPhase2Purchase(){
 
 function submitWeeklyPayment(tier){
   var clientId=getClientId_(); if(!clientId)return;
-  apiPost({action:'logPayment',client_id:clientId,service:'WEEKLY',tier:tier||'phase1',amount:tier==='phase2_week'?8750:18750,method:state.upsellPaymentMethod.WEEKLY||'ACH',reference:'WEEKLY-'+clientId+'-'+Date.now(),zone_zip:state.currentZip},function(res){
+  apiPost({action:'logPayment',client_id:clientId,service:'WEEKLY',tier:tier||'phase1',amount:tier==='phase2_week'?8750:18750,method:state.upsellPaymentMethod.WEEKLY||'ACH',reference:'WEEKLY-'+clientId+'-'+Date.now(),zone_zip:state.currentZip,upsell_offer_id:(tier==='phase2_week'?'':((state.currentUpsellOffer.WEEKLY&&state.currentUpsellOffer.WEEKLY.offer_id)||''))},function(res){
     if(!res.success){alert(res.error||'Weekly payment notice could not be recorded.');return;}
     state.pendingWeeklyPaymentId=res.payment.payment_id;state.pendingWeeklyStatusToken=res.status_check_token||'';sessionStorage.setItem('optima_weekly_payment_id',state.pendingWeeklyPaymentId);sessionStorage.setItem('optima_weekly_payment_status_token',state.pendingWeeklyStatusToken);closePopup('popup-weekly-payment');openPopup('popup-weekly-pending');
   });
@@ -1669,7 +1674,8 @@ function checkWeeklyPayment(){
     if(String(res.status).toLowerCase()!=='verified'){alert('Payment is still awaiting independent verification.');return;}
     closePopup('popup-weekly-pending');sessionStorage.removeItem('optima_weekly_payment_id');sessionStorage.removeItem('optima_weekly_payment_status_token');state.pendingWeeklyPaymentId='';state.pendingWeeklyStatusToken='';
     if(state.currentClient){var sv=String(state.currentClient.services_owned||'');if(sv.toLowerCase().indexOf('weekly')<0)state.currentClient.services_owned=sv?(sv+',weekly'):'weekly';applyClientToUI(state.currentClient);}else{document.getElementById('nav-weekly').style.display='flex';}
-    loadWeeklyDelivery();openPopup('popup-post-weekly');
+    state.currentUpsellOffer.STORM=(res.upsell_offer&&res.upsell_offer.offer_token)?res.upsell_offer:null;
+    loadWeeklyDelivery();if(state.currentUpsellOffer.STORM)openPopup('popup-post-weekly');
   });
 }
 
@@ -1696,21 +1702,22 @@ function openWeeklyReport(reportId){
 
 function startStormPurchase(){
   var clientId=getClientId_();if(!clientId){alert('Client account required.');return;}
-  apiGet({action:'getRetainerOffer',client_id:clientId,service:'STORM',candidate_zone_zip:state.currentZip},function(res){
+  var owned=String((state.currentClient&&state.currentClient.services_owned)||'').toLowerCase().indexOf('storm')>=0;
+  var proceed=function(){apiGet({action:'getRetainerOffer',client_id:clientId,service:'STORM',candidate_zone_zip:state.currentZip},function(res){
     var o=res&&res.offer;
-    if(o&&o.active_retainer&&o.available_units&&Number(o.available_units.total)>0){
-      closePopup('popup-post-weekly');switchTab('view-storm-audit',document.getElementById('nav-storm-audit'));loadStormDelivery();
-      alert('Your active Storm retainer has '+Number(o.available_units.total)+' roof review credit(s) available. Submit the scope without another $3,500 per-roof payment.');return;
-    }
+    if(o&&o.active_retainer&&o.available_units&&Number(o.available_units.total)>0){closePopup('popup-post-weekly');switchTab('view-storm-audit',document.getElementById('nav-storm-audit'));loadStormDelivery();alert('Your active Storm retainer has '+Number(o.available_units.total)+' roof review credit(s) available. Submit the scope without another $3,500 per-roof payment.');return;}
     if(o&&o.eligible){closePopup('popup-post-weekly');showRetainerChoicePopup_('STORM',state.currentZip,o);return;}
     openStormPerRoofPayment_();
-  });
+  });};
+  if(owned){proceed();return;}
+  acceptUpsellOffer_('STORM',proceed);
 }
+
 function openStormPerRoofPayment_(){closePopup('popup-post-weekly');openPopup('popup-storm-payment');}
 
 function submitStormPayment(){
   var clientId=getClientId_();if(!clientId)return;
-  apiPost({action:'logPayment',client_id:clientId,service:'STORM',tier:'per_roof',amount:3500,method:state.upsellPaymentMethod.STORM||'ACH',reference:'STORM-'+clientId+'-'+Date.now(),zone_zip:state.currentZip},function(res){
+  apiPost({action:'logPayment',client_id:clientId,service:'STORM',tier:'per_roof',amount:3500,method:state.upsellPaymentMethod.STORM||'ACH',reference:'STORM-'+clientId+'-'+Date.now(),zone_zip:state.currentZip,upsell_offer_id:((state.currentUpsellOffer.STORM&&state.currentUpsellOffer.STORM.offer_id)||'')},function(res){
     if(!res.success){alert(res.error||'Storm Audit payment notice could not be recorded.');return;}
     state.pendingStormPaymentId=res.payment.payment_id;state.pendingStormStatusToken=res.status_check_token||'';sessionStorage.setItem('optima_storm_payment_id',state.pendingStormPaymentId);sessionStorage.setItem('optima_storm_payment_status_token',state.pendingStormStatusToken);closePopup('popup-storm-payment');openPopup('popup-storm-pending');
   });
