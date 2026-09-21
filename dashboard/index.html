@@ -917,7 +917,7 @@ td { padding: 12px 8px; border-bottom: 1px solid #111827; font-family: 'IBM Plex
 // CONFIG
 // ====================================================================
 var OPTIMA_API = 'https://script.google.com/macros/s/AKfycby8RZcH8_JIelkM4j5ZsZ5SaVEify0zmuyUEk6nXk1F7bHruXbZq9Ie-acY5_Duj5nc/exec';
-var OPTIMA_DASHBOARD_VERSION = '3.16.0';
+var OPTIMA_DASHBOARD_VERSION = '3.16.1';
 
 // ====================================================================
 // STATE
@@ -993,9 +993,45 @@ function apiGet(params, cb) {
 }
 
 function resetTriageButton_(){var btn=document.getElementById('btn-triage');if(btn){btn.disabled=false;btn.textContent='⚡ Run Free Preview';}}
-function showPreviewLoading_(zip){var card=document.getElementById('preview-card');card.style.display='block';document.getElementById('full-report-card').style.display='none';card.innerHTML='<div style="padding:28px 10px;text-align:center;"><div style="font-size:38px;margin-bottom:12px;">◌</div><h2 style="font-size:20px;margin-bottom:10px;">Analyzing '+String(zip||'this ZIP')+'…</h2><p style="max-width:620px;margin:0 auto;color:var(--text-muted);line-height:1.7;">Checking the current verified weather signals for this zone.</p></div>';card.scrollIntoView({behavior:'smooth',block:'center'});}
+function clearPreviewTransientState_(){
+  var card=document.getElementById('preview-card');
+  if(!card)return;
+  var transient=card.querySelector('[data-preview-transient="1"]');
+  if(transient&&transient.parentNode===card)card.removeChild(transient);
+  Array.prototype.forEach.call(card.children,function(child){
+    if(child.getAttribute('data-preview-transient-hidden')==='1'){
+      child.hidden=false;
+      child.removeAttribute('data-preview-transient-hidden');
+    }
+  });
+}
+function showPreviewTransientState_(html){
+  var card=document.getElementById('preview-card');
+  if(!card)return;
+  clearPreviewTransientState_();
+  card.style.display='block';
+  var full=document.getElementById('full-report-card');
+  if(full)full.style.display='none';
+  Array.prototype.forEach.call(card.children,function(child){
+    if(!child.hidden){
+      child.hidden=true;
+      child.setAttribute('data-preview-transient-hidden','1');
+    }
+  });
+  var transient=document.createElement('div');
+  transient.setAttribute('data-preview-transient','1');
+  transient.innerHTML=html;
+  card.appendChild(transient);
+  card.scrollIntoView({behavior:'smooth',block:'center'});
+}
+function showPreviewLoading_(zip){
+  showPreviewTransientState_('<div style="padding:28px 10px;text-align:center;"><div style="font-size:38px;margin-bottom:12px;">◌</div><h2 style="font-size:20px;margin-bottom:10px;">Analyzing '+String(zip||'this ZIP')+'…</h2><p style="max-width:620px;margin:0 auto;color:var(--text-muted);line-height:1.7;">Checking the current verified weather signals for this zone.</p></div>');
+}
 function showBackendMismatch_(detectedVersion){
   resetTriageButton_();
+  clearPreviewTransientState_();
+  var previewCard=document.getElementById('preview-card');
+  if(previewCard)previewCard.style.display='none';
   var detected=detectedVersion?' Detected live backend version: '+detectedVersion+'.':'';
   alert('Backend deployment update required.'+detected+' The dashboard requires a compatible Apps Script backend with Execution.gs and Hail + Wind + Rain preview support. Deploy the matched Code.gs, Execution.gs and Webapp.gs backend files together, then create/redeploy the Apps Script web-app version.');
 }
@@ -1224,8 +1260,12 @@ document.getElementById('triage-form').addEventListener('submit', function(e) {
       if (!res.success) {
         var err=String(res.error || 'unknown error');
         if(err.indexOf('BACKEND_DEPLOYMENT_MISMATCH')>=0){
+          clearPreviewTransientState_();
+          var previewCard=document.getElementById('preview-card');
+          if(previewCard)previewCard.style.display='none';
           alert('Backend deployment update required. Deploy the matched Code.gs, Execution.gs and Webapp.gs files together, then redeploy the Apps Script web app.');
         }else{
+          showCoverageExpanding(zip, []);
           alert('Triage failed: ' + err);
         }
         return;
@@ -1247,32 +1287,27 @@ document.getElementById('triage-form').addEventListener('submit', function(e) {
 });
 
 function showCoverageExpanding(zip, cachedZips) {
-  var previewCard = document.getElementById('preview-card');
-  previewCard.style.display = 'block';
-  previewCard.innerHTML = '<div style="padding:28px 10px;text-align:center;">' +
+  showPreviewTransientState_('<div style="padding:28px 10px;text-align:center;">' +
     '<div style="font-size:38px;margin-bottom:12px;">—</div>' +
     '<h2 style="font-size:20px;margin-bottom:10px;">Preview temporarily unavailable</h2>' +
     '<p style="max-width:620px;margin:0 auto;color:var(--text-muted);line-height:1.7;">Verified current weather intelligence is not available for ZIP ' + String(zip||'') + ' at this moment. No unverified or placeholder value is shown.</p>' +
-    '</div>';
-  previewCard.scrollIntoView({ behavior:'smooth', block:'center' });
+    '</div>');
 }
 
   
 function showPreview(data) {
   var previewCard = document.getElementById('preview-card');
-  previewCard.style.display = 'block';
-  document.getElementById('full-report-card').style.display = 'none';
+  if (!previewCard) return;
 
   if (!data || data.preview_status !== 'VERIFIED') {
-    previewCard.innerHTML = '<div style="padding:28px 10px;text-align:center;">' +
-      '<div style="font-size:38px;margin-bottom:12px;">—</div>' +
-      '<h2 style="font-size:20px;margin-bottom:10px;">Preview temporarily unavailable</h2>' +
-      '<p style="max-width:620px;margin:0 auto;color:var(--text-muted);line-height:1.7;">' +
-      'Verified current weather intelligence is not available for this ZIP at this moment. No unverified or placeholder value is shown.' +
-      '</p></div>';
-    previewCard.scrollIntoView({ behavior:'smooth', block:'center' });
+    showCoverageExpanding(state.currentZip || '', []);
     return;
   }
+
+  clearPreviewTransientState_();
+  previewCard.style.display = 'block';
+  var fullReportCard=document.getElementById('full-report-card');
+  if(fullReportCard)fullReportCard.style.display = 'none';
 
   document.getElementById('pv-location').textContent = (data.city || 'ZIP') + (data.state ? ', ' + data.state : '') + ' (' + state.currentZip + ')';
   document.getElementById('pop1-zone-label').textContent = (data.city || 'ZIP ' + state.currentZip) + (data.state ? ', ' + data.state : '');
