@@ -248,7 +248,9 @@ body.cursor-live .cursor-dot, body.cursor-live .cursor-ring{ opacity:1; }
 }
 .hero-stat-chip .num{ flex:none; font-family:'Barlow Condensed'; font-size:1.55rem; color:var(--amber); font-variant-numeric:tabular-nums; line-height:1; }
 .hero-stat-chip .lbl{ font-size:12px; line-height:1.4; color:var(--text-dim); min-width:0; flex:1; }
-.hero-cta-row{ margin-top:20px; display:flex; flex-wrap:wrap; gap:14px; opacity:0; }
+.hero-cta-row{ margin-top:20px; display:flex; flex-direction:column; align-items:flex-start; gap:16px; opacity:0; }
+.hero-cta-buttons { display:flex; flex-wrap:wrap; gap:14px; }
+.hero-badge { display:inline-flex; align-items:center; gap:6px; font-size:12.5px; color:var(--good); border:1px solid var(--line-strong); padding:6px 12px; border-radius:3px; background:rgba(127,216,143,0.05); }
 .btn{
   display:inline-flex; align-items:center; gap:8px; padding:13px 20px; font-size:14px;
   border-radius:var(--radius); cursor:pointer; transition:transform .3s var(--ease), background .25s, border-color .25s, box-shadow .3s;
@@ -433,7 +435,6 @@ section{ position:relative; padding:min(13vh,120px) 0; }
   letter-spacing:0;
 }
 
-
 /* ---------- cost comparison ---------- */
 .cost-grid{ display:grid; grid-template-columns:1fr 1fr; border:1px solid var(--line); }
 @media(max-width:780px){ .cost-grid{ grid-template-columns:1fr; } }
@@ -586,8 +587,13 @@ footer{ border-top:1px solid var(--line); padding:36px 0; }
           <span class="lbl">Typical overhead on a 60-day, two-crew deployment — before the first claim pays out. Illustrative composite from industry storm-response cost components, not a guarantee for any specific job.</span>
         </div>
         <div class="hero-cta-row">
-          <a href="https://optimaworkflows.github.io/dashboard/#freepreview" class="btn btn-primary">See how much you're leaving on the table<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
-          <a href="#pricing" class="btn btn-ghost">See pricing</a>
+          <div class="hero-cta-buttons">
+            <a href="https://optimaworkflows.github.io/dashboard/#freepreview" class="btn btn-primary">Run Free Preview — See If It's Worth The Crane Overhead<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+            <a href="#pricing" class="btn btn-ghost">See pricing</a>
+          </div>
+          <div class="hero-badge">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> No calls required. 100% dashboard-driven.
+          </div>
         </div>
       </div>
       <div class="hero-panel-wrap">
@@ -613,6 +619,9 @@ footer{ border-top:1px solid var(--line); padding:36px 0; }
             <div class="driver"><span>Insurance mix</span><div class="bar"><i data-w="79"></i></div><span class="val">79</span></div>
           </div>
           <div class="panel-verdict" id="panel-verdict"><span class="dot">✓</span><span id="panel-verdict-text">Recommended — deploy</span></div>
+          <div style="font-size: 11px; color: var(--text-dimmer); margin-top: 12px; text-align: center; line-height: 1.4;">
+            Preview of live zone scoring.<br>The full $7,000 report verifies all 13 factors to deliver a final GO/NO-GO.
+          </div>
         </div>
       </div>
     </div>
@@ -753,6 +762,16 @@ footer{ border-top:1px solid var(--line); padding:36px 0; }
           <h3>Commercial CAT Intelligence</h3>
           <div class="price-figure">$7,000<span> / standard zone</span></div>
           <p class="price-desc">High-resolution commercial scoring, capital-risk focus, historical patterns, and a written recommendation.</p>
+          
+          <div style="font-size: 13px; font-weight: 600; color: var(--text-dim); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.05em; font-family: 'Barlow Condensed';">Your $7,000 Report Includes:</div>
+          <ul style="list-style: none; padding: 0; margin: 0 0 22px 0; display: flex; flex-direction: column; gap: 8px; font-size: 14px; color: var(--text-dim);">
+            <li style="display: flex; gap: 8px; align-items: flex-start;"><span style="color: var(--cyan);">✓</span> A 13-factor scored analysis for your target zone</li>
+            <li style="display: flex; gap: 8px; align-items: flex-start;"><span style="color: var(--cyan);">✓</span> A clear Deploy / Do Not Deploy recommendation</li>
+            <li style="display: flex; gap: 8px; align-items: flex-start;"><span style="color: var(--cyan);">✓</span> Historical outcome data from comparable past events</li>
+            <li style="display: flex; gap: 8px; align-items: flex-start;"><span style="color: var(--cyan);">✓</span> A breakdown of key risks (permit delays, competitor saturation, labor gaps)</li>
+            <li style="display: flex; gap: 8px; align-items: flex-start;"><span style="color: var(--cyan);">✓</span> A written summary you can forward directly to your operations team</li>
+          </ul>
+
           <div class="price-zone"><b>What is a standard zone?</b> One contiguous storm-impact area that forms a single logical deployment decision — typically one metro area or a cluster of up to 8–12 contiguous ZIP codes, roughly 15–25 miles across the core impact area. Example: core DFW impact area (North Dallas, Richardson, Plano, parts of Garland/Addison) is one standard zone at $7,000. DFW plus Oklahoma City plus Waco is complex / multi-zone, priced accordingly.</div>
         </div>
         <div class="price-side" data-reveal="rise">
@@ -880,7 +899,7 @@ footer{ border-top:1px solid var(--line); padding:36px 0; }
     <div class="wrap">
       <h2 data-reveal="scale">Ready to see what your next storm zone is actually worth?</h2>
       <p data-reveal="rise">Run a free zone preview in your dashboard. See the numbers. Then decide.</p>
-      <a href="https://optimaworkflows.github.io/dashboard/#freepreview" class="btn btn-primary" data-reveal="rise">See how much you're leaving on the table</a>
+      <a href="https://optimaworkflows.github.io/dashboard/#freepreview" class="btn btn-primary" data-reveal="rise">Run Free Preview — See If It's Worth The Crane Overhead</a>
     </div>
   </section>
 
