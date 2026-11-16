@@ -333,9 +333,9 @@ function renderPreview(data) {
     ? '$' + Number(data.unlock.price_usd).toLocaleString()
     : 'Full Report';
   const unlockLabel = data.unlock && data.unlock.label ? data.unlock.label : 'Unlock Full Report';
-  const readyBadge = data.purchase_ready
-    ? '<span class="badge bg-green">TX Eligible</span>'
-    : '<span class="badge bg-amber">Outside TX Launch</span>';
+    const readyBadge = data.purchase_ready
+    ? '<span class="badge bg-green">Zone Verified</span>'
+    : '<span class="badge bg-amber">Unverified</span>';
 
   body.innerHTML = `
     <div style="display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid var(--border-hairline);padding-bottom:14px;margin-bottom:16px;flex-wrap:wrap;">
@@ -357,9 +357,33 @@ function renderPreview(data) {
       <p style="font-size:13px;color:var(--text-muted);line-height:1.6;">${esc(data.loss_aversion && data.loss_aversion.headline || '')}</p>
       <p style="font-size:13px;color:var(--text-muted);line-height:1.6;margin-top:8px;">${esc(data.loss_aversion && data.loss_aversion.message || '')}</p>
     </div>
-    ${data.purchase_ready
+      // 1. Find the hail and rain values from the returned factors
+  const hailFactor = factors.find(f => f.id === 'hail');
+  const rainFactor = factors.find(f => f.id === 'rain');
+  
+  const hailVal = hailFactor && hailFactor.value !== null ? Number(hailFactor.value) : 0;
+  const rainVal = rainFactor && rainFactor.value !== null ? Number(rainFactor.value) : 0;
+
+  // 2. Define what constitutes a "storm event" (e.g., 0.75" hail or 1" rain)
+  const isDeadZone = hailVal < 0.75 && rainVal < 1.0;
+
+  // 3. Render the CTA based on the reality of the weather
+  let unlockBtn = '';
+  
+  if (isDeadZone) {
+    unlockBtn = `
+      <div style="background: rgba(229,87,63,0.1); border: 1px solid var(--risk); border-radius: 6px; padding: 16px; margin-top: 16px;">
+        <h4 style="color: var(--risk); font-size: 15px; font-family: 'Barlow Condensed'; margin-bottom: 8px;">🛑 No Deployment Event Detected</h4>
+        <p style="font-size: 13px; color: var(--text-dim); margin-bottom: 12px;">
+          Our live NOAA data shows no severe hail or rainfall in this ZIP code. <strong>We recommend saving your $7,000 capital and holding your crews.</strong> 
+        </p>
+        <button class="btn btn-ghost" style="width: 100%;" onclick="backToTriage()">Check a Different ZIP Code</button>
+      </div>`;
+  } else {
+    unlockBtn = data.purchase_ready
       ? `<button class="btn" onclick="checkPreflight()">🔓 ${esc(unlockLabel)} — ${esc(unlockPrice)}</button>`
-      : `<button class="btn" disabled>Purchase Unavailable in This State</button>`}
+      : `<button class="btn" disabled>Purchase Unavailable in This State</button>`;
+  }
     <button class="btn-sec" onclick="backToTriage()">← New Search</button>`;
 }
 
