@@ -306,14 +306,18 @@ function renderPreview(data) {
   document.getElementById('stage-preview').style.display = 'block';
   const body = document.getElementById('preview-body');
 
-  if (data.preview_status === 'UNAVAILABLE') {
+    if (data.preview_status === 'UNAVAILABLE') {
     body.innerHTML = `
-      <div class="warn-box">
-        <div class="warn-title">⚠️ Verified Weather Intelligence Unavailable</div>
-        <p style="font-size:13px;color:var(--text-muted);line-height:1.6;">${esc(data.message || 'No verified weather data could be acquired for this ZIP.')}</p>
-        <p style="font-size:12px;color:var(--text-detail);margin-top:8px;">ZIP: <span class="mono">${esc(data.zip)}</span> · We never substitute simulated or placeholder values.</p>
+      <div class="warn-box" style="border-color: var(--amber);">
+        <div class="warn-title" style="color: var(--amber);">⏳ Acquiring Live Data for ${esc(data.zip)}</div>
+        <p style="font-size:13px;color:var(--text-muted);line-height:1.6;">
+          This is the first time this ZIP code has been searched. Our system is currently pulling the latest storm data from NOAA and the National Weather Service. 
+        </p>
+        <p style="font-size:13px;color:var(--text-muted);line-height:1.6;margin-top:8px;">
+          <strong>Please try your search again in 3–5 minutes.</strong> We never substitute simulated or placeholder values while we wait for verified data.
+        </p>
       </div>
-      <button class="btn-sec" onclick="backToTriage()">← Try Another ZIP</button>`;
+      <button class="btn-sec" onclick="backToTriage()">← Back</button>`;
     return;
   }
 
