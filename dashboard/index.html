@@ -213,8 +213,6 @@ td{padding:10px 8px;border-bottom:1px solid #111827;font-family:'IBM Plex Mono',
 <script>
 /* ============================================================
    CONFIGURE: paste your deployed /exec URL below.
-   Get it from: Apps Script → Deploy → New deployment → Web app.
-   Verify with: <APP_URL>?action=health
    ============================================================ */
 const APP_URL = 'https://script.google.com/macros/s/AKfycbxp6tcVnqm6f2S5VaY7QAqYJN1S7zVYiqwN7TLxO5YHW4f10YmdX8dPcfZnQwJCaqsz/exec';
 
@@ -260,11 +258,18 @@ function switchTab(id, el) {
 async function loadHealth() {
   try {
     const r = await apiGet('health');
-    document.getElementById('health-backend').textContent = r.success ? `✅ v${r.version}` : '❌ Offline';
-    document.getElementById('health-mode').textContent = r.preview_mode || '—';
-    document.getElementById('health-factors').textContent = `${(r.preview_factors || []).length} / ${r.canonical_factor_count || 13}`;
+    // Check if elements exist to prevent console errors on the new landing page
+    const backendEl = document.getElementById('health-backend');
+    if (backendEl) backendEl.textContent = r.success ? `✅ v${r.version}` : '❌ Offline';
+    
+    const modeEl = document.getElementById('health-mode');
+    if (modeEl) modeEl.textContent = r.preview_mode || '—';
+    
+    const factorsEl = document.getElementById('health-factors');
+    if (factorsEl) factorsEl.textContent = `${(r.preview_factors || []).length} / ${r.canonical_factor_count || 13}`;
   } catch {
-    document.getElementById('health-backend').textContent = '❌ Unreachable';
+    const backendEl = document.getElementById('health-backend');
+    if (backendEl) backendEl.textContent = '❌ Unreachable';
   }
 }
 
@@ -306,7 +311,7 @@ function renderPreview(data) {
   document.getElementById('stage-preview').style.display = 'block';
   const body = document.getElementById('preview-body');
 
-    if (data.preview_status === 'UNAVAILABLE') {
+  if (data.preview_status === 'UNAVAILABLE') {
     body.innerHTML = `
       <div class="warn-box" style="border-color: var(--amber);">
         <div class="warn-title" style="color: var(--amber);">⏳ Acquiring Live Data for ${esc(data.zip)}</div>
@@ -333,9 +338,40 @@ function renderPreview(data) {
     ? '$' + Number(data.unlock.price_usd).toLocaleString()
     : 'Full Report';
   const unlockLabel = data.unlock && data.unlock.label ? data.unlock.label : 'Unlock Full Report';
-    const readyBadge = data.purchase_ready
+  
+  const readyBadge = data.purchase_ready
     ? '<span class="badge bg-green">Zone Verified</span>'
     : '<span class="badge bg-amber">Unverified</span>';
+
+  // 1. Find the weather values from the returned factors
+  const hailFactor = factors.find(f => f.id === 'hail');
+  const rainFactor = factors.find(f => f.id === 'rain');
+  const windFactor = factors.find(f => f.id === 'wind');
+  
+  const hailVal = hailFactor && hailFactor.value !== null ? Number(hailFactor.value) : 0;
+  const rainVal = rainFactor && rainFactor.value !== null ? Number(rainFactor.value) : 0;
+  const windVal = windFactor && windFactor.value !== null ? Number(windFactor.value) : 0;
+
+  // 2. Define what constitutes a "storm event" (must match backend logic)
+  const isEvent = (hailVal >= 0.75) || (rainVal >= 1.0) || (windVal >= 45.0);
+
+  // 3. Render the CTA based on the reality of the weather
+  let unlockBtn = '';
+  
+  if (!isEvent) {
+    unlockBtn = `
+      <div style="background: rgba(255,82,82,0.1); border: 1px solid var(--red); border-radius: 6px; padding: 16px; margin-top: 16px;">
+        <h4 style="color: var(--red); font-size: 15px; font-weight: 900; margin-bottom: 8px;">🛑 No Deployment Event Detected</h4>
+        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 12px;">
+          Our live NOAA data shows no severe hail, rain, or wind in this ZIP code. <strong>We recommend saving your $7,000 capital and holding your crews.</strong> 
+        </p>
+        <button class="btn-sec" style="width: 100%; margin-top: 0;" onclick="backToTriage()">Check a Different ZIP Code</button>
+      </div>`;
+  } else {
+    unlockBtn = data.purchase_ready
+      ? `<button class="btn" onclick="checkPreflight()">🔓 ${esc(unlockLabel)} — ${esc(unlockPrice)}</button>`
+      : `<button class="btn" disabled>Purchase Unavailable in This State</button>`;
+  }
 
   body.innerHTML = `
     <div style="display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid var(--border-hairline);padding-bottom:14px;margin-bottom:16px;flex-wrap:wrap;">
@@ -357,33 +393,7 @@ function renderPreview(data) {
       <p style="font-size:13px;color:var(--text-muted);line-height:1.6;">${esc(data.loss_aversion && data.loss_aversion.headline || '')}</p>
       <p style="font-size:13px;color:var(--text-muted);line-height:1.6;margin-top:8px;">${esc(data.loss_aversion && data.loss_aversion.message || '')}</p>
     </div>
-      // 1. Find the hail and rain values from the returned factors
-  const hailFactor = factors.find(f => f.id === 'hail');
-  const rainFactor = factors.find(f => f.id === 'rain');
-  
-  const hailVal = hailFactor && hailFactor.value !== null ? Number(hailFactor.value) : 0;
-  const rainVal = rainFactor && rainFactor.value !== null ? Number(rainFactor.value) : 0;
-
-  // 2. Define what constitutes a "storm event" (e.g., 0.75" hail or 1" rain)
-  const isDeadZone = hailVal < 0.75 && rainVal < 1.0;
-
-  // 3. Render the CTA based on the reality of the weather
-  let unlockBtn = '';
-  
-  if (isDeadZone) {
-    unlockBtn = `
-      <div style="background: rgba(229,87,63,0.1); border: 1px solid var(--risk); border-radius: 6px; padding: 16px; margin-top: 16px;">
-        <h4 style="color: var(--risk); font-size: 15px; font-family: 'Barlow Condensed'; margin-bottom: 8px;">🛑 No Deployment Event Detected</h4>
-        <p style="font-size: 13px; color: var(--text-dim); margin-bottom: 12px;">
-          Our live NOAA data shows no severe hail or rainfall in this ZIP code. <strong>We recommend saving your $7,000 capital and holding your crews.</strong> 
-        </p>
-        <button class="btn btn-ghost" style="width: 100%;" onclick="backToTriage()">Check a Different ZIP Code</button>
-      </div>`;
-  } else {
-    unlockBtn = data.purchase_ready
-      ? `<button class="btn" onclick="checkPreflight()">🔓 ${esc(unlockLabel)} — ${esc(unlockPrice)}</button>`
-      : `<button class="btn" disabled>Purchase Unavailable in This State</button>`;
-  }
+    ${unlockBtn}
     <button class="btn-sec" onclick="backToTriage()">← New Search</button>`;
 }
 
@@ -664,7 +674,7 @@ async function verifyAdminSession() {
     if (!r.success) {
       S.adminKey = '';
       sessionStorage.removeItem('optima_admin_key');
-      alert('Invalid admin key.');
+      alert('Admin Login Failed. Server says: ' + (r.error || JSON.stringify(r)));
       return;
     }
     document.body.classList.add('admin-active');
