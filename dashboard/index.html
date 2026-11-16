@@ -83,16 +83,31 @@ td{padding:10px 8px;border-bottom:1px solid #111827;font-family:'IBM Plex Mono',
 </aside>
 
 <main class="main">
-  <!-- HOME -->
+    <!-- HOME (Lead Magnet Landing Page) -->
   <section id="tab-home" class="tab active">
-    <h1>Executive Command</h1>
-    <p class="lead">Pre-deployment zone scoring for commercial CAT roofing.</p>
-    <div class="card">
-      <div class="section-label">Status</div>
-      <div class="kv" style="margin-top:8px;"><span>Backend</span><span id="health-backend">Checking…</span></div>
-      <div class="kv"><span>Preview Mode</span><span id="health-mode">—</span></div>
-      <div class="kv"><span>Factors (preview / total)</span><span id="health-factors">—</span></div>
-      <div class="info-box" style="margin-top:16px;">Run a free 3-factor zone preview from CAT Intelligence. Full 13-factor reports are unlocked after verified payment.</div>
+    <div style="text-align:center; padding: 40px 20px;">
+      <h1 style="font-size: 32px; margin-bottom: 12px;">Commercial CAT Roofing Intelligence</h1>
+      <p class="lead" style="font-size: 16px; max-width: 600px; margin: 0 auto 30px auto;">
+        Stop guessing where the next storm hit. Enter a U.S. ZIP code to instantly verify hail size, wind speeds, and rainfall from live NOAA data. 
+      </p>
+      <button class="btn" style="width: auto; padding: 14px 40px; font-size: 14px;" onclick="window.location.hash='#freepreview'">
+        ⚡ Run Free Zone Preview
+      </button>
+    </div>
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 40px;">
+      <div class="card">
+        <h3 style="color:var(--green); margin-bottom: 10px;">🛰️ Verified Weather</h3>
+        <p style="font-size: 13px; color: var(--text-muted);">We pull live storm reports directly from NOAA and the National Weather Service. No fake data. No estimates.</p>
+      </div>
+      <div class="card">
+        <h3 style="color:var(--blue); margin-bottom: 10px;">🏢 Property Density</h3>
+        <p style="font-size: 13px; color: var(--text-muted);">Know exactly how much commercial roof square footage is in the target ZIP code before you mobilize crews.</p>
+      </div>
+      <div class="card">
+        <h3 style="color:var(--amber); margin-bottom: 10px;">🔒 Fail-Closed</h3>
+        <p style="font-size: 13px; color: var(--text-muted);">If there is no verifiable storm data, we tell you. We never invent a score to make a sale.</p>
+      </div>
     </div>
   </section>
 
