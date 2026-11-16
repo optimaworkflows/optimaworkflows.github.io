@@ -724,10 +724,44 @@ async function loadAdminCatalog() {
   } catch (err) { el.innerHTML = `<div class="err-box">${esc(err.message)}</div>`; }
 }
 
-/* ---------- Bootstrap ---------- */
+/* ---------- Bootstrap & URL Routing ---------- */
 loadHealth();
 loadBilling();
 if (S.adminKey) verifyAdminSession();
+
+// Function to handle deep links (e.g., #freepreview)
+function handleHashRouting() {
+  const hash = window.location.hash.toLowerCase();
+  
+  if (hash === '#freepreview' || hash === '#cat' || hash === '#intelligence') {
+    // Switch to CAT tab
+    const catNav = document.querySelector('[data-tab="tab-cat"]');
+    switchTab('tab-cat', catNav);
+    
+    // Ensure the user sees the triage form, not an old preview/report
+    backToTriage();
+  } 
+  else if (hash === '#billing') {
+    switchTab('tab-billing', document.querySelector('[data-tab="tab-billing"]'));
+  }
+  else if (hash === '#storm') {
+    switchTab('tab-storm', document.querySelector('[data-tab="tab-storm"]'));
+  }
+  else if (hash === '#admin') {
+    if (S.adminKey) switchTab('tab-admin', document.querySelector('[data-tab="tab-admin"]'));
+    else alert("Admin login required.");
+  }
+  else {
+    // Default to home if no hash
+    switchTab('tab-home', document.querySelector('[data-tab="tab-home"]'));
+  }
+}
+
+// Run on initial load
+handleHashRouting();
+
+// Run when the hash changes in the URL bar
+window.addEventListener('hashchange', handleHashRouting);
 </script>
 </body>
 </html>
