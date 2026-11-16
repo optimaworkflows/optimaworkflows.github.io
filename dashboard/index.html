@@ -289,7 +289,7 @@ document.getElementById('triage-form').addEventListener('submit', async (e) => {
   const email = document.getElementById('frm-email').value.trim();
   const btn = document.getElementById('btn-triage');
   btn.disabled = true;
-  btn.innerHTML = '<span class="spinner"></span>Fetching verified weather…';
+  btn.innerHTML = '<span class="spinner"></span>Pulling live NOAA data...';
 
   try {
     const r = await apiGet('runTriage', { zip: S.zip, intent: S.intent, email });
