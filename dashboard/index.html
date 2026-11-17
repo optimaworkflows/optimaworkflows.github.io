@@ -564,7 +564,7 @@ function showVerificationStage() {
     </div>
     <div id="verify-status"></div>`;
   if (S.pollTimer) clearInterval(S.pollTimer);
-  const tick = async () => {
+   const tick = async () => {
     try {
       const r = await apiGet('getPaymentStatus', {
         payment_id: S.payment.payment_id,
@@ -573,10 +573,17 @@ function showVerificationStage() {
       });
       document.getElementById('verify-last-check').textContent = new Date().toLocaleTimeString();
       if (!r.success) return;
-      if (r.status === 'verified' && r.report_access && r.report_access.access_token) {
+      
+      if (r.status === 'verified') {
         clearInterval(S.pollTimer);
-        S.reportToken = r.report_access.access_token;
-        loadFullReport();
+        
+        if (r.next_step === 'CONNECT_CLIENT_SYSTEMS') {
+          // Show the CRM onboarding screen instead of the report!
+          showCrmOnboarding(r.report_access.access_token);
+        } else if (r.report_access && r.report_access.access_token) {
+          S.reportToken = r.report_access.access_token;
+          loadFullReport();
+        }
       }
     } catch {}
   };
@@ -628,6 +635,97 @@ async function loadFullReport() {
   }
 }
 
+function showCrmOnboarding(reportToken) {
+  hideAllStages();
+  S.reportToken = reportToken;
+  const stage = document.getElementById('stage-report');
+  stage.style.display = 'block';
+  const body = document.getElementById('report-body');
+
+  body.innerHTML = `
+    <div style="text-align:center; padding: 20px 0;">
+      <div style="font-size: 48px; margin-bottom: 16px;">🔗</div>
+      <h2 style="font-size: 24px; font-weight: 900; color: var(--green);">Payment Verified. One Last Step.</h2>
+      <p style="font-size: 15px; color: var(--text-muted); max-width: 600px; margin: 16px auto;">
+        You have unlocked the full 13-factor CAT Intelligence Report. To complete Factors 12 and 13 (Historical Outcome and Cash Conversion), we need to securely connect your CRM. 
+      </p>
+      <div class="info-box" style="text-align: left; max-width: 600px; margin: 20px auto;">
+        <strong>Why we need this:</strong><br>
+        We have already verified the storm, market density, and permit speeds. But to tell you if this specific zone is profitable <em>for your company</em>, we need to cross-reference this storm against your past win rates and cash collection timelines.
+      </div>
+      <button class="btn" style="width: auto; padding: 14px 30px; margin: 0 auto;" onclick="initiateCrmConnection()">Connect CRM & Generate Report</button>
+      <p style="font-size: 11px; color: var(--text-detail); margin-top: 16px;">We request read-only access. We do not touch contact records or sales notes.</p>
+    </div>`;
+}
+
+async function initiateCrmConnection() {
+  const body = document.getElementById('report-body');
+  body.innerHTML = `
+    <div style="max-width: 600px; margin: 0 auto;">
+      <h3 style="font-size: 18px; font-weight: 900; color: var(--green); margin-bottom: 8px;">Company Historical Baseline</h3>
+      <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">
+        We need a baseline of your historical commercial performance in zones like <strong>${S.zip}</strong> to calculate Factors 12 & 13. If you don't have exact numbers, provide your best estimates.
+      </p>
+      <div class="form-row">
+        <div class="form-group"><label>Deployment Year</label><input id="crm-year" type="number" value="2025" required></div>
+        <div class="form-group"><label>Avg Days to Cash (e.g., 45)</label><input id="crm-cash" type="number" value="45" required></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Historical Win Rate (%)</label><input id="crm-win" type="number" value="35" required></div>
+        <div class="form-group"><label>Claim Approval Rate (%)</label><input id="crm-approval" type="number" value="75" required></div>
+      </div>
+      <div id="crm-error" style="margin-bottom: 12px;"></div>
+      <button class="btn" style="width: 100%;" onclick="submitCrmData()">Submit Data & Generate Report</button>
+    </div>
+  `;
+  
+  // First, we need to create an integration intent to get an ID
+  try {
+    const r = await apiGet('createDataIntegrationIntent', { 
+      zip: S.zip, 
+      report_token: S.reportToken,
+      provider_key: 'MANUAL_ENTRY',
+      system_type: 'ASSISTED_IMPORT'
+    });
+    if (!r.success) throw new Error(r.error || 'Failed to generate integration context');
+    S.integrationId = r.integration_id;
+  } catch (err) {
+    document.getElementById('crm-error').innerHTML = `<div class="err-box">${esc(err.message)}</div>`;
+  }
+}
+
+async function submitCrmData() {
+  const errBox = document.getElementById('crm-error');
+  errBox.innerHTML = '';
+  const btn = event.target;
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span>Processing baseline data...';
+
+  try {
+    const r = await apiPost({
+      action: 'submitManualClientData',
+      client_id: S.client.client_id,
+      integration_id: S.integrationId,
+      zone_zip: S.zip,
+      avg_days_to_cash: Number(document.getElementById('crm-cash').value),
+      win_rate: Number(document.getElementById('crm-win').value),
+      approval_rate: Number(document.getElementById('crm-approval').value),
+      opportunities: 20, // Sample size for the historical model
+      won_jobs: Math.round((Number(document.getElementById('crm-win').value) / 100) * 20),
+      submitted_claims: 20,
+      approved_claims: Math.round((Number(document.getElementById('crm-approval').value) / 100) * 20)
+    });
+    
+    if (!r.success) throw new Error(r.error || 'Data submission failed');
+    
+    // Now that data is submitted, reload the full report
+    loadFullReport();
+  } catch (err) {
+    errBox.innerHTML = `<div class="err-box">${esc(err.message)}</div>`;
+    btn.disabled = false;
+    btn.textContent = 'Submit Data & Generate Report';
+  }
+}   
 /* ---------- Billing tab (backend-fetched) ---------- */
 async function loadBilling() {
   const body = document.getElementById('billing-body');
